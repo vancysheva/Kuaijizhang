@@ -73,8 +73,9 @@ class ViewController: UIViewController {
     }
 }
 
-typealias InternalMethods = ViewController
-extension InternalMethods {
+//MARK: - Internal Methods
+
+extension ViewController {
     
     private func adapteLabelFont(label: UILabel) {
         if screenSize.width == 320 && screenSize.height == 480 {

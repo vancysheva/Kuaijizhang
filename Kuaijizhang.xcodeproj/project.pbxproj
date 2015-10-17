@@ -22,7 +22,6 @@
 		711C671D1B94958500219806 /* another.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 711C671C1B94958500219806 /* another.storyboard */; };
 		712816481B92DE8200539691 /* NumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712816471B92DE8200539691 /* NumberPadViewController.swift */; };
 		7130EB821B95E5C000A57A5F /* AddBillComponentsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130EB811B95E5C000A57A5F /* AddBillComponentsPageViewController.swift */; };
-		7130EB841B95E68500A57A5F /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130EB831B95E68500A57A5F /* CommentViewController.swift */; };
 		714019061B8327AC00C97048 /* AccountBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714019051B8327AC00C97048 /* AccountBookViewController.swift */; };
 		715DD0DF1B8F5B430004ECAB /* CameraUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715DD0DE1B8F5B430004ECAB /* CameraUIButton.swift */; };
 		7179DA5B1B84E7E800A4D880 /* InfoPanelOfPortalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179DA5A1B84E7E800A4D880 /* InfoPanelOfPortalView.swift */; };
@@ -32,6 +31,8 @@
 		7196DB1A1B8339660029A2A3 /* StatementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DB191B8339660029A2A3 /* StatementViewController.swift */; };
 		7196DB1C1B8339800029A2A3 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DB1B1B8339800029A2A3 /* MoreViewController.swift */; };
 		7196DB1E1B8384860029A2A3 /* PushSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DB1D1B8384860029A2A3 /* PushSegue.swift */; };
+		71AC48451BD21D050008B4F8 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48441BD21D050008B4F8 /* PreviewViewController.swift */; };
+		71AC48471BD242FB0008B4F8 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48461BD242FB0008B4F8 /* Extension.swift */; };
 		71FB01C91B934A4C00575D5C /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FB01C81B934A4C00575D5C /* PickerViewController.swift */; };
 		71FB01CB1B934AB100575D5C /* football.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71FB01CA1B934AB100575D5C /* football.plist */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 710DB3871B81DFF6003E74FA;
 			remoteInfo = Kuaijizhang;
+		};
+		71326C8C1BCEAB1500E84E54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 71326C871BCEAB1500E84E54 /* FDStackViewDemo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 48A129841B9BE5E500EF9265;
+			remoteInfo = FDStackViewDemo;
+		};
+		71326C8E1BCEAB1500E84E54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 71326C871BCEAB1500E84E54 /* FDStackViewDemo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 484BAAF11BC66FC100D86EBB;
+			remoteInfo = FDStackViewPatch;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -77,7 +92,7 @@
 		712816461B91D49600539691 /* swift-objc-bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "swift-objc-bridging-header.h"; sourceTree = "<group>"; };
 		712816471B92DE8200539691 /* NumberPadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPadViewController.swift; sourceTree = "<group>"; };
 		7130EB811B95E5C000A57A5F /* AddBillComponentsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBillComponentsPageViewController.swift; sourceTree = "<group>"; };
-		7130EB831B95E68500A57A5F /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		71326C871BCEAB1500E84E54 /* FDStackViewDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FDStackViewDemo.xcodeproj; path = ../FDStackView/FDStackViewDemo.xcodeproj; sourceTree = "<group>"; };
 		714019051B8327AC00C97048 /* AccountBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBookViewController.swift; sourceTree = "<group>"; };
 		715DD0DE1B8F5B430004ECAB /* CameraUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraUIButton.swift; sourceTree = "<group>"; };
 		7179DA5A1B84E7E800A4D880 /* InfoPanelOfPortalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPanelOfPortalView.swift; sourceTree = "<group>"; };
@@ -87,6 +102,8 @@
 		7196DB191B8339660029A2A3 /* StatementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatementViewController.swift; sourceTree = "<group>"; };
 		7196DB1B1B8339800029A2A3 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		7196DB1D1B8384860029A2A3 /* PushSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushSegue.swift; sourceTree = "<group>"; };
+		71AC48441BD21D050008B4F8 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		71AC48461BD242FB0008B4F8 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		71FB01C81B934A4C00575D5C /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		71FB01CA1B934AB100575D5C /* football.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = football.plist; sourceTree = "<group>"; };
 		90C5E098CEB512BE7A2D8640 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,14 +169,15 @@
 		710DB38A1B81DFF6003E74FA /* Kuaijizhang */ = {
 			isa = PBXGroup;
 			children = (
+				71AC48481BD243070008B4F8 /* extension */,
+				710DB38B1B81DFF6003E74FA /* AppDelegate.swift */,
 				715A53631B89AF32009E7DF2 /* animation */,
 				715A53621B89AF06009E7DF2 /* conmmon */,
 				7179DA671B857C0C00A4D880 /* more */,
 				7179DA661B857C0300A4D880 /* statement */,
 				7179DA651B857BFC00A4D880 /* bill stream */,
 				7179DA641B857BEF00A4D880 /* account book */,
-				710DB38B1B81DFF6003E74FA /* AppDelegate.swift */,
-				7179DA601B857B8000A4D880 /* Portal */,
+				7179DA601B857B8000A4D880 /* portal */,
 				710DB38F1B81DFF6003E74FA /* Main.storyboard */,
 				711C671C1B94958500219806 /* another.storyboard */,
 				710DB3921B81DFF6003E74FA /* Assets.xcassets */,
@@ -187,6 +205,15 @@
 				710DB3AD1B81DFF6003E74FA /* Info.plist */,
 			);
 			path = KuaijizhangUITests;
+			sourceTree = "<group>";
+		};
+		71326C881BCEAB1500E84E54 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				71326C8D1BCEAB1500E84E54 /* FDStackViewDemo.app */,
+				71326C8F1BCEAB1500E84E54 /* libFDStackViewPatch.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		715A535E1B89AE7D009E7DF2 /* controller */ = {
@@ -237,28 +264,28 @@
 			name = animation;
 			sourceTree = "<group>";
 		};
-		7179DA601B857B8000A4D880 /* Portal */ = {
+		7179DA601B857B8000A4D880 /* portal */ = {
 			isa = PBXGroup;
 			children = (
 				7179DA611B857B9B00A4D880 /* controller */,
 				7179DA621B857BAB00A4D880 /* view */,
 				7179DA631B857BC600A4D880 /* model */,
 			);
-			name = Portal;
+			name = portal;
 			sourceTree = "<group>";
 		};
 		7179DA611B857B9B00A4D880 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				710DB3BB1B8247CB003E74FA /* AddBillViewController.swift */,
 				710DB38D1B81DFF6003E74FA /* ViewController.swift */,
+				710DB3BB1B8247CB003E74FA /* AddBillViewController.swift */,
 				712816471B92DE8200539691 /* NumberPadViewController.swift */,
 				71FB01C81B934A4C00575D5C /* PickerViewController.swift */,
 				711176841B93526300170668 /* DateViewController.swift */,
 				711C67151B94894800219806 /* LabelTableViewController.swift */,
 				711C67171B94896F00219806 /* AddLabelViewController.swift */,
 				7130EB811B95E5C000A57A5F /* AddBillComponentsPageViewController.swift */,
-				7130EB831B95E68500A57A5F /* CommentViewController.swift */,
+				71AC48441BD21D050008B4F8 /* PreviewViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -312,9 +339,18 @@
 			name = more;
 			sourceTree = "<group>";
 		};
+		71AC48481BD243070008B4F8 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				71AC48461BD242FB0008B4F8 /* Extension.swift */,
+			);
+			name = extension;
+			sourceTree = "<group>";
+		};
 		B8EA83A42DE02B9F281AB1A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				71326C871BCEAB1500E84E54 /* FDStackViewDemo.xcodeproj */,
 				90C5E098CEB512BE7A2D8640 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -385,6 +421,8 @@
 		710DB3801B81DFF6003E74FA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "范伟";
 				TargetAttributes = {
@@ -415,6 +453,12 @@
 			mainGroup = 710DB37F1B81DFF6003E74FA;
 			productRefGroup = 710DB3891B81DFF6003E74FA /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 71326C881BCEAB1500E84E54 /* Products */;
+					ProjectRef = 71326C871BCEAB1500E84E54 /* FDStackViewDemo.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				710DB3871B81DFF6003E74FA /* Kuaijizhang */,
@@ -423,6 +467,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		71326C8D1BCEAB1500E84E54 /* FDStackViewDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = FDStackViewDemo.app;
+			remoteRef = 71326C8C1BCEAB1500E84E54 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		71326C8F1BCEAB1500E84E54 /* libFDStackViewPatch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFDStackViewPatch.a;
+			remoteRef = 71326C8E1BCEAB1500E84E54 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		710DB3861B81DFF6003E74FA /* Resources */ = {
@@ -516,15 +577,16 @@
 				710DB38E1B81DFF6003E74FA /* ViewController.swift in Sources */,
 				7196DB1E1B8384860029A2A3 /* PushSegue.swift in Sources */,
 				7196DB181B8339510029A2A3 /* BillStreamViewController.swift in Sources */,
+				71AC48451BD21D050008B4F8 /* PreviewViewController.swift in Sources */,
 				712816481B92DE8200539691 /* NumberPadViewController.swift in Sources */,
 				711176851B93526300170668 /* DateViewController.swift in Sources */,
 				714019061B8327AC00C97048 /* AccountBookViewController.swift in Sources */,
 				710DB38C1B81DFF6003E74FA /* AppDelegate.swift in Sources */,
+				71AC48471BD242FB0008B4F8 /* Extension.swift in Sources */,
 				7130EB821B95E5C000A57A5F /* AddBillComponentsPageViewController.swift in Sources */,
 				71FB01C91B934A4C00575D5C /* PickerViewController.swift in Sources */,
 				711C67181B94896F00219806 /* AddLabelViewController.swift in Sources */,
 				710DB3BC1B8247CB003E74FA /* AddBillViewController.swift in Sources */,
-				7130EB841B95E68500A57A5F /* CommentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

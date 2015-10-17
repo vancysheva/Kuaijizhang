@@ -24,9 +24,9 @@ class AddBillComponentsPageViewController: UIPageViewController {
     }
 }
 
-typealias Method = AddBillComponentsPageViewController
+// MARK: - Internal Methods
 
-extension Method {
+extension AddBillComponentsPageViewController {
     
     func naviToController(index: Int) -> UIViewController? {
         if storyboardID.keys.contains(index) {
@@ -39,9 +39,9 @@ extension Method {
 
 }
 
-typealias DataSource = AddBillComponentsPageViewController
+//MARK: - Data Source
 
-extension DataSource: UIPageViewControllerDataSource {
+extension AddBillComponentsPageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         
@@ -68,17 +68,4 @@ extension DataSource: UIPageViewControllerDataSource {
     }
 }
 
-typealias Delegate = AddBillComponentsPageViewController
-/*
-extension Delegate: UIPageViewControllerDelegate {
-    
-    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return storyboardID.count
-    }
-    
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-        return 0
-    }
-}
-*/
 

@@ -10,10 +10,11 @@ import UIKit
 
 class PickerViewController: UIViewController {
     
+    weak var delegate: ComponentViewControllerDelegate?
+    
     // MARK: - IBOutlet and IBAction
     
     @IBOutlet weak var pickerView: UIPickerView!
-    @IBOutlet weak var showValueLabel: UILabel!
     
     // MARK: - Internal fields
     
@@ -24,13 +25,13 @@ class PickerViewController: UIViewController {
             pickerView.reloadComponent(1)
             keyForClub = (dic.valueForKey(keyForCounty) as! NSDictionary).allKeys[0] as! String
             pickerView.selectRow(0, inComponent: 1, animated: true) // 和上一行顺序不能颠倒
-            showValueLabel.text = "\(keyForCounty)>\(keyForClub)"
+            setValue("\(keyForCounty)>\(keyForClub)")
         }
     }
     
     var keyForClub: String = "" {
         didSet {
-            showValueLabel.text = "\(keyForCounty)>\(keyForClub)"
+            setValue("\(keyForCounty)>\(keyForClub)")
         }
     }
 
@@ -52,6 +53,10 @@ class PickerViewController: UIViewController {
     func readPickerData() -> NSDictionary {
         let data = NSDictionary(contentsOfURL: NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("football", ofType: "plist")!))
         return data!
+    }
+    
+    internal func setValue(value: String) {
+        delegate?.valueForLabel(value)
     }
 
 }

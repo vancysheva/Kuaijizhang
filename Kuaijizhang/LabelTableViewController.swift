@@ -10,6 +10,8 @@ import UIKit
 
 class LabelTableViewController: UITableViewController {
     
+    weak var delegate: ComponentViewControllerDelegate?
+    
     var labels = ["label1", "label2", "label3", "label4"]
 
     override func viewDidLoad() {
@@ -29,10 +31,14 @@ class LabelTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return labels.count
+        return labels.count + 1
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if indexPath.row == labels.count {
+            return tableView.dequeueReusableCellWithIdentifier("addLabelButton", forIndexPath: indexPath)
+        }
         
         let cell = tableView.dequeueReusableCellWithIdentifier("label", forIndexPath: indexPath)
         let label = cell.viewWithTag(1) as! UILabel
@@ -46,10 +52,33 @@ class LabelTableViewController: UITableViewController {
         return true
     }
     
-    @IBAction func unwindToLabelList(segue: UIStoryboardSegue) {
-        if let sourceController = segue.sourceViewController as? AddLabelViewController {
-            labels.append(sourceController.labelTextField.text!)
-            tableView.reloadData()
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if indexPath.row == labels.count {
+            return
         }
+        
+        let value = (tableView.cellForRowAtIndexPath(indexPath)?.viewWithTag(1) as! UILabel).text
+        if let v = value {
+            setValue(v)
+        }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    @IBAction func unwindToLabelList(segue: UIStoryboardSegue) {
+        
+        if let sourceController = segue.sourceViewController as? AddLabelViewController {
+            let text = sourceController.labelTextField.text!
+            labels.append(text)
+            tableView.reloadData()
+            
+            setValue(text)
+            
+            delegate?.hideComponetViewController(self)
+        }
+    }
+    
+    func setValue(value: String) {
+        delegate?.valueForLabel(value)
     }
 }

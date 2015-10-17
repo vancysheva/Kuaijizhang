@@ -12,13 +12,14 @@ class BillStreamViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("bill stream load")
+        print("bill stream load", terminator: "")
         // Do any additional setup after loading the view.
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        print("fds")
+    required init(coder aDecoder: NSCoder) {
+
+        super.init(coder: aDecoder)!
+        print("fds", terminator: "")
     }
     
     override func didReceiveMemoryWarning() {

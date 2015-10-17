@@ -10,6 +10,8 @@ import UIKit
 
 class NumberPadViewController: UIViewController {
     
+    weak var delegate: ComponentViewControllerDelegate?
+    
     var numbers = [String]() {
         didSet {
         if let index = numbers.indexOf(".") where numbers.count > (index + 2) {
@@ -25,7 +27,6 @@ class NumberPadViewController: UIViewController {
     var operation: String?
     
     // MARK: - IBOutlet and IBAction
-    @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet var buttons: [UIButton]!
     @IBOutlet weak var okButton: UIButton!
     
@@ -33,18 +34,16 @@ class NumberPadViewController: UIViewController {
         if numbers.count < 6 {
             numbers.append(sender.titleLabel!.text!)
             let number = Double(numbers.reduce("") { $0 + $1 })!
-            numberLabel.text = "\(number)"
+            setValue("\(number)")
         }
     }
 
     @IBAction func reduceButton(sender: UIButton) {
         opt(sender)
-        numberLabel.text = "\(firstNumber)"
     }
     
     @IBAction func plus(sender: UIButton) {
         opt(sender)
-        numberLabel.text = "\(firstNumber)"
     }
     
     func opt(sender: UIButton) {
@@ -89,7 +88,7 @@ class NumberPadViewController: UIViewController {
         } else if numbers.count > 0 {
             firstNumber = Double(numbers.reduce("") { $0 + $1 })!
         }
-        numberLabel.text = "\(firstNumber)"
+        setValue("\(firstNumber)")
     }
     
     @IBAction func pointButton(sender: UIButton) {
@@ -103,19 +102,34 @@ class NumberPadViewController: UIViewController {
         firstNumber = 0
         secondNumber = 0
         operation = nil
-        numberLabel.text = "0.00"
+        //numberLabel.text = "0.00"
+        setValue("0.00")
     }
-    
+
     @IBAction func okButton(sender: UIButton) {
-        print(sender.titleLabel!.text!)
+        print(sender.titleLabel!.text!, terminator: "\n")
+        delegate?.hideComponetViewController(self)
     }
     
+
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        buttons.map {
+        mapButton()
+    }
+}
+
+// MARK: - Internal methods
+extension NumberPadViewController {
+    
+    func mapButton() {
+        buttons.flatMap {
             $0.showsTouchWhenHighlighted = true
         }
+    }
+    
+    func setValue(value: String) {
+        delegate?.valueForLabel(value)
     }
 }

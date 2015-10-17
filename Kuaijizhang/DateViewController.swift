@@ -10,9 +10,10 @@ import UIKit
 
 class DateViewController: UIViewController {
     
+    weak var delegate: ComponentViewControllerDelegate?
+    
     // MARK: - IBOutlet and IBAction
     
-    @IBOutlet weak var showValueLabel: UILabel!
     @IBOutlet weak var datePickerView: UIDatePicker!
     
     // MARK: - Internal fields
@@ -24,8 +25,7 @@ class DateViewController: UIViewController {
         super.viewDidLoad()
         
         let currentLocale = NSLocale.currentLocale()
-        let dateFormat = NSDateFormatter.dateFormatFromTemplate("yyyy-MM-dd HH:mm", options:0, locale:currentLocale)
-        dateFormatter.dateFormat = dateFormat
+        dateFormatter.dateFormat = "yyyy年MM月dd日 HH:mm"
         
         datePickerView.locale = currentLocale
         datePickerView.addTarget(self, action: "valueChaned:", forControlEvents: UIControlEvents.ValueChanged)
@@ -34,7 +34,7 @@ class DateViewController: UIViewController {
     // MARK: - Internal Methods
     
     func valueChaned(pickerView: UIDatePicker) {
-        showValueLabel.text = dateFormatter.stringFromDate(datePickerView.date)
+        delegate?.valueForLabel(dateFormatter.stringFromDate(datePickerView.date))
     }
 }
 
