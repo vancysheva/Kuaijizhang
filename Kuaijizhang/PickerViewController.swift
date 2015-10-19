@@ -16,6 +16,9 @@ class PickerViewController: UIViewController {
     
     @IBOutlet weak var pickerView: UIPickerView!
     
+    @IBAction func editConsumeType(sender: UIButton) {
+        
+    }
     // MARK: - Internal fields
     
     var dic: NSDictionary!
@@ -47,7 +50,7 @@ class PickerViewController: UIViewController {
         
         keyForClub = (dic.valueForKey(keyForCounty) as! NSDictionary).allKeys[0] as! String
     }
-    
+        
     // MARK: - Internal Methods
     
     func readPickerData() -> NSDictionary {

@@ -2,9 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>英格兰</key>
+	<key>一级分类</key>
 	<dict>
-		<key>曼城</key>
+		<key>二级分类</key>
 		<array>
 			<string>阿圭罗</string>
 			<string>哲科</string>

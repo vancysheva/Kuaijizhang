@@ -19,7 +19,6 @@
 		711176851B93526300170668 /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711176841B93526300170668 /* DateViewController.swift */; };
 		711C67161B94894800219806 /* LabelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711C67151B94894800219806 /* LabelTableViewController.swift */; };
 		711C67181B94896F00219806 /* AddLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711C67171B94896F00219806 /* AddLabelViewController.swift */; };
-		711C671D1B94958500219806 /* another.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 711C671C1B94958500219806 /* another.storyboard */; };
 		712816481B92DE8200539691 /* NumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712816471B92DE8200539691 /* NumberPadViewController.swift */; };
 		7130EB821B95E5C000A57A5F /* AddBillComponentsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130EB811B95E5C000A57A5F /* AddBillComponentsPageViewController.swift */; };
 		714019061B8327AC00C97048 /* AccountBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714019051B8327AC00C97048 /* AccountBookViewController.swift */; };
@@ -33,6 +32,8 @@
 		7196DB1E1B8384860029A2A3 /* PushSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DB1D1B8384860029A2A3 /* PushSegue.swift */; };
 		71AC48451BD21D050008B4F8 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48441BD21D050008B4F8 /* PreviewViewController.swift */; };
 		71AC48471BD242FB0008B4F8 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48461BD242FB0008B4F8 /* Extension.swift */; };
+		71AC484A1BD279800008B4F8 /* ConsumeTypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48491BD279800008B4F8 /* ConsumeTypeListViewController.swift */; };
+		71AC484C1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC484B1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift */; };
 		71FB01C91B934A4C00575D5C /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FB01C81B934A4C00575D5C /* PickerViewController.swift */; };
 		71FB01CB1B934AB100575D5C /* football.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71FB01CA1B934AB100575D5C /* football.plist */; };
 /* End PBXBuildFile section */
@@ -88,7 +89,6 @@
 		711176841B93526300170668 /* DateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		711C67151B94894800219806 /* LabelTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTableViewController.swift; sourceTree = "<group>"; };
 		711C67171B94896F00219806 /* AddLabelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLabelViewController.swift; sourceTree = "<group>"; };
-		711C671C1B94958500219806 /* another.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = another.storyboard; sourceTree = "<group>"; };
 		712816461B91D49600539691 /* swift-objc-bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "swift-objc-bridging-header.h"; sourceTree = "<group>"; };
 		712816471B92DE8200539691 /* NumberPadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPadViewController.swift; sourceTree = "<group>"; };
 		7130EB811B95E5C000A57A5F /* AddBillComponentsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBillComponentsPageViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +104,8 @@
 		7196DB1D1B8384860029A2A3 /* PushSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushSegue.swift; sourceTree = "<group>"; };
 		71AC48441BD21D050008B4F8 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		71AC48461BD242FB0008B4F8 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		71AC48491BD279800008B4F8 /* ConsumeTypeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumeTypeListViewController.swift; sourceTree = "<group>"; };
+		71AC484B1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddConsumeTypeViewController.swift; sourceTree = "<group>"; };
 		71FB01C81B934A4C00575D5C /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		71FB01CA1B934AB100575D5C /* football.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = football.plist; sourceTree = "<group>"; };
 		90C5E098CEB512BE7A2D8640 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,7 +181,6 @@
 				7179DA641B857BEF00A4D880 /* account book */,
 				7179DA601B857B8000A4D880 /* portal */,
 				710DB38F1B81DFF6003E74FA /* Main.storyboard */,
-				711C671C1B94958500219806 /* another.storyboard */,
 				710DB3921B81DFF6003E74FA /* Assets.xcassets */,
 				710DB3941B81DFF6003E74FA /* LaunchScreen.storyboard */,
 				71FB01CA1B934AB100575D5C /* football.plist */,
@@ -286,6 +287,8 @@
 				711C67171B94896F00219806 /* AddLabelViewController.swift */,
 				7130EB811B95E5C000A57A5F /* AddBillComponentsPageViewController.swift */,
 				71AC48441BD21D050008B4F8 /* PreviewViewController.swift */,
+				71AC48491BD279800008B4F8 /* ConsumeTypeListViewController.swift */,
+				71AC484B1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -494,7 +497,6 @@
 				710DB3931B81DFF6003E74FA /* Assets.xcassets in Resources */,
 				710DB3911B81DFF6003E74FA /* Main.storyboard in Resources */,
 				71FB01CB1B934AB100575D5C /* football.plist in Resources */,
-				711C671D1B94958500219806 /* another.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,10 +577,12 @@
 				7179DA6F1B85D05E00A4D880 /* ColumnChart.swift in Sources */,
 				7196DB1A1B8339660029A2A3 /* StatementViewController.swift in Sources */,
 				710DB38E1B81DFF6003E74FA /* ViewController.swift in Sources */,
+				71AC484A1BD279800008B4F8 /* ConsumeTypeListViewController.swift in Sources */,
 				7196DB1E1B8384860029A2A3 /* PushSegue.swift in Sources */,
 				7196DB181B8339510029A2A3 /* BillStreamViewController.swift in Sources */,
 				71AC48451BD21D050008B4F8 /* PreviewViewController.swift in Sources */,
 				712816481B92DE8200539691 /* NumberPadViewController.swift in Sources */,
+				71AC484C1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift in Sources */,
 				711176851B93526300170668 /* DateViewController.swift in Sources */,
 				714019061B8327AC00C97048 /* AccountBookViewController.swift in Sources */,
 				710DB38C1B81DFF6003E74FA /* AppDelegate.swift in Sources */,
