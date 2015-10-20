@@ -38,11 +38,13 @@ class AddConsumeTypeViewController: UIViewController {
 
         
         consumeTypeNameTextField.delegate = self
-        navigationController?.delegate = self
         
         // 添加或修改的判断
         if let n = name {
             consumeTypeNameTextField.text = n
+            
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "textDidChange:", name: UITextFieldTextDidChangeNotification, object: nil)
+            
         } else {
             navigationItem.backBarButtonItem = UIBarButtonItem(title: parentTypeID == nil ? "返回" : "二级类别-\(parentTypeID)", style: .Plain, target: nil, action: nil)
             
@@ -58,9 +60,17 @@ class AddConsumeTypeViewController: UIViewController {
         consumeTypeNameTextField.becomeFirstResponder()
     }
     
-    
+    deinit {
+        if name != nil {
+            NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextFieldTextDidChangeNotification, object: nil)
+        }
+    }
     
     // MARK: -Methods
+    
+    func textDidChange(notification: NSNotification) {
+        name = consumeTypeNameTextField.text
+    }
     
     func tapRightButton(sender: AnyObject) {
         
@@ -82,6 +92,7 @@ class AddConsumeTypeViewController: UIViewController {
                 if let childConsumeTypeListVC = storyboard?.instantiateViewControllerWithIdentifier("ConsumeTypeListViewController") as? ConsumeTypeListViewController
                     , addChildConsumeTypeVC = storyboard?.instantiateViewControllerWithIdentifier("AddConsumeTypeViewController") as? AddConsumeTypeViewController {
                         
+                        childConsumeTypeListVC.consumeTypeData = consumeTypeListController?.consumeTypeData
                         childConsumeTypeListVC.parentTypeID = consumeTypeNameTextField.text
                         addChildConsumeTypeVC.parentTypeID = consumeTypeNameTextField.text
                         
@@ -107,6 +118,7 @@ class AddConsumeTypeViewController: UIViewController {
         
         if consumeTypeListController?.data == nil {
             consumeTypeListController?.data = [name!]
+
         } else {
             consumeTypeListController?.data?.append(name!)
             consumeTypeListController?.consumeTypeTableView.reloadData()
@@ -116,7 +128,7 @@ class AddConsumeTypeViewController: UIViewController {
 
 // MARK: - Delegate
 
-extension AddConsumeTypeViewController: UITextFieldDelegate, UINavigationControllerDelegate {
+extension AddConsumeTypeViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         

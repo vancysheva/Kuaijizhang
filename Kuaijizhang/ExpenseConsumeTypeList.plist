@@ -2,87 +2,70 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>一级分类</key>
+	<key>衣服饰品</key>
 	<dict>
-		<key>二级分类</key>
+		<key>衣服裤子</key>
 		<array>
 			<string>阿圭罗</string>
 			<string>哲科</string>
 			<string>席尔瓦</string>
 			<string>亚亚图雷</string>
 		</array>
-		<key>曼联</key>
+		<key>鞋帽包包</key>
 		<array>
 			<string>鲁尼</string>
 			<string>法尔考</string>
 			<string>范佩西</string>
 			<string>迪玛利亚</string>
 		</array>
-		<key>切尔西</key>
+		<key>化妆饰品</key>
 		<array>
 			<string>特里</string>
 			<string>阿扎尔</string>
 			<string>奥斯卡</string>
 			<string>迭戈 科斯塔</string>
 		</array>
-		<key>阿森纳</key>
-		<array>
-			<string>沃尔科特</string>
-			<string>吉鲁</string>
-			<string>厄齐尔</string>
-			<string>桑切斯</string>
-		</array>
 	</dict>
-	<key>德国</key>
+	<key>食品酒水</key>
 	<dict>
-		<key>拜仁慕尼黑</key>
+		<key>早餐晚餐</key>
 		<array>
 			<string>格策</string>
 			<string>莱万多夫斯基</string>
 			<string>格策</string>
 			<string>穆勒</string>
 		</array>
-		<key>沃尔夫斯堡</key>
+		<key>烟酒茶</key>
 		<array>
 			<string>多斯特</string>
 			<string>张稀哲</string>
 		</array>
-		<key>多特蒙德</key>
+		<key>水果零食</key>
 		<array>
 			<string>罗伊斯</string>
 			<string>奥巴梅杨</string>
 			<string>京多安</string>
 			<string>因莫比莱</string>
 		</array>
-		<key>沙尔克04</key>
-		<array>
-			<string>博阿滕</string>
-			<string>亨特拉尔</string>
-		</array>
-		<key>汉堡</key>
-		<array>
-			<string>纳尔多</string>
-			<string>范德法特</string>
-		</array>
 	</dict>
-	<key>法国</key>
+	<key>居家物业</key>
 	<dict>
-		<key>巴黎圣日耳曼</key>
+		<key>日常用品</key>
 		<array>
 			<string>伊布拉希莫维奇</string>
 			<string>西里古</string>
 			<string>帕斯托雷</string>
 			<string>卡瓦尼</string>
 		</array>
-		<key>里昂</key>
+		<key>水电煤气</key>
 		<array>
 			<string>古尔库夫</string>
 			<string>儒尼尼奥</string>
 		</array>
 	</dict>
-	<key>西班牙</key>
+	<key>行车交通</key>
 	<dict>
-		<key>巴塞罗那</key>
+		<key>公共交通</key>
 		<array>
 			<string>梅西</string>
 			<string>苏亚雷斯</string>
@@ -90,7 +73,7 @@
 			<string>哈维</string>
 			<string>伊涅斯塔</string>
 		</array>
-		<key>皇家马德里</key>
+		<key>打车租车</key>
 		<array>
 			<string>卡西利亚斯</string>
 			<string>贝尔</string>
@@ -98,7 +81,7 @@
 			<string>C罗纳尔多</string>
 			<string>伊斯科</string>
 		</array>
-		<key>马德里竞技</key>
+		<key>私家车费用</key>
 		<array>
 			<string>托雷斯</string>
 			<string>米兰达</string>
@@ -106,9 +89,9 @@
 			<string>曼朱基齐</string>
 		</array>
 	</dict>
-	<key>意大利</key>
+	<key>交流通讯</key>
 	<dict>
-		<key>AC米兰</key>
+		<key>座机费</key>
 		<array>
 			<string>沙拉维</string>
 			<string>切尔奇</string>
@@ -125,7 +108,7 @@
 			<string>博纳文图拉</string>
 			<string>范金克尔</string>
 		</array>
-		<key>国际米兰</key>
+		<key>手机费</key>
 		<array>
 			<string>伊卡尔迪</string>
 			<string>瓜林</string>
@@ -134,7 +117,7 @@
 			<string>沙奇里</string>
 			<string>波多尔斯基</string>
 		</array>
-		<key>罗马</key>
+		<key>上网费</key>
 		<array>
 			<string>托蒂</string>
 			<string>德罗西</string>
@@ -144,7 +127,7 @@
 			<string>热尔维尼奥</string>
 			<string>纳英戈兰</string>
 		</array>
-		<key>尤文图斯</key>
+		<key>邮寄费</key>
 		<array>
 			<string>布冯</string>
 			<string>博努奇</string>
@@ -153,15 +136,6 @@
 			<string>略伦特</string>
 			<string>马尔基西奥</string>
 			<string>博格巴</string>
-		</array>
-		<key>那不勒斯</key>
-		<array>
-			<string>伊瓜因</string>
-			<string>哈姆西克</string>
-			<string>卡列洪</string>
-			<string>马乔</string>
-			<string>因勒</string>
-			<string>阿尔比奥尔</string>
 		</array>
 	</dict>
 </dict>

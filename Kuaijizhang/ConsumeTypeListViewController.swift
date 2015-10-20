@@ -18,18 +18,20 @@ class ConsumeTypeListViewController: UIViewController {
         toggleButtonForEditingStyleWidthAnimation()
     }
     
-    @IBAction func add(sender: UIButton) {
-        
-    }
-    
     /**
      parentTypeID 是空,则是一级类别view controller；不为空,则是二级类别view controller
     **/
     var parentTypeID: String?
     
-    var data: [String]?
+    var childTypeID: String?
+    
+    var consumeTypeData: ConsumeTypeData?
     
     var editViewController: UIViewController?
+    
+    var addViewController: AddBillViewController?
+    
+    var data: [String]?
     
     enum ButtonType: String {
         case Edit = "✎ 编辑", Done = "✓完成"
@@ -44,7 +46,8 @@ class ConsumeTypeListViewController: UIViewController {
         
         consumeTypeTableView.delegate = self
         consumeTypeTableView.dataSource = self
-        data =  data ?? readDataWith(parentTypeID: parentTypeID)
+        navigationController?.delegate = self
+        data = readDataWith(parentTypeID: parentTypeID)
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: parentTypeID == nil ? "一级类别" : "二级类别", style: .Plain, target: nil, action: nil)
     }
@@ -55,9 +58,10 @@ class ConsumeTypeListViewController: UIViewController {
             switch id {
             case "toChildTypeList":
                 if let vc = segue.destinationViewController as? ConsumeTypeListViewController, indexPath = consumeTypeTableView.indexPathForSelectedRow, d = data {
-                        
+                    vc.consumeTypeData = consumeTypeData
                     vc.parentTypeID = d[indexPath.row]
-                            consumeTypeTableView.deselectRowAtIndexPath(indexPath, animated: true)
+                    vc.addViewController = addViewController
+                    consumeTypeTableView.deselectRowAtIndexPath(indexPath, animated: true)
                 }
             case "addChildConsumeType":
                 if let vc = segue.destinationViewController as? AddConsumeTypeViewController {
@@ -76,12 +80,15 @@ class ConsumeTypeListViewController: UIViewController {
     
     private func readDataWith(parentTypeID identifier: String?) -> [String] {
         
-        let dic = NSDictionary(contentsOfURL: NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("football", ofType: "plist")!))
-        
         if let id = identifier {
-            return dic?.valueForKey(id) == nil ? [] : (dic!.valueForKey(id) as! NSDictionary).allKeys as! [String]
+            if let d = consumeTypeData {
+                let res = d.childDataListForID(id)
+                return res.count == 0 ? data! : res
+            } else {
+                return []
+            }
         } else {
-            return dic!.allKeys as! [String]
+            return consumeTypeData!.parentDataList
         }
     }
     
@@ -137,7 +144,7 @@ class ConsumeTypeListViewController: UIViewController {
 
 // MARK: - Delegate and Datasource
 
-extension ConsumeTypeListViewController: UITableViewDelegate, UITableViewDataSource {
+extension ConsumeTypeListViewController: UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data?.count ?? 0
@@ -189,10 +196,30 @@ extension ConsumeTypeListViewController: UITableViewDelegate, UITableViewDataSou
                 
                 presentViewController(naviVC, animated: true, completion: nil)
             }
+        } else {
+            if parentTypeID != nil{
+                childTypeID = data?[indexPath.row]
+                addViewController?.consumeTypeLabel.text = "\(parentTypeID!)>\(childTypeID!)"
+                if let addVC = addViewController, childVC = addVC.childViewControllers[0] as? PickerViewController {
+                        addVC.removeCotentControllerWidthAnimation(childVC)
+                }
+                navigationController?.popViewControllerAnimated(true)
+            }
         }
+        
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         return !consumeTypeTableView.editing
+    }
+    
+    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+        if let vc = viewController as? ConsumeTypeListViewController where vc.parentTypeID == nil {
+            vc.childTypeID = self.childTypeID
+            
+            if childTypeID != nil {
+                navigationController.popViewControllerAnimated(true)
+            }
+        }
     }
 }

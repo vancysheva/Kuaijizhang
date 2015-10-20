@@ -916,7 +916,7 @@
                                                         <constraint firstAttribute="width" constant="36" id="rPB-Bz-i1K"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="食品酒水&gt;零食" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="k6t-P7-qmU">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-&gt;-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="k6t-P7-qmU">
                                                     <rect key="frame" x="99" y="11" width="205" height="21"/>
                                                     <animations/>
                                                     <constraints>
@@ -968,7 +968,7 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="现金" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1Y6-hm-OK2">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1Y6-hm-OK2">
                                                     <rect key="frame" x="54" y="12" width="250" height="21"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1804,7 +1804,6 @@
                                                 </constraints>
                                                 <state key="normal" title="编辑"/>
                                                 <connections>
-                                                    <action selector="editConsumeType:" destination="jME-hk-MhX" eventType="touchUpInside" id="G0j-OE-qy3"/>
                                                     <segue destination="xPI-qb-1gR" kind="push" identifier="toParentTypeList" id="e1K-R5-u8l"/>
                                                 </connections>
                                             </button>
@@ -1878,7 +1877,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1907,7 +1906,6 @@
                                         <animations/>
                                         <state key="normal" title="+ 添加"/>
                                         <connections>
-                                            <action selector="add:" destination="xPI-qb-1gR" eventType="touchUpInside" id="Myi-8E-SGe"/>
                                             <segue destination="n0Z-TF-6FF" kind="push" identifier="addParentConsumeType" id="AjP-Gv-udr"/>
                                         </connections>
                                     </button>
@@ -2052,7 +2050,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -2079,8 +2077,6 @@
                                         <animations/>
                                         <state key="normal" title="+ 添加"/>
                                         <connections>
-                                            <action selector="add:" destination="H0s-00-icV" eventType="touchUpInside" id="13S-XE-bgK"/>
-                                            <action selector="add:" destination="xPI-qb-1gR" eventType="touchUpInside" id="Or0-1t-2w5"/>
                                             <segue destination="n0Z-TF-6FF" kind="push" identifier="addChildConsumeType" id="BsX-1j-EHm"/>
                                         </connections>
                                     </button>
@@ -2240,6 +2236,6 @@
         <image name="statement icon" width="30" height="38"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AjP-Gv-udr"/>
+        <segue reference="BsX-1j-EHm"/>
     </inferredMetricsTieBreakers>
 </document>

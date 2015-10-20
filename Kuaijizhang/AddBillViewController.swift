@@ -42,7 +42,10 @@ class AddBillViewController: UITableViewController {
     }
     
     @IBAction func tapBillTypeButton(sender: UIButton) {
-        selectBillType()
+        setBillType()
+        setConsumeType()
+        deselectRowForTable()
+        selectFirstRowAndDisplayNumPad()
     }
     
     @IBAction func tapSaveButtonInView(sender: UIButton) {
@@ -72,6 +75,11 @@ class AddBillViewController: UITableViewController {
     var activeImage: UIImage?
     
     var imagePickerController: UIImagePickerController?
+    
+    var billType: BillType = .Expense
+    
+    lazy var consumeTypeData = ConsumeTypeData(billType: .Expense)
+
 
     // MARK: - Lifecycle
     
@@ -79,20 +87,17 @@ class AddBillViewController: UITableViewController {
         super.viewDidLoad()
         
         commentTextView.delegate = self
+        navigationController?.delegate = self
 
         initButtonWithBorderStyle(saveTemplateButton)
         initButtonWithBorderStyle(saveButton)
         
+        consumeTypeLabel.text = consumeTypeData.firstDescription
+        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: nil, action: nil)
         
-        // 250毫秒后执行
-        let time = dispatch_time(DISPATCH_TIME_NOW, (Int64)(250 * NSEC_PER_MSEC))
-        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
-            self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.Top)
-            // 目的为了弹出数字面板
-            self.tableView.delegate?.tableView!(self.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-        }
-
+        selectFirstRowAndDisplayNumPad()
+        
         if #available(iOS 9.0, *) {
             if traitCollection.forceTouchCapability == .Available {
                 registerForPreviewingWithDelegate(self, sourceView: view)
@@ -109,9 +114,9 @@ extension AddBillViewController {
         
     }
     
-    func selectBillType() {
-        billTypeButton.setTitle("收入", forState: .Normal)
-        saveBarButtonItem.enabled = !saveBarButtonItem.enabled
+    func setBillType() {
+        
+        billTypeButton.setTitle(billType.title, forState: .Normal)
         
         let duration: NSTimeInterval = 0.25
         let delay: NSTimeInterval = 0
@@ -120,7 +125,26 @@ extension AddBillViewController {
             }, completion: nil)
     }
     
+    func setConsumeType() {
+        
+        moneyLabel.textColor = billType.toggle().color
+        consumeTypeData = ConsumeTypeData(billType: billType)
+        consumeTypeLabel.text = consumeTypeData.firstDescription
+    }
+    
+    func selectFirstRowAndDisplayNumPad() {
+        // 250毫秒后执行
+        let time = dispatch_time(DISPATCH_TIME_NOW, (Int64)(250 * NSEC_PER_MSEC))
+        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+            self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.Top)
+            // 目的为了弹出数字面板
+            self.tableView.delegate?.tableView!(self.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        }
+
+    }
+    
     func initButtonWithBorderStyle(button: UIButton) {
+        
         button.layer.borderWidth = 1
         let color = UIColor(red: 27/255, green: 128/255, blue: 251/255, alpha: 1.0)
         button.layer.borderColor = color.CGColor
@@ -221,10 +245,13 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
         case 1:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("PickerViewController") as! PickerViewController
             vc.delegate = self
+            vc.addViewControlelr = self
+            vc.consumeTypeData = consumeTypeData
             addContentController(vc)
         case 2:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("PickerViewController") as! PickerViewController
             vc.delegate = self
+            vc.consumeTypeData = consumeTypeData
             addContentController(vc)
         case 3:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("DateViewController") as! DateViewController
@@ -346,5 +373,5 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
         
         activeImage = nil
         pictureButton.setBackgroundImage(UIImage(named: "camera"), forState: .Normal)
-    }
+    }    
 }
