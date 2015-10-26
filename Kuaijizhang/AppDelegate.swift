@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window!.rootViewController?.presentViewController(navi, animated: true, completion: nil)
     }
     
+    //MARK: - Internal method
+    
     @available(iOS 9.0, *)
     func addDynamicShortcutItems() {
         

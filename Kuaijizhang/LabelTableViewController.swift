@@ -14,6 +14,11 @@ class LabelTableViewController: UITableViewController {
     
     var labels = ["label1", "label2", "label3", "label4"]
 
+    @IBAction func cancelLabel(sender: UIButton) {
+        if let parentVC = parentViewController as? AddBillViewController {
+            parentVC.tagLabel.text = nil
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

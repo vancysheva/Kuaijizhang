@@ -9,7 +9,10 @@
 import Foundation
 
 extension CALayer {
-    // 可在用户自定义属性运行时用
+    //
+    /**
+    *  可在User Defined Runtime Attribute
+    **/
     var borderUIColor: UIColor {
         get {
             return UIColor(CGColor: self.borderColor!)
@@ -21,6 +24,9 @@ extension CALayer {
 }
 
 extension String {
+    /**
+     * 去掉字符串空字符和换行符
+    **/
     func trim() -> String {
         return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }

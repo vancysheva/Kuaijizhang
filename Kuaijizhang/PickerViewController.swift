@@ -14,7 +14,7 @@ class PickerViewController: UIViewController {
     
     weak var delegate: ComponentViewControllerDelegate?
     
-    var addViewControlelr: AddBillViewController?
+    weak var addViewControlelr: AddBillViewController?
     
     // MARK: - IBOutlet and IBAction
     

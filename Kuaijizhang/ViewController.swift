@@ -21,6 +21,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var yearExpenseLabel: UICountingLabel!
     @IBOutlet weak var yearIncomeLabel: UICountingLabel!
     @IBOutlet var rmbLabel: [UILabel]!
+    @IBOutlet weak var currentAccountBookLabel: UILabel!
+    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
     
     @IBOutlet weak var columnChartView: ColumnChart!
 
@@ -69,6 +72,10 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
     }
 }
@@ -130,6 +137,13 @@ extension ViewController {
             labelValues.append("\(index)")
         }
         columnChartView.columnLabelValue = labelValues
+    }
+    
+    @IBAction func unwindToPortal(segue: UIStoryboardSegue) {
+        
+        if let vc = segue.sourceViewController as? AccountBookViewController, name = vc.currentAccountBook {
+            currentAccountBookLabel.text = name
+        }
     }
 }
 

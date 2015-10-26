@@ -27,9 +27,9 @@ class ConsumeTypeListViewController: UIViewController {
     
     var consumeTypeData: ConsumeTypeData?
     
-    var editViewController: UIViewController?
+    weak var editViewController: UIViewController?
     
-    var addViewController: AddBillViewController?
+    weak var addViewController: AddBillViewController?
     
     var data: [String]?
     
