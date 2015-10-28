@@ -18,6 +18,20 @@ class BillStreamTableViewController: UITableViewController {
         super.viewDidLoad()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+        if let navi = segue.destinationViewController as? UINavigationController, vc = navi.visibleViewController as? AddBillViewController where segue.identifier == "modifyToAddBill" {
+          
+            
+        }
+    }
+    
+}
+
+//MARK: - Datasource and Delegate
+
+extension BillStreamTableViewController {
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return billStreamViewModel.data.count
     }
@@ -26,13 +40,13 @@ class BillStreamTableViewController: UITableViewController {
         if let arr = billStreamViewModel.data[section] {
             return arr.count
         }
-       return 0
+        return 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = billTableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-
+        
         let day = cell.viewWithTag(1) as! UILabel
         let consumeName = cell.viewWithTag(2) as! UILabel
         let comment = cell.viewWithTag(3) as! UILabel

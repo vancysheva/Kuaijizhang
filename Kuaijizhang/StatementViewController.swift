@@ -7,29 +7,76 @@
 //
 
 import UIKit
+import Charts
 
 class StatementViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet weak var pieChartBtn: UIButton! {
+        didSet {
+            pieChartBtn.enabled = false
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var columnChartBtn: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let chartController = FWChartController(viewForChart: containerView, chartStyle: .PieChart(label: "消费类型", sliceSpace: 2, colors: ChartColorTemplates.joyful()), data: getData(), title: "Test")
+        chartController.addChartValueSelectedHandler { (chartView, entry, dataSetIndex, highlight) -> Void in
+            print(dataSetIndex, "closure")
+        }
+        
+        chartController.animate()
+        
     }
-    */
-
+    
+    @IBAction func tapPieChartBtn(sender: UIButton) {
+        
+        updateButtonStateWith(sender, otherBtn: columnChartBtn)
+    }
+    
+    @IBAction func tapColumnChartBtn(sender: UIButton) {
+        
+        updateButtonStateWith(sender, otherBtn: pieChartBtn)
+    }
+    
+    func updateButtonStateWith(tappedBtn: UIButton, otherBtn: UIButton) {
+       
+        if tappedBtn.enabled == true {
+            let bColor = tappedBtn.backgroundColor
+            let tColor = tappedBtn.tintColor
+            
+            tappedBtn.backgroundColor = otherBtn.backgroundColor
+            tappedBtn.tintColor = otherBtn.tintColor
+            
+            otherBtn.backgroundColor = bColor
+            otherBtn.tintColor = tColor
+            
+            tappedBtn.enabled = false
+            otherBtn.enabled = true
+        }
+    }
+    @IBAction func previousBtn(sender: UIButton) {
+      
+    }
+    
+    @IBAction func nextBtn(sender: UIButton) {
+        
+    }
+    
+    func getData() -> [String: Double] {
+        
+        var data = [String: Double]()
+        var labels = ["吃", "穿", "住", "行", "其他"]
+        
+        for i in 0...4 {
+           data[labels[i]] = Double(100 + ((i+1) * 25))
+        }
+        return data
+    }
 }

@@ -64,6 +64,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: nil, action: nil)
+        
         test()
         adapteLabelsFont()
         adapteRmbLabels(rmbLabel)

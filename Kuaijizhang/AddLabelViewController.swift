@@ -28,7 +28,6 @@ class AddLabelViewController: UIViewController {
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextFieldTextDidChangeNotification, object: nil)
-        print("deinit")
     }
     
     func textDidChange(notification: NSNotification) {

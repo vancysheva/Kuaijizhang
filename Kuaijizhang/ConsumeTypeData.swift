@@ -13,7 +13,6 @@ struct ConsumeTypeData {
     private let data: NSDictionary
     
     init(billType: BillType) {
-        print("init")
         var filename: String
         switch billType {
         case .Expense:

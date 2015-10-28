@@ -52,6 +52,9 @@
 		71AC48471BD242FB0008B4F8 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48461BD242FB0008B4F8 /* Extension.swift */; };
 		71AC484A1BD279800008B4F8 /* ConsumeTypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48491BD279800008B4F8 /* ConsumeTypeListViewController.swift */; };
 		71AC484C1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC484B1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift */; };
+		71BC84761BDF363A00C6F92A /* StatmentAnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC84751BDF363A00C6F92A /* StatmentAnalysisViewController.swift */; };
+		71BC847A1BDF365E00C6F92A /* StatementSearchConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC84791BDF365E00C6F92A /* StatementSearchConditionViewController.swift */; };
+		71BC847D1BDFADE500C6F92A /* FWChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC847C1BDFADE500C6F92A /* FWChartController.swift */; };
 		71D1C36E1BD9D3780055C36C /* BillStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D1C36D1BD9D3780055C36C /* BillStreamViewModel.swift */; };
 		71F24A961BDB7802002177C5 /* BillStreamHeaderWithIncome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */; };
 		71F24A9A1BDB782B002177C5 /* BillStreamHeaderWithExpense.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F24A991BDB782B002177C5 /* BillStreamHeaderWithExpense.xib */; };
@@ -145,6 +148,9 @@
 		71AC48461BD242FB0008B4F8 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		71AC48491BD279800008B4F8 /* ConsumeTypeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumeTypeListViewController.swift; sourceTree = "<group>"; };
 		71AC484B1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddConsumeTypeViewController.swift; sourceTree = "<group>"; };
+		71BC84751BDF363A00C6F92A /* StatmentAnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatmentAnalysisViewController.swift; sourceTree = "<group>"; };
+		71BC84791BDF365E00C6F92A /* StatementSearchConditionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatementSearchConditionViewController.swift; sourceTree = "<group>"; };
+		71BC847C1BDFADE500C6F92A /* FWChartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWChartController.swift; sourceTree = "<group>"; };
 		71D1C36D1BD9D3780055C36C /* BillStreamViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamViewModel.swift; sourceTree = "<group>"; };
 		71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillStreamHeaderWithIncome.xib; sourceTree = "<group>"; };
 		71F24A991BDB782B002177C5 /* BillStreamHeaderWithExpense.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillStreamHeaderWithExpense.xib; sourceTree = "<group>"; };
@@ -281,6 +287,8 @@
 			isa = PBXGroup;
 			children = (
 				7196DB191B8339660029A2A3 /* StatementViewController.swift */,
+				71BC84751BDF363A00C6F92A /* StatmentAnalysisViewController.swift */,
+				71BC84791BDF365E00C6F92A /* StatementSearchConditionViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -309,6 +317,7 @@
 				7179DA701B85E67800A4D880 /* ColorBox.swift */,
 				7160EA021BD62A3400936FD2 /* BillType.swift */,
 				7160EA061BD62A8D00936FD2 /* ConsumeTypeData.swift */,
+				71BC847C1BDFADE500C6F92A /* FWChartController.swift */,
 			);
 			name = Conmmon;
 			sourceTree = "<group>";
@@ -398,9 +407,7 @@
 				715A535E1B89AE7D009E7DF2 /* Controller */,
 				71D1C3711BD9D3C20055C36C /* ViewModel */,
 				71341E4B1BDA1669004C0CAB /* View */,
-				71341E471BDA05C1004C0CAB /* BillStreamHeaderView.xib */,
-				71F24A991BDB782B002177C5 /* BillStreamHeaderWithExpense.xib */,
-				71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */,
+				71FE8B771BDE4641004CAE24 /* xib */,
 			);
 			name = BillStream;
 			sourceTree = "<group>";
@@ -435,6 +442,16 @@
 				71D1C36D1BD9D3780055C36C /* BillStreamViewModel.swift */,
 			);
 			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		71FE8B771BDE4641004CAE24 /* xib */ = {
+			isa = PBXGroup;
+			children = (
+				71341E471BDA05C1004C0CAB /* BillStreamHeaderView.xib */,
+				71F24A991BDB782B002177C5 /* BillStreamHeaderWithExpense.xib */,
+				71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */,
+			);
+			name = xib;
 			sourceTree = "<group>";
 		};
 		B8EA83A42DE02B9F281AB1A4 /* Frameworks */ = {
@@ -678,9 +695,12 @@
 				710DB38E1B81DFF6003E74FA /* ViewController.swift in Sources */,
 				71AC484A1BD279800008B4F8 /* ConsumeTypeListViewController.swift in Sources */,
 				715B108E1BD78DD00037BD21 /* Chart.swift in Sources */,
+				71BC84761BDF363A00C6F92A /* StatmentAnalysisViewController.swift in Sources */,
 				71D1C36E1BD9D3780055C36C /* BillStreamViewModel.swift in Sources */,
 				715B10921BD78F780037BD21 /* Subject.swift in Sources */,
+				71BC847A1BDF365E00C6F92A /* StatementSearchConditionViewController.swift in Sources */,
 				7143EE451BD76C7E006F943A /* AccountSampleViewController.swift in Sources */,
+				71BC847D1BDFADE500C6F92A /* FWChartController.swift in Sources */,
 				71AC48451BD21D050008B4F8 /* PreviewViewController.swift in Sources */,
 				712816481B92DE8200539691 /* NumberPadViewController.swift in Sources */,
 				71AC484C1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift in Sources */,
