@@ -55,6 +55,7 @@
 		71BC84761BDF363A00C6F92A /* StatmentAnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC84751BDF363A00C6F92A /* StatmentAnalysisViewController.swift */; };
 		71BC847A1BDF365E00C6F92A /* StatementSearchConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC84791BDF365E00C6F92A /* StatementSearchConditionViewController.swift */; };
 		71BC847D1BDFADE500C6F92A /* FWChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC847C1BDFADE500C6F92A /* FWChartController.swift */; };
+		71BC847F1BE1CAD100C6F92A /* StatementViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC847E1BE1CAD100C6F92A /* StatementViewCell.swift */; };
 		71D1C36E1BD9D3780055C36C /* BillStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D1C36D1BD9D3780055C36C /* BillStreamViewModel.swift */; };
 		71F24A961BDB7802002177C5 /* BillStreamHeaderWithIncome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */; };
 		71F24A9A1BDB782B002177C5 /* BillStreamHeaderWithExpense.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F24A991BDB782B002177C5 /* BillStreamHeaderWithExpense.xib */; };
@@ -151,6 +152,7 @@
 		71BC84751BDF363A00C6F92A /* StatmentAnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatmentAnalysisViewController.swift; sourceTree = "<group>"; };
 		71BC84791BDF365E00C6F92A /* StatementSearchConditionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatementSearchConditionViewController.swift; sourceTree = "<group>"; };
 		71BC847C1BDFADE500C6F92A /* FWChartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWChartController.swift; sourceTree = "<group>"; };
+		71BC847E1BE1CAD100C6F92A /* StatementViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatementViewCell.swift; sourceTree = "<group>"; };
 		71D1C36D1BD9D3780055C36C /* BillStreamViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamViewModel.swift; sourceTree = "<group>"; };
 		71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillStreamHeaderWithIncome.xib; sourceTree = "<group>"; };
 		71F24A991BDB782B002177C5 /* BillStreamHeaderWithExpense.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillStreamHeaderWithExpense.xib; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				715A535F1B89AE8D009E7DF2 /* Controller */,
+				71BC84801BE1CAD500C6F92A /* View */,
 			);
 			name = Statement;
 			sourceTree = "<group>";
@@ -434,6 +437,14 @@
 				71AC48461BD242FB0008B4F8 /* Extension.swift */,
 			);
 			name = Extension;
+			sourceTree = "<group>";
+		};
+		71BC84801BE1CAD500C6F92A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				71BC847E1BE1CAD100C6F92A /* StatementViewCell.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		71D1C3711BD9D3C20055C36C /* ViewModel */ = {
@@ -699,6 +710,7 @@
 				71D1C36E1BD9D3780055C36C /* BillStreamViewModel.swift in Sources */,
 				715B10921BD78F780037BD21 /* Subject.swift in Sources */,
 				71BC847A1BDF365E00C6F92A /* StatementSearchConditionViewController.swift in Sources */,
+				71BC847F1BE1CAD100C6F92A /* StatementViewCell.swift in Sources */,
 				7143EE451BD76C7E006F943A /* AccountSampleViewController.swift in Sources */,
 				71BC847D1BDFADE500C6F92A /* FWChartController.swift in Sources */,
 				71AC48451BD21D050008B4F8 /* PreviewViewController.swift in Sources */,

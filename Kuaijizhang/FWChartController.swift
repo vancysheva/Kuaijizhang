@@ -49,7 +49,7 @@ enum FWChartStyle {
 class FWChartController: ChartViewDelegate {
     
     var title: String
-    var data: [String: Double]
+    var data: [(typeName: String, value: Double)]
     var charDataSet: ChartDataSet
     var charData: ChartData
     var chart: ChartViewBase
@@ -57,7 +57,7 @@ class FWChartController: ChartViewDelegate {
     
     var chartValueSelected: ((chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) -> Void)?
     
-    init(viewForChart view: UIView, chartStyle: FWChartStyle, data: [String: Double], title: String) {
+    init(viewForChart view: UIView, chartStyle: FWChartStyle, data: [(typeName: String, value: Double)], title: String) {
         
         self.title = title
         self.data = data

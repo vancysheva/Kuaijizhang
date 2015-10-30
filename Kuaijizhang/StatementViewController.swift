@@ -23,24 +23,44 @@ class StatementViewController: UIViewController {
     
     @IBOutlet weak var columnChartBtn: UIButton!
     
+    @IBOutlet weak var statementTableView: UITableView! {
+        didSet {
+            statementTableView.tableFooterView = UIView()
+        }
+    }
+    
+    var chartController: FWChartController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let chartController = FWChartController(viewForChart: containerView, chartStyle: .PieChart(label: "消费类型", sliceSpace: 2, colors: ChartColorTemplates.joyful()), data: getData(), title: "Test")
-        chartController.addChartValueSelectedHandler { (chartView, entry, dataSetIndex, highlight) -> Void in
+    
+        chartController = FWChartController(viewForChart: containerView, chartStyle: .PieChart(label: "消费类型", sliceSpace: 2, colors: ChartColorTemplates.joyful()), data: getData(), title: "Test")
+        chartController?.addChartValueSelectedHandler { (chartView, entry, dataSetIndex, highlight) -> Void in
             print(dataSetIndex, "closure")
         }
         
-        chartController.animate()
+        chartController?.animate()
         
     }
     
     @IBAction func tapPieChartBtn(sender: UIButton) {
         
         updateButtonStateWith(sender, otherBtn: columnChartBtn)
+        statementTableView.removeFromSuperview()
     }
     
     @IBAction func tapColumnChartBtn(sender: UIButton) {
+        
+        if containerView.subviews.count > 0 {
+            //containerView.subviews[0].removeFromSuperview()
+        }
+        containerView.addSubview(statementTableView)
+        statementTableView.frame = containerView.bounds
+        
+        if statementTableView.delegate == nil {
+            statementTableView.delegate = self
+            statementTableView.dataSource = self
+        }
         
         updateButtonStateWith(sender, otherBtn: pieChartBtn)
     }
@@ -61,22 +81,38 @@ class StatementViewController: UIViewController {
             otherBtn.enabled = true
         }
     }
+    
     @IBAction func previousBtn(sender: UIButton) {
       
+        
     }
     
     @IBAction func nextBtn(sender: UIButton) {
-        
+        chartController?.animate()
     }
     
-    func getData() -> [String: Double] {
+    func getData() -> [(typeName: String, value: Double)] {
         
-        var data = [String: Double]()
-        var labels = ["吃", "穿", "住", "行", "其他"]
+        return [(typeName: "吃", value: 5),
+                (typeName: "穿", value: 15),
+                (typeName: "住", value: 35),
+                (typeName: "行吃吃", value: 15),
+                (typeName: "吃吃吃吃吃吃吃吃吃", value: 100)]
+    }
+}
+
+//MARK: - Delegate and Datasource
+
+extension StatementViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return getData().count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        for i in 0...4 {
-           data[labels[i]] = Double(100 + ((i+1) * 25))
-        }
-        return data
+        let cell = statementTableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! StatementViewCell
+        cell.data = (getData())[indexPath.row]
+        return cell
     }
 }
