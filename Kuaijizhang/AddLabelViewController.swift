@@ -13,35 +13,20 @@ class AddLabelViewController: UIViewController {
     @IBOutlet weak var labelTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     
+    let agent = TextFieldAgent()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        labelTextField.delegate = self
-        
+        labelTextField.delegate = agent
+        agent.addTextFieldTextDidChangeNotification { (notification) -> Void in
+            let b = self.labelTextField.text?.characters.count > 0
+            self.navigationItem.rightBarButtonItem?.enabled = b
+            self.saveButton.hidden = !b
+        }
         labelTextField.becomeFirstResponder()
         
         navigationItem.rightBarButtonItem?.enabled = false
         saveButton.hidden = true
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textDidChange:", name: UITextFieldTextDidChangeNotification, object: nil)
-    }
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextFieldTextDidChangeNotification, object: nil)
-    }
-    
-    func textDidChange(notification: NSNotification) {
-        let b = labelTextField.text?.characters.count > 0
-        navigationItem.rightBarButtonItem?.enabled = b
-        saveButton.hidden = !b
-    }
-}
-
-extension AddLabelViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        labelTextField.resignFirstResponder()
-        
-        return true
     }
 }

@@ -7,26 +7,14 @@
 //
 
 import Foundation
+import RealmSwift
 
-protocol Budget: Statisticable {
-    
-    /**
-     * 预算类型
-     **/
-    var type: (Int, String) { get set }
-    
-    /**
-     * 日均预算
-     **/
-    var dayAmount: Double? { get }
+class Budget: Object {
     
     /**
      * 月均预算
      **/
-    var monthAmount: Double? { get }
+    dynamic var monthAmount = 0.00
     
-    /**
-     * 年均预算
-     **/
-    var yearAmount: Double? { get }
+    dynamic var consumeptionType: ConsumeptionType?
 }

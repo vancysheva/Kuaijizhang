@@ -8,6 +8,7 @@
 
 import UIKit
 import UICountingLabel
+import RealmSwift
 
 class ViewController: UIViewController {
     
@@ -59,7 +60,7 @@ class ViewController: UIViewController {
     var screenSize: CGSize = {
         return UIScreen.mainScreen().bounds.size
         }()
-    
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,9 +144,9 @@ extension ViewController {
     
     @IBAction func unwindToPortal(segue: UIStoryboardSegue) {
         
-        if let vc = segue.sourceViewController as? AccountBookViewController, name = vc.currentAccountBook {
-            currentAccountBookLabel.text = name
-        }
+        //if let vc = segue.sourceViewController as? AccountBookViewController, name = vc.currentAccountBook {
+          //  currentAccountBookLabel.text = name
+        //}
     }
 }
 

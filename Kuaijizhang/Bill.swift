@@ -7,39 +7,51 @@
 //
 
 import Foundation
-import MapKit
+import RealmSwift
 
-protocol Bill: Statisticable {
+class Bill: Object {
+
+    dynamic var id = 0
+    
+    dynamic var money = 0.00
+    
+    /**
+    所属账本
+    */
+    dynamic var accountBook: AccountBook?
     
     /**
      * 所属账户
      **/
-    var account: Account { get set }
-    
-    /**
-     * 账单类型 支出或者收入等
-     **/
-    var billType: BillType { get }
+    dynamic var account: Account?
     
     /**
      * 消费类型 具体属账单类别的子类
      **/
-    var consumeType: ConsumeptionType { get set }
+    dynamic var consumeType: ConsumeptionType?
     
     /**
-     * 所属账本
-     **/
-    var accountBook: AccountBook { get }
+    所属专题
+    */
+    dynamic var subject: Subject?
     
     /**
      * 拍摄的图片
      **/
-    var image: UIImage? { get set }
+    dynamic var image: NSData?
     
     /**
      * 发生日期
      **/
-    var occurDate: NSDate { get set }
+    dynamic var occurDate: NSDate?
     
-    var occurPlace: CLLocation { get }
+    dynamic var occurPlace: String? = nil
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    override static func indexedProperties() -> [String] {
+        return ["occurDate"]
+    }
 }

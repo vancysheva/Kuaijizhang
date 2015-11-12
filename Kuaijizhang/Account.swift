@@ -7,16 +7,16 @@
 //
 
 import Foundation
+import RealmSwift
 
-protocol Account: Statisticable {
-    
+class Account: Object {
+
     /**
      * 账户名称
      **/
-    var name: (Int, String) { get set }
+    dynamic var name = ""
     
-    /**
-     * 账户类型
-     **/
-    var bank: (Int, String) { get set }
+    dynamic var accountBook: AccountBook?
+    
+    let bills = List<Bill>()
 }

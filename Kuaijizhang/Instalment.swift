@@ -7,17 +7,23 @@
 //
 
 import Foundation
+import RealmSwift
 
-protocol Instalment: Bill {
+class Instalment: Object {
     
     /**
      * 分期月数
      **/
-    var countMonth: Int { get set }
+    dynamic var countMonth = 1
     
     /**
      * 每期金额
      **/
-    var amount: Double { get }
+    dynamic var amount = 0.00
     
+    dynamic var subject: Subject?
+
+    dynamic var accountBook: AccountBook?
+    
+    let bills = List<Bill>()
 }

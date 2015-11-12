@@ -8,12 +8,33 @@
 
 import Foundation
 
-protocol FWTableViewModel {
+class AccountBookViewModel {
     
+    let accountBookModel: AccountBookModel
     
-}
-
-struct AccountBookViewModel {
+    init() {
+        accountBookModel = AccountBookModel()
+    }
     
-    var data = ["标准记账", "出差记账", "装修记账", "汽车记账"]
+    func getCount() -> Int {
+        return accountBookModel.getCount()
+    }
+    
+    func delete(indexPath: NSIndexPath) {
+        accountBookModel.deleteAt(indexPath.row)
+    }
+    
+    func objectAt(indexPath: NSIndexPath) -> (String?, Bool?, String?) {
+        
+        let accountBook = accountBookModel.objectAt(indexPath.row)
+        return (accountBook?.title, accountBook?.isUsing, accountBook?.coverImageName)
+    }
+    
+    func setCurrentUsingAt(indexPath: NSIndexPath) {
+        accountBookModel.setCurrentUsingAt(indexPath.row)
+    }
+    
+    func saveAccountBookWithTitle(title: String, coverImageName: String) {
+        accountBookModel.addAccountBookWithTitle(title, coverImageName: coverImageName)
+    }
 }

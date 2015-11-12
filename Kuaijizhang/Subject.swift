@@ -7,7 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
-protocol Subject: Statisticable {
+class Subject: Object {
     
+    dynamic var name = ""
+    
+    dynamic var accountBook: AccountBook?
+    
+    let bills = List<Bill>()
 }

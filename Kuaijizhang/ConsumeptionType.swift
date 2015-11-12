@@ -7,11 +7,21 @@
 //
 
 import Foundation
+import RealmSwift
 
-protocol ConsumeptionType: Statisticable {
+class ConsumeptionType: Object {
     
-    /**
-     * 所属父类别
-     **/
-    var parentType: ConsumeptionType? { get }
+    dynamic var type = ""
+    
+    dynamic var name = ""
+    
+    dynamic var iconName = ""
+    
+    dynamic var accountBook: AccountBook?
+    
+    dynamic var budget: Budget?
+    
+    let consumeptionTypes = List<ConsumeptionType>()
+    
+    let bills = List<Bill>()
 }

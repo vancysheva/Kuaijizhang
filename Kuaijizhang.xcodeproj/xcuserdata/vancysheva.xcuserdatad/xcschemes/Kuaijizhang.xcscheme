@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "710DB39B1B81DFF6003E74FA"
-               BuildableName = "KuaijizhangTests.xctest"
-               BlueprintName = "KuaijizhangTests"
+               BlueprintIdentifier = "710DB3A61B81DFF6003E74FA"
+               BuildableName = "KuaijizhangUITests.xctest"
+               BlueprintName = "KuaijizhangUITests"
                ReferencedContainer = "container:Kuaijizhang.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "710DB3A61B81DFF6003E74FA"
-               BuildableName = "KuaijizhangUITests.xctest"
-               BlueprintName = "KuaijizhangUITests"
+               BlueprintIdentifier = "710DB39B1B81DFF6003E74FA"
+               BuildableName = "KuaijizhangTests.xctest"
+               BlueprintName = "KuaijizhangTests"
                ReferencedContainer = "container:Kuaijizhang.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -90,8 +90,7 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "710DB3871B81DFF6003E74FA"
@@ -99,7 +98,7 @@
             BlueprintName = "Kuaijizhang"
             ReferencedContainer = "container:Kuaijizhang.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

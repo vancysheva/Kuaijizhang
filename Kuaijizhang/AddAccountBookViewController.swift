@@ -10,26 +10,35 @@ import UIKit
 
 class AddAccountBookViewController: UIViewController {
     
-    //MARK: - IBOutlet and IBAction
-
+    //MARK: - Properties
+    
+    let covers = ["cover1", "cover2", "cover3", "cover4", "cover5", "cover6"]
+    let colorForSelectedItem = UIColor(red: 255/255, green: 254/255, blue: 206/255, alpha: 1.0)
+    let agent = TextFieldAgent()
+    var coverImageName: String?
+    
     @IBOutlet weak var nameTextField: UITextField!
-    
     @IBOutlet weak var coverImageView: UIImageView!
-    
     @IBOutlet weak var coverImagesCollectionView: UICollectionView!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    @IBOutlet weak var saveButton: UIBarButtonItem! {
-        didSet {
-            saveButton.enabled = false
-        }
-    }
+    
     
     //MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldChange:", name: UITextFieldTextDidChangeNotification, object: nil)
+        nameTextField.delegate = agent
+        agent.addTextFieldTextDidChangeNotification { [unowned self] (notification) -> Void in
+            self.saveButton.enabled = self.nameTextField.text?.characters.count > 0
+        }
+        
+        coverImagesCollectionView.delegate = self
+        coverImagesCollectionView.dataSource = self
+        coverImagesCollectionView.backgroundColor = UIColor.whiteColor()
+        
+        saveButton.enabled = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -40,13 +49,73 @@ class AddAccountBookViewController: UIViewController {
         }
     }
     
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextFieldTextDidChangeNotification, object: nil)
+    
+    
+    //MARK: - Methods
+    
+    func setCurrentCoverChecked(index: Int, cell: UICollectionViewCell) {
+        coverImageView.image = UIImage(named: covers[index])
+        coverImageName = covers[index]
+        
+        let checkImage = UIImage(named: "check")
+        let checkImageView = UIImageView(image: checkImage)
+        cell.addSubview(checkImageView)
+        checkImageView.frame = CGRect(x: cell.frame.size.width-20, y: cell.frame.size.height-20, width: 20, height: 20)
+        checkImageView.contentMode = .ScaleAspectFit
+    }
+}
+
+//MARK: - DataSource and Delegate
+
+extension AddAccountBookViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let width = (coverImagesCollectionView.frame.size.width) / 3
+        let height = width / 0.8
+
+        return CGSize(width: width, height: height)
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
     }
     
-    //MARK: - Internal method
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
     
-    func textFieldChange(notification: NSNotificationCenter) {
-        saveButton.enabled = nameTextField.text?.characters.count > 0
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return covers.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let cell = coverImagesCollectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
+        let imageView = cell.viewWithTag(1) as! UIImageView
+        imageView.image = UIImage(named: covers[indexPath.row])
+        
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        for index in 0..<covers.count {
+            if let cell = coverImagesCollectionView.cellForItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) where cell.backgroundColor == colorForSelectedItem {
+                cell.backgroundColor = UIColor.whiteColor()
+                cell.subviews[1].removeFromSuperview()
+            }
+        }
+        let cell = coverImagesCollectionView.cellForItemAtIndexPath(indexPath)
+        cell?.backgroundColor = colorForSelectedItem
+        setCurrentCoverChecked(indexPath.row, cell: cell!)
+    }
+    
+    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        
+        if indexPath.row == 0 {
+            cell.backgroundColor = colorForSelectedItem
+            setCurrentCoverChecked(indexPath.row, cell: cell)
+            
+        }
     }
 }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F0FF4807D3E5507AB92CDCB /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90C5E098CEB512BE7A2D8640 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		5F0FF4807D3E5507AB92CDCB /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90C5E098CEB512BE7A2D8640 /* Pods.framework */; };
 		710DB38C1B81DFF6003E74FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710DB38B1B81DFF6003E74FA /* AppDelegate.swift */; };
 		710DB38E1B81DFF6003E74FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710DB38D1B81DFF6003E74FA /* ViewController.swift */; };
 		710DB3911B81DFF6003E74FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 710DB38F1B81DFF6003E74FA /* Main.storyboard */; };
@@ -26,7 +26,10 @@
 		71341E4D1BDA1B6B004C0CAB /* BillStreamViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71341E4C1BDA1B6B004C0CAB /* BillStreamViewCell.swift */; };
 		71341E511BDA2F0B004C0CAB /* BillStreamTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71341E501BDA2F0B004C0CAB /* BillStreamTableViewController.swift */; };
 		714019061B8327AC00C97048 /* AccountBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714019051B8327AC00C97048 /* AccountBookViewController.swift */; };
-		7143EE451BD76C7E006F943A /* AccountSampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7143EE441BD76C7E006F943A /* AccountSampleViewController.swift */; };
+		714935261BE34FF2006B6F12 /* CatlogManagePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714935251BE34FF2006B6F12 /* CatlogManagePageViewController.swift */; };
+		715A0B6D1BEF29480069C012 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A0B6C1BEF29480069C012 /* User.swift */; };
+		715A0B6F1BF0ECDE0069C012 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715A0B6E1BF0ECDE0069C012 /* System.swift */; };
+		715A0B731BF1C8FC0069C012 /* ConsumeptionType.plist in Resources */ = {isa = PBXBuildFile; fileRef = 715A0B721BF1C8FC0069C012 /* ConsumeptionType.plist */; };
 		715B107C1BD7784A0037BD21 /* AccountBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B107B1BD7784A0037BD21 /* AccountBookViewModel.swift */; };
 		715B10821BD779CA0037BD21 /* Statisticable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B10811BD779CA0037BD21 /* Statisticable.swift */; };
 		715B10841BD783620037BD21 /* AccountBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B10831BD783620037BD21 /* AccountBook.swift */; };
@@ -34,7 +37,6 @@
 		715B10881BD78A970037BD21 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B10871BD78A970037BD21 /* Account.swift */; };
 		715B108A1BD78C410037BD21 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B10891BD78C410037BD21 /* Budget.swift */; };
 		715B108C1BD78D340037BD21 /* ConsumeptionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B108B1BD78D340037BD21 /* ConsumeptionType.swift */; };
-		715B108E1BD78DD00037BD21 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B108D1BD78DD00037BD21 /* Chart.swift */; };
 		715B10901BD78E710037BD21 /* Instalment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B108F1BD78E710037BD21 /* Instalment.swift */; };
 		715B10921BD78F780037BD21 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B10911BD78F780037BD21 /* Subject.swift */; };
 		715B10941BD78FA20037BD21 /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B10931BD78FA20037BD21 /* Statement.swift */; };
@@ -43,13 +45,19 @@
 		7160EA031BD62A3400936FD2 /* BillType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7160EA021BD62A3400936FD2 /* BillType.swift */; };
 		7160EA071BD62A8D00936FD2 /* ConsumeTypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7160EA061BD62A8D00936FD2 /* ConsumeTypeData.swift */; };
 		7160EA091BD6311D00936FD2 /* IncomeConsumeTypeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7160EA081BD6311D00936FD2 /* IncomeConsumeTypeList.plist */; };
+		7173FD9E1BF1E15C00ECC5C6 /* Subject.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7173FD9D1BF1E15C00ECC5C6 /* Subject.plist */; };
+		7173FDA01BF1E82E00ECC5C6 /* DefaultAccountBook.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7173FD9F1BF1E82E00ECC5C6 /* DefaultAccountBook.plist */; };
+		7173FDA51BF23E5000ECC5C6 /* AccountBookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7173FDA41BF23E5000ECC5C6 /* AccountBookModel.swift */; };
+		7173FDA81BF3288C00ECC5C6 /* TextFieldAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7173FDA71BF3288C00ECC5C6 /* TextFieldAgent.swift */; };
+		7173FDB11BF3A09F00ECC5C6 /* Realm+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7173FDB01BF3A09F00ECC5C6 /* Realm+Extension.swift */; };
+		7173FDB31BF3B5B800ECC5C6 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7173FDB21BF3B5B800ECC5C6 /* CALayer+Extension.swift */; };
 		7179DA5B1B84E7E800A4D880 /* InfoPanelOfPortalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179DA5A1B84E7E800A4D880 /* InfoPanelOfPortalView.swift */; };
 		7179DA6F1B85D05E00A4D880 /* ColumnChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179DA6E1B85D05E00A4D880 /* ColumnChart.swift */; };
 		7179DA711B85E67800A4D880 /* ColorBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179DA701B85E67800A4D880 /* ColorBox.swift */; };
 		7196DB1A1B8339660029A2A3 /* StatementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DB191B8339660029A2A3 /* StatementViewController.swift */; };
 		7196DB1C1B8339800029A2A3 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DB1B1B8339800029A2A3 /* MoreViewController.swift */; };
 		71AC48451BD21D050008B4F8 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48441BD21D050008B4F8 /* PreviewViewController.swift */; };
-		71AC48471BD242FB0008B4F8 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48461BD242FB0008B4F8 /* Extension.swift */; };
+		71AC48471BD242FB0008B4F8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48461BD242FB0008B4F8 /* String+Extension.swift */; };
 		71AC484A1BD279800008B4F8 /* ConsumeTypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48491BD279800008B4F8 /* ConsumeTypeListViewController.swift */; };
 		71AC484C1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC484B1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift */; };
 		71BC84761BDF363A00C6F92A /* StatmentAnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC84751BDF363A00C6F92A /* StatmentAnalysisViewController.swift */; };
@@ -57,6 +65,7 @@
 		71BC847D1BDFADE500C6F92A /* FWChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC847C1BDFADE500C6F92A /* FWChartController.swift */; };
 		71BC847F1BE1CAD100C6F92A /* StatementViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC847E1BE1CAD100C6F92A /* StatementViewCell.swift */; };
 		71D1C36E1BD9D3780055C36C /* BillStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D1C36D1BD9D3780055C36C /* BillStreamViewModel.swift */; };
+		71D720051BE730C800C586BF /* BudgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D720041BE730C800C586BF /* BudgetTableViewCell.swift */; };
 		71F24A961BDB7802002177C5 /* BillStreamHeaderWithIncome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */; };
 		71F24A9A1BDB782B002177C5 /* BillStreamHeaderWithExpense.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F24A991BDB782B002177C5 /* BillStreamHeaderWithExpense.xib */; };
 		71FB01C91B934A4C00575D5C /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FB01C81B934A4C00575D5C /* PickerViewController.swift */; };
@@ -77,20 +86,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 710DB3871B81DFF6003E74FA;
 			remoteInfo = Kuaijizhang;
-		};
-		71326C8C1BCEAB1500E84E54 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 71326C871BCEAB1500E84E54 /* FDStackViewDemo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 48A129841B9BE5E500EF9265;
-			remoteInfo = FDStackViewDemo;
-		};
-		71326C8E1BCEAB1500E84E54 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 71326C871BCEAB1500E84E54 /* FDStackViewDemo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 484BAAF11BC66FC100D86EBB;
-			remoteInfo = FDStackViewPatch;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -114,16 +109,17 @@
 		711176841B93526300170668 /* DateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		711C67151B94894800219806 /* LabelTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTableViewController.swift; sourceTree = "<group>"; };
 		711C67171B94896F00219806 /* AddLabelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLabelViewController.swift; sourceTree = "<group>"; };
-		712816461B91D49600539691 /* swift-objc-bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "swift-objc-bridging-header.h"; sourceTree = "<group>"; };
 		712816471B92DE8200539691 /* NumberPadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberPadViewController.swift; sourceTree = "<group>"; };
 		7130EB811B95E5C000A57A5F /* AddBillComponentsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBillComponentsPageViewController.swift; sourceTree = "<group>"; };
-		71326C871BCEAB1500E84E54 /* FDStackViewDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FDStackViewDemo.xcodeproj; path = ../FDStackView/FDStackViewDemo.xcodeproj; sourceTree = "<group>"; };
 		71341E471BDA05C1004C0CAB /* BillStreamHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillStreamHeaderView.xib; sourceTree = "<group>"; };
 		71341E491BDA1662004C0CAB /* BillStreamHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamHeaderView.swift; sourceTree = "<group>"; };
 		71341E4C1BDA1B6B004C0CAB /* BillStreamViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamViewCell.swift; sourceTree = "<group>"; };
 		71341E501BDA2F0B004C0CAB /* BillStreamTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamTableViewController.swift; sourceTree = "<group>"; };
 		714019051B8327AC00C97048 /* AccountBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBookViewController.swift; sourceTree = "<group>"; };
-		7143EE441BD76C7E006F943A /* AccountSampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSampleViewController.swift; sourceTree = "<group>"; };
+		714935251BE34FF2006B6F12 /* CatlogManagePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatlogManagePageViewController.swift; sourceTree = "<group>"; };
+		715A0B6C1BEF29480069C012 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		715A0B6E1BF0ECDE0069C012 /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
+		715A0B721BF1C8FC0069C012 /* ConsumeptionType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ConsumeptionType.plist; sourceTree = "<group>"; };
 		715B107B1BD7784A0037BD21 /* AccountBookViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBookViewModel.swift; sourceTree = "<group>"; };
 		715B10811BD779CA0037BD21 /* Statisticable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statisticable.swift; sourceTree = "<group>"; };
 		715B10831BD783620037BD21 /* AccountBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBook.swift; sourceTree = "<group>"; };
@@ -131,7 +127,6 @@
 		715B10871BD78A970037BD21 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		715B10891BD78C410037BD21 /* Budget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
 		715B108B1BD78D340037BD21 /* ConsumeptionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumeptionType.swift; sourceTree = "<group>"; };
-		715B108D1BD78DD00037BD21 /* Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		715B108F1BD78E710037BD21 /* Instalment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instalment.swift; sourceTree = "<group>"; };
 		715B10911BD78F780037BD21 /* Subject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
 		715B10931BD78FA20037BD21 /* Statement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statement.swift; sourceTree = "<group>"; };
@@ -140,20 +135,28 @@
 		7160EA021BD62A3400936FD2 /* BillType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillType.swift; sourceTree = "<group>"; };
 		7160EA061BD62A8D00936FD2 /* ConsumeTypeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumeTypeData.swift; sourceTree = "<group>"; };
 		7160EA081BD6311D00936FD2 /* IncomeConsumeTypeList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IncomeConsumeTypeList.plist; sourceTree = "<group>"; };
+		7173FD9D1BF1E15C00ECC5C6 /* Subject.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Subject.plist; sourceTree = "<group>"; };
+		7173FD9F1BF1E82E00ECC5C6 /* DefaultAccountBook.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultAccountBook.plist; sourceTree = "<group>"; };
+		7173FDA41BF23E5000ECC5C6 /* AccountBookModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBookModel.swift; sourceTree = "<group>"; };
+		7173FDA71BF3288C00ECC5C6 /* TextFieldAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldAgent.swift; sourceTree = "<group>"; };
+		7173FDB01BF3A09F00ECC5C6 /* Realm+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Realm+Extension.swift"; sourceTree = "<group>"; };
+		7173FDB21BF3B5B800ECC5C6 /* CALayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		7179DA5A1B84E7E800A4D880 /* InfoPanelOfPortalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPanelOfPortalView.swift; sourceTree = "<group>"; };
 		7179DA6E1B85D05E00A4D880 /* ColumnChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnChart.swift; sourceTree = "<group>"; };
 		7179DA701B85E67800A4D880 /* ColorBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorBox.swift; sourceTree = "<group>"; };
 		7196DB191B8339660029A2A3 /* StatementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatementViewController.swift; sourceTree = "<group>"; };
 		7196DB1B1B8339800029A2A3 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		71AC48441BD21D050008B4F8 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
-		71AC48461BD242FB0008B4F8 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		71AC48461BD242FB0008B4F8 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		71AC48491BD279800008B4F8 /* ConsumeTypeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumeTypeListViewController.swift; sourceTree = "<group>"; };
 		71AC484B1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddConsumeTypeViewController.swift; sourceTree = "<group>"; };
+		71B1AC001BE50513003CA9A8 /* swift-objc-bridge-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "swift-objc-bridge-header.h"; sourceTree = "<group>"; };
 		71BC84751BDF363A00C6F92A /* StatmentAnalysisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatmentAnalysisViewController.swift; sourceTree = "<group>"; };
 		71BC84791BDF365E00C6F92A /* StatementSearchConditionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatementSearchConditionViewController.swift; sourceTree = "<group>"; };
 		71BC847C1BDFADE500C6F92A /* FWChartController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWChartController.swift; sourceTree = "<group>"; };
 		71BC847E1BE1CAD100C6F92A /* StatementViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatementViewCell.swift; sourceTree = "<group>"; };
 		71D1C36D1BD9D3780055C36C /* BillStreamViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamViewModel.swift; sourceTree = "<group>"; };
+		71D720041BE730C800C586BF /* BudgetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetTableViewCell.swift; sourceTree = "<group>"; };
 		71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillStreamHeaderWithIncome.xib; sourceTree = "<group>"; };
 		71F24A991BDB782B002177C5 /* BillStreamHeaderWithExpense.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillStreamHeaderWithExpense.xib; sourceTree = "<group>"; };
 		71FB01C81B934A4C00575D5C /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
@@ -222,8 +225,10 @@
 			isa = PBXGroup;
 			children = (
 				710DB38B1B81DFF6003E74FA /* AppDelegate.swift */,
+				715A0B6E1BF0ECDE0069C012 /* System.swift */,
 				710DB38F1B81DFF6003E74FA /* Main.storyboard */,
 				710DB3941B81DFF6003E74FA /* LaunchScreen.storyboard */,
+				7173FDAE1BF373A200ECC5C6 /* Agent */,
 				715B10801BD779AB0037BD21 /* Model */,
 				71AC48481BD243070008B4F8 /* Extension */,
 				715A53621B89AF06009E7DF2 /* Conmmon */,
@@ -234,9 +239,12 @@
 				7179DA601B857B8000A4D880 /* Portal */,
 				710DB3921B81DFF6003E74FA /* Assets.xcassets */,
 				71FB01CA1B934AB100575D5C /* ExpenseConsumeTypeList.plist */,
+				71B1AC001BE50513003CA9A8 /* swift-objc-bridge-header.h */,
 				710DB3971B81DFF6003E74FA /* Info.plist */,
-				712816461B91D49600539691 /* swift-objc-bridging-header.h */,
 				7160EA081BD6311D00936FD2 /* IncomeConsumeTypeList.plist */,
+				715A0B721BF1C8FC0069C012 /* ConsumeptionType.plist */,
+				7173FD9D1BF1E15C00ECC5C6 /* Subject.plist */,
+				7173FD9F1BF1E82E00ECC5C6 /* DefaultAccountBook.plist */,
 			);
 			path = Kuaijizhang;
 			sourceTree = "<group>";
@@ -257,15 +265,6 @@
 				710DB3AD1B81DFF6003E74FA /* Info.plist */,
 			);
 			path = KuaijizhangUITests;
-			sourceTree = "<group>";
-		};
-		71326C881BCEAB1500E84E54 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				71326C8D1BCEAB1500E84E54 /* FDStackViewDemo.app */,
-				71326C8F1BCEAB1500E84E54 /* libFDStackViewPatch.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		71341E4B1BDA1669004C0CAB /* View */ = {
@@ -299,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				7196DB1B1B8339800029A2A3 /* MoreViewController.swift */,
+				714935251BE34FF2006B6F12 /* CatlogManagePageViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -307,7 +307,6 @@
 			isa = PBXGroup;
 			children = (
 				714019051B8327AC00C97048 /* AccountBookViewController.swift */,
-				7143EE441BD76C7E006F943A /* AccountSampleViewController.swift */,
 				715B10951BD7F3F20037BD21 /* AddAccountBookViewController.swift */,
 			);
 			name = Controller;
@@ -336,17 +335,33 @@
 			isa = PBXGroup;
 			children = (
 				715B10811BD779CA0037BD21 /* Statisticable.swift */,
+				715A0B6C1BEF29480069C012 /* User.swift */,
 				715B10831BD783620037BD21 /* AccountBook.swift */,
 				715B10851BD7854E0037BD21 /* Bill.swift */,
 				715B10871BD78A970037BD21 /* Account.swift */,
 				715B10891BD78C410037BD21 /* Budget.swift */,
 				715B108B1BD78D340037BD21 /* ConsumeptionType.swift */,
-				715B108D1BD78DD00037BD21 /* Chart.swift */,
 				715B108F1BD78E710037BD21 /* Instalment.swift */,
 				715B10911BD78F780037BD21 /* Subject.swift */,
 				715B10931BD78FA20037BD21 /* Statement.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		7173FDA61BF23EB500ECC5C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7173FDA41BF23E5000ECC5C6 /* AccountBookModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7173FDAE1BF373A200ECC5C6 /* Agent */ = {
+			isa = PBXGroup;
+			children = (
+				7173FDA71BF3288C00ECC5C6 /* TextFieldAgent.swift */,
+			);
+			name = Agent;
 			sourceTree = "<group>";
 		};
 		7179DA601B857B8000A4D880 /* Portal */ = {
@@ -399,6 +414,7 @@
 			children = (
 				715A53611B89AEF8009E7DF2 /* Controller */,
 				715B107F1BD778510037BD21 /* ViewModel */,
+				7173FDA61BF23EB500ECC5C6 /* Model */,
 			);
 			name = AccountBook;
 			sourceTree = "<group>";
@@ -427,6 +443,7 @@
 			isa = PBXGroup;
 			children = (
 				715A53601B89AE93009E7DF2 /* Controller */,
+				71C2C78F1BE73E3D00673666 /* View */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -434,7 +451,9 @@
 		71AC48481BD243070008B4F8 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				71AC48461BD242FB0008B4F8 /* Extension.swift */,
+				7173FDB01BF3A09F00ECC5C6 /* Realm+Extension.swift */,
+				71AC48461BD242FB0008B4F8 /* String+Extension.swift */,
+				7173FDB21BF3B5B800ECC5C6 /* CALayer+Extension.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -443,6 +462,14 @@
 			isa = PBXGroup;
 			children = (
 				71BC847E1BE1CAD100C6F92A /* StatementViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		71C2C78F1BE73E3D00673666 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				71D720041BE730C800C586BF /* BudgetTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -468,7 +495,6 @@
 		B8EA83A42DE02B9F281AB1A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				71326C871BCEAB1500E84E54 /* FDStackViewDemo.xcodeproj */,
 				90C5E098CEB512BE7A2D8640 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -571,12 +597,6 @@
 			mainGroup = 710DB37F1B81DFF6003E74FA;
 			productRefGroup = 710DB3891B81DFF6003E74FA /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 71326C881BCEAB1500E84E54 /* Products */;
-					ProjectRef = 71326C871BCEAB1500E84E54 /* FDStackViewDemo.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				710DB3871B81DFF6003E74FA /* Kuaijizhang */,
@@ -585,23 +605,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		71326C8D1BCEAB1500E84E54 /* FDStackViewDemo.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = FDStackViewDemo.app;
-			remoteRef = 71326C8C1BCEAB1500E84E54 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		71326C8F1BCEAB1500E84E54 /* libFDStackViewPatch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libFDStackViewPatch.a;
-			remoteRef = 71326C8E1BCEAB1500E84E54 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		710DB3861B81DFF6003E74FA /* Resources */ = {
@@ -616,6 +619,9 @@
 				71F24A961BDB7802002177C5 /* BillStreamHeaderWithIncome.xib in Resources */,
 				71F24A9A1BDB782B002177C5 /* BillStreamHeaderWithExpense.xib in Resources */,
 				71FB01CB1B934AB100575D5C /* ExpenseConsumeTypeList.plist in Resources */,
+				715A0B731BF1C8FC0069C012 /* ConsumeptionType.plist in Resources */,
+				7173FDA01BF1E82E00ECC5C6 /* DefaultAccountBook.plist in Resources */,
+				7173FD9E1BF1E15C00ECC5C6 /* Subject.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,11 +695,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7160EA071BD62A8D00936FD2 /* ConsumeTypeData.swift in Sources */,
+				7173FDA81BF3288C00ECC5C6 /* TextFieldAgent.swift in Sources */,
 				7160EA031BD62A3400936FD2 /* BillType.swift in Sources */,
 				71341E4A1BDA1662004C0CAB /* BillStreamHeaderView.swift in Sources */,
 				711C67161B94894800219806 /* LabelTableViewController.swift in Sources */,
 				715B10961BD7F3F20037BD21 /* AddAccountBookViewController.swift in Sources */,
 				715DD0DF1B8F5B430004ECAB /* CameraUIButton.swift in Sources */,
+				714935261BE34FF2006B6F12 /* CatlogManagePageViewController.swift in Sources */,
 				71341E4D1BDA1B6B004C0CAB /* BillStreamViewCell.swift in Sources */,
 				7179DA711B85E67800A4D880 /* ColorBox.swift in Sources */,
 				715B10881BD78A970037BD21 /* Account.swift in Sources */,
@@ -702,17 +710,21 @@
 				7179DA6F1B85D05E00A4D880 /* ColumnChart.swift in Sources */,
 				715B10861BD7854E0037BD21 /* Bill.swift in Sources */,
 				7196DB1A1B8339660029A2A3 /* StatementViewController.swift in Sources */,
+				7173FDB11BF3A09F00ECC5C6 /* Realm+Extension.swift in Sources */,
 				715B10821BD779CA0037BD21 /* Statisticable.swift in Sources */,
 				710DB38E1B81DFF6003E74FA /* ViewController.swift in Sources */,
 				71AC484A1BD279800008B4F8 /* ConsumeTypeListViewController.swift in Sources */,
-				715B108E1BD78DD00037BD21 /* Chart.swift in Sources */,
+				715A0B6F1BF0ECDE0069C012 /* System.swift in Sources */,
 				71BC84761BDF363A00C6F92A /* StatmentAnalysisViewController.swift in Sources */,
 				71D1C36E1BD9D3780055C36C /* BillStreamViewModel.swift in Sources */,
 				715B10921BD78F780037BD21 /* Subject.swift in Sources */,
+				715A0B6D1BEF29480069C012 /* User.swift in Sources */,
+				7173FDB31BF3B5B800ECC5C6 /* CALayer+Extension.swift in Sources */,
 				71BC847A1BDF365E00C6F92A /* StatementSearchConditionViewController.swift in Sources */,
 				71BC847F1BE1CAD100C6F92A /* StatementViewCell.swift in Sources */,
-				7143EE451BD76C7E006F943A /* AccountSampleViewController.swift in Sources */,
+				7173FDA51BF23E5000ECC5C6 /* AccountBookModel.swift in Sources */,
 				71BC847D1BDFADE500C6F92A /* FWChartController.swift in Sources */,
+				71D720051BE730C800C586BF /* BudgetTableViewCell.swift in Sources */,
 				71AC48451BD21D050008B4F8 /* PreviewViewController.swift in Sources */,
 				712816481B92DE8200539691 /* NumberPadViewController.swift in Sources */,
 				71AC484C1BD2B7850008B4F8 /* AddConsumeTypeViewController.swift in Sources */,
@@ -726,7 +738,7 @@
 				71341E511BDA2F0B004C0CAB /* BillStreamTableViewController.swift in Sources */,
 				714019061B8327AC00C97048 /* AccountBookViewController.swift in Sources */,
 				710DB38C1B81DFF6003E74FA /* AppDelegate.swift in Sources */,
-				71AC48471BD242FB0008B4F8 /* Extension.swift in Sources */,
+				71AC48471BD242FB0008B4F8 /* String+Extension.swift in Sources */,
 				7130EB821B95E5C000A57A5F /* AddBillComponentsPageViewController.swift in Sources */,
 				71FB01C91B934A4C00575D5C /* PickerViewController.swift in Sources */,
 				711C67181B94896F00219806 /* AddLabelViewController.swift in Sources */,
@@ -805,6 +817,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -825,6 +838,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "./Kuaijizhang/swift-objc-bridge-header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -850,6 +864,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -863,6 +878,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "./Kuaijizhang/swift-objc-bridge-header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -878,7 +894,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vancysheva.Kuaijizhang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/vancysheva/PROJECT/Kuaijizhang/Kuaijizhang/swift-objc-bridging-header.h";
+				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -893,7 +910,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vancysheva.Kuaijizhang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/vancysheva/PROJECT/Kuaijizhang/Kuaijizhang/swift-objc-bridging-header.h";
+				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

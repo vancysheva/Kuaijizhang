@@ -5,40 +5,47 @@
 //  Created by 范伟 on 15/10/21.
 //  Copyright © 2015年 范伟. All rights reserved.
 //
-
 import Foundation
+import RealmSwift
 
-protocol AccountBook: Statisticable {
+class AccountBook: Object {
     
     /**
-     * 所含的账单
-     **/
-    var bills: [Bill] { get set }
-    
-    /**
-     * 账本类型
-     **/
-    var bookType: (id: Int, name: String) { get set }
-    
-    /**
-     * 创建日期
-     **/
-    var buildDate: NSDate { get }
-    
+    账本名称
+    */
+    dynamic var title = ""
     
     /**
      * 封面图片
      **/
-    var cover: UIImage { get set }
+    dynamic var coverImageName = ""
     
     /**
-     * 是否同步
-     **/
-    var isSync: Bool { get set }
+    是否是同步账本，默认是本地账本
+    */
+    dynamic var isSync = false
     
     /**
      * 是否为当前正在使用的账本
      **/
-    var isUsing: Bool { get set }
+    dynamic var isUsing = false
+    
+    /**
+     * 创建日期
+     **/
+    dynamic var buildDate: NSDate?
+    
+    /**
+     * 所含的账单
+     **/
+    let bills = List<Bill>()
+    
+    let accounts = List<Account>()
+    
+    let consumeptionTypes = List<ConsumeptionType>()
+    
+    let subjects = List<Subject>()
+    
+    let instalments = List<Instalment>()
 }
 

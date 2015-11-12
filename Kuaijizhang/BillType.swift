@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum BillType: Int {
     case Expense, Income

@@ -103,6 +103,7 @@ class FWChartController: ChartViewDelegate {
             constraints.append(NSLayoutConstraint(item: chart, attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 0))
             
             view.addConstraints(constraints)
+            
         }
     }
     

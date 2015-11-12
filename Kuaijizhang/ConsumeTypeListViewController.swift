@@ -46,10 +46,13 @@ class ConsumeTypeListViewController: UIViewController {
         
         consumeTypeTableView.delegate = self
         consumeTypeTableView.dataSource = self
+        consumeTypeTableView.tableFooterView = UIView()
         navigationController?.delegate = self
         data = readDataWith(parentTypeID: parentTypeID)
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: parentTypeID == nil ? "一级类别" : "二级类别", style: .Plain, target: nil, action: nil)
+        
+        cleanSpaceOnTableViewTop()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -115,6 +118,12 @@ class ConsumeTypeListViewController: UIViewController {
                  self.addButton.hidden = false
                 }, completion: nil)
         }
+    }
+    
+    func cleanSpaceOnTableViewTop() {
+        var zeroFrame = CGRectZero
+        zeroFrame.size.height = 1
+        consumeTypeTableView.tableHeaderView = UIView(frame: zeroFrame) 
     }
     
     func returnForEditingState(sender: AnyObject) {
@@ -188,7 +197,7 @@ extension ConsumeTypeListViewController: UITableViewDelegate, UITableViewDataSou
             if let editVC = storyboard?.instantiateViewControllerWithIdentifier("AddConsumeTypeViewController") as? AddConsumeTypeViewController, d = data {
                 editVC.name = d[indexPath.row]
                 
-                
+
                 editViewController = editVC
                 let naviVC = UINavigationController(rootViewController: editVC)
                 editVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<", style: .Plain, target: self, action: "returnForEditingState:")

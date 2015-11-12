@@ -10,46 +10,45 @@ import UIKit
 
 class AccountBookViewController: UIViewController {
     
-    var accountBookViewModel = AccountBookViewModel()
+    // MARK: - Properties
     
-    var currentAccountBook: String?
+    let accountBookViewModel = AccountBookViewModel()
     
-    // MARK: - IBOutlet and IBAction
+    @IBOutlet weak var accountTableView: UITableView!
+    
+    
+    // MARK: - Life cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        accountTableView.delegate = self
+        accountTableView.dataSource = self
+        accountTableView.tableFooterView = UIView()
+        accountTableView.tableHeaderView = UIView()
+
+    }
+    
+    
+    
+    // MARK: - Methods
 
     @IBAction func tapDone(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    
     @IBAction func unwind(segue: UIStoryboardSegue) {
         
+        if let sourceVC = segue.sourceViewController as? AddAccountBookViewController, coverImageName = sourceVC.coverImageName, title = sourceVC.nameTextField.text {
+            accountBookViewModel.saveAccountBookWithTitle(title, coverImageName: coverImageName)
+        }
     }
-    
-    @IBOutlet weak var accountTableView: UITableView!
-        
-    // MARK: - Life cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        accountTableView.delegate = self
-        accountTableView.dataSource = self
-        accountTableView.tableFooterView = UIView()
-        accountTableView.tableHeaderView = UIView()
-        
-        setAccountBookIsUsing()
-    }
-
-}
-
-// MARK: - Internal method
-
-extension AccountBookViewController {
     
     func confirmDelete(indexPath indexPath: NSIndexPath) {
         
         let alert = UIAlertController(title: "提示", message: "确定要删除该账本吗？", preferredStyle: .Alert)
         let sure = UIAlertAction(title: "确定", style: .Default) { action in
-            self.accountBookViewModel.data.removeAtIndex(indexPath.row)
+            //self.accountBookViewModel.delete(indexPath)
             self.accountTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
         let cancel = UIAlertAction(title: "取消", style: .Cancel) { action in
@@ -60,13 +59,7 @@ extension AccountBookViewController {
         
         presentViewController(alert, animated: true, completion: nil)
     }
-    
-    func setAccountBookIsUsing() {
-        if let cell = accountTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) {
-            cell.accessoryType = .Checkmark
-            (cell.viewWithTag(3) as! UILabel).hidden = false
-        }
-    }
+
 }
 
 // MARK: - Delegate and Datasource
@@ -76,16 +69,32 @@ extension AccountBookViewController: UITableViewDelegate, UITableViewDataSource 
         return true
     }
     
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .Delete
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return accountBookViewModel.getCount()
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = accountTableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
         
         let imageView = cell.viewWithTag(1) as! UIImageView
-        imageView.image = UIImage(named: "")
+        let titleLabel = cell.viewWithTag(2) as! UILabel
+        let isUsingLabel = cell.viewWithTag(3) as! UILabel
         
-        let label = cell.viewWithTag(2) as! UILabel
-        label.text = accountBookViewModel.data[indexPath.row]
-        
+        var name: String?
+        var b: Bool?
+        (titleLabel.text, b, name) = accountBookViewModel.objectAt(indexPath)
+        imageView.image = UIImage(named: name ?? "")
+        isUsingLabel.hidden = b == nil ? false : !(b!)
+        cell.accessoryType = isUsingLabel.hidden == false ? .Checkmark : .None
         return cell
     }
     
@@ -119,21 +128,8 @@ extension AccountBookViewController: UITableViewDelegate, UITableViewDataSource 
             (cell.viewWithTag(3) as! UILabel).hidden = false
             accountTableView.deselectRowAtIndexPath(indexPath, animated: true)
             
-            currentAccountBook = accountBookViewModel.data[indexPath.row]
+            accountBookViewModel.setCurrentUsingAt(indexPath)
         }
     }
-    
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return .Delete
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accountBookViewModel.data.count
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
 }
 
