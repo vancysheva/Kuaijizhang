@@ -35,15 +35,18 @@ class AccountBookViewModel {
     }
     
     func saveAccountBookWithTitle(title: String, coverImageName: String) {
-        accountBookModel.addAccountBookWithTitle(title, coverImageName: coverImageName)
+        
+        let str = title.trim()
+        accountBookModel.addAccountBookWithTitle(str, coverImageName: coverImageName)
     }
 }
 
 // MARK:; - Obserable
 
-extension AccountBookViewModel: ViewModelObservable {
+extension AccountBookViewModel: ViewModelNotifiable {
     
-    func addObserver(notificationHandler: ViewModelNotificationBlock) {
+    func addNotification(notificationHandler: ViewModelNotificationHandler) {
         accountBookModel.notificationHandler = notificationHandler
+
     }
 }

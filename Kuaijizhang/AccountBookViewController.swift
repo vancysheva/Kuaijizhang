@@ -26,7 +26,8 @@ class AccountBookViewController: UIViewController {
         accountTableView.dataSource = self
         accountTableView.tableFooterView = UIView()
         
-        accountBookViewModel.addObserver { [unowned self] (dataChangedType, indexPath) -> Void in
+        accountBookViewModel.addNotification { [unowned self] (transactionState: TransactionState, dataChangedType: ModelDataChangedType, indexPath: NSIndexPath) -> Void in
+            
             if dataChangedType == .Delete {
                 self.accountTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             } else if dataChangedType == .Insert {
@@ -52,35 +53,29 @@ class AccountBookViewController: UIViewController {
     }
     
     func confirmDelete(indexPath indexPath: NSIndexPath) {
-        
-        let alert = UIAlertController(title: "提示", message: "确定要删除该账本吗？", preferredStyle: .Alert)
-        let sure = UIAlertAction(title: "确定", style: .Default) {  [unowned self] action in
-            if let isUsing = self.accountBookViewModel.objectAt(indexPath).1 where isUsing == true {
-                let messageAlert = UIAlertController(title: "", message: "删除失败，不能删除正在使用的账本。", preferredStyle: .Alert)
-                messageAlert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
-                self.presentViewController(messageAlert, animated: true, completion: nil)
-            } else {
-                self.accountBookViewModel.delete(indexPath)
-            }
-        }
-        let cancel = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-        alert.addAction(sure)
-        alert.addAction(cancel)
+    
+        let alert = UIAlertHelpler.getAlertController("提示", message: "确定要删除该账本吗？", prefferredStyle: .Alert, actions: ("确定", .Default, {[unowned self] action in
+            
+                if let isUsing = self.accountBookViewModel.objectAt(indexPath).1 where isUsing == true {
+                    let messageAlert = UIAlertHelpler.getAlertController("", message: "删除失败，不能删除正在使用的账本。", prefferredStyle: .Alert, actions: ("取消", .Cancel, nil))
+                    
+                    self.presentViewController(messageAlert, animated: true, completion: nil)
+                } else {
+                    self.accountBookViewModel.delete(indexPath)
+                }
+            
+            }), ("取消", .Cancel, nil))
         
         presentViewController(alert, animated: true, completion: nil)
     }
 
 }
 
-// MARK: - Delegate and Datasource
-extension AccountBookViewController: UITableViewDelegate, UITableViewDataSource {
+// MARK: - UITableViewDataSource
+extension AccountBookViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
-    }
-    
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return .Delete
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -117,6 +112,15 @@ extension AccountBookViewController: UITableViewDelegate, UITableViewDataSource 
             break
         }
     }
+}
+
+// MARK: - UITableViewDelegate
+
+extension AccountBookViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .Delete
+    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -124,7 +128,7 @@ extension AccountBookViewController: UITableViewDelegate, UITableViewDataSource 
             accountTableView.deselectRowAtIndexPath(indexPath, animated: true)
             return
         }
-
+        
         let count = accountTableView.numberOfRowsInSection(0)
         for row in 0..<count {
             if let cell = accountTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) where cell.accessoryType == .Checkmark {

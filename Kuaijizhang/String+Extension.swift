@@ -1,5 +1,5 @@
 //
-//  Extension.swift
+//  String+Extension.swift
 //  Kuaijizhang
 //
 //  Created by 范伟 on 15/10/17.

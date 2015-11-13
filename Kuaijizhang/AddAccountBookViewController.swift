@@ -31,14 +31,14 @@ class AddAccountBookViewController: UIViewController {
         
         nameTextField.delegate = agent
         agent.addTextFieldTextDidChangeNotification { [unowned self] (notification) -> Void in
-            self.saveButton.enabled = self.nameTextField.text?.characters.count > 0
+            self.saveButton.enabled = self.nameTextField.text?.trim().characters.count > 0
         }
         
         coverImagesCollectionView.delegate = self
         coverImagesCollectionView.dataSource = self
-        coverImagesCollectionView.backgroundColor = UIColor.whiteColor()
         
         saveButton.enabled = false
+        coverImagesCollectionView.gestureRecognizers?[0].delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -65,23 +65,13 @@ class AddAccountBookViewController: UIViewController {
     }
 }
 
-//MARK: - DataSource and Delegate
 
-extension AddAccountBookViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+//MARK: - UICollectionViewDataSource
+
+extension AddAccountBookViewController: UICollectionViewDataSource  {
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let width = (coverImagesCollectionView.frame.size.width) / 3
-        let height = width / 0.8
-
-        return CGSize(width: width, height: height)
-    }
-
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 0
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -96,6 +86,23 @@ extension AddAccountBookViewController: UICollectionViewDataSource, UICollection
         
         return cell
     }
+    
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        let footer = coverImagesCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: "footer", forIndexPath: indexPath)
+        //// 设置footer的新高度，使footer覆盖剩余的部分，并画两条线
+        let screenHeight = UIScreen.mainScreen().bounds.height
+        let newFooterHeight = screenHeight - footer.frame.origin.y
+        footer.frame = CGRect(x: 0, y: footer.frame.origin.y+1, width: footer.frame.size.width, height: newFooterHeight)
+        return footer
+    }
+
+}
+
+
+// MARK: - UICollectionViewDelegate
+
+extension AddAccountBookViewController: UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
@@ -117,5 +124,36 @@ extension AddAccountBookViewController: UICollectionViewDataSource, UICollection
             setCurrentCoverChecked(indexPath.row, cell: cell)
             
         }
+    }
+}
+
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension AddAccountBookViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let width = (coverImagesCollectionView.frame.size.width - 2) / 3
+        let height = width / 0.8
+        
+        return CGSize(width: width, height: height)
+    }
+}
+
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension AddAccountBookViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        return nameTextField.endEditing(true)
     }
 }

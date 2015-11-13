@@ -21,10 +21,10 @@ class AccountBookModel: RealmModel<AccountBook> {
     }
 
     func deleteAt(indexPath: NSIndexPath) {
-        realm?.writeTransaction { [unowned self] in
+        let state = realm.writeTransaction { [unowned self] in
             self.objectList?.removeAtIndex(indexPath.row)
         }
-        notificationHandler?(dataChangedtype: .Delete, indexPath: indexPath)
+        notificationHandler?(transactionState: state, dataChangedType: .Delete, indexPath: indexPath)
     }
 
     func objectAt(indexPath: NSIndexPath) -> AccountBook? {
@@ -33,7 +33,7 @@ class AccountBookModel: RealmModel<AccountBook> {
 
     func setCurrentUsingAt(indexPath: NSIndexPath) {
         
-        realm?.writeTransaction {
+        realm.writeTransaction {
             self.objectList?.forEach {
                 $0.isUsing = false
             }
@@ -46,13 +46,13 @@ class AccountBookModel: RealmModel<AccountBook> {
         if let defaultAccountBook = System.getDefaultAccountBook() {
             defaultAccountBook.title = title
             defaultAccountBook.coverImageName = coverImageName
-            realm?.writeTransaction {
+            let state = realm.writeTransaction {
                 self.objectList?.forEach {
                     $0.isUsing = false
                 }
                 self.objectList?.append(defaultAccountBook)
             }
-            notificationHandler?(dataChangedtype: .Insert, indexPath: NSIndexPath(forRow: (objectList?.count ?? 1)-1, inSection: 0))
+            notificationHandler?(transactionState: state, dataChangedType: .Insert, indexPath: NSIndexPath(forRow: (objectList?.count ?? 1)-1, inSection: 0))
         }
     }
 }

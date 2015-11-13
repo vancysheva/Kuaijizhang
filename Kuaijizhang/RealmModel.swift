@@ -1,5 +1,5 @@
 //
-//  BaseModel.swift
+//  RealmModel.swift
 //  Kuaijizhang
 //
 //  Created by 范伟 on 15/11/13.
@@ -11,13 +11,13 @@ import RealmSwift
 
 class RealmModel<T: Object> {
     
-    var realm: Realm?
+    let realm: Realm
     
     init() {
         self.realm = Realm.getRealmInstance()
     }
     
-    var notificationHandler: ViewModelNotificationBlock?
+    var notificationHandler: ViewModelNotificationHandler?
     var objectList: List<T>?
     var object: T?
 }
