@@ -56,6 +56,8 @@
 		7179DA711B85E67800A4D880 /* ColorBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179DA701B85E67800A4D880 /* ColorBox.swift */; };
 		7196DB1A1B8339660029A2A3 /* StatementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DB191B8339660029A2A3 /* StatementViewController.swift */; };
 		7196DB1C1B8339800029A2A3 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DB1B1B8339800029A2A3 /* MoreViewController.swift */; };
+		71A7F6DE1BF58EC4006D2868 /* ViewModelObserable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A7F6DD1BF58EC4006D2868 /* ViewModelObserable.swift */; };
+		71A7F6E01BF59ACD006D2868 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A7F6DF1BF59ACD006D2868 /* RealmModel.swift */; };
 		71AC48451BD21D050008B4F8 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48441BD21D050008B4F8 /* PreviewViewController.swift */; };
 		71AC48471BD242FB0008B4F8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48461BD242FB0008B4F8 /* String+Extension.swift */; };
 		71AC484A1BD279800008B4F8 /* ConsumeTypeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AC48491BD279800008B4F8 /* ConsumeTypeListViewController.swift */; };
@@ -146,6 +148,8 @@
 		7179DA701B85E67800A4D880 /* ColorBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorBox.swift; sourceTree = "<group>"; };
 		7196DB191B8339660029A2A3 /* StatementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatementViewController.swift; sourceTree = "<group>"; };
 		7196DB1B1B8339800029A2A3 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
+		71A7F6DD1BF58EC4006D2868 /* ViewModelObserable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelObserable.swift; sourceTree = "<group>"; };
+		71A7F6DF1BF59ACD006D2868 /* RealmModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		71AC48441BD21D050008B4F8 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		71AC48461BD242FB0008B4F8 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		71AC48491BD279800008B4F8 /* ConsumeTypeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumeTypeListViewController.swift; sourceTree = "<group>"; };
@@ -226,8 +230,10 @@
 			children = (
 				710DB38B1B81DFF6003E74FA /* AppDelegate.swift */,
 				715A0B6E1BF0ECDE0069C012 /* System.swift */,
+				71A7F6DD1BF58EC4006D2868 /* ViewModelObserable.swift */,
 				710DB38F1B81DFF6003E74FA /* Main.storyboard */,
 				710DB3941B81DFF6003E74FA /* LaunchScreen.storyboard */,
+				71A7F6E11BF59F5A006D2868 /* Realm */,
 				7173FDAE1BF373A200ECC5C6 /* Agent */,
 				715B10801BD779AB0037BD21 /* Model */,
 				71AC48481BD243070008B4F8 /* Extension */,
@@ -448,10 +454,18 @@
 			name = More;
 			sourceTree = "<group>";
 		};
+		71A7F6E11BF59F5A006D2868 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				71A7F6DF1BF59ACD006D2868 /* RealmModel.swift */,
+				7173FDB01BF3A09F00ECC5C6 /* Realm+Extension.swift */,
+			);
+			name = Realm;
+			sourceTree = "<group>";
+		};
 		71AC48481BD243070008B4F8 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				7173FDB01BF3A09F00ECC5C6 /* Realm+Extension.swift */,
 				71AC48461BD242FB0008B4F8 /* String+Extension.swift */,
 				7173FDB21BF3B5B800ECC5C6 /* CALayer+Extension.swift */,
 			);
@@ -739,7 +753,9 @@
 				714019061B8327AC00C97048 /* AccountBookViewController.swift in Sources */,
 				710DB38C1B81DFF6003E74FA /* AppDelegate.swift in Sources */,
 				71AC48471BD242FB0008B4F8 /* String+Extension.swift in Sources */,
+				71A7F6E01BF59ACD006D2868 /* RealmModel.swift in Sources */,
 				7130EB821B95E5C000A57A5F /* AddBillComponentsPageViewController.swift in Sources */,
+				71A7F6DE1BF58EC4006D2868 /* ViewModelObserable.swift in Sources */,
 				71FB01C91B934A4C00575D5C /* PickerViewController.swift in Sources */,
 				711C67181B94896F00219806 /* AddLabelViewController.swift in Sources */,
 				710DB3BC1B8247CB003E74FA /* AddBillViewController.swift in Sources */,

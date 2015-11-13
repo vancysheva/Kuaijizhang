@@ -58,4 +58,22 @@ class System {
         }
         return nil
     }
+    
+    class func baseInit() {
+    
+        let obj = NSUserDefaults.standardUserDefaults()
+        if obj.dictionaryForKey(System.Identifier.User) == nil {
+            obj.setObject(["id": "", "username": "", "password": ""], forKey: System.Identifier.User)
+            System.createDefaultRealmAndAccountBook()
+        } else {
+            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+            if !NSFileManager.defaultManager().fileExistsAtPath("\(paths[0])/default.realm") {
+                if let dic = obj.dictionaryForKey(System.Identifier.User), defaultBook = getDefaultAccountBook(), realm = Realm.getRealmInstance() {
+                    realm.writeTransaction {
+                        realm.add(User(value: [dic["id"] as! String, dic["username"] as! String, dic["password"] as! String, [defaultBook]]))
+                    }
+                }
+            }
+        }
+    }
 }

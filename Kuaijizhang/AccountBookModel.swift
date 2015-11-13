@@ -7,56 +7,52 @@
 //
 
 import Foundation
-import RealmSwift
 
-class AccountBookModel {
-    
-    private var realm: Realm?
-    private let user: User?
-    
-    init() {
-        self.realm = Realm.getRealmInstance()
-        self.user = System.getCurrentUser()
+class AccountBookModel: RealmModel<AccountBook> {
+
+    override init() {
+        super.init()
+        let user = System.getCurrentUser()
+        objectList = user?.accountBooks
     }
     
     func getCount() -> Int {
-        return user?.accountBooks.count ?? 0
+        return objectList?.count ?? 0
     }
-    
-    func deleteAt(index: Int) {
+
+    func deleteAt(indexPath: NSIndexPath) {
         realm?.writeTransaction { [unowned self] in
-            self.user?.accountBooks.removeAtIndex(index)
+            self.objectList?.removeAtIndex(indexPath.row)
         }
+        notificationHandler?(dataChangedtype: .Delete, indexPath: indexPath)
     }
-    
-    func objectAt(index: Int) -> AccountBook? {
-        return user?.accountBooks[index]
+
+    func objectAt(indexPath: NSIndexPath) -> AccountBook? {
+        return objectList?[indexPath.row]
     }
-    
-    func setCurrentUsingAt(index: Int) {
+
+    func setCurrentUsingAt(indexPath: NSIndexPath) {
         
-        if let currentUser = System.getCurrentUser() {
-            realm?.writeTransaction {
-                let books = currentUser.accountBooks
-                    books.forEach {
-                    $0.isUsing = false
-                }
-                books[index].isUsing = true
+        realm?.writeTransaction {
+            self.objectList?.forEach {
+                $0.isUsing = false
             }
+            self.objectList?[indexPath.row].isUsing = true
         }
     }
     
     func addAccountBookWithTitle(title: String, coverImageName: String) {
-        
-        if let currentUser = user, defaultAccountBook = System.getDefaultAccountBook() {
+
+        if let defaultAccountBook = System.getDefaultAccountBook() {
+            defaultAccountBook.title = title
+            defaultAccountBook.coverImageName = coverImageName
             realm?.writeTransaction {
-                currentUser.accountBooks.forEach {
+                self.objectList?.forEach {
                     $0.isUsing = false
                 }
-                defaultAccountBook.title = title
-                defaultAccountBook.coverImageName = coverImageName
-                currentUser.accountBooks.append(defaultAccountBook)
+                self.objectList?.append(defaultAccountBook)
             }
+            notificationHandler?(dataChangedtype: .Insert, indexPath: NSIndexPath(forRow: (objectList?.count ?? 1)-1, inSection: 0))
         }
     }
 }

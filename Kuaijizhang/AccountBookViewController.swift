@@ -21,11 +21,18 @@ class AccountBookViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         accountTableView.delegate = self
         accountTableView.dataSource = self
         accountTableView.tableFooterView = UIView()
-        accountTableView.tableHeaderView = UIView()
+        
+        accountBookViewModel.addObserver { [unowned self] (dataChangedType, indexPath) -> Void in
+            if dataChangedType == .Delete {
+                self.accountTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            } else if dataChangedType == .Insert {
+                self.accountTableView.reloadData()
+            }
+        }
 
     }
     
@@ -47,13 +54,16 @@ class AccountBookViewController: UIViewController {
     func confirmDelete(indexPath indexPath: NSIndexPath) {
         
         let alert = UIAlertController(title: "提示", message: "确定要删除该账本吗？", preferredStyle: .Alert)
-        let sure = UIAlertAction(title: "确定", style: .Default) { action in
-            //self.accountBookViewModel.delete(indexPath)
-            self.accountTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        let sure = UIAlertAction(title: "确定", style: .Default) {  [unowned self] action in
+            if let isUsing = self.accountBookViewModel.objectAt(indexPath).1 where isUsing == true {
+                let messageAlert = UIAlertController(title: "", message: "删除失败，不能删除正在使用的账本。", preferredStyle: .Alert)
+                messageAlert.addAction(UIAlertAction(title: "取消", style: .Cancel, handler: nil))
+                self.presentViewController(messageAlert, animated: true, completion: nil)
+            } else {
+                self.accountBookViewModel.delete(indexPath)
+            }
         }
-        let cancel = UIAlertAction(title: "取消", style: .Cancel) { action in
-            print("cancel button tapped")
-        }
+        let cancel = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
         alert.addAction(sure)
         alert.addAction(cancel)
         

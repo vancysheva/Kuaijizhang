@@ -19,22 +19,31 @@ class AccountBookViewModel {
     func getCount() -> Int {
         return accountBookModel.getCount()
     }
-    
+
     func delete(indexPath: NSIndexPath) {
-        accountBookModel.deleteAt(indexPath.row)
+        accountBookModel.deleteAt(indexPath)
     }
     
     func objectAt(indexPath: NSIndexPath) -> (String?, Bool?, String?) {
         
-        let accountBook = accountBookModel.objectAt(indexPath.row)
+        let accountBook = accountBookModel.objectAt(indexPath)
         return (accountBook?.title, accountBook?.isUsing, accountBook?.coverImageName)
     }
     
     func setCurrentUsingAt(indexPath: NSIndexPath) {
-        accountBookModel.setCurrentUsingAt(indexPath.row)
+        accountBookModel.setCurrentUsingAt(indexPath)
     }
     
     func saveAccountBookWithTitle(title: String, coverImageName: String) {
         accountBookModel.addAccountBookWithTitle(title, coverImageName: coverImageName)
+    }
+}
+
+// MARK:; - Obserable
+
+extension AccountBookViewModel: ViewModelObservable {
+    
+    func addObserver(notificationHandler: ViewModelNotificationBlock) {
+        accountBookModel.notificationHandler = notificationHandler
     }
 }

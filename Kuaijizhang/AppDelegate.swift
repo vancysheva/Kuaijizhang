@@ -16,12 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        let obj = NSUserDefaults.standardUserDefaults()
-        if obj.dictionaryForKey(System.Identifier.User) == nil {
-            obj.setObject(["id": "", "username": "", "password": ""], forKey: System.Identifier.User)
-            System.createDefaultRealmAndAccountBook()
-        }
-        
+        System.baseInit()
         
         if #available(iOS 9.0, *) {
             addDynamicShortcutItems()
