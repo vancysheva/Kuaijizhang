@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Kuaijizhang.xcscheme</key>
+		<key>Kuaijizhang.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -23,6 +23,16 @@
 			<true/>
 		</dict>
 		<key>710DB3A61B81DFF6003E74FA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>714EC9A91BF88299005C227C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>71FB74261BF8A81E006205E4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

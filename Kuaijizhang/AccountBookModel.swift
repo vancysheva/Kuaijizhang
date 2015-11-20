@@ -21,10 +21,26 @@ class AccountBookModel: RealmModel<AccountBook> {
     }
 
     func deleteAt(indexPath: NSIndexPath) {
-        let state = realm.writeTransaction { [unowned self] in
-            self.objectList?.removeAtIndex(indexPath.row)
+        //// 删除账本并且删除账本下相关的所有对象
+        if let book = objectList?[indexPath.row] {
+            realm.beginWrite()
+            
+            realm.delete(book.bills)
+            realm.delete(book.accounts)
+            let types = book.consumeptionTypes
+            types.forEach {
+                if $0.consumeptionTypes.count > 0 {
+                    realm.delete($0.consumeptionTypes)
+                }
+            }
+            realm.delete(types)
+            realm.delete(book.subjects)
+            realm.delete(book.instalments)
+            realm.delete(book)
+            let state = realm.commitTransaction()
+
+            notificationHandler?(transactionState: state, dataChangedType: .Delete, indexPath: indexPath)
         }
-        notificationHandler?(transactionState: state, dataChangedType: .Delete, indexPath: indexPath)
     }
 
     func objectAt(indexPath: NSIndexPath) -> AccountBook? {

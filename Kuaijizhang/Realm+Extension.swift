@@ -34,5 +34,26 @@ extension Realm {
             return .Failure(errorMsg: "提交事务发生错误！")
         }
     }
+}
 
+extension List {
+    
+    func toArray() -> [Element] {
+        var arr = [Element]()
+        self.forEach {
+            arr.append($0)
+        }
+        return arr
+    }
+}
+
+extension Results {
+    
+    func toArray() -> [Element] {
+        var arr = [Element]()
+        self.forEach {
+            arr.append($0)
+        }
+        return arr
+    }
 }

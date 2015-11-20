@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Statement: Statisticable {
+protocol Statementable: Statisticable {
     
     /**
      * 消费地点分析

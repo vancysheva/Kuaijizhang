@@ -25,24 +25,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var currentAccountBookLabel: UILabel!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var todayDisplayLabel: UILabel!
+    @IBOutlet weak var weekDisplayLabel: UILabel!
+    @IBOutlet weak var monthDisplayLabel: UILabel!
+    @IBOutlet weak var yearDisplayLabel: UILabel!
     
     @IBOutlet weak var columnChartView: ColumnChart!
+    
+    var screenSize: CGSize = {
+        return UIScreen.mainScreen().bounds.size
+    }()
 
-    @IBAction func tapAccountBookIcon(sender: UIBarButtonItem) {
-        
-    }
-    
-    @IBAction func tapStatementIcon(sender: UIBarButtonItem) {
-        
-    }
-    
-    @IBAction func tapMoreIcon(sender: UIBarButtonItem) {
-        
-    }
-    
-    @IBAction func tapAddBillIcon(sender: UIButton) {
-        
-    }
     @IBOutlet weak var leftView: UIView! {
         didSet {
             leftView.frame = CGRect(x: 0, y: 0, width: 80, height: 40)
@@ -57,24 +50,42 @@ class ViewController: UIViewController {
         }
     }
     
-    var screenSize: CGSize = {
-        return UIScreen.mainScreen().bounds.size
-        }()
-
+    let portalViewModel = PortalViewModel()
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: nil, action: nil)
         
-        test()
+        ////  设置右上角的正在使用的账本名称
+        setCurrentAccountBook()
+        
         adapteLabelsFont()
         adapteRmbLabels(rmbLabel)
-        numberCountingAnimatingWithLabel([todayExpenseLabel, weekExpenseLabel, monthExpense, monthIncomeLabel, yearExpenseLabel, yearIncomeLabel])
+        
+        // 设置面板中日期
+        todayDisplayLabel.text = DateHelper.getCurrentDate()
+        weekDisplayLabel.text = "\(DateHelper.getStartWeekDisplayStringOfPeriodWeek())-\(DateHelper.getOverWeekDisplayStringOfPeriodWeek())"
+        monthDisplayLabel.text = "\(DateHelper.getStartMonthDisplayStringOfPeriodMonth())-\(DateHelper.getOverMonthDisplayStringOfPeriodMonth())"
+        yearDisplayLabel.text = "\(DateHelper.getCurrentYear())\(DateHelper.YearStr)"
+        
+        updateUI()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        //// 设置左上角的年月
+        monthLabel.text = DateHelper.getCurrentMonth()
+        yearLabel.text = "月/\(DateHelper.getCurrentYear())"
+    }
+    
+    @IBAction func unwindToPortal(segue: UIStoryboardSegue) {
+        
+        if let vc = segue.sourceViewController as? AccountBookViewController {
+            setCurrentAccountBook()
+        }
         
     }
     
@@ -83,18 +94,40 @@ class ViewController: UIViewController {
     }
 }
 
-//MARK: - Internal Methods
+//MARK: - Methods
 
 extension ViewController {
     
-    private func adapteLabelFont(label: UILabel) {
+    func adapteLabelsFont() {
+        adapteLabelFont(todayExpenseLabel)
+        adapteLabelFont(todayConsumeTypeLabel)
+        adapteLabelFont(todayAccountLabel)
+        adapteLabelFont(todayCommentLabel)
+        adapteLabelFont(weekExpenseLabel)
+        adapteLabelFont(monthExpense)
+        adapteLabelFont(monthIncomeLabel)
+        adapteLabelFont(yearExpenseLabel)
+        adapteLabelFont(yearIncomeLabel)
+    }
+    
+    func updateUI() {
+        renderChart() //// 设置柱状图数据
+        updateTodayUI() //设置最近一笔支出或收入
+        updateCurrentWeekUI()
+        updateCurrentMonthUI()
+        updateCurrentYearUI()
+    }
+    
+    func adapteLabelFont(label: UILabel) {
+        
         if screenSize.width == 320 && screenSize.height == 480 {
             let fontSize = label.font.pointSize * 0.85
             label.font = UIFont.systemFontOfSize(fontSize)
         }
     }
     
-    private func adapteRmbLabels(labels: [UILabel]) {
+    func adapteRmbLabels(labels: [UILabel]) {
+        
         if screenSize.width == 320 && screenSize.height == 480 {
             for label in labels {
                 label.hidden = true
@@ -113,21 +146,10 @@ extension ViewController {
         }
     }
     
-    func adapteLabelsFont() {
-        adapteLabelFont(todayExpenseLabel)
-        adapteLabelFont(todayConsumeTypeLabel)
-        adapteLabelFont(todayAccountLabel)
-        adapteLabelFont(todayCommentLabel)
-        adapteLabelFont(weekExpenseLabel)
-        adapteLabelFont(monthExpense)
-        adapteLabelFont(monthIncomeLabel)
-        adapteLabelFont(yearExpenseLabel)
-        adapteLabelFont(yearIncomeLabel)
-    }
-    
-    func test() {
+    func renderChart() {
         var value = [Double]()
-        for _ in 1...31 {
+        let range = DateHelper.getRangeOfCurrentMonth()
+        for _ in range.location...range.length {
             value.append(Double(min(max(arc4random()%800, 1), 800)))
         }
         columnChartView.value = value
@@ -136,17 +158,43 @@ extension ViewController {
         columnChartView.showColumnTitle = false
         columnChartView.showYAxis = false
         var labelValues = [String]()
-        for index in 1...31 {
+        for index in range.location...range.length {
             labelValues.append("\(index)")
         }
         columnChartView.columnLabelValue = labelValues
+        
+        let dataDic = portalViewModel.getChartDataByCurrentMonth()
     }
     
-    @IBAction func unwindToPortal(segue: UIStoryboardSegue) {
+    // 设置首页账本相关的内容
+    func setCurrentAccountBook() {
+        currentAccountBookLabel.text = portalViewModel.getCurrentAccountBookTitle()
+    }
+    
+    func updateTodayUI() {
+    
+        let latestBill = portalViewModel.getLatestBill()
+        (todayConsumeTypeLabel.text, todayAccountLabel.text, todayCommentLabel.text) = latestBill
         
-        //if let vc = segue.sourceViewController as? AccountBookViewController, name = vc.currentAccountBook {
-          //  currentAccountBookLabel.text = name
-        //}
+        todayExpenseLabel.text = "\(portalViewModel.getTodayTotalExpense())"
+        numberCountingAnimatingWithLabel([todayExpenseLabel])
+    }
+    
+    func updateCurrentWeekUI() {
+        weekExpenseLabel.text = "\(portalViewModel.getCurrentWeekExpense())"
+        numberCountingAnimatingWithLabel([weekExpenseLabel])
+    }
+    
+    func updateCurrentMonthUI() {
+        monthExpense.text = "\(portalViewModel.getCurrentMonthExpense())"
+        monthIncomeLabel.text = "\(portalViewModel.getCurrentMonthIncome())"
+        numberCountingAnimatingWithLabel([monthExpense, monthIncomeLabel])
+    }
+    
+    func updateCurrentYearUI() {
+        yearExpenseLabel.text = "\(portalViewModel.getCurrentYearExpense())"
+        yearIncomeLabel.text = "\(portalViewModel.getCurrentYearIncome())"
+        numberCountingAnimatingWithLabel([yearExpenseLabel, yearIncomeLabel])
     }
 }
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15C40a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="On5-jg-9Nl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15C47a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="On5-jg-9Nl">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -39,7 +39,6 @@
                                     <barButtonItem image="account book icon" id="UL4-xQ-uw5">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <action selector="tapAccountBookIcon:" destination="hT3-hD-xbe" id="Cjj-gh-dfd"/>
                                             <segue destination="KVN-MR-uOh" kind="modal" identifier="show accountbook segue" modalTransitionStyle="flipHorizontal" id="KRy-O5-rD9"/>
                                         </connections>
                                     </barButtonItem>
@@ -58,7 +57,6 @@
                                     <barButtonItem image="statement icon" id="jdZ-8P-tg3">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <action selector="tapStatementIcon:" destination="hT3-hD-xbe" id="Ge6-kP-gnB"/>
                                             <segue destination="0fL-eJ-Z7Y" kind="push" id="Phj-Fl-mtC"/>
                                         </connections>
                                     </barButtonItem>
@@ -67,7 +65,6 @@
                                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-9"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <action selector="tapMoreIcon:" destination="hT3-hD-xbe" id="1gX-db-44Y"/>
                                             <segue destination="U67-Ai-K8Y" kind="push" id="YLl-oV-j90"/>
                                         </connections>
                                     </barButtonItem>
@@ -659,7 +656,6 @@
                                 </constraints>
                                 <state key="normal" image="add bill button"/>
                                 <connections>
-                                    <action selector="tapAddBillIcon:" destination="hT3-hD-xbe" eventType="touchUpInside" id="ogX-jQ-Ihh"/>
                                     <segue destination="cHa-VF-Hpx" kind="modal" identifier="showAddAccount" id="T8X-bp-ZrX"/>
                                 </connections>
                             </button>
@@ -753,6 +749,7 @@
                         <outlet property="columnChartView" destination="qC8-5N-bi1" id="VbZ-h6-Bhw"/>
                         <outlet property="currentAccountBookLabel" destination="Tpj-Lf-PZB" id="VQl-zs-Ie7"/>
                         <outlet property="leftView" destination="nUU-Od-iMw" id="BgW-UA-jiM"/>
+                        <outlet property="monthDisplayLabel" destination="RNw-As-Vt8" id="Q8j-HN-ohh"/>
                         <outlet property="monthExpense" destination="O3u-sy-nu4" id="k3h-3h-WdM"/>
                         <outlet property="monthIncomeLabel" destination="9IN-FJ-8j5" id="zau-Da-D2E"/>
                         <outlet property="monthLabel" destination="gQE-cF-KxB" id="rd6-k2-4Kn"/>
@@ -760,8 +757,11 @@
                         <outlet property="todayAccountLabel" destination="r5U-yt-E7m" id="O7b-4Y-04K"/>
                         <outlet property="todayCommentLabel" destination="ckW-nJ-Fa5" id="3pc-vA-L72"/>
                         <outlet property="todayConsumeTypeLabel" destination="cPQ-eG-9mZ" id="H0h-oB-L0z"/>
+                        <outlet property="todayDisplayLabel" destination="m2L-rL-igi" id="EBs-Yc-UBa"/>
                         <outlet property="todayExpenseLabel" destination="GWp-qv-Um6" id="EUU-YX-54f"/>
+                        <outlet property="weekDisplayLabel" destination="aDj-dg-fBP" id="IWL-93-l4I"/>
                         <outlet property="weekExpenseLabel" destination="TEH-Jt-zeY" id="7Re-zO-o71"/>
+                        <outlet property="yearDisplayLabel" destination="l1B-qB-MRs" id="gZL-uk-mNX"/>
                         <outlet property="yearExpenseLabel" destination="FFD-Ee-WDx" id="WcF-pc-DEf"/>
                         <outlet property="yearIncomeLabel" destination="k16-7w-7Uo" id="pJW-7R-7H2"/>
                         <outlet property="yearLabel" destination="aDq-gq-2cW" id="pXP-P6-p6a"/>
@@ -2657,6 +2657,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KVN-MR-uOh" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="pgz-g0-0Gt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4P9-FF-qut">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

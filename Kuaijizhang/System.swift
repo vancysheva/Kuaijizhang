@@ -17,9 +17,9 @@ class System {
     }
     
     /**
-     创建默认Realm数据库,并添加默认账本。
+     添加默认账本。
     */
-    class func createDefaultRealmAndAccountBook(id: String = "", username: String = "", password: String = "") {
+    class func createDefaultAccountBook(id: String = "", username: String = "", password: String = "") {
 
         do {
             let realm = try Realm()
@@ -67,16 +67,12 @@ class System {
         let obj = NSUserDefaults.standardUserDefaults()
         if obj.dictionaryForKey(Identifier.User) == nil {
             obj.setObject(["id": "", "username": "", "password": ""], forKey: Identifier.User)
-            createDefaultRealmAndAccountBook()
-        } else {
-            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-            if !NSFileManager.defaultManager().fileExistsAtPath("\(paths[0])/default.realm") {
-                if let dic = obj.dictionaryForKey(Identifier.User), defaultBook = getDefaultAccountBook() {
-                    let realm = Realm.getRealmInstance()
-                    realm.writeTransaction {
-                        realm.add(User(value: [dic["id"] as! String, dic["username"] as! String, dic["password"] as! String, [defaultBook]]))
-                    }
-                }
+            createDefaultAccountBook()
+        } else if getCurrentUser() == nil {
+            //let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+            //!NSFileManager.defaultManager().fileExistsAtPath("\(paths[0])/default.realm")
+            if let dic = obj.dictionaryForKey(Identifier.User) {
+                createDefaultAccountBook(dic["id"] as! String, username: dic["username"] as! String, password: dic["password"] as! String)
             }
         }
     }

@@ -10,8 +10,6 @@ import Foundation
 import RealmSwift
 
 class Bill: Object {
-
-    dynamic var id = 0
     
     dynamic var money = 0.00
     
@@ -36,9 +34,19 @@ class Bill: Object {
     dynamic var subject: Subject?
     
     /**
+     所属分期账单
+    */
+    dynamic var instalment: Instalment?
+    
+    /**
      * 拍摄的图片
      **/
     dynamic var image: NSData?
+    
+    /**
+     * 注释说明
+     **/
+    dynamic var comment: String?
     
     /**
      * 发生日期
@@ -46,10 +54,6 @@ class Bill: Object {
     dynamic var occurDate: NSDate?
     
     dynamic var occurPlace: String? = nil
-    
-    override static func primaryKey() -> String? {
-        return "id"
-    }
     
     override static func indexedProperties() -> [String] {
         return ["occurDate"]
