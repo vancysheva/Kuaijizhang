@@ -23,25 +23,55 @@ enum FWChartStyle {
             piechart = nil
         case .BarChart:
             chart = BarChartView()
+            let bar = chart as! BarChartView
+            bar.drawGridBackgroundEnabled = false
+            bar.drawMarkers = false
+            
+            
+            let xAxis = bar.xAxis
+            xAxis.labelPosition = .Bottom
+            xAxis.drawGridLinesEnabled = false
+            bar.legend.enabled = false
         }
+        
+        chart?.descriptionText = ""
         return chart!
     }
     
-    func chartDataSetWithStyle(dataEntrys: [ChartDataEntry]) -> ChartDataSet {
-        var dataSet: ChartDataSet?
+    func chartDataWithStyle(data: [(typeName: String, value: Double)]) -> ChartData {
+        
+        var chartData: ChartData?
+        
         switch self {
         case .PieChart(let label, let sliceSpace, let colors):
-            var pieset: PieChartDataSet?  = PieChartDataSet(yVals: dataEntrys, label: label)
+            var labels = [String]()
+            var dataEntrys = [ChartDataEntry]()
+            
+            var index = 0
+            for (k, v) in data {
+                labels.append(k)
+                dataEntrys.append(ChartDataEntry(value: v, xIndex: index++))
+            }
+            let pieset: PieChartDataSet?  = PieChartDataSet(yVals: dataEntrys, label: label)
             pieset!.sliceSpace = sliceSpace
             if let c = colors {
                 pieset!.colors = c
             }
-            dataSet = pieset
-            pieset = nil
+            chartData = PieChartData(xVals: labels, dataSet: pieset)
         case .BarChart(let label):
-            dataSet = BarChartDataSet(yVals: dataEntrys, label: label)
+            var labels = [String]()
+            var dataEntrys = [BarChartDataEntry]()
+            
+            var index = 0
+            for (k, v) in data {
+                labels.append(k)
+                dataEntrys.append(BarChartDataEntry(value: v, xIndex: index++))
+            }
+
+            let dataSet = BarChartDataSet(yVals: dataEntrys, label: label)
+            chartData = BarChartData(xVals: labels, dataSet: dataSet)
         }
-        return dataSet!
+        return chartData!
     }
 }
 
@@ -50,7 +80,6 @@ class FWChartController: ChartViewDelegate {
     
     var title: String
     var data: [(typeName: String, value: Double)]
-    var charDataSet: ChartDataSet
     var charData: ChartData
     var chart: ChartViewBase
     var chartStyle: FWChartStyle
@@ -63,17 +92,7 @@ class FWChartController: ChartViewDelegate {
         self.data = data
         self.chartStyle = chartStyle
         
-        var labels = [String]()
-        var dataEntrys = [ChartDataEntry]()
-        
-        var index = 0
-        for (k, v) in data {
-            labels.append(k)
-           dataEntrys.append(ChartDataEntry(value: v, xIndex: index++))
-        }
-        
-        self.charDataSet =  chartStyle.chartDataSetWithStyle(dataEntrys)
-        self.charData = ChartData(xVals: labels, dataSet: self.charDataSet)
+        self.charData = chartStyle.chartDataWithStyle(data)
         self.chart = chartStyle.chartViewWithStyle()
         self.setValueFormatter(nil)
         self.chart.data = self.charData
@@ -126,7 +145,7 @@ class FWChartController: ChartViewDelegate {
     }
     
     func animate() {
-        self.chart.animate(xAxisDuration: 1.4, yAxisDuration: 1.4, easingOption: .EaseInOutBack)
+        self.chart.animate(xAxisDuration: 1.4, yAxisDuration: 1.4, easingOption: .Linear)
     }
     
     func addChartValueSelectedHandler( chartValueSelected: (chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) -> Void) {

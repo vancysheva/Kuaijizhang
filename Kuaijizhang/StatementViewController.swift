@@ -35,9 +35,9 @@ class StatementViewController: UIViewController {
         super.viewDidLoad()
     
         chartController = FWChartController(viewForChart: containerView, chartStyle: .PieChart(label: "消费类型", sliceSpace: 2, colors: ChartColorTemplates.joyful()), data: getData(), title: "Test")
-        chartController?.addChartValueSelectedHandler { (chartView, entry, dataSetIndex, highlight) -> Void in
-            print(dataSetIndex, "closure")
-        }
+        //chartController?.addChartValueSelectedHandler { (chartView, entry, dataSetIndex, highlight) -> Void in
+            //print(dataSetIndex, "closure")
+        //}
         
         chartController?.animate()
         
@@ -96,8 +96,9 @@ class StatementViewController: UIViewController {
         return [(typeName: "吃", value: 5),
                 (typeName: "穿", value: 15),
                 (typeName: "住", value: 35),
-                (typeName: "行吃吃", value: 15),
-                (typeName: "吃吃吃吃吃吃吃吃吃", value: 100)]
+                (typeName: "行", value: 15),
+                (typeName: "吃", value: 100),
+                (typeName: "吃", value: 100)]
     }
 }
 

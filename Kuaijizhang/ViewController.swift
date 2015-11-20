@@ -8,7 +8,7 @@
 
 import UIKit
 import UICountingLabel
-import RealmSwift
+import Charts
 
 class ViewController: UIViewController {
     
@@ -51,6 +51,8 @@ class ViewController: UIViewController {
     }
     
     let portalViewModel = PortalViewModel()
+    
+    var barChartController: FWChartController?
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -147,23 +149,24 @@ extension ViewController {
     }
     
     func renderChart() {
-        var value = [Double]()
-        let range = DateHelper.getRangeOfCurrentMonth()
-        for _ in range.location...range.length {
-            value.append(Double(min(max(arc4random()%800, 1), 800)))
-        }
-        columnChartView.value = value
-        let color = UIColor(red: 33/255, green: 211/255, blue: 158/255, alpha: 1.0)
-        columnChartView.colors = [UIColor](count: columnChartView.value!.count, repeatedValue: color)
-        columnChartView.showColumnTitle = false
-        columnChartView.showYAxis = false
-        var labelValues = [String]()
-        for index in range.location...range.length {
-            labelValues.append("\(index)")
-        }
-        columnChartView.columnLabelValue = labelValues
         
-        let dataDic = portalViewModel.getChartDataByCurrentMonth()
+        let data = portalViewModel.getChartDataByCurrentMonth()
+        
+        //let color = UIColor(red: 33/255, green: 211/255, blue: 158/255, alpha: 1.0)
+        
+        barChartController = FWChartController(viewForChart: columnChartView, chartStyle: .BarChart(label: "test"), data: data, title: "")
+        
+        barChartController?.animate()
+    }
+    
+    func getData() -> [(typeName: String, value: Double)] {
+        
+        return [(typeName: "吃", value: 5),
+            (typeName: "穿", value: 15),
+            (typeName: "住", value: 35),
+            (typeName: "行", value: 15),
+            (typeName: "吃", value: 100),
+            (typeName: "吃", value: 100)]
     }
     
     // 设置首页账本相关的内容

@@ -25,14 +25,14 @@ class PortalViewModel {
     
     
     
-    func getChartDataByCurrentMonth() -> [Int: Double] {
+    func getChartDataByCurrentMonth() -> [(typeName: String, value: Double)] {
         
         let startDate = DateHelper.dateFromStartDayInCurrentMonth()
         let endDate = DateHelper.dateFromEndDayInCurrentMonth()
         
         let bills = portalModel.getBills(startDate: startDate, endDate: endDate)
         
-        var resDic = dicWithCurrentMonth()
+        var resDic = initDicWithCurrentMonth()
         
         bills.forEach {
             if let occurDate = $0.occurDate {
@@ -40,12 +40,17 @@ class PortalViewModel {
                 resDic[day] = resDic[day]! + $0.money
             }
         }
-        return [1: 1.00]
+        
+        
+        
+        return resDic.map {
+            ("\($0.0)", $0.1)
+        }
     }
     
     
     
-    func dicWithCurrentMonth() -> [Int: Double] {
+    func initDicWithCurrentMonth() -> [Int: Double] {
         
         var dic = [Int: Double]()
         let currentDayRange = DateHelper.getRangeOfCurrentMonth()
