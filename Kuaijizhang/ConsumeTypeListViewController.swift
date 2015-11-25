@@ -209,7 +209,7 @@ extension ConsumeTypeListViewController: UITableViewDelegate, UITableViewDataSou
             if parentTypeID != nil{
                 childTypeID = data?[indexPath.row]
                 addViewController?.consumeTypeLabel.text = "\(parentTypeID!)>\(childTypeID!)"
-                if let addVC = addViewController, childVC = addVC.childViewControllers[0] as? PickerViewController {
+                if let addVC = addViewController, childVC = addVC.childViewControllers[0] as? ConsumeptionTypePickerViewController {
                         addVC.removeCotentControllerWidthAnimation(childVC)
                 }
                 navigationController?.popViewControllerAnimated(true)

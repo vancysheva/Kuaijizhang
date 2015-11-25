@@ -159,19 +159,10 @@ extension ViewController {
         barChartController?.animate()
     }
     
-    func getData() -> [(typeName: String, value: Double)] {
-        
-        return [(typeName: "吃", value: 5),
-            (typeName: "穿", value: 15),
-            (typeName: "住", value: 35),
-            (typeName: "行", value: 15),
-            (typeName: "吃", value: 100),
-            (typeName: "吃", value: 100)]
-    }
-    
     // 设置首页账本相关的内容
     func setCurrentAccountBook() {
-        currentAccountBookLabel.text = portalViewModel.getCurrentAccountBookTitle()
+        let accountBookTitle = portalViewModel.getCurrentAccountBookTitle()
+        currentAccountBookLabel.text = accountBookTitle
     }
     
     func updateTodayUI() {

@@ -482,7 +482,7 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>红包</string>
+			<string>过年买票</string>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -499,6 +499,53 @@
 		<dict>
 			<key>name</key>
 			<string>公司报销</string>
+		</dict>
+	</array>
+	<key>accounts</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>现金账户</string>
+			<key>accounts</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>现金</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>借记卡账户</string>
+			<key>accounts</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>银行卡</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>信用卡账户</string>
+			<key>accounts</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>信用卡</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>虚拟账户</string>
+			<key>accounts</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>支付宝</string>
+				</dict>
+			</array>
 		</dict>
 	</array>
 </dict>

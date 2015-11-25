@@ -12,54 +12,53 @@ class LabelTableViewController: UITableViewController {
     
     weak var delegate: ComponentViewControllerDelegate?
     
-    var labels = ["label1", "label2", "label3", "label4"]
+    var labelTableViewModel = LabelTableViewModel()
 
     @IBAction func cancelLabel(sender: UIButton) {
         if let parentVC = parentViewController as? AddBillViewController {
             parentVC.tagLabel.text = nil
         }
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        labelTableViewModel.addNotification { (transactionState, dataChangedType, indexPath) -> Void in
+            if dataChangedType == .Insert {
+                self.tableView.reloadData()
+            }
+        }
     }
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let vc = segue.destinationViewController as? AddLabelViewController where segue.identifier == "addLabelIdentifier" {
+            vc.labelTabelViewModel = labelTableViewModel
+        }
+    }
+    
+    
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return labels.count + 1
+        return labelTableViewModel.getCount() + 1 // 预留给添加标签按钮
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.row == labels.count {
+        if indexPath.row == labelTableViewModel.getCount() {
             return tableView.dequeueReusableCellWithIdentifier("addLabelButton", forIndexPath: indexPath)
         }
         
         let cell = tableView.dequeueReusableCellWithIdentifier("label", forIndexPath: indexPath)
         let label = cell.viewWithTag(1) as! UILabel
-        label.text = labels[indexPath.row]
+        label.text = labelTableViewModel.objectAt(indexPath)
         return cell
-    }
-    
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if indexPath.row == labels.count {
+        if indexPath.row == labelTableViewModel.getCount() {
             return
         }
         
@@ -74,9 +73,8 @@ class LabelTableViewController: UITableViewController {
         
         if let sourceController = segue.sourceViewController as? AddLabelViewController {
             let text = sourceController.labelTextField.text!
-            labels.append(text)
-            tableView.reloadData()
             
+            labelTableViewModel.saveObject(text)
             setValue(text)
             
             delegate?.hideComponetViewController(self)

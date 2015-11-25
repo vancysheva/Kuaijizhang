@@ -13,6 +13,8 @@ class AddLabelViewController: UIViewController {
     @IBOutlet weak var labelTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     
+    var labelTabelViewModel: LabelTableViewModel?
+    
     let agent = TextFieldAgent()
     
     override func viewDidLoad() {
@@ -28,5 +30,19 @@ class AddLabelViewController: UIViewController {
         
         navigationItem.rightBarButtonItem?.enabled = false
         saveButton.hidden = true
+    }
+    
+    
+    @IBAction func tapSaveButton(sender: UIButton) {
+        labelIsExist()
+        return
+    }
+    
+    func labelIsExist() {
+        
+        if let name = labelTextField.text where labelTabelViewModel?.subjectIsExist(name.trim()) == true {
+            let alert = UIAlertHelpler.getAlertController("", message: "\"\(name)\"标签已经存在。", prefferredStyle: .Alert, actions: ("确定",.Default, nil))
+            presentViewController(alert, animated: true, completion: nil)
+        }
     }
 }

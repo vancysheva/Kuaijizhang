@@ -31,14 +31,18 @@ enum FWChartStyle {
             let xAxis = bar.xAxis
             xAxis.labelPosition = .Bottom
             xAxis.drawGridLinesEnabled = false
+            xAxis.setLabelsToSkip(1)
             bar.legend.enabled = false
+            bar.getAxis(.Right).enabled = false
+            bar.leftAxis.setLabelCount(4, force: true)
+            bar.rightAxis.setLabelCount(4, force: true)
         }
         
         chart?.descriptionText = ""
         return chart!
     }
     
-    func chartDataWithStyle(data: [(typeName: String, value: Double)]) -> ChartData {
+    func chartDataWithStyle(data: [(day: String, value: Double)]) -> ChartData {
         
         var chartData: ChartData?
         
@@ -79,14 +83,14 @@ enum FWChartStyle {
 class FWChartController: ChartViewDelegate {
     
     var title: String
-    var data: [(typeName: String, value: Double)]
+    var data: [(day: String, value: Double)]
     var charData: ChartData
     var chart: ChartViewBase
     var chartStyle: FWChartStyle
     
     var chartValueSelected: ((chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) -> Void)?
     
-    init(viewForChart view: UIView, chartStyle: FWChartStyle, data: [(typeName: String, value: Double)], title: String) {
+    init(viewForChart view: UIView, chartStyle: FWChartStyle, data: [(day: String, value: Double)], title: String) {
         
         self.title = title
         self.data = data

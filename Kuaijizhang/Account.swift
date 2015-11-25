@@ -18,5 +18,7 @@ class Account: Object {
     
     dynamic var accountBook: AccountBook?
     
+    let accounts = List<Account>()
+    
     let bills = List<Bill>()
 }

@@ -91,14 +91,14 @@ class StatementViewController: UIViewController {
         chartController?.animate()
     }
     
-    func getData() -> [(typeName: String, value: Double)] {
+    func getData() -> [(day: String, value: Double)] {
         
-        return [(typeName: "吃", value: 5),
-                (typeName: "穿", value: 15),
-                (typeName: "住", value: 35),
-                (typeName: "行", value: 15),
-                (typeName: "吃", value: 100),
-                (typeName: "吃", value: 100)]
+        return [(day: "吃", value: 5),
+                (day: "穿", value: 15),
+                (day: "住", value: 35),
+                (day: "行", value: 15),
+                (day: "吃", value: 100),
+                (day: "吃", value: 100)]
     }
 }
 

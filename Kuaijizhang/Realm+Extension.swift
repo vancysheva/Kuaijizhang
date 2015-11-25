@@ -57,3 +57,14 @@ extension Results {
         return arr
     }
 }
+
+extension Results {
+    
+    func toList() -> List<Element> {
+        let list = List<Element>()
+        self.forEach {
+            list.append($0)
+        }
+        return list
+    }
+}

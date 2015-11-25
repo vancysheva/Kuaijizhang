@@ -10,9 +10,9 @@ import UIKit
 
 class StatementViewCell: UITableViewCell {
     
-    var data: (typeName: String, value: Double)? {
+    var data: (day: String, value: Double)? {
         didSet {
-            typeNameLabel.text = data!.typeName
+            typeNameLabel.text = data!.day
             percentLabel.text = "\(data!.value)%"
             moneyLabel.text = "\(data!.value)"
         }

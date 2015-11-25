@@ -11,10 +11,11 @@ import RealmSwift
 
 class PortalModel: RealmModel<AccountBook> {
     
-    let user: User?
+    var user: User?
     
     
     override init() {
+        super.init()
         user = System.getCurrentUser()
     }
     

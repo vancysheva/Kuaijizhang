@@ -26,7 +26,13 @@ class AccountBookModel: RealmModel<AccountBook> {
             realm.beginWrite()
             
             realm.delete(book.bills)
-            realm.delete(book.accounts)
+            let accounts = book.accounts
+            accounts.forEach {
+                if $0.accounts.count > 0 {
+                    realm.delete($0.accounts)
+                }
+            }
+            realm.delete(accounts)
             let types = book.consumeptionTypes
             types.forEach {
                 if $0.consumeptionTypes.count > 0 {

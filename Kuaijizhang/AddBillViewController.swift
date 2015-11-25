@@ -32,6 +32,7 @@ class AddBillViewController: UITableViewController {
     @IBOutlet weak var arrowImage: UIImageView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var saveTemplateButton: UIButton!
+    @IBOutlet weak var consumeptionTypeImageView: UIImageView!
     
     @IBAction func tapCancelBarButtonItem(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -77,9 +78,8 @@ class AddBillViewController: UITableViewController {
     var imagePickerController: UIImagePickerController?
     
     var billType: BillType = .Expense
-    
-    lazy var consumeTypeData = ConsumeTypeData(billType: .Expense)
 
+    let addBillViewModel = AddBillViewModel()
 
     // MARK: - Lifecycle
     
@@ -92,7 +92,9 @@ class AddBillViewController: UITableViewController {
         initButtonWithBorderStyle(saveTemplateButton)
         initButtonWithBorderStyle(saveButton)
         
-        consumeTypeLabel.text = consumeTypeData.firstDescription
+        consumeTypeLabel.text = addBillViewModel.getConsumeptionTypeDescription(billType)
+        accountLabel.text = addBillViewModel.getAccountDescription()
+        setConsumeptionTypeNameImage()
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: nil, action: nil)
         
@@ -128,8 +130,8 @@ extension AddBillViewController {
     func setConsumeType() {
         
         moneyLabel.textColor = billType.toggle().color
-        consumeTypeData = ConsumeTypeData(billType: billType)
-        consumeTypeLabel.text = consumeTypeData.firstDescription
+        consumeTypeLabel.text = addBillViewModel.getConsumeptionTypeDescription(billType)
+        setConsumeptionTypeNameImage()
     }
     
     func selectFirstRowAndDisplayNumPad() {
@@ -216,6 +218,13 @@ extension AddBillViewController {
         
         presentViewController(imagePickerController!, animated: true, completion: nil)
     }
+    
+    func setConsumeptionTypeNameImage() {
+        
+        if let name = addBillViewModel.childConsumpetionType?.iconName {
+            consumeptionTypeImageView.image = UIImage(named: name)
+        }
+    }
 
 }
 
@@ -243,15 +252,14 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
             vc.delegate = self
             addContentController(vc)
         case 1:
-            let vc = storyboard?.instantiateViewControllerWithIdentifier("PickerViewController") as! PickerViewController
+            let vc = storyboard?.instantiateViewControllerWithIdentifier("ConsumeptionTypePickerViewController") as! ConsumeptionTypePickerViewController
             vc.delegate = self
             vc.addViewControlelr = self
-            vc.consumeTypeData = consumeTypeData
             addContentController(vc)
         case 2:
-            let vc = storyboard?.instantiateViewControllerWithIdentifier("PickerViewController") as! PickerViewController
+            let vc = storyboard?.instantiateViewControllerWithIdentifier("AccountPickerViewController") as! AccountPickerViewController
             vc.delegate = self
-            vc.consumeTypeData = consumeTypeData
+            vc.addViewControlelr = self
             addContentController(vc)
         case 3:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("DateViewController") as! DateViewController
@@ -275,6 +283,7 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
                 moneyLabel.text = value
             case 1:
                 consumeTypeLabel.text = value
+                setConsumeptionTypeNameImage()
             case 2:
                 accountLabel.text = value
             case 3:
