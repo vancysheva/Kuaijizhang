@@ -8,14 +8,14 @@
 
 import UIKit
 
-class AccountTabelViewController: UITableViewController {
+class AccountTableViewController: UITableViewController {
 
     @IBOutlet weak var netAssetLabel: UILabel!
     @IBOutlet weak var assetLabel: UILabel!
     @IBOutlet weak var liabilityLabel: UILabel!
     
     var accountViewModel: AccountViewModel?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,12 +23,23 @@ class AccountTabelViewController: UITableViewController {
         
         tableView.tableFooterView = UIView()
     }
+    
+    @IBAction func unWindToAccountList(segue: UIStoryboardSegue) {
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let accountTypeTable = segue.destinationViewController as? AccountTypeTableViewController {
+            accountTypeTable.accountViewModel = accountViewModel
+        }
+    }
 }
 
 
 // MARK: - UITableViewControllerDatasource
 
-extension AccountTabelViewController {
+extension AccountTableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return accountViewModel?.getParentAccountCount() ?? 0
@@ -36,14 +47,6 @@ extension AccountTabelViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return accountViewModel?.getChildAccountCount(section) ?? 0
-    }
-    
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
-        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("accountHeader") as! AccountHeaderView
-        headerView.data = accountViewModel?.parentAccountWidthAmountAt(section)
-        
-        return headerView
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -60,7 +63,17 @@ extension AccountTabelViewController {
 
 // MARK: - UITableViewControllerDelegate
 
-extension AccountTabelViewController {
+extension AccountTableViewController {
     
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
     
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("accountHeader") as! AccountHeaderView
+        headerView.data = accountViewModel?.parentAccountWidthAmountAt(section)
+        
+        return headerView
+    }
 }

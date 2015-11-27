@@ -39,4 +39,17 @@ class AccountModel: RealmModel<Account> {
     func objectAt(indexPath: NSIndexPath) -> Account? {
         return objectList?[indexPath.section].accounts[indexPath.row]
     }
+    
+    func saveAccountWidthChildName(name: String, parentAccountIndex index: Int) {
+        
+        let state = realm.writeTransaction {
+            let child = Account()
+            child.name = name
+            let parentAccount = self.parentAccountAt(index)
+            parentAccount?.accounts.append(child)
+        }
+        
+        let indexPath = NSIndexPath(forRow: objectList?.count ?? 0 - 1, inSection: 0)
+        notificationHandler?(transactionState: state, dataChangedType: .Insert, indexPath: indexPath)
+    }
 }

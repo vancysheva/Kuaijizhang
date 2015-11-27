@@ -63,7 +63,7 @@ class AccountPickerViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if let vc = segue.destinationViewController as? AccountTabelViewController {
+        if let vc = segue.destinationViewController as? AccountTableViewController {
             vc.accountViewModel = accountViewModel
         }
     }

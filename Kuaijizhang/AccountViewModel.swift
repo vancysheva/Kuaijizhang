@@ -63,4 +63,15 @@ class AccountViewModel {
         }
         return nil
     }
+    
+    func saveAccountWidthChildName(name: String, parentAccountIndex index: Int) {
+        accountModel.saveAccountWidthChildName(name, parentAccountIndex: index)
+    }
+}
+
+extension AccountViewModel: ViewModelNotifiable {
+    
+    func addNotification(notificationHandler: ViewModelNotificationHandler) {
+        accountModel.notificationHandler = notificationHandler
+    }
 }

@@ -3048,7 +3048,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aJv-43-LCU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4898" y="98"/>
+            <point key="canvasLocation" x="5126" y="98"/>
         </scene>
         <!--Label Table View Controller-->
         <scene sceneID="tWl-En-ZYA">
@@ -3141,7 +3141,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ls-nE-phm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5255" y="98"/>
+            <point key="canvasLocation" x="5483" y="98"/>
         </scene>
         <!--Picker-->
         <scene sceneID="mKs-Ip-AVX">
@@ -3389,7 +3389,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kr2-os-4Dw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="e88-Sm-zkP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5649" y="98"/>
+            <point key="canvasLocation" x="5877" y="98"/>
         </scene>
         <!--ConsumeTypeList-->
         <scene sceneID="TyV-tk-7jo">
@@ -3996,15 +3996,16 @@
             </objects>
             <point key="canvasLocation" x="3439" y="98"/>
         </scene>
-        <!--Account Tabel View Controller-->
+        <!--Account Table View Controller-->
         <scene sceneID="bGS-p0-9AJ">
             <objects>
-                <tableViewController id="8SU-Ld-B1U" customClass="AccountTabelViewController" customModule="Kuaijizhang" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" id="Jwg-Wa-xCW">
+                <tableViewController id="8SU-Ld-B1U" customClass="AccountTableViewController" customModule="Kuaijizhang" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" id="Jwg-Wa-xCW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <inset key="separatorInset" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="r2Q-PA-Yzw">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4179,7 +4180,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="RhH-lw-5fG">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ief-DU-GUk"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ief-DU-GUk">
+                            <connections>
+                                <segue destination="ThO-6P-FbE" kind="push" id="GzZ-LA-CEm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
@@ -4192,6 +4197,105 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c1A-R4-u5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3855" y="98"/>
+        </scene>
+        <!--Account Type Table View Controller-->
+        <scene sceneID="jye-Do-OfM">
+            <objects>
+                <tableViewController id="ThO-6P-FbE" customClass="AccountTypeTableViewController" customModule="Kuaijizhang" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="CC1-L6-2TO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" id="RnK-cq-u4f">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RnK-cq-u4f" id="PLs-Ek-E0W">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <segue destination="KBJ-Aa-mnd" kind="push" id="sbs-Ql-ep2"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ThO-6P-FbE" id="2Ke-ii-M2h"/>
+                            <outlet property="delegate" destination="ThO-6P-FbE" id="Y8G-5q-mmH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="kZd-Ex-1A2"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="THS-Lp-fqn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4274" y="98"/>
+        </scene>
+        <!--Add Account Table View Controller-->
+        <scene sceneID="ab6-SU-VHu">
+            <objects>
+                <tableViewController id="KBJ-Aa-mnd" customClass="AddAccountTableViewController" customModule="Kuaijizhang" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Wa4-u8-IRy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="VaN-M1-Pxa">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="LYJ-LU-OPF">
+                                        <rect key="frame" x="0.0" y="35" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LYJ-LU-OPF" id="iOU-z8-QPp">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nzz-lG-COY">
+                                                    <rect key="frame" x="8" y="11" width="51" height="20.5"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3dg-Ch-Ddu">
+                                                    <rect key="frame" x="162" y="7" width="150" height="30"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="M4z-Ky-UKt"/>
+                                                        <constraint firstAttribute="width" constant="150" id="Z1o-fh-ldA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                </textField>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="Nzz-lG-COY" firstAttribute="centerY" secondItem="iOU-z8-QPp" secondAttribute="centerY" id="5O7-VD-ahn"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="3dg-Ch-Ddu" secondAttribute="trailing" id="e8S-GA-a69"/>
+                                                <constraint firstItem="3dg-Ch-Ddu" firstAttribute="centerY" secondItem="iOU-z8-QPp" secondAttribute="centerY" id="hwA-6E-P7T"/>
+                                                <constraint firstItem="Nzz-lG-COY" firstAttribute="leading" secondItem="iOU-z8-QPp" secondAttribute="leadingMargin" id="pfD-QR-i4g"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="KBJ-Aa-mnd" id="dGy-38-9LT"/>
+                            <outlet property="delegate" destination="KBJ-Aa-mnd" id="DCv-Gq-AAZ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="4dH-J9-ksK"/>
+                    <connections>
+                        <outlet property="accountNameTextField" destination="3dg-Ch-Ddu" id="ise-tL-EvM"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O0W-Xx-dvX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4678" y="98"/>
         </scene>
     </scenes>
     <resources>
