@@ -506,6 +506,8 @@
 		<dict>
 			<key>name</key>
 			<string>现金账户</string>
+			<key>iconName</key>
+			<string>xianjin</string>
 			<key>accounts</key>
 			<array>
 				<dict>
@@ -517,6 +519,8 @@
 		<dict>
 			<key>name</key>
 			<string>借记卡账户</string>
+			<key>iconName</key>
+			<string>jiejika</string>
 			<key>accounts</key>
 			<array>
 				<dict>
@@ -528,6 +532,8 @@
 		<dict>
 			<key>name</key>
 			<string>信用卡账户</string>
+			<key>iconName</key>
+			<string>xinyongka</string>
 			<key>accounts</key>
 			<array>
 				<dict>
@@ -539,6 +545,8 @@
 		<dict>
 			<key>name</key>
 			<string>虚拟账户</string>
+			<key>iconName</key>
+			<string>xunizhanghu</string>
 			<key>accounts</key>
 			<array>
 				<dict>

@@ -18,10 +18,10 @@ class AccountTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.tableFooterView = UIView()
         
         tableView.registerNib(UINib(nibName: "AccountHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "accountHeader")
-        
-        tableView.tableFooterView = UIView()
     }
     
     @IBAction func unWindToAccountList(segue: UIStoryboardSegue) {
@@ -41,20 +41,37 @@ class AccountTableViewController: UITableViewController {
 
 extension AccountTableViewController {
     
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        switch editingStyle {
+        case .Delete:
+            accountViewModel
+        case .Insert:
+            print("")
+        default:
+            break
+        }
+    }
+
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return accountViewModel?.getParentAccountCount() ?? 0
+        return accountViewModel?.numberOfParentAccounts() ?? 0
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accountViewModel?.getChildAccountCount(section) ?? 0
+        return accountViewModel?.numberOfChildAccountsAtParentIndex(section) ?? 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        if let tuple = accountViewModel?.objectAt(indexPath) {
-            cell.textLabel?.text = tuple.0
-            cell.detailTextLabel?.text = "\(tuple.1)"
+        if let tuple = accountViewModel?.childAccountAtParentIndex(indexPath.section, withChildIndex: indexPath.row) {
+            cell.textLabel?.text = tuple.childName
+            cell.detailTextLabel?.text = "\(tuple.childAmount!)"
         }
 
         return cell
@@ -70,10 +87,9 @@ extension AccountTableViewController {
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
+    
         let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("accountHeader") as! AccountHeaderView
-        headerView.data = accountViewModel?.parentAccountWidthAmountAt(section)
-        
+        headerView.data = accountViewModel?.parentAccountWithAmountAt(section)
         return headerView
     }
 }

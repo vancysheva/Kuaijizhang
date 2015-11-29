@@ -28,9 +28,9 @@ class AccountBookViewController: UIViewController {
         
         accountBookViewModel.addNotification { [unowned self] (transactionState: TransactionState, dataChangedType: ModelDataChangedType, indexPath: NSIndexPath) -> Void in
             
-            if dataChangedType == .Delete {
+            if case .Delete = dataChangedType {
                 self.accountTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            } else if dataChangedType == .Insert {
+            } else if case .Insert = dataChangedType {
                 self.accountTableView.reloadData()
             }
         }

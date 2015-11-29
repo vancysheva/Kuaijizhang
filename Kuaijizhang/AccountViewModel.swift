@@ -16,56 +16,47 @@ class AccountViewModel {
         self.accountModel = AccountModel()
     }
     
-    func parentAccountAt(index: Int) -> String? {
-        
-        return accountModel.parentAccountAt(index)?.name
-    }
-    
-    func parentAccountWidthAmountAt(section: Int) -> (String?, String?) {
+    func parentAccountWithAmountAt(parentIndex: Int) -> (parentName: String?, parentAmount: String?, iconNmae: String?) {
         
         var amount = 0.0
         
-        if let parentAccount = accountModel.parentAccountAt(section) {
+        if let parentAccount = accountModel.parentAccountAtIndex(parentIndex) {
+            
             parentAccount.accounts.forEach {
                 $0.bills.forEach {
                     amount += $0.money
                 }
             }
-            return  (parentAccount.name, "\(amount)")
+            return  (parentAccount.name, "\(amount)", parentAccount.iconName)
+        }
+        return (nil, nil, nil)
+    }
+    
+    func childAccountAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) -> (childName: String?, childAmount: String?) {
+        
+        if let childAccount = accountModel.childAccountAtParentIndex(parentIndex, withChildIndex: childIndex) {
+            return (childAccount.name, "\(childAccount.bills.reduce(0) { $0 + $1.money })")
         }
         return (nil, nil)
     }
     
-    func childAccountAt(parentAccountName name: String, index: Int) -> String? {
+    func numberOfParentAccounts() -> Int {
         
-        return accountModel.childAccountAt(parentAccountName: name, index: index)?.name
+        return accountModel.numberOfParentAccounts()
     }
     
-    func getParentAccountCount() -> Int {
+    func numberOfChildAccountsAtParentIndex(parentIndex: Int) -> Int {
         
-        return accountModel.getParentAccountCount()
-    }
-    
-    func getChildAccountCount(parentAccountName name: String) -> Int {
-        
-        return accountModel.getChildAccountCount(parentAccountName: name)
-    }
-    
-    func getChildAccountCount(section: Int) -> Int {
-        
-        return accountModel.getChildAccountCount(section)
-    }
-    
-    func objectAt(indexPath: NSIndexPath) -> (String, Double)? {
-        
-        if let account = accountModel.objectAt(indexPath) {
-            return (account.name, account.bills.reduce(0){$0 + $1.money})
-        }
-        return nil
+        return accountModel.numberOfChildAccountsAtParentIndex(parentIndex)
     }
     
     func saveAccountWidthChildName(name: String, parentAccountIndex index: Int) {
-        accountModel.saveAccountWidthChildName(name, parentAccountIndex: index)
+        accountModel.saveAccountWithChildName(name, withParentAccountIndex: index)
+    }
+    
+    func deleteAccountAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) {
+        //accountModel.deleteAccountAtParentIndex(parentIndex, withChildIndex: childIndex)
+        accountModel
     }
 }
 

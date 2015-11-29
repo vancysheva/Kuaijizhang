@@ -16,40 +16,59 @@ class AccountModel: RealmModel<Account> {
         objectList = System.getCurrentUser()?.accountBooks.filter("isUsing = true").first?.accounts
     }
     
-    func parentAccountAt(index: Int) -> Account? {
+    func parentAccountAtIndex(index: Int) -> Account? {
         return objectList?[index]
     }
     
-    func childAccountAt(parentAccountName name: String, index: Int) -> Account? {
-        return objectList?.filter("name = %@", name).first?.accounts[index]
+    func childAccountAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) -> Account? {
+        return objectList?[parentIndex].accounts[childIndex]
     }
     
-    func getParentAccountCount() -> Int {
+    func numberOfParentAccounts() -> Int {
         return objectList?.count ?? 0
     }
     
-    func getChildAccountCount(parentAccountName name: String) -> Int {
-        return objectList?.filter("name = %@", name).first?.accounts.count ?? 0
+    func numberOfChildAccountsAtParentIndex(parentIndex: Int) -> Int {
+        return objectList?[parentIndex].accounts.count ?? 0
     }
     
-    func getChildAccountCount(section: Int) -> Int {
-        return objectList?[section].accounts.count ?? 0
-    }
-    
-    func objectAt(indexPath: NSIndexPath) -> Account? {
+    func childAccount(indexPath: NSIndexPath) -> Account? {
         return objectList?[indexPath.section].accounts[indexPath.row]
     }
     
-    func saveAccountWidthChildName(name: String, parentAccountIndex index: Int) {
+    func saveAccountWithChildName(name: String, withParentAccountIndex index: Int) {
         
-        let state = realm.writeTransaction {
-            let child = Account()
-            child.name = name
-            let parentAccount = self.parentAccountAt(index)
-            parentAccount?.accounts.append(child)
+        let child = Account()
+        child.name = name
+        if let parentAccount = self.parentAccountAtIndex(index) {
+            let state = realm.writeTransaction {
+                parentAccount.accounts.append(child)
+            }
+            let indexPath = NSIndexPath(forRow: parentAccount.accounts.count - 1, inSection: index)
+            notificationHandler?(transactionState: state, dataChangedType: .Insert, indexPath: indexPath, userInfo: nil)
         }
-        
-        let indexPath = NSIndexPath(forRow: objectList?.count ?? 0 - 1, inSection: 0)
-        notificationHandler?(transactionState: state, dataChangedType: .Insert, indexPath: indexPath)
     }
+    
+    func deleteAccountAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) {
+        
+        if let parentAccount = parentAccountAtIndex(parentIndex) {
+            let state = realm.writeTransaction {
+                parentAccount.accounts.removeAtIndex(childIndex)
+            }
+            let indexPath = NSIndexPath(forRow: childIndex, inSection: parentIndex)
+            notificationHandler?(transactionState: state, dataChangedType: .Delete, indexPath: indexPath, userInfo: nil)
+        }
+    }
+    
+    func updateAccountAtParentIndexWithName(name: String, widthParentIndex parentIndex: Int, withChildIndex childIndex: Int) {
+        
+        if let childAccount = childAccountAtParentIndex(parentIndex, withChildIndex: childIndex) {
+            let state = realm.writeTransaction {
+                childAccount.name = name
+            }
+            let indexPath = NSIndexPath(forRow: childIndex, inSection: parentIndex)
+            notificationHandler?(transactionState: state, dataChangedType: .Delete, indexPath: indexPath, userInfo: nil)
+        }
+    }
+    
 }

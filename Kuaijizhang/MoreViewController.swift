@@ -8,9 +8,12 @@
 
 import UIKit
 
-class MoreViewController: UIViewController {
+class MoreViewController: UITableViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let vc = segue.destinationViewController as? AccountTableViewController {
+            vc.accountViewModel = AccountViewModel()
+        }
     }
 }

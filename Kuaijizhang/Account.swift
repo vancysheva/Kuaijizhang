@@ -16,6 +16,8 @@ class Account: Object {
      **/
     dynamic var name = ""
     
+    dynamic var iconName = ""
+    
     dynamic var accountBook: AccountBook?
     
     let accounts = List<Account>()

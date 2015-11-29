@@ -20,27 +20,6 @@ class AccountPickerViewController: UIViewController {
     
     @IBOutlet weak var pickerView: UIPickerView!
     
-    // MARK: - Internal fields
-    
-    var firstColumnForParentConsumeTypeName: String = "" {
-        didSet {
-            pickerView.reloadComponent(1)
-            
-            secondColumnForChildConsumeTypeName = accountViewModel?.childAccountAt(parentAccountName: firstColumnForParentConsumeTypeName, index: 0) ?? ""
-            pickerView.selectRow(0, inComponent: 1, animated: true) // 和上一行顺序不能颠倒
-            setValue("\(secondColumnForChildConsumeTypeName)")
-        }
-    }
-    
-    var secondColumnForChildConsumeTypeName: String = "" {
-        didSet {
-            addViewControlelr?.addBillViewModel.setParentConsumeptionTypeFromName(firstColumnForParentConsumeTypeName)
-            addViewControlelr?.addBillViewModel.setChildConsumeptionTypeFromName(parentConsumeptionTypeName: firstColumnForParentConsumeTypeName, childConsumeptionTypeName: secondColumnForChildConsumeTypeName)
-            setValue("\(secondColumnForChildConsumeTypeName)")
-            
-        }
-    }
-    
     // MARK: - Life cycle
     
     override func viewDidLoad() {
@@ -51,30 +30,36 @@ class AccountPickerViewController: UIViewController {
         
         self.accountViewModel = AccountViewModel()
         
-        if let name = addViewControlelr?.addBillViewModel.parentAccount?.name {
-            firstColumnForParentConsumeTypeName = name
-        }
-        
-        if let name = addViewControlelr?.addBillViewModel.childAccount?.name {
-            secondColumnForChildConsumeTypeName = name
-        }
+        accountViewModel?.addNotification({ [unowned self] (transactionState, dataChangedType, indexPath) -> Void in
+            if case .Insert = dataChangedType {
+                self.navigationController?.popToRootViewControllerAnimated(true)
+                
+                self.pickerView.selectRow(indexPath.section, inComponent: 0, animated: true)
+                self.pickerView.reloadComponent(1)
+                self.pickerView.selectRow(indexPath.row, inComponent: 1, animated: true)
+                if let name = self.accountViewModel?.childAccountAtParentIndex(indexPath.section, withChildIndex: indexPath.row).childName {
+                    self.setValueForDelegate(name)
+                }
+                
+            }
+        })
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    @IBAction func tapEditButton(sender: UIButton) {
         
-        if let vc = segue.destinationViewController as? AccountTableViewController {
-            vc.accountViewModel = accountViewModel
-        }
+        let vc = storyboard?.instantiateViewControllerWithIdentifier("AccountTableViewController") as! AccountTableViewController
+        vc.accountViewModel = accountViewModel
+        addViewControlelr?.navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: - Internal Methods
-    
-    internal func setValue(value: String) {
-        delegate?.valueForLabel(value)
+    func setValueForDelegate(name: String) {
+        delegate?.valueForLabel("\(name)")
     }
     
 }
+
+// MARK: - UIPickerViewDelegate
 
 extension AccountPickerViewController: UIPickerViewDelegate {
     
@@ -82,9 +67,9 @@ extension AccountPickerViewController: UIPickerViewDelegate {
         var title: String = ""
         switch component {
         case 0:
-            title = accountViewModel?.parentAccountAt(row) ?? ""
+            title = accountViewModel?.parentAccountWithAmountAt(row).parentName ?? ""
         case 1:
-            title = accountViewModel?.childAccountAt(parentAccountName: firstColumnForParentConsumeTypeName, index: row) ?? ""
+            title = accountViewModel?.childAccountAtParentIndex(pickerView.selectedRowInComponent(0), withChildIndex: row).childName ?? ""
         default:
             break
         }
@@ -94,15 +79,21 @@ extension AccountPickerViewController: UIPickerViewDelegate {
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
-            firstColumnForParentConsumeTypeName = accountViewModel?.parentAccountAt(row) ?? ""
+            pickerView.reloadComponent(1)
+            pickerView.selectRow(0, inComponent: 1, animated: true)
+            let name = accountViewModel?.childAccountAtParentIndex(row, withChildIndex: 0).childName ?? ""
+            setValueForDelegate(name)
         case 1:
-            secondColumnForChildConsumeTypeName = accountViewModel?.childAccountAt(parentAccountName: firstColumnForParentConsumeTypeName, index: row) ?? ""
+            let name = accountViewModel?.childAccountAtParentIndex(pickerView.selectedRowInComponent(0), withChildIndex: row).childName ?? ""
+            setValueForDelegate(name)
         default:
             break
         }
         
     }
 }
+
+// MARK: - UIPickerViewDataSource
 
 extension AccountPickerViewController: UIPickerViewDataSource {
     
@@ -114,9 +105,9 @@ extension AccountPickerViewController: UIPickerViewDataSource {
         var rows: Int = 0
         switch component {
         case 0:
-            rows = accountViewModel?.getParentAccountCount() ?? 0
+            rows = accountViewModel?.numberOfParentAccounts() ?? 0
         case 1:
-            rows = accountViewModel?.getChildAccountCount(parentAccountName: firstColumnForParentConsumeTypeName) ?? 0
+            rows = accountViewModel?.numberOfChildAccountsAtParentIndex(pickerView.selectedRowInComponent(0)) ?? 0
         default: break
         }
         return rows

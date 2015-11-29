@@ -13,7 +13,7 @@ class AccountHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var accountAmountLabel: UILabel!
     @IBOutlet weak var accountNameLabel: UILabel!
     
-    var data: (String?, String?)? {
+    var data: (String?, String?, String?)? {
         didSet {
             if let d = data {
                 accountAmountLabel.text = d.1

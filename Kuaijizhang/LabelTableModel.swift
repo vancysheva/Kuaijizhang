@@ -28,7 +28,7 @@ class LabelTableModel: RealmModel<Subject> {
             self.objectList?.insert(subject, atIndex: 0)
         }
         
-        notificationHandler?(transactionState: state, dataChangedType: .Insert, indexPath: NSIndexPath(forRow: (objectList?.count ?? 1)-1, inSection: 0))
+        notificationHandler?(transactionState: state, dataChangedType: .Insert, indexPath: NSIndexPath(forRow: (objectList?.count ?? 1)-1, inSection: 0), userInfo: nil)
     }
     
     func subjectIsExist(name: String) -> Bool {

@@ -20,21 +20,12 @@ class AddAccountTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: "tapSaveAccount:")
         navigationItem.rightBarButtonItem?.enabled = false
         
         accountNameTextField.delegate = textFieldAgent
         textFieldAgent.addTextFieldTextDidChangeNotification { [unowned self] (notification) -> Void in
             self.navigationItem.rightBarButtonItem?.enabled = self.accountNameTextField.text?.trim().characters.count > 0
         }
-        
-        accountViewModel?.addNotification({ [unowned self] (transactionState, dataChangedType, indexPath) -> Void in
-            
-            if dataChangedType == .Insert {
-                self.navigationController?.popToRootViewControllerAnimated(true)
-            }
-        })
-
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -45,7 +36,7 @@ class AddAccountTableViewController: UITableViewController {
         }
     }
     
-    func tapSaveAccount(sender: AnyObject) {
+    @IBAction func tapSaveAccount(sender: AnyObject) {
         
         if let name = accountNameTextField.text, index = parentAccountIndex {
             accountViewModel?.saveAccountWidthChildName(name, parentAccountIndex: index)

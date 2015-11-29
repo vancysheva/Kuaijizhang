@@ -23,8 +23,8 @@ class LabelTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        labelTableViewModel.addNotification { (transactionState, dataChangedType, indexPath) -> Void in
-            if dataChangedType == .Insert {
+        labelTableViewModel.addNotification { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+            if case .Insert = dataChangedType {
                 self.tableView.reloadData()
             }
         }

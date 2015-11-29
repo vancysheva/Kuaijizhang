@@ -9,7 +9,13 @@
 import Foundation
 
 enum ModelDataChangedType {
-    case Insert, Delete, Update, Query
+    case Insert
+    case Delete
+    case Update
+    case Query
+    case Replace
+    case Swap(index1: Int, index2: Int)
+    case Move(fromIndex: Int, toIndex: Int)
 }
 
 enum TransactionState {
@@ -17,7 +23,7 @@ enum TransactionState {
     case Failure(errorMsg: String)
 }
 
-typealias ViewModelNotificationHandler = (transactionState: TransactionState, dataChangedType: ModelDataChangedType, indexPath: NSIndexPath) -> Void
+typealias ViewModelNotificationHandler = (transactionState: TransactionState, dataChangedType: ModelDataChangedType, indexPath: NSIndexPath, userInfo: [String: Any]?) -> Void
 
 protocol ViewModelNotifiable {
     

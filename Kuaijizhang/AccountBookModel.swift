@@ -45,7 +45,7 @@ class AccountBookModel: RealmModel<AccountBook> {
             realm.delete(book)
             let state = realm.commitTransaction()
 
-            notificationHandler?(transactionState: state, dataChangedType: .Delete, indexPath: indexPath)
+            notificationHandler?(transactionState: state, dataChangedType: .Delete, indexPath: indexPath, userInfo: nil)
         }
     }
 
@@ -74,7 +74,7 @@ class AccountBookModel: RealmModel<AccountBook> {
                 }
                 self.objectList?.append(defaultAccountBook)
             }
-            notificationHandler?(transactionState: state, dataChangedType: .Insert, indexPath: NSIndexPath(forRow: (objectList?.count ?? 1)-1, inSection: 0))
+            notificationHandler?(transactionState: state, dataChangedType: .Insert, indexPath: NSIndexPath(forRow: (objectList?.count ?? 1)-1, inSection: 0), userInfo: nil)
         }
     }
 }
