@@ -71,7 +71,7 @@ class RealmModel<T: Object> {
     
     
     
-    func appendObjectInTransaction(object: T, inSection section: Int = 0) {
+    func appendObject(object: T, inSection section: Int = 0) {
 
         let state = realm.writeTransaction {
             self.objectList?.append(object)
@@ -177,9 +177,14 @@ class RealmModel<T: Object> {
         
         if let list = objectList {
             realm.beginWrite()
+                var arr = [T]()
                 (indexRange.location..<indexRange.length).forEach {
-                    self.realm.delete(list[$0])
+                    arr.append(list[$0])
+                
                 }
+            arr.forEach {
+                self.realm.delete($0)
+            }
             let state = realm.commitTransaction()
             let indexPath = NSIndexPath(forRow: 0, inSection: 0)
             notificationHandler?(transactionState: state, dataChangedType: .Delete, indexPath: indexPath, userInfo: nil)

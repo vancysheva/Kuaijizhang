@@ -87,6 +87,10 @@
 		71FB01C91B934A4C00575D5C /* ConsumeptionTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FB01C81B934A4C00575D5C /* ConsumeptionTypePickerViewController.swift */; };
 		71FB74321BF8A8BB006205E4 /* DateHelperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FB74311BF8A8BB006205E4 /* DateHelperTest.swift */; };
 		71FB74331BF8B020006205E4 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714EC9A01BF76679005C227C /* DateHelper.swift */; };
+		71FDB8721C0AD93B00FEB1B6 /* RealmModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FDB8711C0AD93B00FEB1B6 /* RealmModelTest.swift */; };
+		71FDB8731C0ADD1800FEB1B6 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A7F6DF1BF59ACD006D2868 /* RealmModel.swift */; };
+		71FDB8741C0ADECF00FEB1B6 /* Realm+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7173FDB01BF3A09F00ECC5C6 /* Realm+Extension.swift */; };
+		71FDB8751C0ADEFA00FEB1B6 /* ViewModelNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A7F6DD1BF58EC4006D2868 /* ViewModelNotifiable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +199,7 @@
 		71FB74271BF8A81E006205E4 /* KuaijizhangTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KuaijizhangTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		71FB742B1BF8A81E006205E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		71FB74311BF8A8BB006205E4 /* DateHelperTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelperTest.swift; sourceTree = "<group>"; };
+		71FDB8711C0AD93B00FEB1B6 /* RealmModelTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmModelTest.swift; sourceTree = "<group>"; };
 		90C5E098CEB512BE7A2D8640 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -582,6 +587,7 @@
 		71FB74281BF8A81E006205E4 /* KuaijizhangTests */ = {
 			isa = PBXGroup;
 			children = (
+				71FDB8711C0AD93B00FEB1B6 /* RealmModelTest.swift */,
 				71C44DF91C0AD8780002F627 /* TestCaseBase.swift */,
 				71FB74311BF8A8BB006205E4 /* DateHelperTest.swift */,
 				71FB742B1BF8A81E006205E4 /* Info.plist */,
@@ -881,7 +887,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				71FB74321BF8A8BB006205E4 /* DateHelperTest.swift in Sources */,
+				71FDB8721C0AD93B00FEB1B6 /* RealmModelTest.swift in Sources */,
 				71C44DFA1C0AD8790002F627 /* TestCaseBase.swift in Sources */,
+				71FDB8741C0ADECF00FEB1B6 /* Realm+Extension.swift in Sources */,
+				71FDB8751C0ADEFA00FEB1B6 /* ViewModelNotifiable.swift in Sources */,
+				71FDB8731C0ADD1800FEB1B6 /* RealmModel.swift in Sources */,
 				71FB74331BF8B020006205E4 /* DateHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1014,6 +1024,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEFINES_MODULE = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Kuaijizhang/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1069,13 +1080,14 @@
 		71FB742F1BF8A81E006205E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				BUNDLE_LOADER = "";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = KuaijizhangTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vancysheva.KuaijizhangTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kuaijizhang.app/Kuaijizhang";
+				TEST_HOST = "";
 			};
 			name = Debug;
 		};
@@ -1083,6 +1095,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				INFOPLIST_FILE = KuaijizhangTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

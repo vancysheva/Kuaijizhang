@@ -49,7 +49,8 @@ extension AccountTableViewController {
         
         switch editingStyle {
         case .Delete:
-            accountViewModel
+            //accountViewModel
+            print("")
         case .Insert:
             print("")
         default:

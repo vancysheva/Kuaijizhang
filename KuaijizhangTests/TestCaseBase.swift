@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import RealmSwift
 
 // 一个基本的测试类，每个使用 Realm 进行的测试都应当继承自该类，而不是直接继承自 XCTestCase 类
 class TestCaseBase: XCTestCase {

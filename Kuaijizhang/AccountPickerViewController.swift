@@ -30,7 +30,7 @@ class AccountPickerViewController: UIViewController {
         
         self.accountViewModel = AccountViewModel()
         
-        accountViewModel?.addNotification({ [unowned self] (transactionState, dataChangedType, indexPath) -> Void in
+        accountViewModel?.addNotification({ [unowned self] (transactionState, dataChangedType, indexPath, _) -> Void in
             if case .Insert = dataChangedType {
                 self.navigationController?.popToRootViewControllerAnimated(true)
                 

@@ -25,8 +25,8 @@ class AccountBookViewController: UIViewController {
         accountTableView.delegate = self
         accountTableView.dataSource = self
         accountTableView.tableFooterView = UIView()
-        
-        accountBookViewModel.addNotification { [unowned self] (transactionState: TransactionState, dataChangedType: ModelDataChangedType, indexPath: NSIndexPath) -> Void in
+
+        accountBookViewModel.addNotification { [unowned self] (transactionState: TransactionState, dataChangedType: ModelDataChangedType, indexPath: NSIndexPath, _) -> Void in
             
             if case .Delete = dataChangedType {
                 self.accountTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
