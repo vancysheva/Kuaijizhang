@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SWTableViewCell
 
 class AccountTableViewController: UITableViewController {
 
@@ -22,6 +23,33 @@ class AccountTableViewController: UITableViewController {
         tableView.tableFooterView = UIView()
         
         tableView.registerNib(UINib(nibName: "AccountHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "accountHeader")
+        
+        accountViewModel?.addNotification({ (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+            
+            switch dataChangedType {
+            case .Insert:
+                self.navigationController?.popToViewController(self, animated: true)
+                self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            case .Delete:
+                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            case .Update:
+                self.navigationController?.popToViewController(self, animated: true)
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            default:
+                break
+            }
+        })
+        
+    }
+    
+    @IBAction func tapEditAccountButton(sender: UIBarButtonItem) {
+        if !tableView.editing {
+            sender.title = "完成"
+            tableView.setEditing(true, animated: true)
+        } else {
+            sender.title = "编辑"
+            tableView.setEditing(false, animated: true)
+        }
     }
     
     @IBAction func unWindToAccountList(segue: UIStoryboardSegue) {
@@ -41,23 +69,6 @@ class AccountTableViewController: UITableViewController {
 
 extension AccountTableViewController {
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        switch editingStyle {
-        case .Delete:
-            //accountViewModel
-            print("")
-        case .Insert:
-            print("")
-        default:
-            break
-        }
-    }
-
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return accountViewModel?.numberOfParentAccounts() ?? 0
@@ -69,10 +80,17 @@ extension AccountTableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SWTableViewCell
+        
         if let tuple = accountViewModel?.childAccountAtParentIndex(indexPath.section, withChildIndex: indexPath.row) {
             cell.textLabel?.text = tuple.childName
             cell.detailTextLabel?.text = "\(tuple.childAmount!)"
+            
+            let rightButtons = NSMutableArray()
+            rightButtons.sw_addUtilityButtonWithColor(UIColor.blueColor(), title: "编辑")
+            rightButtons.sw_addUtilityButtonWithColor(UIColor.redColor(), title: "删除")
+            cell.rightUtilityButtons = rightButtons as [AnyObject]
+            cell.delegate = self
         }
 
         return cell
@@ -93,4 +111,33 @@ extension AccountTableViewController {
         headerView.data = accountViewModel?.parentAccountWithAmountAt(section)
         return headerView
     }
+    
+    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        accountViewModel?.moveoObjectFromIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath)
+    }
+}
+
+// MARK: - SWTableViewCellDelegate
+
+extension AccountTableViewController: SWTableViewCellDelegate {
+    
+    func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
+        
+        let indexPath = tableView.indexPathForCell(cell)
+        switch index {
+        case 0:
+            if let addVC = storyboard?.instantiateViewControllerWithIdentifier("AddAccountTableViewController") as? AddAccountTableViewController {
+                addVC.accountViewModel = accountViewModel
+                addVC.indexPathForUpdate = indexPath
+                navigationController?.pushViewController(addVC, animated: true)
+            }
+        case 1:
+            if let ip = indexPath {
+                accountViewModel?.deleteAccountAtParentIndex(ip.section, withChildIndex: ip.row)
+            }
+        default:
+            break
+        }
+    }
+
 }

@@ -17,23 +17,23 @@ class AccountModel: RealmModel<Account> {
     }
     
     func parentAccountAtIndex(index: Int) -> Account? {
-        return objectList?[index]
+        return objectAtIndex(index)
     }
     
     func childAccountAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) -> Account? {
-        return objectList?[parentIndex].accounts[childIndex]
+        return objectAtIndex(parentIndex)?.accounts[childIndex]
     }
     
     func numberOfParentAccounts() -> Int {
-        return objectList?.count ?? 0
+        return objectCount
     }
     
     func numberOfChildAccountsAtParentIndex(parentIndex: Int) -> Int {
-        return objectList?[parentIndex].accounts.count ?? 0
+        return objectAtIndex(parentIndex)?.accounts.count ?? 0
     }
     
     func childAccount(indexPath: NSIndexPath) -> Account? {
-        return objectList?[indexPath.section].accounts[indexPath.row]
+        return objectAtIndex(indexPath.section)?.accounts[indexPath.row]
     }
     
     func saveAccountWithChildName(name: String, withParentAccountIndex index: Int) {
@@ -41,22 +41,14 @@ class AccountModel: RealmModel<Account> {
         let child = Account()
         child.name = name
         if let parentAccount = self.parentAccountAtIndex(index) {
-            let state = realm.writeTransaction {
-                parentAccount.accounts.append(child)
-            }
-            let indexPath = NSIndexPath(forRow: parentAccount.accounts.count - 1, inSection: index)
-            notificationHandler?(transactionState: state, dataChangedType: .Insert, indexPath: indexPath, userInfo: nil)
+            appendObject(child, inList: parentAccount.accounts, inSection: index)
         }
     }
     
     func deleteAccountAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) {
         
-        if let parentAccount = parentAccountAtIndex(parentIndex) {
-            let state = realm.writeTransaction {
-                parentAccount.accounts.removeAtIndex(childIndex)
-            }
-            let indexPath = NSIndexPath(forRow: childIndex, inSection: parentIndex)
-            notificationHandler?(transactionState: state, dataChangedType: .Delete, indexPath: indexPath, userInfo: nil)
+        if let childAccount = parentAccountAtIndex(parentIndex)?.accounts[childIndex] {
+            delete(childAccount, indexPath: NSIndexPath(forRow: childIndex, inSection: parentIndex))
         }
     }
     
@@ -67,7 +59,7 @@ class AccountModel: RealmModel<Account> {
                 childAccount.name = name
             }
             let indexPath = NSIndexPath(forRow: childIndex, inSection: parentIndex)
-            notificationHandler?(transactionState: state, dataChangedType: .Delete, indexPath: indexPath, userInfo: nil)
+            sendNotificationsFeedBack(state, changedType: .Update, indexPath: indexPath, userInfo: nil)
         }
     }
     

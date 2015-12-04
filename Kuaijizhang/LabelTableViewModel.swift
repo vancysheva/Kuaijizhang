@@ -8,38 +8,45 @@
 
 import Foundation
 
-class LabelTableViewModel {
-    
-    let labelTableModel: LabelTableModel
+class LabelTableViewModel: ViewModelBase<LabelTableModel> {
     
     init() {
-        self.labelTableModel = LabelTableModel()
+        super.init(model: LabelTableModel())
     }
     
     func getCount() -> Int {
-        if let count = self.labelTableModel.objectList?.count {
-            return count
-        }
-        return 0
+        return model.objectCount
     }
     
-    func objectAt(indexPath: NSIndexPath) -> String? {
-        return labelTableModel.objectAt(indexPath)?.name
+    func objectAt(indexPath: NSIndexPath) -> (labelName: String?, amount: Double?) {
+        
+        let label = model.objectAtIndex(indexPath.row)
+        return (label?.name, label?.bills.reduce(0) { return $0! + $1.money })
     }
     
     func saveObject(name: String) {
-        labelTableModel.addObjectWith(name)
+        model.addObjectWith(name)
     }
     
     func subjectIsExist(name: String) -> Bool {
-        return labelTableModel.subjectIsExist(name)
+        return model.subjectIsExist(name)
     }
     
-}
-
-extension LabelTableViewModel: ViewModelNotifiable {
-    
-    func addNotification(notificationHandler: ViewModelNotificationHandler) {
-        labelTableModel.notificationHandler = notificationHandler
+    func deleteObject(indexPath: NSIndexPath) {
+        model.deleteObjecctAtIndex(indexPath.row)
     }
+    
+    func moveoObjectFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+        model.moveObjectFromIndex(fromIndexPath.row, toIndex: toIndexPath.row)
+    }
+    
+    func updateObjectWithName(name: String, indexPath: NSIndexPath) {
+        
+        if let obj = model.objectAtIndex(indexPath.row) {
+            model.updateObjectWithIndex(indexPath.row, inSection: indexPath.section, handler: { () -> Void in
+                obj.name = name
+            })
+        }
+    }
+    
 }

@@ -25,7 +25,14 @@ class LabelTableViewController: UITableViewController {
         
         labelTableViewModel.addNotification { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
             if case .Insert = dataChangedType {
+                self.navigationController?.popToViewController(self, animated: true)
+                
                 self.tableView.reloadData()
+                if let name = self.labelTableViewModel.objectAt(indexPath).labelName {
+                    self.setValue(name)
+                }
+                self.delegate?.hideComponetViewController(self)
+
             }
         }
     }
@@ -33,7 +40,7 @@ class LabelTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let vc = segue.destinationViewController as? AddLabelViewController where segue.identifier == "addLabelIdentifier" {
-            vc.labelTabelViewModel = labelTableViewModel
+            vc.labelTableViewModel = labelTableViewModel
         }
     }
     
@@ -52,7 +59,7 @@ class LabelTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("label", forIndexPath: indexPath)
         let label = cell.viewWithTag(1) as! UILabel
-        label.text = labelTableViewModel.objectAt(indexPath)
+        label.text = labelTableViewModel.objectAt(indexPath).labelName
         return cell
     }
     
@@ -69,17 +76,7 @@ class LabelTableViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    @IBAction func unwindToLabelList(segue: UIStoryboardSegue) {
-        
-        if let sourceController = segue.sourceViewController as? AddLabelViewController {
-            let text = sourceController.labelTextField.text!
-            
-            labelTableViewModel.saveObject(text)
-            setValue(text)
-            
-            delegate?.hideComponetViewController(self)
-        }
-    }
+   
     
     func setValue(value: String) {
         delegate?.valueForLabel(value)

@@ -8,12 +8,14 @@
 
 import UIKit
 
-class AddLabelViewController: UIViewController {
+class AddLabelViewController: UITableViewController {
 
     @IBOutlet weak var labelTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     
-    var labelTabelViewModel: LabelTableViewModel?
+    var labelTableViewModel: LabelTableViewModel?
+    
+    var indexPathForUpdate: NSIndexPath?
     
     let agent = TextFieldAgent()
     
@@ -24,25 +26,38 @@ class AddLabelViewController: UIViewController {
         agent.addTextFieldTextDidChangeNotification { (notification) -> Void in
             let b = self.labelTextField.text?.characters.count > 0
             self.navigationItem.rightBarButtonItem?.enabled = b
-            self.saveButton.hidden = !b
         }
         labelTextField.becomeFirstResponder()
         
-        navigationItem.rightBarButtonItem?.enabled = false
-        saveButton.hidden = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: "tapRightBarButtonItem:")
+    
+        if let indexPath = indexPathForUpdate {
+            labelTextField.text = labelTableViewModel?.objectAt(indexPath).labelName
+        } else {
+            navigationItem.rightBarButtonItem?.enabled = false
+        }
+
     }
     
-    
-    @IBAction func tapSaveButton(sender: UIButton) {
-        labelIsExist()
-        return
-    }
-    
-    func labelIsExist() {
+    func tapRightBarButtonItem(sender: AnyObject) {
         
-        if let name = labelTextField.text where labelTabelViewModel?.subjectIsExist(name.trim()) == true {
+        if let indexPath = indexPathForUpdate, name = labelTextField.text {
+            labelTableViewModel?.updateObjectWithName(name, indexPath: indexPath)
+        } else {
+            if !labelIsExist() {
+                labelTableViewModel?.saveObject(labelTextField.text!)
+            }
+        }
+    }
+    
+    func labelIsExist() -> Bool{
+        
+        if let name = labelTextField.text where labelTableViewModel?.subjectIsExist(name.trim()) == true {
             let alert = UIAlertHelpler.getAlertController("", message: "\"\(name)\"标签已经存在。", prefferredStyle: .Alert, actions: ("确定",.Default, nil))
             presentViewController(alert, animated: true, completion: nil)
+            return true
+        } else {
+            return false
         }
     }
 }

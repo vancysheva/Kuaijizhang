@@ -15,20 +15,12 @@ class LabelTableModel: RealmModel<Subject> {
         objectList = System.getCurrentUser()?.accountBooks.filter("isUsing = true").first?.subjects
     }
     
-    func objectAt(indexPath: NSIndexPath) -> Subject? {
-        return objectList?[indexPath.row]
-    }
-    
     func addObjectWith(name: String) {
         
         let subject = Subject()
         subject.name = name
         
-        let state = realm.writeTransaction {
-            self.objectList?.insert(subject, atIndex: 0)
-        }
-        
-        notificationHandler?(transactionState: state, dataChangedType: .Insert, indexPath: NSIndexPath(forRow: (objectList?.count ?? 1)-1, inSection: 0), userInfo: nil)
+        insertObject(subject, atIndex: 0)
     }
     
     func subjectIsExist(name: String) -> Bool {

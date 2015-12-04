@@ -28,4 +28,6 @@ typealias ViewModelNotificationHandler = (transactionState: TransactionState, da
 protocol ViewModelNotifiable {
     
     func addNotification(notificationHandler: ViewModelNotificationHandler)
+    func dataContentWillChange(beginUpdates: ()->Void)
+    func dataContentDidChange(endUpdates: ()->Void)
 }

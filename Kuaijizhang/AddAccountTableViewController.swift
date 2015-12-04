@@ -12,6 +12,7 @@ class AddAccountTableViewController: UITableViewController {
     
     var accountViewModel: AccountViewModel?
     var parentAccountIndex: Int?
+    var indexPathForUpdate: NSIndexPath?
 
     let textFieldAgent = TextFieldAgent()
     
@@ -19,27 +20,28 @@ class AddAccountTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationItem.rightBarButtonItem?.enabled = false
         
         accountNameTextField.delegate = textFieldAgent
         textFieldAgent.addTextFieldTextDidChangeNotification { [unowned self] (notification) -> Void in
             self.navigationItem.rightBarButtonItem?.enabled = self.accountNameTextField.text?.trim().characters.count > 0
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        accountNameTextField.becomeFirstResponder()
         
-        if !accountNameTextField.isFirstResponder() {
-            accountNameTextField.becomeFirstResponder()
+        if let indexPath = indexPathForUpdate {
+            accountNameTextField.text = accountViewModel?.childAccountAtParentIndex(indexPath.section, withChildIndex: indexPath.row).childName
+        } else {
+            navigationItem.rightBarButtonItem?.enabled = false
         }
     }
     
     @IBAction func tapSaveAccount(sender: AnyObject) {
         
-        if let name = accountNameTextField.text, index = parentAccountIndex {
-            accountViewModel?.saveAccountWidthChildName(name, parentAccountIndex: index)
+        if let indexPath = indexPathForUpdate, name = accountNameTextField.text {
+            accountViewModel?.updateChildAccountWithName(name, atParentIndex: indexPath.section, withChildIndex: indexPath.row)
+        } else {
+            if let name = accountNameTextField.text, index = parentAccountIndex {
+                accountViewModel?.saveAccountWidthChildName(name, parentAccountIndex: index)
+            }
         }
     }
 }

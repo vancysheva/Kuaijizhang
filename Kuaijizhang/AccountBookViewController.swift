@@ -34,7 +34,10 @@ class AccountBookViewController: UIViewController {
                 self.accountTableView.reloadData()
             }
         }
-
+        
+        accountBookViewModel.dataContentDidChange { () -> Void in
+            print("data content did change")
+        }
     }
     
     

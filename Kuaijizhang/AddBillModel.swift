@@ -14,7 +14,7 @@ class AddBillModel: RealmModel<Bill> {
     
     override init() {
         super.init()
-        object = Bill()
+
         currentAccountBook = System.getCurrentUser()?.accountBooks.filter("isUsing = true").first
     }
     

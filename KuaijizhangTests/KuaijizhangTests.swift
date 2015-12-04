@@ -2,12 +2,11 @@
 //  KuaijizhangTests.swift
 //  KuaijizhangTests
 //
-//  Created by 范伟 on 15/8/17.
+//  Created by 范伟 on 15/11/15.
 //  Copyright © 2015年 范伟. All rights reserved.
 //
 
 import XCTest
-@testable import Kuaijizhang
 
 class KuaijizhangTests: XCTestCase {
     

@@ -31,7 +31,9 @@ class AccountPickerViewController: UIViewController {
         self.accountViewModel = AccountViewModel()
         
         accountViewModel?.addNotification({ [unowned self] (transactionState, dataChangedType, indexPath, _) -> Void in
-            if case .Insert = dataChangedType {
+            
+            switch dataChangedType {
+            case .Insert:
                 self.navigationController?.popToRootViewControllerAnimated(true)
                 
                 self.pickerView.selectRow(indexPath.section, inComponent: 0, animated: true)
@@ -40,7 +42,11 @@ class AccountPickerViewController: UIViewController {
                 if let name = self.accountViewModel?.childAccountAtParentIndex(indexPath.section, withChildIndex: indexPath.row).childName {
                     self.setValueForDelegate(name)
                 }
-                
+            case .Delete:
+                self.pickerView.reloadComponent(1)
+                self.pickerView.selectRow(0, inComponent: 1, animated: true)
+            default:
+                break
             }
         })
         

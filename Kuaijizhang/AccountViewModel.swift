@@ -8,19 +8,18 @@
 
 import Foundation
 
-class AccountViewModel {
-    
-    let accountModel: AccountModel
+class AccountViewModel: ViewModelBase<AccountModel> {
     
     init() {
-        self.accountModel = AccountModel()
+        super.init(model: AccountModel())
+        print("test")
     }
     
     func parentAccountWithAmountAt(parentIndex: Int) -> (parentName: String?, parentAmount: String?, iconNmae: String?) {
         
         var amount = 0.0
         
-        if let parentAccount = accountModel.parentAccountAtIndex(parentIndex) {
+        if let parentAccount = model.parentAccountAtIndex(parentIndex) {
             
             parentAccount.accounts.forEach {
                 $0.bills.forEach {
@@ -34,7 +33,7 @@ class AccountViewModel {
     
     func childAccountAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) -> (childName: String?, childAmount: String?) {
         
-        if let childAccount = accountModel.childAccountAtParentIndex(parentIndex, withChildIndex: childIndex) {
+        if let childAccount = model.childAccountAtParentIndex(parentIndex, withChildIndex: childIndex) {
             return (childAccount.name, "\(childAccount.bills.reduce(0) { $0 + $1.money })")
         }
         return (nil, nil)
@@ -42,27 +41,38 @@ class AccountViewModel {
     
     func numberOfParentAccounts() -> Int {
         
-        return accountModel.numberOfParentAccounts()
+        return model.numberOfParentAccounts()
     }
     
     func numberOfChildAccountsAtParentIndex(parentIndex: Int) -> Int {
         
-        return accountModel.numberOfChildAccountsAtParentIndex(parentIndex)
+        return model.numberOfChildAccountsAtParentIndex(parentIndex)
     }
     
     func saveAccountWidthChildName(name: String, parentAccountIndex index: Int) {
-        accountModel.saveAccountWithChildName(name, withParentAccountIndex: index)
+        model.saveAccountWithChildName(name, withParentAccountIndex: index)
     }
     
     func deleteAccountAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) {
-        //accountModel.deleteAccountAtParentIndex(parentIndex, withChildIndex: childIndex)
-        accountModel
+        model.deleteAccountAtParentIndex(parentIndex, withChildIndex: childIndex)
     }
-}
-
-extension AccountViewModel: ViewModelNotifiable {
     
-    func addNotification(notificationHandler: ViewModelNotificationHandler) {
-        accountModel.notificationHandler = notificationHandler
+    func updateChildAccountWithName(name: String, atParentIndex parentIndex: Int, withChildIndex childIndex: Int) {
+        
+        if let childAccount = model.objectAtIndex(parentIndex)?.accounts[childIndex] {
+            model.updateObjectWithIndex(childIndex, inSection: parentIndex) { () -> Void in
+                childAccount.name = name
+            }
+        }
+    }
+    
+    func moveoObjectFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+        
+        let state = model.realm.writeTransaction {
+            if let parentAccount = self.model.objectList?[fromIndexPath.section] {
+                parentAccount.accounts.move(from: fromIndexPath.row, to: toIndexPath.row)
+            }
+        }
+        model.sendNotificationsFeedBack(state, changedType: .Move(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row), indexPath: fromIndexPath, userInfo: nil)
     }
 }

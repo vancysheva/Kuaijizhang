@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Kuaijizhang
 
 class DateHelperTest: XCTestCase {
     
@@ -30,17 +31,17 @@ class DateHelperTest: XCTestCase {
     
     func test_getCurrentDate() {
         
-        XCTAssertEqual(DateHelper.getCurrentDate(), "2015年11月19日")
+        XCTAssertEqual(DateHelper.getCurrentDate(), "2015年12月01日")
     }
     
     func test_getCurrentDay() {
         
-        XCTAssertEqual(DateHelper.getCurrentDay(), "19")
+        XCTAssertEqual(DateHelper.getCurrentDay(), "01")
     }
     
     func test_getCurrentMonth() {
         
-        XCTAssertEqual(DateHelper.getCurrentMonth(), "11")
+        XCTAssertEqual(DateHelper.getCurrentMonth(), "12")
     }
     
     func test_getCurrentYear() {
@@ -50,32 +51,32 @@ class DateHelperTest: XCTestCase {
     
     func test_getCurrentWeek() {
         
-        XCTAssertEqual(DateHelper.getCurrentWeek(), "周四")
+        XCTAssertEqual(DateHelper.getCurrentWeek(), "周二")
     }
     
     func test_getStartWeekDisplayStringOfPeriodWeek() {
         
-        XCTAssertEqual(DateHelper.getStartWeekDisplayStringOfPeriodWeek(), "11月16日")
+        XCTAssertEqual(DateHelper.getStartWeekDisplayStringOfPeriodWeek(), "11月30日")
     }
     
     func test_getOverWeekDisplayStringOfPeriodWeek() {
         
-        XCTAssertEqual(DateHelper.getOverWeekDisplayStringOfPeriodWeek(), "11月22日")
+        XCTAssertEqual(DateHelper.getOverWeekDisplayStringOfPeriodWeek(), "12月06日")
     }
     
     func test_getStartMonthDisplayStringOfPeriodMonth() {
         
-        XCTAssertEqual(DateHelper.getStartMonthDisplayStringOfPeriodMonth(), "11月01日")
+        XCTAssertEqual(DateHelper.getStartMonthDisplayStringOfPeriodMonth(), "12月01日")
     }
     
     func test_getOverMonthDisplayStringOfPeriodMonth() {
         
-        XCTAssertEqual(DateHelper.getOverMonthDisplayStringOfPeriodMonth(), "11月30日")
+        XCTAssertEqual(DateHelper.getOverMonthDisplayStringOfPeriodMonth(), "12月31日")
     }
     
     func test_getRangeOfCurrentMonth() {
         
-        let range = NSRange.init(location: 1, length: 30)
+        let range = NSRange.init(location: 1, length: 31)
         let sourceRange = DateHelper.getRangeOfCurrentMonth()
         XCTAssertEqual(sourceRange.length, range.length)
         XCTAssertEqual(sourceRange.location, range.location)
@@ -91,7 +92,7 @@ class DateHelperTest: XCTestCase {
     
     func test_getDayFromDate() {
         
-        XCTAssertEqual(DateHelper.getDayFromDate(NSDate()), 19)
+        XCTAssertEqual(DateHelper.getDayFromDate(NSDate()), 01)
     }
     
     func test_getRangeDateFor() {
