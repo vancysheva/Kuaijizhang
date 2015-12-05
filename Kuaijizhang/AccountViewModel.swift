@@ -6,13 +6,13 @@
 //  Copyright © 2015年 范伟. All rights reserved.
 //
 
+
 import Foundation
 
 class AccountViewModel: ViewModelBase<AccountModel> {
     
     init() {
         super.init(model: AccountModel())
-        print("test")
     }
     
     func parentAccountWithAmountAt(parentIndex: Int) -> (parentName: String?, parentAmount: String?, iconNmae: String?) {
