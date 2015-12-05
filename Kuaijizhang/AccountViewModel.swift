@@ -13,7 +13,6 @@ class AccountViewModel: ViewModelBase<AccountModel> {
     
     init() {
         super.init(model: AccountModel())
-        print("")
     }
     
     func parentAccountWithAmountAt(parentIndex: Int) -> (parentName: String?, parentAmount: String?, iconNmae: String?) {
