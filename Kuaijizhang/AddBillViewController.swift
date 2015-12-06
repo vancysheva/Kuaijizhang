@@ -136,13 +136,11 @@ extension AddBillViewController {
     
     func selectFirstRowAndDisplayNumPad() {
         // 250毫秒后执行
-        let time = dispatch_time(DISPATCH_TIME_NOW, (Int64)(250 * NSEC_PER_MSEC))
-        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+        delayHandler(250) {
             self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.Top)
             // 目的为了弹出数字面板
             self.tableView.delegate?.tableView!(self.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         }
-
     }
     
     func initButtonWithBorderStyle(button: UIButton) {

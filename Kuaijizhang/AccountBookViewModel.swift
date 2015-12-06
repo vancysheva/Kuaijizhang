@@ -15,7 +15,7 @@ class AccountBookViewModel: ViewModelBase<AccountBookModel> {
     }
     
     func getCount() -> Int {
-        return model.objectCount
+        return model.numberOfObjects
     }
 
     func delete(indexPath: NSIndexPath) {

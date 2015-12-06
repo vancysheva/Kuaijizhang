@@ -15,6 +15,8 @@ class AccountTableViewController: UITableViewController {
     @IBOutlet weak var assetLabel: UILabel!
     @IBOutlet weak var liabilityLabel: UILabel!
     
+    @IBOutlet weak var addAccountBarItem: UIBarButtonItem!
+    
     var accountViewModel: AccountViewModel?
 
     override func viewDidLoad() {
@@ -45,9 +47,11 @@ class AccountTableViewController: UITableViewController {
     @IBAction func tapEditAccountButton(sender: UIBarButtonItem) {
         if !tableView.editing {
             sender.title = "完成"
+            addAccountBarItem.enabled = false
             tableView.setEditing(true, animated: true)
         } else {
             sender.title = "编辑"
+            addAccountBarItem.enabled = true
             tableView.setEditing(false, animated: true)
         }
     }
@@ -115,6 +119,22 @@ extension AccountTableViewController {
     override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         accountViewModel?.moveoObjectFromIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath)
     }
+    
+    override func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {
+        
+        if sourceIndexPath.section != proposedDestinationIndexPath.section {
+            var row = 0
+            if sourceIndexPath.section < proposedDestinationIndexPath.section {
+                row = tableView.numberOfRowsInSection(sourceIndexPath.section) - 1
+            }
+            return NSIndexPath(forRow: row, inSection: sourceIndexPath.section)
+        }
+        return  proposedDestinationIndexPath
+    }
+    
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .None
+    }
 }
 
 // MARK: - SWTableViewCellDelegate
@@ -139,5 +159,8 @@ extension AccountTableViewController: SWTableViewCellDelegate {
             break
         }
     }
-
+    
+    func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
+        return true
+    }
 }

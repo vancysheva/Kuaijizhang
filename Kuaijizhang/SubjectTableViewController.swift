@@ -88,15 +88,18 @@ extension SubjectTableViewController {
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
+    
+    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        subjectViewModel.moveoObjectFromIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath)
+    }
 }
 
 // MARK: - UITableViewDelegate
 
 extension SubjectTableViewController {
     
-    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        
-        subjectViewModel.moveoObjectFromIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath)
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .None
     }
 }
 
@@ -122,5 +125,9 @@ extension SubjectTableViewController: SWTableViewCellDelegate {
         default:
             break
         }
+    }
+    
+    func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
+        return true
     }
 }

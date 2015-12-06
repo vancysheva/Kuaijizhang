@@ -33,12 +33,12 @@ class RealmModelTest: TestCaseBase {
     
     func testObjectCount() {
 
-        let count1 = realmModel?.objectCount
+        let count1 = realmModel?.numberOfObjects
         let count2 = realmModel?.realm.objects(TestModel.self).filter("name BEGINSWITH 'b'").count
         XCTAssertEqual(count1, count2)
         
         realmModel?.objectList = nil
-        let count3 = realmModel?.objectCount
+        let count3 = realmModel?.numberOfObjects
         XCTAssertEqual(count3, 0)
     }
     
@@ -74,7 +74,7 @@ class RealmModelTest: TestCaseBase {
     func testAppendObject() {
         
         realmModel?.appendObject(TestModel(value:["name": "b3"]))
-        let count = realmModel?.objectCount ?? 0
+        let count = realmModel?.numberOfObjects ?? 0
         let name = realmModel?.objectAtIndex(count-1)?.name
         XCTAssertEqual(count, 3)
         XCTAssertEqual(name!, "b3")
@@ -83,7 +83,7 @@ class RealmModelTest: TestCaseBase {
     func testInsertObjectInFirst() {
         
         realmModel?.insertObjectInFirst(TestModel(value: ["name": "b3"]))
-        let count = realmModel?.objectCount
+        let count = realmModel?.numberOfObjects
         let name = realmModel?.firstObject?.name
         XCTAssertEqual(count, 3)
         XCTAssertEqual(name, "b3")
@@ -92,7 +92,7 @@ class RealmModelTest: TestCaseBase {
     func testInsertObject() {
         
         realmModel?.insertObject(TestModel(value: ["name": "b3"]), atIndex: 1)
-        let count = realmModel?.objectCount
+        let count = realmModel?.numberOfObjects
         let name = realmModel?.objectAtIndex(1)?.name
         XCTAssertEqual(count, 3)
         XCTAssertEqual(name, "b3")
@@ -122,7 +122,7 @@ class RealmModelTest: TestCaseBase {
     func testDeleteObjecctAtIndex() {
         
         realmModel?.removeObjecctAtIndex(0)
-        let count = realmModel?.objectCount
+        let count = realmModel?.numberOfObjects
         XCTAssertEqual(realmModel?.realm.objects(TestModel.self).count, 3)
         XCTAssertEqual(count, 1)
     }
@@ -137,7 +137,7 @@ class RealmModelTest: TestCaseBase {
     func testDeleteAllInObjectList() {
         
         realmModel?.deleteAllInObjectList()
-        let count = realmModel?.objectCount
+        let count = realmModel?.numberOfObjects
         XCTAssertEqual(count, 0)
     }
     
@@ -145,7 +145,7 @@ class RealmModelTest: TestCaseBase {
         
         let range = NSRange(location: 0, length: 2)
         realmModel?.deleteObjectInObjectListAtIndexRange(range)
-        let count = realmModel?.objectCount
+        let count = realmModel?.numberOfObjects
         
         XCTAssertEqual(count, 0)
     }
@@ -153,7 +153,7 @@ class RealmModelTest: TestCaseBase {
     func testAppendObjectWithList() {
         
         realmModel?.appendObject(TestModel(value: ["name": "1"]), inList: (realmModel?.objectList)!)
-        let count = realmModel?.objectCount
+        let count = realmModel?.numberOfObjects
         XCTAssertEqual(count, 3)
     }
     

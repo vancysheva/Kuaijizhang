@@ -21,7 +21,7 @@ class RealmModel<T: Object>: ModelBase {
         self.realm = Realm.getRealmInstance()
     }
     
-    var objectCount: Int {
+    var numberOfObjects: Int {
         return objectList?.count ?? 0
     }
     
@@ -69,7 +69,7 @@ class RealmModel<T: Object>: ModelBase {
         }
         endUpdates?()
         
-        let indexPath = NSIndexPath(forRow: objectCount - 1, inSection: section)
+        let indexPath = NSIndexPath(forRow: numberOfObjects - 1, inSection: section)
         sendNotificationsFeedBack(state, changedType: .Insert, indexPath: indexPath, userInfo: nil)
     }
     

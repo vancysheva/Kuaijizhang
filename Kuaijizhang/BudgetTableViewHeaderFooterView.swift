@@ -1,14 +1,14 @@
 //
-//  BudgetTableViewCell.swift
+//  BudgetTableViewHeaderFooterView.swift
 //  Kuaijizhang
 //
-//  Created by 范伟 on 15/11/2.
+//  Created by 范伟 on 15/12/7.
 //  Copyright © 2015年 范伟. All rights reserved.
 //
 
 import UIKit
 
-class BudgetTableViewCell: UITableViewCell {
+class BudgetTableViewHeaderFooterView: UITableViewHeaderFooterView {
 
     @IBOutlet weak var consumeImageView: UIImageView!
     @IBOutlet weak var consumeNameLabel: UILabel!
@@ -33,3 +33,4 @@ class BudgetTableViewCell: UITableViewCell {
         }
     }
 }
+

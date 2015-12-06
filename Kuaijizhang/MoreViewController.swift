@@ -10,10 +10,18 @@ import UIKit
 
 class MoreViewController: UITableViewController {
 
+    @IBOutlet var icons: [UIImageView]! {
+        didSet {
+        }
+    }
+    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let vc = segue.destinationViewController as? AccountTableViewController {
             vc.accountViewModel = AccountViewModel()
         }
     }
+    
+    
 }

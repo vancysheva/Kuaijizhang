@@ -25,12 +25,15 @@ class AddAccountTableViewController: UITableViewController {
         textFieldAgent.addTextFieldTextDidChangeNotification { [unowned self] (notification) -> Void in
             self.navigationItem.rightBarButtonItem?.enabled = self.accountNameTextField.text?.trim().characters.count > 0
         }
-        accountNameTextField.becomeFirstResponder()
         
         if let indexPath = indexPathForUpdate {
             accountNameTextField.text = accountViewModel?.childAccountAtParentIndex(indexPath.section, withChildIndex: indexPath.row).childName
         } else {
             navigationItem.rightBarButtonItem?.enabled = false
+        }
+        
+        delayHandler(500) {
+            self.accountNameTextField.becomeFirstResponder()
         }
     }
     

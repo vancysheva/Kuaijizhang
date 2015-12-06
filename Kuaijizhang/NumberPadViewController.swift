@@ -124,7 +124,7 @@ class NumberPadViewController: UIViewController {
 extension NumberPadViewController {
     
     func mapButton() {
-        buttons.flatMap {
+        buttons.forEach {
             $0.showsTouchWhenHighlighted = true
         }
     }

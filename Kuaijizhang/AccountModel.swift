@@ -25,7 +25,7 @@ class AccountModel: RealmModel<Account> {
     }
     
     func numberOfParentAccounts() -> Int {
-        return objectCount
+        return numberOfObjects
     }
     
     func numberOfChildAccountsAtParentIndex(parentIndex: Int) -> Int {

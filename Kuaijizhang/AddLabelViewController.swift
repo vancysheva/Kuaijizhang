@@ -27,7 +27,6 @@ class AddLabelViewController: UITableViewController {
             let b = self.labelTextField.text?.characters.count > 0
             self.navigationItem.rightBarButtonItem?.enabled = b
         }
-        labelTextField.becomeFirstResponder()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: "tapRightBarButtonItem:")
     
@@ -35,6 +34,10 @@ class AddLabelViewController: UITableViewController {
             labelTextField.text = labelTableViewModel?.objectAt(indexPath).labelName
         } else {
             navigationItem.rightBarButtonItem?.enabled = false
+        }
+        
+        delayHandler(500) {
+            self.labelTextField.becomeFirstResponder()
         }
 
     }

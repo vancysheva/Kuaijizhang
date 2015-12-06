@@ -15,7 +15,7 @@ class LabelTableViewModel: ViewModelBase<LabelTableModel> {
     }
     
     func getCount() -> Int {
-        return model.objectCount
+        return model.numberOfObjects
     }
     
     func objectAt(indexPath: NSIndexPath) -> (labelName: String?, amount: Double?) {
