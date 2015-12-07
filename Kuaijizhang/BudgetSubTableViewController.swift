@@ -92,13 +92,15 @@ extension BudgetSubTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if childViewControllers.count > 0 {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
             childViewControllers.forEach {
                 removeCotentControllerWidthAnimation($0)
             }
+        } else {
+            let numberPadViewController = storyboard?.instantiateViewControllerWithIdentifier("NumberPadViewController") as! NumberPadViewController
+            numberPadViewController.delegate = self
+            addContentController(numberPadViewController)
         }
-        let numberPadViewController = storyboard?.instantiateViewControllerWithIdentifier("NumberPadViewController") as! NumberPadViewController
-        numberPadViewController.delegate = self
-        addContentController(numberPadViewController)
     }
 }
 
