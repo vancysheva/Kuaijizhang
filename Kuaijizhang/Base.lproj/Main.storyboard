@@ -3746,7 +3746,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" rowHeight="60" id="pna-Qg-fUA" customClass="BudgetTableViewCell" customModule="Kuaijizhang" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" rowHeight="60" id="pna-Qg-fUA" customClass="BudgetTableViewCell" customModule="Kuaijizhang" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="244" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pna-Qg-fUA" id="1Z0-Uc-omp">
@@ -3876,13 +3876,13 @@
         <scene sceneID="eQs-sB-IIH">
             <objects>
                 <tableViewController id="AK4-xS-C4q" customClass="BudgetSubTableViewController" customModule="Kuaijizhang" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="60" sectionFooterHeight="28" id="UtZ-W8-JX9">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="60" sectionFooterHeight="28" id="UtZ-W8-JX9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" rowHeight="60" id="hQf-ba-Qgr" customClass="BudgetTableViewCell" customModule="Kuaijizhang" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" rowHeight="60" id="hQf-ba-Qgr" customClass="BudgetTableViewCell" customModule="Kuaijizhang" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="124" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hQf-ba-Qgr" id="9xA-gz-56d">
@@ -3904,11 +3904,11 @@
                                                 <constraint firstAttribute="height" constant="2" id="t2a-8H-G54"/>
                                             </constraints>
                                         </progressView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="消费类别" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGD-3P-HMv">
-                                            <rect key="frame" x="46" y="4" width="60" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="消费类别" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eGD-3P-HMv">
+                                            <rect key="frame" x="46" y="4" width="100" height="20"/>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="W8X-Np-RzD"/>
+                                                <constraint firstAttribute="width" constant="100" id="W8X-Np-RzD"/>
                                                 <constraint firstAttribute="height" constant="20" id="smd-cd-mc4"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -3997,14 +3997,6 @@
                     <navigationItem key="navigationItem" title="二级预算" id="Vug-Cc-1h0"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qX0-J8-i2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <containerView opaque="NO" contentMode="scaleToFill" id="Vbv-m9-7sr">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <animations/>
-                    <connections>
-                        <segue destination="Pyh-6M-quT" kind="embed" identifier="showNumberPad" id="vyM-gN-eqh"/>
-                    </connections>
-                </containerView>
             </objects>
             <point key="canvasLocation" x="2270" y="3317"/>
         </scene>
