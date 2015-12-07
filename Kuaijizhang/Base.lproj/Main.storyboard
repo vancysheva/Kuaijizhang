@@ -4649,7 +4649,7 @@
         <image name="tag icon" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="T8X-bp-ZrX"/>
         <segue reference="AjP-Gv-udr"/>
-        <segue reference="PdO-gs-dIZ"/>
     </inferredMetricsTieBreakers>
 </document>
