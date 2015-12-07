@@ -3876,7 +3876,7 @@
         <scene sceneID="eQs-sB-IIH">
             <objects>
                 <tableViewController id="AK4-xS-C4q" customClass="BudgetSubTableViewController" customModule="Kuaijizhang" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="60" sectionFooterHeight="28" id="UtZ-W8-JX9">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="60" sectionFooterHeight="28" id="UtZ-W8-JX9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
@@ -3997,14 +3997,6 @@
                     <navigationItem key="navigationItem" title="二级预算" id="Vug-Cc-1h0"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qX0-J8-i2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <containerView opaque="NO" contentMode="scaleToFill" id="Vbv-m9-7sr">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <animations/>
-                    <connections>
-                        <segue destination="Pyh-6M-quT" kind="embed" identifier="showNumberPad" id="vyM-gN-eqh"/>
-                    </connections>
-                </containerView>
             </objects>
             <point key="canvasLocation" x="2270" y="3317"/>
         </scene>

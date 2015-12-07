@@ -107,7 +107,6 @@ class NumberPadViewController: UIViewController {
     }
 
     @IBAction func okButton(sender: UIButton) {
-        print(sender.titleLabel!.text!, terminator: "\n")
         delegate?.hideComponetViewController(self)
     }
     

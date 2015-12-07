@@ -10,9 +10,9 @@ import UIKit
 
 class BudgetSubTableViewController: UITableViewController {
     
+    let numberPadOffSetY = CGFloat(4)
     var budgetViewModel: BudgetViewModel?
     var parentIndex: Int?
-    var numberPadViewController: NumberPadViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,17 +23,30 @@ class BudgetSubTableViewController: UITableViewController {
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    func addContentController(content: UIViewController) {
         
-        if let vc = segue.destinationViewController as? NumberPadViewController where segue.identifier == "showNumberPad"{
-            numberPadViewController = vc
-            numberPadViewController?.delegate = self
-            
-            
-            numberPadViewController!.view.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height*0.4)
-            view.addSubview(numberPadViewController!.view)
+        addChildViewController(content)
+        content.view.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height*0.4)
+        view.addSubview(content.view)
+        content.didMoveToParentViewController(self)
+        
+        UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
+            content.view.frame.origin.y = self.view.frame.height - content.view.frame.height - self.tableView.sectionHeaderHeight - self.numberPadOffSetY
+            }, completion: nil)
+        
+    }
+    
+    func removeCotentControllerWidthAnimation(content: UIViewController) {
+        
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            content.view.frame.origin.y += content.view.frame.height
+            }) { bo in
+                content.willMoveToParentViewController(nil)
+                content.view.removeFromSuperview()
+                content.removeFromParentViewController()
         }
     }
+
 }
 
 
@@ -77,9 +90,15 @@ extension BudgetSubTableViewController {
 extension BudgetSubTableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
-            self.numberPadViewController!.view.frame.origin.y = self.view.frame.height - self.numberPadViewController!.view.frame.height
-            }, completion: nil)
+        
+        if childViewControllers.count > 0 {
+            childViewControllers.forEach {
+                removeCotentControllerWidthAnimation($0)
+            }
+        }
+        let numberPadViewController = storyboard?.instantiateViewControllerWithIdentifier("NumberPadViewController") as! NumberPadViewController
+        numberPadViewController.delegate = self
+        addContentController(numberPadViewController)
     }
 }
 
@@ -95,11 +114,6 @@ extension BudgetSubTableViewController: ComponentViewControllerDelegate {
     }
     
     func hideComponetViewController(content: UIViewController) {
-        
-        UIView.animateWithDuration(0.25, animations: { () -> Void in
-            content.view.frame.origin.y += content.view.frame.height
-            }) { bo in
-                self.numberPadViewController?.view.removeFromSuperview()
-        }
+        removeCotentControllerWidthAnimation(content)
     }
 }
