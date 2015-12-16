@@ -14,32 +14,12 @@ class ConsumeptionTypePickerViewController: UIViewController {
     
     weak var addViewControlelr: AddBillViewController?
     
-    var consumeptionTypePickerViewModel: ConsumeptionTypePickerViewModel?
+    var consumeptionTypeViewModel: ConsumeptionTypeViewModel?
     
     // MARK: - IBOutlet and IBAction
     
     @IBOutlet weak var pickerView: UIPickerView!
-    
-    // MARK: - Internal fields
-    
-    var firstColumnForParentConsumeTypeName: String = "" {
-        didSet {
-            pickerView.reloadComponent(1)
-            
-            secondColumnForChildConsumeTypeName = consumeptionTypePickerViewModel?.childConsumeptionTypeAt(parentConsumeptionTypeName: firstColumnForParentConsumeTypeName, index: 0) ?? ""
-            pickerView.selectRow(0, inComponent: 1, animated: true) // 和上一行顺序不能颠倒
-            setValue("\(firstColumnForParentConsumeTypeName)>\(secondColumnForChildConsumeTypeName)")
-        }
-    }
-    
-    var secondColumnForChildConsumeTypeName: String = "" {
-        didSet {
-            addViewControlelr?.addBillViewModel.setParentConsumeptionTypeFromName(firstColumnForParentConsumeTypeName)
-            addViewControlelr?.addBillViewModel.setChildConsumeptionTypeFromName(parentConsumeptionTypeName: firstColumnForParentConsumeTypeName, childConsumeptionTypeName: secondColumnForChildConsumeTypeName)
-            setValue("\(firstColumnForParentConsumeTypeName)>\(secondColumnForChildConsumeTypeName)")
-            
-        }
-    }
+
     
     // MARK: - Life cycle
 
@@ -49,32 +29,43 @@ class ConsumeptionTypePickerViewController: UIViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
         
-        self.consumeptionTypePickerViewModel = ConsumeptionTypePickerViewModel(billType: (addViewControlelr?.billType)!)
+        self.consumeptionTypeViewModel = ConsumeptionTypeViewModel(billType: (addViewControlelr?.billType)!)
 
-        if let name = addViewControlelr?.addBillViewModel.parentConsumpetionType?.name {
-            firstColumnForParentConsumeTypeName = name
-        }
-        
-        if let name = addViewControlelr?.addBillViewModel.childConsumpetionType?.name {
-            secondColumnForChildConsumeTypeName = name
-        }
+        consumeptionTypeViewModel?.addNotification({ [unowned self] (transactionState, dataChangedType, indexPath, _) -> Void in
+            
+            switch dataChangedType {
+            case .Insert:
+                self.navigationController?.popToRootViewControllerAnimated(true)
+                
+                self.pickerView.selectRow(indexPath.section, inComponent: 0, animated: true)
+                self.pickerView.reloadComponent(1)
+                self.pickerView.selectRow(indexPath.row, inComponent: 1, animated: true)
+                if let name = self.consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(indexPath.section, withChildIndex: indexPath.row).childName {
+                    self.setValueForDelegate(name)
+                }
+            case .Delete:
+                self.pickerView.reloadComponent(1)
+                self.pickerView.selectRow(0, inComponent: 1, animated: true)
+            default:
+                break
+            }
+            })
 
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if let id = segue.identifier, vc = segue.destinationViewController as? ConsumeTypeListViewController where id == "toParentTypeList" {
-            //vc.consumeTypeData = consumeTypeData
+        if let id = segue.identifier, vc = segue.destinationViewController as? ParentConsumeTypeListViewController where id == "toParentConsumeptionTypeTypeList" {
+            vc.consumeptionTypeViewModel = consumeptionTypeViewModel
             vc.addViewController = addViewControlelr
         }
     }
         
     // MARK: - Internal Methods
     
-    internal func setValue(value: String) {
-        delegate?.valueForLabel(value)
+    func setValueForDelegate(name: String) {
+        delegate?.valueForLabel("\(name)")
     }
-
 }
 
 extension ConsumeptionTypePickerViewController: UIPickerViewDelegate {
@@ -83,9 +74,9 @@ extension ConsumeptionTypePickerViewController: UIPickerViewDelegate {
         var title: String = ""
         switch component {
         case 0:
-            title = consumeptionTypePickerViewModel?.parentConsumeptionTypeAt(row) ?? ""
+            title = consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(row).parentName ?? ""
         case 1:
-            title = consumeptionTypePickerViewModel?.childConsumeptionTypeAt(parentConsumeptionTypeName: firstColumnForParentConsumeTypeName, index: row) ?? ""
+            title = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(pickerView.selectedRowInComponent(0), withChildIndex: row).childName ?? ""
         default:
             break
         }
@@ -95,9 +86,13 @@ extension ConsumeptionTypePickerViewController: UIPickerViewDelegate {
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
-            firstColumnForParentConsumeTypeName = consumeptionTypePickerViewModel?.parentConsumeptionTypeAt(row) ?? ""
+            pickerView.reloadComponent(1)
+            pickerView.selectRow(0, inComponent: 1, animated: true)
+            let name = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(row, withChildIndex: 0).childName ?? ""
+            setValueForDelegate(name)
         case 1:
-            secondColumnForChildConsumeTypeName = consumeptionTypePickerViewModel?.childConsumeptionTypeAt(parentConsumeptionTypeName: firstColumnForParentConsumeTypeName, index: row) ?? ""
+            let name = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(pickerView.selectedRowInComponent(0), withChildIndex: row).childName ?? ""
+            setValueForDelegate(name)
         default:
             break
         }
@@ -115,9 +110,9 @@ extension ConsumeptionTypePickerViewController: UIPickerViewDataSource {
         var rows: Int = 0
         switch component {
         case 0:
-            rows = consumeptionTypePickerViewModel?.getParentConsumeptionTypeCount() ?? 0
+            rows = consumeptionTypeViewModel?.numberOfParentConsumeptionTypes() ?? 0
         case 1:
-            rows = consumeptionTypePickerViewModel?.getChildConsumeptionTypeCount(consumeptionTypeName: firstColumnForParentConsumeTypeName) ?? 0
+            rows = consumeptionTypeViewModel?.numberOfChildConsumeptionTypesAtParentIndex(pickerView.selectedRowInComponent(0)) ?? 0
         default: break
         }
         return rows

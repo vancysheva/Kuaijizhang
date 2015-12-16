@@ -16,6 +16,7 @@ class PortalModel: RealmModel<AccountBook> {
     
     override init() {
         super.init()
+        System.baseInit()
         user = System.getCurrentUser()
     }
     

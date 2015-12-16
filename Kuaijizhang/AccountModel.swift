@@ -32,10 +32,6 @@ class AccountModel: RealmModel<Account> {
         return objectAtIndex(parentIndex)?.accounts.count ?? 0
     }
     
-    func childAccount(indexPath: NSIndexPath) -> Account? {
-        return objectAtIndex(indexPath.section)?.accounts[indexPath.row]
-    }
-    
     func saveAccountWithChildName(name: String, withParentAccountIndex index: Int) {
         
         let child = Account()
@@ -54,13 +50,40 @@ class AccountModel: RealmModel<Account> {
     
     func updateAccountAtParentIndexWithName(name: String, widthParentIndex parentIndex: Int, withChildIndex childIndex: Int) {
         
+        
         if let childAccount = childAccountAtParentIndex(parentIndex, withChildIndex: childIndex) {
-            let state = realm.writeTransaction {
+            updateObjectWithIndex(childIndex, inSection: parentIndex) {
                 childAccount.name = name
             }
-            let indexPath = NSIndexPath(forRow: childIndex, inSection: parentIndex)
-            sendNotificationsFeedBack(state, changedType: .Update, indexPath: indexPath, userInfo: nil)
         }
+    }
+    
+    func allIncome() -> Double {
+        
+        if let parentAccounts = objectList {
+            return parentAccounts.reduce(0.0) {
+                $0 + $1.accounts.reduce(0.0) {
+                    $0 + $1.bills.filter("consumeType.type == '0'").reduce(0.0) {
+                        $0 + $1.money
+                    }
+                }
+            }
+        }
+        return 0.0
+    }
+    
+    func allExpense() -> Double {
+        
+        if let parentAccounts = objectList {
+            return parentAccounts.reduce(0.0) {
+                $0 + $1.accounts.reduce(0.0) {
+                    $0 + $1.bills.filter("consumeType.type == '1'").reduce(0.0) {
+                        $0 + $1.money
+                    }
+                }
+            }
+        }
+        return 0.0
     }
     
 }

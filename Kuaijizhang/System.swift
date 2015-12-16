@@ -49,12 +49,12 @@ class System {
      获取当前用户
     */
     class func getCurrentUser() -> User? {
-        
+        ConsumeptionTypeIconCollectionAgent()
         let realm = Realm.getRealmInstance()
         
         if let userDic = NSUserDefaults.standardUserDefaults().dictionaryForKey(Identifier.User) {
             let queryUser = User(value: userDic)
-            if let user = realm.objects(User.self).filter("id == %@ AND username == %@ AND password == %@", queryUser.id, queryUser.username, queryUser.password).first {
+            if let user = realm.objects(User.self).filter("id = %@ AND username = %@ AND password = %@", queryUser.id, queryUser.username, queryUser.password).first {
                 return user
             }
             return nil

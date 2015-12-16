@@ -35,9 +35,6 @@ class AccountBookViewController: UIViewController {
             }
         }
         
-        accountBookViewModel.dataContentDidChange { () -> Void in
-            print("data content did change")
-        }
     }
     
     

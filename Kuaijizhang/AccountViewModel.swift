@@ -75,4 +75,12 @@ class AccountViewModel: ViewModelBase<AccountModel> {
         }
         model.sendNotificationsFeedBack(state, changedType: .Move(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row), indexPath: fromIndexPath, userInfo: nil)
     }
+    
+    func allIncome() -> Double {
+        return model.allIncome()
+    }
+    
+    func allExpense() -> Double {
+        return model.allExpense()
+    }
 }

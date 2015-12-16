@@ -20,6 +20,8 @@ class MoreViewController: UITableViewController {
         
         if let vc = segue.destinationViewController as? AccountTableViewController {
             vc.accountViewModel = AccountViewModel()
+        } else if let vc = segue.destinationViewController as? CatlogManagePageViewController {
+            
         }
     }
     

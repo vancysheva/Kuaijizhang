@@ -1,5 +1,5 @@
 //
-//  ConsumeTypeListViewController.swift
+//  ChildConsumeTypeListViewController.swift
 //  Kuaijizhang
 //
 //  Created by 范伟 on 15/10/17.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ConsumeTypeListViewController: UIViewController {
-
+class ChildConsumeTypeListViewController: UIViewController {
+    
     @IBOutlet weak var consumeTypeTableView: UITableView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
@@ -18,20 +18,13 @@ class ConsumeTypeListViewController: UIViewController {
         toggleButtonForEditingStyleWidthAnimation()
     }
     
-    /**
-     parentTypeID 是空,则是一级类别view controller；不为空,则是二级类别view controller
-    **/
-    var parentTypeID: String?
+    var parentIndex: Int?
     
-    var childTypeID: String?
-    
-    var consumeTypeData: ConsumeTypeData?
+    var consumeptionTypeViewModel: ConsumeptionTypeViewModel?
     
     weak var editViewController: UIViewController?
     
     weak var addViewController: AddBillViewController?
-    
-    var data: [String]?
     
     enum ButtonType: String {
         case Edit = "✎ 编辑", Done = "✓完成"
@@ -48,50 +41,30 @@ class ConsumeTypeListViewController: UIViewController {
         consumeTypeTableView.dataSource = self
         consumeTypeTableView.tableFooterView = UIView()
         navigationController?.delegate = self
-        data = readDataWith(parentTypeID: parentTypeID)
         
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: parentTypeID == nil ? "一级类别" : "二级类别", style: .Plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: parentIndex == nil ? "一级类别" : "二级类别", style: .Plain, target: nil, action: nil)
         
         cleanSpaceOnTableViewTop()
+        
+        consumeptionTypeViewModel?.addNotification({ (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+            
+            switch dataChangedType {
+            case .Delete:
+                self.consumeTypeTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            case .Update:
+                self.consumeTypeTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            case.Insert:
+                self.consumeTypeTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            default: break
+            }
+        })
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if let id = segue.identifier {
-            switch id {
-            case "toChildTypeList":
-                if let vc = segue.destinationViewController as? ConsumeTypeListViewController, indexPath = consumeTypeTableView.indexPathForSelectedRow, d = data {
-                    vc.consumeTypeData = consumeTypeData
-                    vc.parentTypeID = d[indexPath.row]
-                    vc.addViewController = addViewController
-                    consumeTypeTableView.deselectRowAtIndexPath(indexPath, animated: true)
-                }
-            case "addChildConsumeType":
-                if let vc = segue.destinationViewController as? AddConsumeTypeViewController {
-                    vc.parentTypeID = parentTypeID
-                    vc.consumeTypeListController = self
-                }
-            case "addParentConsumeType":
-                if let vc = segue.destinationViewController as? AddConsumeTypeViewController {
-                    vc.consumeTypeListController = self
-                }
-            default:
-                break
-            }
-        }
-    }
-    
-    private func readDataWith(parentTypeID identifier: String?) -> [String] {
-        
-        if let id = identifier {
-            if let d = consumeTypeData {
-                let res = d.childDataListForID(id)
-                return res.count == 0 ? data! : res
-            } else {
-                return []
-            }
-        } else {
-            return consumeTypeData!.parentDataList
+        if let vc = segue.destinationViewController as? AddChildConsumeTypeViewController {
+            vc.parentIndex = parentIndex
+            vc.consumeptionTypeViewModel = consumeptionTypeViewModel
         }
     }
     
@@ -110,12 +83,12 @@ class ConsumeTypeListViewController: UIViewController {
         } else {
             editButton.setTitle(ButtonType.Edit.rawValue, forState: .Normal)
             consumeTypeTableView.setEditing(false, animated: true)
-             self.addButton.hidden = false
+            self.addButton.hidden = false
             
             UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
                 let affine = self.editButton.transform
                 self.editButton.transform = CGAffineTransformTranslate(affine, -self.editButton.frame.width/2, 0)
-                 self.addButton.hidden = false
+                self.addButton.hidden = false
                 }, completion: nil)
         }
     }
@@ -123,7 +96,7 @@ class ConsumeTypeListViewController: UIViewController {
     func cleanSpaceOnTableViewTop() {
         var zeroFrame = CGRectZero
         zeroFrame.size.height = 1
-        consumeTypeTableView.tableHeaderView = UIView(frame: zeroFrame) 
+        consumeTypeTableView.tableHeaderView = UIView(frame: zeroFrame)
     }
     
     func returnForEditingState(sender: AnyObject) {
@@ -137,9 +110,8 @@ class ConsumeTypeListViewController: UIViewController {
     }
     
     func saveForEditingState(sender: AnyObject) {
-        if let vc = editViewController as? AddConsumeTypeViewController, indexpPath = consumeTypeTableView.indexPathForSelectedRow, name = vc.name {
-            data![indexpPath.row] = name
-            consumeTypeTableView.reloadData()
+        if let vc = editViewController as? AddChildConsumeTypeViewController, name = vc.consumeTypeNameTextField.text {
+            //consumeptionTypeViewModel?.saveChildConsumeptionTypetWith(name, parentConsumeptionTypeIndex: parentIndex ?? 0)
         }
         
         dismissViewControllerAnimated(true) {
@@ -149,21 +121,31 @@ class ConsumeTypeListViewController: UIViewController {
             }
         }
     }
+    
+    func deleteWorkFlow(index: Int) {
+        
+        if let viewModel = consumeptionTypeViewModel where viewModel.childConsumeptionTypeHasBills(index, withParentIndex: parentIndex ?? 0) {
+            //let alert = UIAlertHelpler.getAlertController("提示", message: "此删除操作此分类下的二级分类以及流水。", prefferredStyle: .Alert, actions: ("确定", .Default, { a in self.consumeptionTypeViewModel?.deleteChildConsumeptionType(index)}), ("取消", .Cancel, nil))
+            //presentViewController(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 // MARK: - Delegate and Datasource
 
-extension ConsumeTypeListViewController: UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
+extension ChildConsumeTypeListViewController: UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data?.count ?? 0
+        return consumeptionTypeViewModel?.numberOfChildConsumeptionTypesAtParentIndex(parentIndex ?? 0) ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = consumeTypeTableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        let label = cell.viewWithTag(1) as! UILabel
-        label.text = data![indexPath.row]
+        if let index = parentIndex, t = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(index, withChildIndex: indexPath.row) {
+            cell.textLabel?.text = t.childName
+            cell.imageView?.image = UIImage(named: t.iconName ?? "")
+        }
         
         return cell
     }
@@ -176,13 +158,12 @@ extension ConsumeTypeListViewController: UITableViewDelegate, UITableViewDataSou
         
         switch editingStyle {
         case .Delete:
-            data?.removeAtIndex(indexPath.row)
-            consumeTypeTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            deleteWorkFlow(indexPath.row)
         default:
             break
         }
     }
-
+    
     func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
@@ -194,10 +175,10 @@ extension ConsumeTypeListViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if consumeTypeTableView.editing {
-            if let editVC = storyboard?.instantiateViewControllerWithIdentifier("AddConsumeTypeViewController") as? AddConsumeTypeViewController, d = data {
-                editVC.name = d[indexPath.row]
+            if let editVC = storyboard?.instantiateViewControllerWithIdentifier("AddChildConsumeTypeViewController") as? AddChildConsumeTypeViewController, index = parentIndex, childConsumeptionType = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(index, withChildIndex: indexPath.row) {
+                editVC.consumeTypeNameTextField.text = childConsumeptionType.childName
                 
-
+                
                 editViewController = editVC
                 let naviVC = UINavigationController(rootViewController: editVC)
                 editVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<", style: .Plain, target: self, action: "returnForEditingState:")
@@ -206,11 +187,10 @@ extension ConsumeTypeListViewController: UITableViewDelegate, UITableViewDataSou
                 presentViewController(naviVC, animated: true, completion: nil)
             }
         } else {
-            if parentTypeID != nil{
-                childTypeID = data?[indexPath.row]
-                addViewController?.consumeTypeLabel.text = "\(parentTypeID!)>\(childTypeID!)"
+            if let index = parentIndex, parentConsumeptionType = consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(index), childConsumeptionType = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(index, withChildIndex: indexPath.row) {
+                addViewController?.consumeTypeLabel.text = "\(parentConsumeptionType.parentName)>\(childConsumeptionType.childName)"
                 if let addVC = addViewController, childVC = addVC.childViewControllers[0] as? ConsumeptionTypePickerViewController {
-                        addVC.removeCotentControllerWidthAnimation(childVC)
+                    addVC.removeCotentControllerWidthAnimation(childVC)
                 }
                 navigationController?.popViewControllerAnimated(true)
             }
@@ -223,12 +203,8 @@ extension ConsumeTypeListViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
-        if let vc = viewController as? ConsumeTypeListViewController where vc.parentTypeID == nil {
-            vc.childTypeID = self.childTypeID
-            
-            if childTypeID != nil {
-                navigationController.popViewControllerAnimated(true)
-            }
+        if let vc = viewController as? ChildConsumeTypeListViewController where vc.parentIndex == nil {
+            navigationController.popViewControllerAnimated(true)
         }
     }
 }

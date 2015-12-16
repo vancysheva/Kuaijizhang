@@ -11,9 +11,9 @@ import SWTableViewCell
 
 class AccountTableViewController: UITableViewController {
 
-    @IBOutlet weak var netAssetLabel: UILabel!
-    @IBOutlet weak var assetLabel: UILabel!
-    @IBOutlet weak var liabilityLabel: UILabel!
+    @IBOutlet weak var surplusLabel: UILabel!
+    @IBOutlet weak var incomeLabel: UILabel!
+    @IBOutlet weak var expenseLabel: UILabel!
     
     @IBOutlet weak var addAccountBarItem: UIBarButtonItem!
     
@@ -26,6 +26,8 @@ class AccountTableViewController: UITableViewController {
         
         tableView.registerNib(UINib(nibName: "AccountHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "accountHeader")
         
+        updateUI()
+        
         accountViewModel?.addNotification({ (transactionState, dataChangedType, indexPath, userInfo) -> Void in
             
             switch dataChangedType {
@@ -37,6 +39,7 @@ class AccountTableViewController: UITableViewController {
             case .Update:
                 self.navigationController?.popToViewController(self, animated: true)
                 self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                self.updateUI()
             default:
                 break
             }
@@ -66,6 +69,16 @@ class AccountTableViewController: UITableViewController {
             accountTypeTable.accountViewModel = accountViewModel
         }
     }
+    
+    func updateUI() {
+        
+        let allIncome = accountViewModel?.allIncome() ?? 0
+        let allExpense = accountViewModel?.allExpense() ?? 0
+        surplusLabel.text = "\(allIncome - allExpense)"
+        incomeLabel.text = "\(allIncome)"
+        expenseLabel.text = "\(allExpense)"
+    }
+
 }
 
 
@@ -150,6 +163,7 @@ extension AccountTableViewController: SWTableViewCellDelegate {
                 addVC.accountViewModel = accountViewModel
                 addVC.indexPathForUpdate = indexPath
                 navigationController?.pushViewController(addVC, animated: true)
+                cell.hideUtilityButtonsAnimated(true)
             }
         case 1:
             if let ip = indexPath {

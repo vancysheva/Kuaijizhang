@@ -53,10 +53,8 @@
                             <rect key="frame" x="8" y="15" width="30" height="30"/>
                             <animations/>
                             <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="B5i-2v-oHc"/>
                                 <constraint firstAttribute="width" constant="30" id="Xvc-4u-Qxd"/>
                                 <constraint firstAttribute="height" constant="30" id="f9a-rd-rMb"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="j83-m4-i3l"/>
                             </constraints>
                         </imageView>
                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4px-KL-iqc">
@@ -95,29 +93,27 @@
                         <constraint firstItem="t1M-Lu-81X" firstAttribute="leading" secondItem="4px-KL-iqc" secondAttribute="leading" id="1Cq-ue-HfI"/>
                         <constraint firstItem="AeO-jy-roF" firstAttribute="leading" secondItem="gG6-Gd-M6H" secondAttribute="trailing" constant="2" id="3zs-bB-C8b"/>
                         <constraint firstItem="Qxf-vy-Phk" firstAttribute="leading" secondItem="vDa-0a-186" secondAttribute="leadingMargin" id="7W2-Fw-qrg"/>
-                        <constraint firstAttribute="trailingMargin" secondItem="4px-KL-iqc" secondAttribute="trailing" constant="32" id="GLn-jK-DEx"/>
                         <constraint firstItem="Vki-nN-jof" firstAttribute="leading" secondItem="97x-hP-MHW" secondAttribute="trailing" constant="2" id="HSU-ux-c44"/>
                         <constraint firstItem="4px-KL-iqc" firstAttribute="centerY" secondItem="vDa-0a-186" secondAttribute="centerY" id="PG7-tt-3y5"/>
                         <constraint firstItem="AeO-jy-roF" firstAttribute="trailing" secondItem="4px-KL-iqc" secondAttribute="trailing" id="Yia-nI-JQ9"/>
-                        <constraint firstAttribute="height" constant="60" id="bV3-aF-hpT"/>
                         <constraint firstItem="4px-KL-iqc" firstAttribute="top" secondItem="AeO-jy-roF" secondAttribute="bottom" constant="5" id="cWV-IG-Lh6"/>
                         <constraint firstItem="Qxf-vy-Phk" firstAttribute="centerY" secondItem="vDa-0a-186" secondAttribute="centerY" id="doh-FY-Qqi"/>
                         <constraint firstItem="4px-KL-iqc" firstAttribute="leading" secondItem="Qxf-vy-Phk" secondAttribute="trailing" constant="8" id="eel-VQ-zau"/>
                         <constraint firstItem="gG6-Gd-M6H" firstAttribute="bottom" secondItem="AeO-jy-roF" secondAttribute="bottom" id="kNL-dc-Aif"/>
+                        <constraint firstAttribute="trailing" secondItem="4px-KL-iqc" secondAttribute="trailing" constant="40" id="pvx-Ic-sCl"/>
                         <constraint firstItem="97x-hP-MHW" firstAttribute="top" secondItem="4px-KL-iqc" secondAttribute="bottom" constant="5" id="qyb-YS-VtF"/>
                         <constraint firstItem="Vki-nN-jof" firstAttribute="baseline" secondItem="97x-hP-MHW" secondAttribute="bottom" constant="-2" id="v1m-1m-YRb"/>
                         <constraint firstItem="97x-hP-MHW" firstAttribute="leading" secondItem="4px-KL-iqc" secondAttribute="leading" id="xNW-VP-c0c"/>
                         <constraint firstItem="4px-KL-iqc" firstAttribute="top" secondItem="t1M-Lu-81X" secondAttribute="bottom" constant="5" id="xbR-PK-dHw"/>
+                        <constraint firstAttribute="height" constant="60" id="zjT-jf-8pS"/>
                     </constraints>
                 </view>
             </subviews>
             <animations/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="vDa-0a-186" secondAttribute="trailing" id="9WE-KU-Pel"/>
-                <constraint firstAttribute="trailing" secondItem="vDa-0a-186" secondAttribute="trailing" id="AUk-Ja-doZ"/>
-                <constraint firstItem="vDa-0a-186" firstAttribute="leading" secondItem="zpY-SY-A0x" secondAttribute="leading" id="B4Q-en-OKK"/>
-                <constraint firstItem="vDa-0a-186" firstAttribute="top" secondItem="zpY-SY-A0x" secondAttribute="top" id="Q6t-D1-Tkq"/>
-                <constraint firstItem="vDa-0a-186" firstAttribute="leading" secondItem="zpY-SY-A0x" secondAttribute="leading" id="ebQ-Km-jvy"/>
+                <constraint firstItem="vDa-0a-186" firstAttribute="leading" secondItem="zpY-SY-A0x" secondAttribute="leading" id="46h-i7-hGe"/>
+                <constraint firstItem="vDa-0a-186" firstAttribute="top" secondItem="zpY-SY-A0x" secondAttribute="top" id="c9d-Rq-oHL"/>
+                <constraint firstAttribute="trailing" secondItem="vDa-0a-186" secondAttribute="trailing" id="fv7-Fz-dCn"/>
             </constraints>
             <connections>
                 <outlet property="budgetLabel" destination="97x-hP-MHW" id="PFr-2X-PZR"/>
@@ -126,7 +122,7 @@
                 <outlet property="consumeNameLabel" destination="t1M-Lu-81X" id="sc1-Qv-xzD"/>
                 <outlet property="surplusLabel" destination="AeO-jy-roF" id="zTb-hT-lRi"/>
             </connections>
-            <point key="canvasLocation" x="215" y="209"/>
+            <point key="canvasLocation" x="189" y="294"/>
         </view>
     </objects>
 </document>

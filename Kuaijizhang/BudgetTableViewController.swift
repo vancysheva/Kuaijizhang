@@ -18,6 +18,16 @@ class BudgetTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateUI()
+        
+        budgetViewModel.addNotification { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+            
+            if case .Update = dataChangedType {
+                self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: indexPath.section, inSection: 0)], withRowAnimation: .Automatic)
+                self.updateUI()
+            }
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -27,6 +37,14 @@ class BudgetTableViewController: UITableViewController {
             vc.parentIndex = tableView.indexPathForCell(sender as! UITableViewCell)?.row ?? 0
         }
     }
+    
+    func updateUI() {
+        let budgets = budgetViewModel.allParentConsumeptionTypesBudget()
+        let cost = budgetViewModel.allCost()
+        budgetMonthLabel.text = "\(budgets)"
+        budgetUsedLabel.text = "\(cost)"
+        budgetAvailabelLabel.text = "\(budgets - cost)"
+    }
 }
 
 // MARK: - UITableViewControllerDatasource
@@ -34,7 +52,7 @@ class BudgetTableViewController: UITableViewController {
 extension BudgetTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return budgetViewModel.getParentConsumeptionTypeCount()
+        return budgetViewModel.numberOfParentConsumeptionTypes()
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

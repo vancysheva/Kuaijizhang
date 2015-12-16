@@ -41,7 +41,7 @@ class CatlogManagePageViewController: UIPageViewController {
     
     @IBAction func tapExpenseBtn(sender: UIButton) {
 
-        if let vc = viewControllers?[0] as? ConsumeTypeListViewController, ctd = vc.consumeTypeData where ctd.billType != .Expense {
+        if let vc = viewControllers?[0] as? ParentConsumeTypeListViewController, ctd = vc.consumeptionTypeViewModel where ctd.billType != .Expense {
             setCurrentViewController(viewControllerWith(.Expense), direction: .Reverse)
             indicatorAnimating(sender)
         }
@@ -49,7 +49,7 @@ class CatlogManagePageViewController: UIPageViewController {
     
     @IBAction func tapIncomeBtn(sender: UIButton) {
         
-        if let vc = viewControllers?[0] as? ConsumeTypeListViewController, ctd = vc.consumeTypeData where ctd.billType != .Income {
+        if let vc = viewControllers?[0] as? ParentConsumeTypeListViewController, ctd = vc.consumeptionTypeViewModel where ctd.billType != .Income {
             setCurrentViewController(viewControllerWith(.Income), direction: .Forward)
             indicatorAnimating(sender)
         }
@@ -57,8 +57,8 @@ class CatlogManagePageViewController: UIPageViewController {
     
     func viewControllerWith(type: BillType) -> UIViewController {
         
-        let vc = storyboard?.instantiateViewControllerWithIdentifier("ExpenseConsumeTypeListViewController") as! ConsumeTypeListViewController
-        vc.consumeTypeData = ConsumeTypeData(billType: type)
+        let vc = storyboard?.instantiateViewControllerWithIdentifier("ExpenseConsumeTypeListViewController") as! ParentConsumeTypeListViewController
+        vc.consumeptionTypeViewModel = ConsumeptionTypeViewModel(billType: type)
         return vc
     }
     
@@ -81,7 +81,7 @@ extension CatlogManagePageViewController: UIPageViewControllerDataSource, UIPage
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         
-        if let vc = viewController as? ConsumeTypeListViewController, ctd = vc.consumeTypeData where ctd.billType == .Expense {
+        if let vc = viewController as? ParentConsumeTypeListViewController, ctd = vc.consumeptionTypeViewModel where ctd.billType == .Expense {
             return nil
         } else {
             return viewControllerWith(.Expense)
@@ -90,7 +90,7 @@ extension CatlogManagePageViewController: UIPageViewControllerDataSource, UIPage
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         
-        if let vc = viewController as? ConsumeTypeListViewController, ctd = vc.consumeTypeData where ctd.billType == .Income {
+        if let vc = viewController as? ParentConsumeTypeListViewController, ctd = vc.consumeptionTypeViewModel where ctd.billType == .Income {
             return nil
         } else {
             return viewControllerWith(.Income)
@@ -104,7 +104,7 @@ extension CatlogManagePageViewController: UIPageViewControllerDataSource, UIPage
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
 
-        if let previousVC = previousViewControllers[0] as? ConsumeTypeListViewController, currentVC = viewControllers?[0] as? ConsumeTypeListViewController, previousCTD = previousVC.consumeTypeData, currentCTD = currentVC.consumeTypeData where currentCTD.billType != previousCTD.billType {
+        if let previousVC = previousViewControllers[0] as? ParentConsumeTypeListViewController, currentVC = viewControllers?[0] as? ParentConsumeTypeListViewController, previousCTD = previousVC.consumeptionTypeViewModel, currentCTD = currentVC.consumeptionTypeViewModel where currentCTD.billType != previousCTD.billType {
             if completed {
                 originX = indicatorView.frame.origin.x
             }

@@ -13,10 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        System.baseInit()
         
         if #available(iOS 9.0, *) {
             addDynamicShortcutItems()

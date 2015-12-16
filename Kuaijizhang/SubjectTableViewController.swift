@@ -12,10 +12,16 @@ import SWTableViewCell
 
 class SubjectTableViewController: UITableViewController {
     
+    @IBOutlet weak var surplusLabel: UILabel!
+    @IBOutlet weak var incomeLabel: UILabel!
+    @IBOutlet weak var expenseLabel: UILabel!
+    
     let subjectViewModel = LabelTableViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateUI()
         
         subjectViewModel.addNotification { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
             
@@ -25,6 +31,7 @@ class SubjectTableViewController: UITableViewController {
                 self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             case .Delete:
                 self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                self.updateUI()
             case .Update:
                 self.navigationController?.popToViewController(self, animated: true)
                 self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
@@ -55,6 +62,17 @@ class SubjectTableViewController: UITableViewController {
             sender.title = "编辑"
             tableView.setEditing(false, animated: true)
         }
+    }
+    
+    
+    
+    func updateUI() {
+        
+        let allIncome = subjectViewModel.allIncome()
+        let allExpense = subjectViewModel.allExpense()
+        surplusLabel.text = "\(allIncome - allExpense)"
+        incomeLabel.text = "\(allIncome)"
+        expenseLabel.text = "\(allExpense)"
     }
 }
 
@@ -117,6 +135,7 @@ extension SubjectTableViewController: SWTableViewCellDelegate {
                 addVC.labelTableViewModel = subjectViewModel
                 addVC.indexPathForUpdate = indexPath
                 navigationController?.pushViewController(addVC, animated: true)
+                cell.hideUtilityButtonsAnimated(true)
             }
         case 1:
             if let ip = indexPath {

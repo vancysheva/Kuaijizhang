@@ -1,5 +1,5 @@
 //
-//  AddConsumeTypeViewController.swift
+//  AddChildConsumeTypeViewController.swift
 //  Kuaijizhang
 //
 //  Created by 范伟 on 15/10/18.
@@ -8,21 +8,21 @@
 
 import UIKit
 
-class AddConsumeTypeViewController: UIViewController {
+class AddChildConsumeTypeViewController: UIViewController {
     
-    //MARK: - Properties
     /**
      parentTypeID 是空,则是添加一级类别；不为空,则是添加二级类别
      **/
-    var parentTypeID: String?
+    var parentIndex: Int?
+    var childIndex: Int?
     
-    var name: String?
+    var consumeptionTypeViewModel: ConsumeptionTypeViewModel?
     
-    weak var consumeTypeListController: ConsumeTypeListViewController?
-
     @IBOutlet weak var consumeTypeImageView: UIImageView!
     @IBOutlet weak var consumeTypeNameTextField: UITextField!
     @IBOutlet weak var consumeTypeImageCollectionView: UICollectionView!
+    
+    let textFieldAgent = TextFieldAgent()
     
     enum ButtonType: String {
         case Next = "下一步", Save = "保存"
@@ -35,43 +35,32 @@ class AddConsumeTypeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
-        consumeTypeNameTextField.delegate = self
+        consumeTypeNameTextField.delegate = textFieldAgent
+        textFieldAgent.addTextFieldTextDidChangeNotification { [unowned self] (notification) -> Void in
+            self.consumeTypeNameTextField.becomeFirstResponder()
+        }
         
         // 添加或修改的判断
-        if let n = name {
-            consumeTypeNameTextField.text = n
+        if consumeTypeNameTextField.text == nil {
+            //let childConsumeTypeName = consumeptionTypeViewModel.ch
+            //navigationItem.backBarButtonItem = UIBarButtonItem(title: parentIndex == nil ? "返回" : "二级类别-\()", style: .Plain, target: nil, action: nil)
             
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "textDidChange:", name: UITextFieldTextDidChangeNotification, object: nil)
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: parentIndex == nil ? ButtonType.Next.rawValue : ButtonType.Save.rawValue, style: .Plain, target: self, action: "tapRightButton:")
             
-        } else {
-            navigationItem.backBarButtonItem = UIBarButtonItem(title: parentTypeID == nil ? "返回" : "二级类别-\(parentTypeID)", style: .Plain, target: nil, action: nil)
-            
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: parentTypeID == nil ? ButtonType.Next.rawValue : ButtonType.Save.rawValue, style: .Plain, target: self, action: "tapRightButton:")
-            
-            consumeTypeNameTextField.placeholder = parentTypeID == nil ? "输入一级名称" : "输入二级名称"
+            consumeTypeNameTextField.placeholder = parentIndex == nil ? "输入一级名称" : "输入二级名称"
         }
     }
     
     override func viewDidAppear(animated: Bool) {
-
+        
         super.viewDidAppear(animated)
-        consumeTypeNameTextField.becomeFirstResponder()
+        //consumeTypeNameTextField.becomeFirstResponder()
     }
     
-    deinit {
-        if name != nil {
-            NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextFieldTextDidChangeNotification, object: nil)
-        }
-    }
     
     // MARK: -Methods
-    
-    func textDidChange(notification: NSNotification) {
-        name = consumeTypeNameTextField.text
-    }
-    
+    /*
     func tapRightButton(sender: AnyObject) {
         
         name = consumeTypeNameTextField.text?.trim()
@@ -118,21 +107,11 @@ class AddConsumeTypeViewController: UIViewController {
         
         if consumeTypeListController?.data == nil {
             consumeTypeListController?.data = [name!]
-
+            
         } else {
             consumeTypeListController?.data?.append(name!)
             consumeTypeListController?.consumeTypeTableView.reloadData()
         }
     }
-}
-
-// MARK: - Delegate
-
-extension AddConsumeTypeViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        
-        consumeTypeNameTextField.resignFirstResponder()
-        return true
-    }
+*/
 }

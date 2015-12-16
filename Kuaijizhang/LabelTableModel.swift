@@ -28,4 +28,28 @@ class LabelTableModel: RealmModel<Subject> {
         let count = objectList?.filter("name = %@", name).count
         return count < 1 ? false : true
     }
+    
+    func allIncome() -> Double {
+        
+        if let list = objectList {
+            return list.reduce(0.0) {
+                $0 + $1.bills.filter("consumeType.type == '0'").reduce(0.0) {
+                    $0 + $1.money
+                }
+            }
+        }
+        return 0.0
+    }
+    
+    func allExpense() -> Double {
+        
+        if let list = objectList {
+            return list.reduce(0.0) {
+                $0 + $1.bills.filter("consumeType.type == '1'").reduce(0.0) {
+                    $0 + $1.money
+                }
+            }
+        }
+        return 0.0
+    }
 }

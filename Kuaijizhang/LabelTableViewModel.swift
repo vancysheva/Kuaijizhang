@@ -49,4 +49,12 @@ class LabelTableViewModel: ViewModelBase<LabelTableModel> {
         }
     }
     
+    func allIncome() -> Double {
+        return model.allIncome()
+    }
+    
+    func allExpense() -> Double {
+        return model.allExpense()
+    }
+    
 }
