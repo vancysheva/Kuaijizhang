@@ -96,7 +96,6 @@
 		71BC847F1BE1CAD100C6F92A /* StatementViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BC847E1BE1CAD100C6F92A /* StatementViewCell.swift */; };
 		71D1C36E1BD9D3780055C36C /* BillStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D1C36D1BD9D3780055C36C /* BillStreamViewModel.swift */; };
 		71D720051BE730C800C586BF /* BudgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D720041BE730C800C586BF /* BudgetTableViewCell.swift */; };
-		71D818DD1C1F1A8F006B2204 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D818DC1C1F1A8F006B2204 /* Media.xcassets */; };
 		71EB6D901C0B2E590072BCE7 /* ViewModelBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EB6D8F1C0B2E590072BCE7 /* ViewModelBase.swift */; };
 		71EB6D921C0B2EB60072BCE7 /* ModelBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EB6D911C0B2EB60072BCE7 /* ModelBase.swift */; };
 		71F24A961BDB7802002177C5 /* BillStreamHeaderWithIncome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */; };
@@ -220,7 +219,6 @@
 		71C44DF91C0AD8780002F627 /* TestCaseBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCaseBase.swift; sourceTree = "<group>"; };
 		71D1C36D1BD9D3780055C36C /* BillStreamViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamViewModel.swift; sourceTree = "<group>"; };
 		71D720041BE730C800C586BF /* BudgetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetTableViewCell.swift; sourceTree = "<group>"; };
-		71D818DC1C1F1A8F006B2204 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		71EB6D8F1C0B2E590072BCE7 /* ViewModelBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelBase.swift; sourceTree = "<group>"; };
 		71EB6D911C0B2EB60072BCE7 /* ModelBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelBase.swift; sourceTree = "<group>"; };
 		71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillStreamHeaderWithIncome.xib; sourceTree = "<group>"; };
@@ -315,7 +313,6 @@
 				71B1AC001BE50513003CA9A8 /* swift-objc-bridge-header.h */,
 				710DB3971B81DFF6003E74FA /* Info.plist */,
 				7173FD9F1BF1E82E00ECC5C6 /* DefaultAccountBook.plist */,
-				71D818DC1C1F1A8F006B2204 /* Media.xcassets */,
 			);
 			path = Kuaijizhang;
 			sourceTree = "<group>";
@@ -797,7 +794,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71D818DD1C1F1A8F006B2204 /* Media.xcassets in Resources */,
 				712C5ACD1C0A141900288CE6 /* AccountHeader.xib in Resources */,
 				710DB3961B81DFF6003E74FA /* LaunchScreen.storyboard in Resources */,
 				71341E481BDA05C1004C0CAB /* BillStreamHeaderView.xib in Resources */,

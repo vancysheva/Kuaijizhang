@@ -10,20 +10,4 @@ import UIKit
 
 class ConsumeptionTypeIconCollectionAgent {
 
-    //let icons: [String]
-    
-    init() {
-        self.readIcons()
-    }
-    
-    
-    func readIcons() -> [String] {
-        
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        let bool = NSFileManager.defaultManager().fileExistsAtPath("\(paths[0])/Media.xcassets")
-        
-        let path = NSBundle.mainBundle().pathForResource("Media", ofType: "xcassets")
-        print(bool)
-        return [""]
-    }
 }

@@ -1,10 +1,10 @@
 PODS:
   - Charts (2.1.5)
-  - Realm (0.96.3):
-    - Realm/Headers (= 0.96.3)
-  - Realm/Headers (0.96.3)
-  - RealmSwift (0.96.3):
-    - Realm (= 0.96.3)
+  - Realm (0.97.0):
+    - Realm/Headers (= 0.97.0)
+  - Realm/Headers (0.97.0)
+  - RealmSwift (0.97.0):
+    - Realm (= 0.97.0)
   - SWTableViewCell (0.3.7)
   - UICountingLabel (1.2.0)
 
@@ -16,8 +16,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Charts: d2c4099ed2b7e8c35df9561386bb6e3ca6608ba6
-  Realm: 145d3cdf78a03aee71bde5381ad7e542bd541720
-  RealmSwift: aab84968aad662f61f36473d1aea019f63481505
+  Realm: b498a6fb9d288b171ff98d0e2d4384c295be8990
+  RealmSwift: d014810dec75c9a3f1a33926d2dabfed855c582c
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
 

@@ -49,7 +49,7 @@ class System {
      获取当前用户
     */
     class func getCurrentUser() -> User? {
-        ConsumeptionTypeIconCollectionAgent()
+        
         let realm = Realm.getRealmInstance()
         
         if let userDic = NSUserDefaults.standardUserDefaults().dictionaryForKey(Identifier.User) {
