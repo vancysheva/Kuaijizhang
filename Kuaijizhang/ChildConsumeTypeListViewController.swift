@@ -22,8 +22,6 @@ class ChildConsumeTypeListViewController: UIViewController {
     
     var consumeptionTypeViewModel: ConsumeptionTypeViewModel?
     
-    weak var editViewController: UIViewController?
-    
     weak var addViewController: AddBillViewController?
     
     enum ButtonType: String {
@@ -42,7 +40,7 @@ class ChildConsumeTypeListViewController: UIViewController {
         consumeTypeTableView.tableFooterView = UIView()
         navigationController?.delegate = self
         
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: parentIndex == nil ? "一级类别" : "二级类别", style: .Plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "二级类别", style: .Plain, target: nil, action: nil)
         
         cleanSpaceOnTableViewTop()
         
@@ -109,24 +107,13 @@ class ChildConsumeTypeListViewController: UIViewController {
         }
     }
     
-    func saveForEditingState(sender: AnyObject) {
-        if let vc = editViewController as? AddChildConsumeTypeViewController, name = vc.consumeTypeNameTextField.text {
-            //consumeptionTypeViewModel?.saveChildConsumeptionTypetWith(name, parentConsumeptionTypeIndex: parentIndex ?? 0)
-        }
-        
-        dismissViewControllerAnimated(true) {
-            [unowned self] in
-            if let row = self.consumeTypeTableView.indexPathForSelectedRow {
-                self.consumeTypeTableView.deselectRowAtIndexPath(row, animated: true)
-            }
-        }
-    }
-    
     func deleteWorkFlow(index: Int) {
         
         if let viewModel = consumeptionTypeViewModel where viewModel.childConsumeptionTypeHasBills(index, withParentIndex: parentIndex ?? 0) {
-            //let alert = UIAlertHelpler.getAlertController("提示", message: "此删除操作此分类下的二级分类以及流水。", prefferredStyle: .Alert, actions: ("确定", .Default, { a in self.consumeptionTypeViewModel?.deleteChildConsumeptionType(index)}), ("取消", .Cancel, nil))
-            //presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertHelpler.getAlertController("提示", message: "此删除操作此分类下的二级分类以及流水。", prefferredStyle: .Alert, actions: ("确定", .Default, { action in
+                self.consumeptionTypeViewModel?.deleteChildConsumeptionTypeAt(index, withParentIndex: self.parentIndex ?? 0)
+            }), ("取消", .Cancel, nil))
+            presentViewController(alert, animated: true, completion: nil)
         }
     }
 }
@@ -174,25 +161,28 @@ extension ChildConsumeTypeListViewController: UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if consumeTypeTableView.editing {
-            if let editVC = storyboard?.instantiateViewControllerWithIdentifier("AddChildConsumeTypeViewController") as? AddChildConsumeTypeViewController, index = parentIndex, childConsumeptionType = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(index, withChildIndex: indexPath.row) {
-                editVC.consumeTypeNameTextField.text = childConsumeptionType.childName
+        if consumeTypeTableView.editing { // 修改二级类别
+            if let editVC = storyboard?.instantiateViewControllerWithIdentifier("AddChildConsumeTypeViewController") as? AddChildConsumeTypeViewController, pIndex = parentIndex {
+
+                editVC.parentIndex = pIndex
+                editVC.childIndex = indexPath.row
+                editVC.consumeptionTypeViewModel = consumeptionTypeViewModel
                 
-                
-                editViewController = editVC
                 let naviVC = UINavigationController(rootViewController: editVC)
-                editVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<", style: .Plain, target: self, action: "returnForEditingState:")
-                editVC.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: "saveForEditingState:")
-                
                 presentViewController(naviVC, animated: true, completion: nil)
+                
+                delayHandler(500) {
+                    self.toggleButtonForEditingStyleWidthAnimation()
+                }
             }
         } else {
             if let index = parentIndex, parentConsumeptionType = consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(index), childConsumeptionType = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(index, withChildIndex: indexPath.row) {
                 addViewController?.consumeTypeLabel.text = "\(parentConsumeptionType.parentName)>\(childConsumeptionType.childName)"
+                
                 if let addVC = addViewController, childVC = addVC.childViewControllers[0] as? ConsumeptionTypePickerViewController {
                     addVC.removeCotentControllerWidthAnimation(childVC)
+                    navigationController?.popToViewController(addVC, animated: true)
                 }
-                navigationController?.popViewControllerAnimated(true)
             }
         }
         

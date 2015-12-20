@@ -62,20 +62,22 @@ class ConsumeptionTypeViewModel: ViewModelBase<ConsumeptionTypeModel> {
         model.saveChildConsumeptionTypeWithName(name, type: "\(billType.rawValue)", iconName: iconName, withParentIndex: parentIndex)
     }
     
-    func updateChildConsumeptionTypeWithName(name: String, atParentIndex parentIndex: Int, withChildIndex childIndex: Int) {
+    func updateChildConsumeptionTypeWithName(name: String, iconName: String, atParentIndex parentIndex: Int, withChildIndex childIndex: Int) {
         
         if let childConsumeptionType = model.objectAtIndex(parentIndex)?.consumeptionTypes[childIndex] {
             model.updateObjectWithIndex(childIndex, inSection: parentIndex) { () -> Void in
                 childConsumeptionType.name = name
+                childConsumeptionType.iconName = iconName
             }
         }
     }
     
-    func updateParentConsumeptionTypeWith(name: String, withParentIndex parentIndex: Int) {
+    func updateParentConsumeptionTypeWith(name: String, iconName: String, withParentIndex parentIndex: Int) {
         
         if let parentConsumeptionType = model.objectList?[parentIndex] {
             model.updateObjectWithIndex(parentIndex) {
                 parentConsumeptionType.name = name
+                parentConsumeptionType.iconName = iconName
             }
         }
     }

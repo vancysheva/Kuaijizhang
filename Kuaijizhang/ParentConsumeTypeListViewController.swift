@@ -20,7 +20,6 @@ class ParentConsumeTypeListViewController: UIViewController {
     
     var consumeptionTypeViewModel: ConsumeptionTypeViewModel?
     
-    //weak var editViewController: UIViewController?
     
     weak var addViewController: AddBillViewController?
     
@@ -50,8 +49,16 @@ class ParentConsumeTypeListViewController: UIViewController {
                 self.consumeTypeTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             case .Update:
                 self.consumeTypeTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                self.navigationController?.popToViewController(self, animated: true)
             case.Insert:
                 self.consumeTypeTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                if let addChildVC = self.storyboard?.instantiateViewControllerWithIdentifier("AddChildConsumeTypeViewController") as? AddChildConsumeTypeViewController, childListVC = self.storyboard?.instantiateViewControllerWithIdentifier("ChildConsumeTypeListViewController") as? ChildConsumeTypeListViewController {
+                    childListVC.parentIndex = indexPath.row
+                    addChildVC.parentIndex = indexPath.row
+                    self.navigationController?.popToViewController(self, animated: false)
+                    self.navigationController?.pushViewController(childListVC, animated: false)
+                    self.navigationController?.pushViewController(addChildVC, animated: true)
+                }
             default: break
             }
         })
@@ -113,8 +120,8 @@ class ParentConsumeTypeListViewController: UIViewController {
         
         if let viewModel = consumeptionTypeViewModel where viewModel.parentConsumeptionTypeHasChildConsumeptionTypes(indexPath.row) && viewModel.parentConsumeptionTypeHasBillsInChildConsumeptionType(indexPath.row) {
             
-            //let alert = UIAlertHelpler.getAlertController("提示", message: "此删除操作此分类下的二级分类以及流水。", prefferredStyle: .Alert, actions: ("确定", .Default, { a in self.consumeptionTypeViewModel?.deleteParentConsumeptionType(indexPath.row)}), ("取消", .Cancel, nil))
-            //presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertHelpler.getAlertController("提示", message: "此删除操作此分类下的二级分类以及流水。", prefferredStyle: .Alert, actions: ("确定", .Default, { a in self.consumeptionTypeViewModel?.deleteParentConsumeptionTypeAt(indexPath.row)}), ("取消", .Cancel, nil))
+            presentViewController(alert, animated: true, completion: nil)
         }
     }
 }
@@ -163,13 +170,16 @@ extension ParentConsumeTypeListViewController: UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if consumeTypeTableView.editing { // 修改名字
-            if let addVC = storyboard?.instantiateViewControllerWithIdentifier("AddParentConsumeTypeViewController") as? AddParentConsumeTypeViewController{
+            if let addVC = storyboard?.instantiateViewControllerWithIdentifier("AddParentConsumeTypeViewController") as? AddParentConsumeTypeViewController {
                 addVC.parentIndex = indexPath.row
-
-                //editViewController = addVC
-                let naviVC = UINavigationController(rootViewController: addVC)
+                addVC.consumeptionTypeViewModel = consumeptionTypeViewModel
                 
+                let naviVC = UINavigationController(rootViewController: addVC)
                 presentViewController(naviVC, animated: true, completion: nil)
+                
+                delayHandler(500) {
+                    self.toggleButtonForEditingStyleWidthAnimation()
+                }
             }
         }
     }

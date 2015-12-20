@@ -362,7 +362,6 @@
 				71624AE91C1B085700537DC7 /* ChildConsumeTypeListViewController.swift */,
 				71AC484B1BD2B7850008B4F8 /* AddParentConsumeTypeViewController.swift */,
 				712DABBE1C1DD868006A9871 /* AddChildConsumeTypeViewController.swift */,
-				712DABC01C1F0874006A9871 /* ConsumeptionTypeIconCollectionAgent.swift */,
 			);
 			name = ConsumeptionType;
 			sourceTree = "<group>";
@@ -559,6 +558,7 @@
 				71A7F6E51BF63622006D2868 /* PortalViewModel.swift */,
 				71747AA61C0006A400338E62 /* AddBillViewModel.swift */,
 				7134ACEB1C036CEF00865261 /* ConsumeptionTypeViewModel.swift */,
+				712DABC01C1F0874006A9871 /* ConsumeptionTypeIconCollectionAgent.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
