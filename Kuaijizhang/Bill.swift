@@ -54,8 +54,4 @@ class Bill: Object {
     dynamic var occurDate: NSDate?
     
     dynamic var occurPlace: String? = nil
-    
-    override static func indexedProperties() -> [String] {
-        return ["occurDate"]
-    }
 }
