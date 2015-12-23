@@ -34,11 +34,14 @@ class ConsumeptionTypeIconCollectionAgent: NSObject {
         }
         
         var preDefinedIcons = [String]()
-        let realm = RealmModel<ConsumeptionType>()
-        realm.realm.objects(ConsumeptionType.self).filter("iconName != ''").forEach {
-            preDefinedIcons.append($0.iconName)
+        if let book = System.getDefaultAccountBook() {
+            book.consumeptionTypes.forEach {
+                preDefinedIcons.append($0.iconName)
+                $0.consumeptionTypes.forEach {
+                    preDefinedIcons.append($0.iconName)
+                }
+            }
         }
-        
         return diyIcons + preDefinedIcons
     }
     
@@ -50,7 +53,7 @@ class ConsumeptionTypeIconCollectionAgent: NSObject {
         collectionReceiveTouch = handler
     }
     
-    func setSelectedIconForFirstItem(iconName: String) {
+    func setSelectedIconInFirstItemPosition(iconName: String) {
         
         if let index = icons.indexOf(iconName) {
             icons.removeAtIndex(index)
@@ -70,6 +73,16 @@ class ConsumeptionTypeIconCollectionAgent: NSObject {
         checkImageView.frame = CGRect(x: cell.frame.size.width-20, y: cell.frame.size.height-20, width: 20, height: 20)
         checkImageView.contentMode = .ScaleAspectFit
     }
+    
+    func removeAllCoverChecked(collectionView: UICollectionView) {
+        
+        for index in 0..<icons.count {
+            if let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) where cell.backgroundColor == colorForSelectedItem {
+                cell.backgroundColor = UIColor.whiteColor()
+                cell.subviews[1].removeFromSuperview()
+            }
+        }
+    }
 }
 
 extension ConsumeptionTypeIconCollectionAgent: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -81,6 +94,11 @@ extension ConsumeptionTypeIconCollectionAgent: UICollectionViewDataSource, UICol
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
+        
+        if  cell.backgroundColor == colorForSelectedItem {
+            cell.backgroundColor = UIColor.whiteColor()
+            cell.subviews[1].removeFromSuperview()
+        }
         
         let imageView = cell.viewWithTag(1) as! UIImageView
         imageView.image = UIImage(named: icons[indexPath.row])
@@ -94,12 +112,7 @@ extension ConsumeptionTypeIconCollectionAgent: UICollectionViewDataSource, UICol
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        for index in 0..<icons.count {
-            if let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) where cell.backgroundColor == colorForSelectedItem {
-                cell.backgroundColor = UIColor.whiteColor()
-                cell.subviews[1].removeFromSuperview()
-            }
-        }
+        removeAllCoverChecked(collectionView)
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
         setCurrentCoverChecked(indexPath.row, cell: cell!)
     }

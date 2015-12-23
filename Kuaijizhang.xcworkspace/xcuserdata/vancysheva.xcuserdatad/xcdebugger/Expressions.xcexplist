@@ -3,13 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ConsumeTypeListViewController.viewDidLoad() -&gt; ():ConsumeTypeListViewController.swift">
+         contextName = "AddConsumeTypeViewController.tapRightButton(AnyObject) -&gt; ():AddConsumeTypeViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "parentTypeID">
-            </PersistentString>
-            <PersistentString
-               value = "data">
+               value = "consumeTypeNameTextField.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -53,6 +50,14 @@
          <PersistentStrings>
             <PersistentString
                value = "parentTypeID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ConsumeptionTypeIconCollectionAgent.init() -&gt; ConsumeptionTypeIconCollectionAgent:ConsumeptionTypeIconCollectionAgent.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "icons">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -112,6 +117,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ConsumeTypeListViewController.viewDidLoad() -&gt; ():ConsumeTypeListViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "parentTypeID">
+            </PersistentString>
+            <PersistentString
+               value = "data">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "AddBillViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():AddBillViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -119,14 +135,6 @@
             </PersistentString>
             <PersistentString
                value = "activeRow">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AddConsumeTypeViewController.tapRightButton(AnyObject) -&gt; ():AddConsumeTypeViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "consumeTypeNameTextField.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -39,23 +39,33 @@ class ChildConsumeTypeListViewController: UIViewController {
         consumeTypeTableView.dataSource = self
         consumeTypeTableView.tableFooterView = UIView()
         navigationController?.delegate = self
-        
+
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "二级类别", style: .Plain, target: nil, action: nil)
+        if let index = parentIndex, t = consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(index)  {
+            navigationItem.title = t.parentName
+        }
         
         cleanSpaceOnTableViewTop()
         
-        consumeptionTypeViewModel?.addNotification({ (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+        consumeptionTypeViewModel?.addNotification("ChildConsumeTypeListViewController") { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
             
             switch dataChangedType {
             case .Delete:
-                self.consumeTypeTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                if let info = userInfo?["delete"] as? String where info == "deleteChild" {
+                    self.consumeTypeTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                }
             case .Update:
-                self.consumeTypeTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                if let info = userInfo?["update"] as? String where info == "updateChild" {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.consumeTypeTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                }
             case.Insert:
-                self.consumeTypeTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                if let info = userInfo?["save"] as? String where info == "saveChild" {
+                    self.consumeTypeTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                }
             default: break
             }
-        })
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -114,6 +124,8 @@ class ChildConsumeTypeListViewController: UIViewController {
                 self.consumeptionTypeViewModel?.deleteChildConsumeptionTypeAt(index, withParentIndex: self.parentIndex ?? 0)
             }), ("取消", .Cancel, nil))
             presentViewController(alert, animated: true, completion: nil)
+        } else {
+            consumeptionTypeViewModel?.deleteChildConsumeptionTypeAt(index, withParentIndex: self.parentIndex ?? 0)
         }
     }
 }
@@ -156,7 +168,9 @@ extension ChildConsumeTypeListViewController: UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        print("moving...")
+        if let index = parentIndex {
+            consumeptionTypeViewModel?.moveChildConsumeptionTypeFromIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath, withParentIndex: index)
+        }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -177,7 +191,7 @@ extension ChildConsumeTypeListViewController: UITableViewDelegate, UITableViewDa
             }
         } else {
             if let index = parentIndex, parentConsumeptionType = consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(index), childConsumeptionType = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(index, withChildIndex: indexPath.row) {
-                addViewController?.consumeTypeLabel.text = "\(parentConsumeptionType.parentName)>\(childConsumeptionType.childName)"
+                addViewController?.consumeTypeLabel.text = "\(parentConsumeptionType.parentName!)>\(childConsumeptionType.childName!)"
                 
                 if let addVC = addViewController, childVC = addVC.childViewControllers[0] as? ConsumeptionTypePickerViewController {
                     addVC.removeCotentControllerWidthAnimation(childVC)

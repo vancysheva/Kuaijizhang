@@ -24,4 +24,10 @@ class ConsumeptionType: Object {
     let consumeptionTypes = List<ConsumeptionType>()
     
     let bills = List<Bill>()
+    
+    dynamic var isChecked = false
+    
+    override static func ignoredProperties() -> [String] {
+        return ["isChecked"]
+    }
 }

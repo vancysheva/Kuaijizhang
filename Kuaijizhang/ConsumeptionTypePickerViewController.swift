@@ -31,12 +31,10 @@ class ConsumeptionTypePickerViewController: UIViewController {
         
         self.consumeptionTypeViewModel = ConsumeptionTypeViewModel(billType: (addViewControlelr?.billType)!)
 
-        consumeptionTypeViewModel?.addNotification({ [unowned self] (transactionState, dataChangedType, indexPath, _) -> Void in
-            
+        consumeptionTypeViewModel?.addNotification("ConsumeptionTypePickerViewController") { [unowned self] (transactionState, dataChangedType, indexPath, _) -> Void in
+            /*
             switch dataChangedType {
             case .Insert:
-                self.navigationController?.popToRootViewControllerAnimated(true)
-                
                 self.pickerView.selectRow(indexPath.section, inComponent: 0, animated: true)
                 self.pickerView.reloadComponent(1)
                 self.pickerView.selectRow(indexPath.row, inComponent: 1, animated: true)
@@ -48,8 +46,8 @@ class ConsumeptionTypePickerViewController: UIViewController {
                 self.pickerView.selectRow(0, inComponent: 1, animated: true)
             default:
                 break
-            }
-            })
+            }*/
+        }
 
     }
     

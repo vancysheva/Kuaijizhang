@@ -41,10 +41,6 @@ class ConsumeptionTypeViewModel: ViewModelBase<ConsumeptionTypeModel> {
         return model.numberOfChildConsumeptionTypesAtParentIndex(parentIndex)
     }
     
-    func deleteChildConsumeptionTypeAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) {
-        model.deleteChildConsumeptionTypeAtParentIndex(parentIndex, withChildIndex: childIndex)
-    }
-    
     func deleteParentConsumeptionTypeAt(parentIndex: Int) {
         model.deleteParentConsumeptionTypeAt(parentIndex)
     }
@@ -65,7 +61,7 @@ class ConsumeptionTypeViewModel: ViewModelBase<ConsumeptionTypeModel> {
     func updateChildConsumeptionTypeWithName(name: String, iconName: String, atParentIndex parentIndex: Int, withChildIndex childIndex: Int) {
         
         if let childConsumeptionType = model.objectAtIndex(parentIndex)?.consumeptionTypes[childIndex] {
-            model.updateObjectWithIndex(childIndex, inSection: parentIndex) { () -> Void in
+            model.updateObjectWithIndex(childIndex, inSection: 0, userInfo: ["update": "updateChild"]) { () -> Void in
                 childConsumeptionType.name = name
                 childConsumeptionType.iconName = iconName
             }
@@ -75,15 +71,25 @@ class ConsumeptionTypeViewModel: ViewModelBase<ConsumeptionTypeModel> {
     func updateParentConsumeptionTypeWith(name: String, iconName: String, withParentIndex parentIndex: Int) {
         
         if let parentConsumeptionType = model.objectList?[parentIndex] {
-            model.updateObjectWithIndex(parentIndex) {
+            model.updateObjectWithIndex(parentIndex, inSection: 0, userInfo: ["update": "updateParent"]) {
                 parentConsumeptionType.name = name
                 parentConsumeptionType.iconName = iconName
             }
         }
     }
     
-    func moveoObjectFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-        model.moveObjectFromIndex(fromIndexPath.row, toIndex: toIndexPath.row, inSection: 0, userInfo: nil)
+    func moveParentConsumeptionTypeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+        model.moveParentConsumeptionTypeFromIndexPath(fromIndexPath, toIndexPath: toIndexPath)
+    }
+    
+    func moveChildConsumeptionTypeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath, withParentIndex parentIndex: Int) {
+        
+        let state = model.realm.writeTransaction {
+            if let parentConsumeptionType = self.model.objectList?[parentIndex] {
+                parentConsumeptionType.consumeptionTypes.move(from: fromIndexPath.row, to: toIndexPath.row)
+            }
+        }
+        model.sendNotificationsFeedBack(state, changedType: .Move(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row), indexPath: fromIndexPath, userInfo: nil)
     }
     
     func parentConsumeptionTypeHasChildConsumeptionTypes(parentIndex: Int) -> Bool {

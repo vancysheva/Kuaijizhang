@@ -18,7 +18,19 @@ class ViewModelBase<T: ModelBase>: ViewModelNotifiable {
     }
     
     func addNotification(notificationHandler: ViewModelNotificationHandler) {
+
+        model.notificationIdentifiers.append(NSUUID().UUIDString)
         model.notificationHandlers.append(notificationHandler)
+    }
+    
+    func addNotification(identifier: String, notificationHandler: ViewModelNotificationHandler) {
+        
+        if let index = model.notificationIdentifiers.indexOf(identifier) {
+            model.notificationHandlers[index] = notificationHandler
+        } else {
+            model.notificationIdentifiers.append(identifier)
+            model.notificationHandlers.append(notificationHandler)
+        }
     }
     
     func dataContentWillChange(beginUpdates: () -> Void) {

@@ -10,14 +10,18 @@ import Foundation
 
 class ModelBase {
     
+    var notificationIdentifiers = [String]()
     var notificationHandlers = [ViewModelNotificationHandler]()
     var beginUpdates: (()->Void)?
     var endUpdates: (()->Void)?
     
     func sendNotificationsFeedBack(state: TransactionState, changedType: ModelDataChangedType, indexPath: NSIndexPath, userInfo: [String: Any]?) {
-       
-        notificationHandlers.forEach {
+        
+        notificationHandlers.reverse().forEach {
             $0(transactionState: state, dataChangedType: changedType, indexPath: indexPath, userInfo: userInfo)
         }
+        
+        //notificationIdentifiers = []
+        //notificationHandlers = []
     }
 }

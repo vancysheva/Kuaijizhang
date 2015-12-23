@@ -40,27 +40,25 @@ class AddChildConsumeTypeViewController: UIViewController {
             self.consumeTypeNameTextField.becomeFirstResponder()
         }
         
+        consumeptionTypeViewModel?.addNotification("AddChildConsumeTypeViewController", notificationHandler: { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+            
+            if case .Insert = dataChangedType {
+                if let info = userInfo?["save"] as? String where info == "saveChild" {
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+            }
+        })
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: childIndex == nil ? "tapButtonForSave:" : "tapButtonForUpdate:")
         
         if let pIndex = parentIndex, cIndex = childIndex, childConsumeptionType = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(pIndex, withChildIndex: cIndex) { // 修改
             consumeTypeNameTextField.text = childConsumeptionType.childName
             consumeTypeImageView.image = UIImage(named: childConsumeptionType.iconName ?? "")
-            iconCollectionAgent.setSelectedIconForFirstItem(childConsumeptionType.iconName ?? "")
+            iconCollectionAgent.setSelectedIconInFirstItemPosition(childConsumeptionType.iconName ?? "")
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: "dismissSelf:")
         } else { // 添加
             navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回二级类别", style: .Plain, target: self, action: "returnBack:")
         }
-        
-        consumeptionTypeViewModel?.addNotification({ (transactionState, dataChangedType, indexPath, userInfo) -> Void in
-            
-            if case .Insert = dataChangedType {
-                
-            }
-            
-            if case .Update = dataChangedType {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
-        })
         
         iconCollectionAgent.addIconSelectedHandler { (iconName) -> Void in
             self.consumeTypeImageView.image = UIImage(named: iconName)
@@ -69,8 +67,16 @@ class AddChildConsumeTypeViewController: UIViewController {
         iconCollectionAgent.addCollectionRecieveTouch { () -> Bool in
             return self.consumeTypeNameTextField.endEditing(true)
         }
-
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if childIndex == nil {
+            consumeTypeNameTextField.becomeFirstResponder()
+        }
+    }
+
     
     // MARK: -Methods
     
@@ -94,59 +100,4 @@ class AddChildConsumeTypeViewController: UIViewController {
     func dismissSelf(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-
-    /*
-    func tapRightButton(sender: AnyObject) {
-        
-        name = consumeTypeNameTextField.text?.trim()
-        if  name?.isEmpty == true {
-            let alert = UIAlertController(title: "提示", message: "请填写类型名称", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "好的", style: .Default, handler: { (action) -> Void in
-                if !self.consumeTypeNameTextField.isFirstResponder() {
-                    self.consumeTypeNameTextField.becomeFirstResponder()
-                }
-            }))
-            presentViewController(alert, animated: true, completion: nil)
-        } else {
-            if let button = sender as? UIBarButtonItem, title = button.title where ButtonType(title: title) == .Save {
-                saveChildTypeBy(rightButtonType: .Save)
-                navigationController?.popViewControllerAnimated(true)
-            } else { // .Next
-                saveChildTypeBy(rightButtonType: .Next)
-                if let childConsumeTypeListVC = storyboard?.instantiateViewControllerWithIdentifier("ConsumeTypeListViewController") as? ConsumeTypeListViewController
-                    , addChildConsumeTypeVC = storyboard?.instantiateViewControllerWithIdentifier("AddConsumeTypeViewController") as? AddConsumeTypeViewController {
-                        
-                        childConsumeTypeListVC.consumeTypeData = consumeTypeListController?.consumeTypeData
-                        childConsumeTypeListVC.parentTypeID = consumeTypeNameTextField.text
-                        addChildConsumeTypeVC.parentTypeID = consumeTypeNameTextField.text
-                        
-                        addChildConsumeTypeVC.consumeTypeListController = childConsumeTypeListVC
-                        
-                        if let vcs = navigationController?.viewControllers {
-                            var newVCArr = [UIViewController]()
-                            for (var i = 0; i < vcs.count; i++) {
-                                if i != (vcs.count - 1) {
-                                    newVCArr.append(vcs[i])
-                                }
-                            }
-                            newVCArr.append(childConsumeTypeListVC)
-                            newVCArr.append(addChildConsumeTypeVC)
-                            navigationController?.setViewControllers(newVCArr, animated: true)
-                        }
-                }
-            }
-        }
-    }
-    
-    func saveChildTypeBy(rightButtonType type: ButtonType) {
-        
-        if consumeTypeListController?.data == nil {
-            consumeTypeListController?.data = [name!]
-            
-        } else {
-            consumeTypeListController?.data?.append(name!)
-            consumeTypeListController?.consumeTypeTableView.reloadData()
-        }
-    }
-*/
 }

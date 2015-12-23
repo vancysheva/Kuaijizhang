@@ -43,18 +43,17 @@ class AddParentConsumeTypeViewController: UIViewController {
         textFieldAgent.addTextFieldTextDidChangeNotification { [unowned self] (notification) -> Void in
             self.navigationItem.rightBarButtonItem?.enabled = self.consumeTypeNameTextField.text?.characters.count > 0
         }
-       
-        
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: parentIndex == nil ? ButtonType.Next.rawValue : ButtonType.Save.rawValue, style: .Plain, target: self, action: parentIndex == nil ? "tapNextButton:" : "tapSaveButton:")
         
         if let index = parentIndex, parentConsumeptionType = consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(index)  {// 修改
             consumeTypeNameTextField.text = parentConsumeptionType.parentName
             consumeTypeImageView.image = UIImage(named: parentConsumeptionType.iconName ?? "")
-            iconCollectionAgent.setSelectedIconForFirstItem(parentConsumeptionType.iconName ?? "")
+            iconCollectionAgent.setSelectedIconInFirstItemPosition(parentConsumeptionType.iconName ?? "")
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: "dismissSelf:")
-        } else {
+        } else {// 添加
             navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: self, action: "returnBack:")
+
         }
         
         iconCollectionAgent.addIconSelectedHandler { (iconName) -> Void in
@@ -63,6 +62,14 @@ class AddParentConsumeTypeViewController: UIViewController {
         
         iconCollectionAgent.addCollectionRecieveTouch { () -> Bool in
             return self.consumeTypeNameTextField.endEditing(true)
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if parentIndex == nil {
+            self.consumeTypeNameTextField.becomeFirstResponder()
         }
     }
     
