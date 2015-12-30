@@ -72,7 +72,7 @@ class PortalViewModel {
         
         let tuple = DateHelper.getRangeDateFor(NSDate())
         let total = caculateTotalMoneyWith(tuple.startDate, endTime: tuple.endDate)
-        
+
         return total
     }
     

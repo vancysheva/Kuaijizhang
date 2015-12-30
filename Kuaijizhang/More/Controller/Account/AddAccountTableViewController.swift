@@ -11,7 +11,7 @@ import UIKit
 class AddAccountTableViewController: UITableViewController {
     
     var accountViewModel: AccountViewModel?
-    var parentAccountIndex: Int?
+    var parentAccount: (String, String)?
     var indexPathForUpdate: NSIndexPath?
 
     let textFieldAgent = TextFieldAgent()
@@ -42,8 +42,8 @@ class AddAccountTableViewController: UITableViewController {
         if let indexPath = indexPathForUpdate, name = accountNameTextField.text {
             accountViewModel?.updateChildAccountWithName(name, atParentIndex: indexPath.section, withChildIndex: indexPath.row)
         } else {
-            if let name = accountNameTextField.text, index = parentAccountIndex {
-                accountViewModel?.saveAccountWidthChildName(name, parentAccountIndex: index)
+            if let name = accountNameTextField.text, t = parentAccount {
+                accountViewModel?.saveAccountWithChildName(name, parentAccountName: t.1, parentIconName: t.0)
             }
         }
     }

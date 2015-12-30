@@ -30,21 +30,46 @@ class AccountPickerViewController: UIViewController {
         
         self.accountViewModel = AccountViewModel()
         
-        accountViewModel?.addNotification({ [unowned self] (transactionState, dataChangedType, indexPath, _) -> Void in
+        accountViewModel?.addNotification({ [unowned self] (transactionState, dataChangedType, indexPath, userInfo) -> Void in
             
             switch dataChangedType {
             case .Insert:
                 self.navigationController?.popToRootViewControllerAnimated(true)
                 
-                self.pickerView.selectRow(indexPath.section, inComponent: 0, animated: true)
-                self.pickerView.reloadComponent(1)
-                self.pickerView.selectRow(indexPath.row, inComponent: 1, animated: true)
-                if let name = self.accountViewModel?.childAccountAtParentIndex(indexPath.section, withChildIndex: indexPath.row).childName {
+                
+                
+                var pIndex = 0
+                var cIndex = 0
+                if let info = userInfo?["type"] as? String where info == "insertChild" {
+                    pIndex = indexPath.section
+                    cIndex = indexPath.row
+                    
+                    self.pickerView.selectRow(indexPath.section, inComponent: 0, animated: true)
+                    self.pickerView.reloadComponent(1)
+                    self.pickerView.selectRow(indexPath.row, inComponent: 1, animated: true)
+                } else {
+                    pIndex = indexPath.row
+                    
+                    self.pickerView.reloadComponent(0)
+                    self.pickerView.selectRow(pIndex, inComponent: 0, animated: true)
+                    self.pickerView.reloadComponent(1)
+                    self.pickerView.selectRow(0, inComponent: 1, animated: true)
+                }
+                
+                if let name = self.accountViewModel?.childAccountAtParentIndex(pIndex, withChildIndex: cIndex).childName {
                     self.setValueForDelegate(name)
                 }
+                
             case .Delete:
-                self.pickerView.reloadComponent(1)
-                self.pickerView.selectRow(0, inComponent: 1, animated: true)
+                if let lastOneDelete = userInfo?["lastOneDelete"] as? Bool where lastOneDelete == true {
+                    self.pickerView.reloadComponent(0)
+                    self.pickerView.selectRow(0, inComponent: 0, animated: false)
+                    self.pickerView.reloadComponent(1)
+                    self.pickerView.selectRow(0, inComponent: 1, animated: false)
+                } else {
+                    self.pickerView.reloadComponent(1)
+                    self.pickerView.selectRow(0, inComponent: 1, animated: true)
+                }
             default:
                 break
             }

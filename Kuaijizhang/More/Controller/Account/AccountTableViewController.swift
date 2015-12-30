@@ -33,9 +33,17 @@ class AccountTableViewController: UITableViewController {
             switch dataChangedType {
             case .Insert:
                 self.navigationController?.popToViewController(self, animated: true)
-                self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                if let info = userInfo?["type"] as? String where info == "insertChild" {
+                    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                } else {
+                    self.tableView.insertSections(NSIndexSet(index: indexPath.row), withRowAnimation: .Automatic)
+                }
             case .Delete:
-                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                if let lastOneDelete = userInfo?["lastOneDelete"] as? Bool where lastOneDelete == true {
+                    self.tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+                } else {
+                    self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                }
             case .Update:
                 self.navigationController?.popToViewController(self, animated: true)
                 self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
@@ -101,7 +109,7 @@ extension AccountTableViewController {
         
         if let tuple = accountViewModel?.childAccountAtParentIndex(indexPath.section, withChildIndex: indexPath.row) {
             cell.textLabel?.text = tuple.childName
-            cell.detailTextLabel?.text = "\(tuple.childAmount!)"
+            cell.detailTextLabel?.text = "\(tuple.childAmount)"
             
             let rightButtons = NSMutableArray()
             rightButtons.sw_addUtilityButtonWithColor(UIColor.blueColor(), title: "编辑")
@@ -130,7 +138,7 @@ extension AccountTableViewController {
     }
     
     override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        accountViewModel?.moveoObjectFromIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath)
+        accountViewModel?.moveObjectFromIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath)
     }
     
     override func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath {

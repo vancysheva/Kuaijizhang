@@ -12,21 +12,21 @@ class AccountTypeTableViewController: UITableViewController {
     
     var accountViewModel: AccountViewModel?
 
-    
+    var types: [(String, String)]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.tableFooterView = UIView()
+        types = accountViewModel?.readParentAccount()
     }
-    
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if let vc = segue.destinationViewController as? AddAccountTableViewController, touchCell = sender as? UITableViewCell {
+        if let vc = segue.destinationViewController as? AddAccountTableViewController, touchCell = sender as? UITableViewCell, indexPath = tableView.indexPathForCell(touchCell) {
             vc.accountViewModel = accountViewModel
-            vc.parentAccountIndex = tableView.indexPathForCell(touchCell)?.row
+            vc.parentAccount = types?[indexPath.row]
         }
     }
 
@@ -35,20 +35,20 @@ class AccountTypeTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accountViewModel?.numberOfParentAccounts() ?? 0
+        return types?.count ?? 0
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+       
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        if let (name, _, iconName) = accountViewModel?.parentAccountWithAmountAt(indexPath.row), icon = iconName {
-            cell.textLabel?.text = name
-            cell.imageView?.image = UIImage(named: icon)
-        }
+        
+        cell.textLabel?.text = types?[indexPath.row].1
+        cell.imageView?.image = UIImage(named: types?[indexPath.row].0 ?? "")
         
         return cell
     }
+    
     
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return "选择一个账户类型。"
