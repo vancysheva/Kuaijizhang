@@ -160,7 +160,7 @@
 		714935251BE34FF2006B6F12 /* CatlogManagePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatlogManagePageViewController.swift; sourceTree = "<group>"; };
 		714EC9A01BF76679005C227C /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		714EC9A21BF771EA005C227C /* PortalModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PortalModel.swift; sourceTree = "<group>"; };
-		714EC9A51BF86333005C227C /* test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = test.playground; path = Kuaijizhang/test.playground; sourceTree = SOURCE_ROOT; };
+		714EC9A51BF86333005C227C /* test.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = test.playground; sourceTree = "<group>"; };
 		715A0B6C1BEF29480069C012 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		715A0B6E1BF0ECDE0069C012 /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		715B107B1BD7784A0037BD21 /* AccountBookViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBookViewModel.swift; sourceTree = "<group>"; };
@@ -272,9 +272,9 @@
 				710DB38A1B81DFF6003E74FA /* Kuaijizhang */,
 				71FB74281BF8A81E006205E4 /* KuaijizhangTests */,
 				710DB3AA1B81DFF6003E74FA /* KuaijizhangUITests */,
-				710DB3891B81DFF6003E74FA /* Products */,
-				60339B34CB1EFD84054144F7 /* Pods */,
 				B8EA83A42DE02B9F281AB1A4 /* Frameworks */,
+				60339B34CB1EFD84054144F7 /* Pods */,
+				710DB3891B81DFF6003E74FA /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -291,28 +291,28 @@
 		710DB38A1B81DFF6003E74FA /* Kuaijizhang */ = {
 			isa = PBXGroup;
 			children = (
-				710DB38B1B81DFF6003E74FA /* AppDelegate.swift */,
-				71A7F6DD1BF58EC4006D2868 /* ViewModelNotifiable.swift */,
-				71EB6D8F1C0B2E590072BCE7 /* ViewModelBase.swift */,
-				71EB6D911C0B2EB60072BCE7 /* ModelBase.swift */,
-				714EC9A51BF86333005C227C /* test.playground */,
-				710DB38F1B81DFF6003E74FA /* Main.storyboard */,
-				710DB3941B81DFF6003E74FA /* LaunchScreen.storyboard */,
-				714EC99F1BF7664F005C227C /* Helper */,
-				71A7F6E11BF59F5A006D2868 /* Realm */,
-				7173FDAE1BF373A200ECC5C6 /* Agent */,
-				715B10801BD779AB0037BD21 /* Model */,
-				71AC48481BD243070008B4F8 /* Extension */,
-				715A53621B89AF06009E7DF2 /* Conmmon */,
-				7179DA671B857C0C00A4D880 /* More */,
-				7179DA661B857C0300A4D880 /* Statement */,
-				7179DA651B857BFC00A4D880 /* BillStream */,
 				7179DA641B857BEF00A4D880 /* AccountBook */,
+				7173FDAE1BF373A200ECC5C6 /* Agent */,
+				7179DA651B857BFC00A4D880 /* BillStream */,
+				715A53621B89AF06009E7DF2 /* Conmmon */,
+				71AC48481BD243070008B4F8 /* Extension */,
+				714EC99F1BF7664F005C227C /* Helper */,
+				715B10801BD779AB0037BD21 /* Model */,
+				7179DA671B857C0C00A4D880 /* More */,
 				7179DA601B857B8000A4D880 /* Portal */,
+				71A7F6E11BF59F5A006D2868 /* Realm */,
+				7179DA661B857C0300A4D880 /* Statement */,
+				710DB38B1B81DFF6003E74FA /* AppDelegate.swift */,
 				710DB3921B81DFF6003E74FA /* Assets.xcassets */,
-				71B1AC001BE50513003CA9A8 /* swift-objc-bridge-header.h */,
-				710DB3971B81DFF6003E74FA /* Info.plist */,
 				7173FD9F1BF1E82E00ECC5C6 /* DefaultAccountBook.plist */,
+				710DB3971B81DFF6003E74FA /* Info.plist */,
+				710DB3941B81DFF6003E74FA /* LaunchScreen.storyboard */,
+				710DB38F1B81DFF6003E74FA /* Main.storyboard */,
+				71EB6D911C0B2EB60072BCE7 /* ModelBase.swift */,
+				71EB6D8F1C0B2E590072BCE7 /* ViewModelBase.swift */,
+				71A7F6DD1BF58EC4006D2868 /* ViewModelNotifiable.swift */,
+				71B1AC001BE50513003CA9A8 /* swift-objc-bridge-header.h */,
+				714EC9A51BF86333005C227C /* test.playground */,
 			);
 			path = Kuaijizhang;
 			sourceTree = "<group>";
@@ -320,8 +320,8 @@
 		710DB3AA1B81DFF6003E74FA /* KuaijizhangUITests */ = {
 			isa = PBXGroup;
 			children = (
-				710DB3AB1B81DFF6003E74FA /* KuaijizhangUITests.swift */,
 				710DB3AD1B81DFF6003E74FA /* Info.plist */,
+				710DB3AB1B81DFF6003E74FA /* KuaijizhangUITests.swift */,
 			);
 			path = KuaijizhangUITests;
 			sourceTree = "<group>";
@@ -332,7 +332,7 @@
 				712C5ACC1C0A141900288CE6 /* AccountHeader.xib */,
 				716CF13B1C14A1870085CA23 /* BudgetHeaderView.xib */,
 			);
-			name = xib;
+			path = xib;
 			sourceTree = "<group>";
 		};
 		71341E4B1BDA1669004C0CAB /* View */ = {
@@ -341,7 +341,7 @@
 				71341E491BDA1662004C0CAB /* BillStreamHeaderView.swift */,
 				71341E4C1BDA1B6B004C0CAB /* BillStreamViewCell.swift */,
 			);
-			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		7134AD001C073DBC00865261 /* Account */ = {
@@ -351,48 +351,48 @@
 				7134ACFC1C07388A00865261 /* AccountTypeTableViewController.swift */,
 				7134ACFE1C073A4A00865261 /* AddAccountTableViewController.swift */,
 			);
-			name = Account;
+			path = Account;
 			sourceTree = "<group>";
 		};
 		7134AD011C073DD400865261 /* ConsumeptionType */ = {
 			isa = PBXGroup;
 			children = (
+				712DABBE1C1DD868006A9871 /* AddChildConsumeTypeViewController.swift */,
+				71AC484B1BD2B7850008B4F8 /* AddParentConsumeTypeViewController.swift */,
+				71624AE91C1B085700537DC7 /* ChildConsumeTypeListViewController.swift */,
 				71FB01C81B934A4C00575D5C /* ConsumeptionTypePickerViewController.swift */,
 				71AC48491BD279800008B4F8 /* ParentConsumeTypeListViewController.swift */,
-				71624AE91C1B085700537DC7 /* ChildConsumeTypeListViewController.swift */,
-				71AC484B1BD2B7850008B4F8 /* AddParentConsumeTypeViewController.swift */,
-				712DABBE1C1DD868006A9871 /* AddChildConsumeTypeViewController.swift */,
 			);
-			name = ConsumeptionType;
+			path = ConsumeptionType;
 			sourceTree = "<group>";
 		};
 		7134AD021C073DED00865261 /* Subject */ = {
 			isa = PBXGroup;
 			children = (
-				711C67151B94894800219806 /* LabelTableViewController.swift */,
 				711C67171B94896F00219806 /* AddLabelViewController.swift */,
+				711C67151B94894800219806 /* LabelTableViewController.swift */,
 			);
-			name = Subject;
+			path = Subject;
 			sourceTree = "<group>";
 		};
 		714EC99F1BF7664F005C227C /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				71A7F6E31BF5D74D006D2868 /* UIAlertHelper.swift */,
 				714EC9A01BF76679005C227C /* DateHelper.swift */,
 				716CF12D1C1471230085CA23 /* Delay.swift */,
+				71A7F6E31BF5D74D006D2868 /* UIAlertHelper.swift */,
 			);
-			name = Helper;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		714EC9A41BF771F5005C227C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				714EC9A21BF771EA005C227C /* PortalModel.swift */,
 				71747AA81C0006C200338E62 /* AddBillModel.swift */,
 				7134ACED1C036DA300865261 /* ConsumeptionTypeModel.swift */,
+				714EC9A21BF771EA005C227C /* PortalModel.swift */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		715A535E1B89AE7D009E7DF2 /* Controller */ = {
@@ -400,29 +400,29 @@
 			children = (
 				71341E501BDA2F0B004C0CAB /* BillStreamTableViewController.swift */,
 			);
-			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		715A535F1B89AE8D009E7DF2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				71BC84791BDF365E00C6F92A /* StatementSearchConditionViewController.swift */,
 				7196DB191B8339660029A2A3 /* StatementViewController.swift */,
 				71BC84751BDF363A00C6F92A /* StatmentAnalysisViewController.swift */,
-				71BC84791BDF365E00C6F92A /* StatementSearchConditionViewController.swift */,
 			);
-			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		715A53601B89AE93009E7DF2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				7196DB1B1B8339800029A2A3 /* MoreViewController.swift */,
-				714935251BE34FF2006B6F12 /* CatlogManagePageViewController.swift */,
-				710F4C2D1C0DF408002B704D /* SubjectTableViewController.swift */,
 				7134AD001C073DBC00865261 /* Account */,
 				716CF1331C147EF90085CA23 /* Budget */,
+				714935251BE34FF2006B6F12 /* CatlogManagePageViewController.swift */,
+				7196DB1B1B8339800029A2A3 /* MoreViewController.swift */,
+				710F4C2D1C0DF408002B704D /* SubjectTableViewController.swift */,
 			);
-			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		715A53611B89AEF8009E7DF2 /* Controller */ = {
@@ -431,18 +431,18 @@
 				714019051B8327AC00C97048 /* AccountBookViewController.swift */,
 				715B10951BD7F3F20037BD21 /* AddAccountBookViewController.swift */,
 			);
-			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		715A53621B89AF06009E7DF2 /* Conmmon */ = {
 			isa = PBXGroup;
 			children = (
-				7179DA701B85E67800A4D880 /* ColorBox.swift */,
 				7160EA021BD62A3400936FD2 /* BillType.swift */,
+				7179DA701B85E67800A4D880 /* ColorBox.swift */,
 				7160EA061BD62A8D00936FD2 /* ConsumeTypeData.swift */,
 				71BC847C1BDFADE500C6F92A /* FWChartController.swift */,
 			);
-			name = Conmmon;
+			path = Conmmon;
 			sourceTree = "<group>";
 		};
 		715B107F1BD778510037BD21 /* ViewModel */ = {
@@ -450,54 +450,54 @@
 			children = (
 				715B107B1BD7784A0037BD21 /* AccountBookViewModel.swift */,
 			);
-			name = ViewModel;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		715B10801BD779AB0037BD21 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				715B10931BD78FA20037BD21 /* Statementable.swift */,
-				715B10811BD779CA0037BD21 /* Statisticable.swift */,
-				715A0B6C1BEF29480069C012 /* User.swift */,
+				715B10871BD78A970037BD21 /* Account.swift */,
 				715B10831BD783620037BD21 /* AccountBook.swift */,
 				715B10851BD7854E0037BD21 /* Bill.swift */,
-				715B10871BD78A970037BD21 /* Account.swift */,
 				715B10891BD78C410037BD21 /* Budget.swift */,
 				715B108B1BD78D340037BD21 /* ConsumeptionType.swift */,
 				715B108F1BD78E710037BD21 /* Instalment.swift */,
+				715B10931BD78FA20037BD21 /* Statementable.swift */,
+				715B10811BD779CA0037BD21 /* Statisticable.swift */,
 				715B10911BD78F780037BD21 /* Subject.swift */,
 				710F4C2A1C0C5208002B704D /* TestModel.swift */,
+				715A0B6C1BEF29480069C012 /* User.swift */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		716CF1331C147EF90085CA23 /* Budget */ = {
 			isa = PBXGroup;
 			children = (
-				716CF12F1C147D530085CA23 /* BudgetTableViewController.swift */,
 				716CF1311C147EF20085CA23 /* BudgetSubTableViewController.swift */,
+				716CF12F1C147D530085CA23 /* BudgetTableViewController.swift */,
 			);
-			name = Budget;
+			path = Budget;
 			sourceTree = "<group>";
 		};
 		716CF1371C1480130085CA23 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				71747AAA1C00114E00338E62 /* LabelTableViewModel.swift */,
 				7134ACF11C04ADF700865261 /* AccountViewModel.swift */,
 				716CF1351C14800F0085CA23 /* BudgetViewModel.swift */,
+				71747AAA1C00114E00338E62 /* LabelTableViewModel.swift */,
 			);
-			name = ViewModel;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		716CF1381C1481190085CA23 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				71747AAC1C00116300338E62 /* LabelTableModel.swift */,
 				7134ACF31C04AE0500865261 /* AccountModel.swift */,
 				716CF1391C1481F60085CA23 /* BudgetModel.swift */,
+				71747AAC1C00116300338E62 /* LabelTableModel.swift */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		7173FDA61BF23EB500ECC5C6 /* Model */ = {
@@ -505,7 +505,7 @@
 			children = (
 				7173FDA41BF23E5000ECC5C6 /* AccountBookModel.swift */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		7173FDAE1BF373A200ECC5C6 /* Agent */ = {
@@ -513,75 +513,75 @@
 			children = (
 				7173FDA71BF3288C00ECC5C6 /* TextFieldAgent.swift */,
 			);
-			name = Agent;
+			path = Agent;
 			sourceTree = "<group>";
 		};
 		7179DA601B857B8000A4D880 /* Portal */ = {
 			isa = PBXGroup;
 			children = (
 				7179DA611B857B9B00A4D880 /* Controller */,
+				714EC9A41BF771F5005C227C /* Model */,
 				7179DA621B857BAB00A4D880 /* View */,
 				7179DA631B857BC600A4D880 /* ViewModel */,
-				714EC9A41BF771F5005C227C /* Model */,
 			);
-			name = Portal;
+			path = Portal;
 			sourceTree = "<group>";
 		};
 		7179DA611B857B9B00A4D880 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				710DB38D1B81DFF6003E74FA /* ViewController.swift */,
-				710DB3BB1B8247CB003E74FA /* AddBillViewController.swift */,
-				712816471B92DE8200539691 /* NumberPadViewController.swift */,
-				711176841B93526300170668 /* DateViewController.swift */,
-				7134ACEF1C04AD7D00865261 /* AccountPickerViewController.swift */,
-				71AC48441BD21D050008B4F8 /* PreviewViewController.swift */,
 				7134AD011C073DD400865261 /* ConsumeptionType */,
 				7134AD021C073DED00865261 /* Subject */,
+				7134ACEF1C04AD7D00865261 /* AccountPickerViewController.swift */,
+				710DB3BB1B8247CB003E74FA /* AddBillViewController.swift */,
+				711176841B93526300170668 /* DateViewController.swift */,
+				712816471B92DE8200539691 /* NumberPadViewController.swift */,
+				71AC48441BD21D050008B4F8 /* PreviewViewController.swift */,
+				710DB38D1B81DFF6003E74FA /* ViewController.swift */,
 			);
-			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		7179DA621B857BAB00A4D880 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				715DD0DE1B8F5B430004ECAB /* CameraUIButton.swift */,
 				7179DA6E1B85D05E00A4D880 /* ColumnChart.swift */,
 				7179DA5A1B84E7E800A4D880 /* InfoPanelOfPortalView.swift */,
-				715DD0DE1B8F5B430004ECAB /* CameraUIButton.swift */,
 			);
-			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		7179DA631B857BC600A4D880 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				71A7F6E51BF63622006D2868 /* PortalViewModel.swift */,
 				71747AA61C0006A400338E62 /* AddBillViewModel.swift */,
-				7134ACEB1C036CEF00865261 /* ConsumeptionTypeViewModel.swift */,
 				712DABC01C1F0874006A9871 /* ConsumeptionTypeIconCollectionAgent.swift */,
+				7134ACEB1C036CEF00865261 /* ConsumeptionTypeViewModel.swift */,
+				71A7F6E51BF63622006D2868 /* PortalViewModel.swift */,
 			);
-			name = ViewModel;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		7179DA641B857BEF00A4D880 /* AccountBook */ = {
 			isa = PBXGroup;
 			children = (
 				715A53611B89AEF8009E7DF2 /* Controller */,
-				715B107F1BD778510037BD21 /* ViewModel */,
 				7173FDA61BF23EB500ECC5C6 /* Model */,
+				715B107F1BD778510037BD21 /* ViewModel */,
 			);
-			name = AccountBook;
+			path = AccountBook;
 			sourceTree = "<group>";
 		};
 		7179DA651B857BFC00A4D880 /* BillStream */ = {
 			isa = PBXGroup;
 			children = (
 				715A535E1B89AE7D009E7DF2 /* Controller */,
-				71D1C3711BD9D3C20055C36C /* ViewModel */,
 				71341E4B1BDA1669004C0CAB /* View */,
+				71D1C3711BD9D3C20055C36C /* ViewModel */,
 				71FE8B771BDE4641004CAE24 /* xib */,
 			);
-			name = BillStream;
+			path = BillStream;
 			sourceTree = "<group>";
 		};
 		7179DA661B857C0300A4D880 /* Statement */ = {
@@ -590,38 +590,38 @@
 				715A535F1B89AE8D009E7DF2 /* Controller */,
 				71BC84801BE1CAD500C6F92A /* View */,
 			);
-			name = Statement;
+			path = Statement;
 			sourceTree = "<group>";
 		};
 		7179DA671B857C0C00A4D880 /* More */ = {
 			isa = PBXGroup;
 			children = (
 				715A53601B89AE93009E7DF2 /* Controller */,
-				712C5ACE1C0A143500288CE6 /* xib */,
+				716CF1381C1481190085CA23 /* Model */,
 				71C2C78F1BE73E3D00673666 /* View */,
 				716CF1371C1480130085CA23 /* ViewModel */,
-				716CF1381C1481190085CA23 /* Model */,
+				712C5ACE1C0A143500288CE6 /* xib */,
 			);
-			name = More;
+			path = More;
 			sourceTree = "<group>";
 		};
 		71A7F6E11BF59F5A006D2868 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				715A0B6E1BF0ECDE0069C012 /* System.swift */,
-				71A7F6DF1BF59ACD006D2868 /* RealmModel.swift */,
 				7173FDB01BF3A09F00ECC5C6 /* Realm+Extension.swift */,
+				71A7F6DF1BF59ACD006D2868 /* RealmModel.swift */,
+				715A0B6E1BF0ECDE0069C012 /* System.swift */,
 			);
-			name = Realm;
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		71AC48481BD243070008B4F8 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				71AC48461BD242FB0008B4F8 /* String+Extension.swift */,
 				7173FDB21BF3B5B800ECC5C6 /* CALayer+Extension.swift */,
+				71AC48461BD242FB0008B4F8 /* String+Extension.swift */,
 			);
-			name = Extension;
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		71BC84801BE1CAD500C6F92A /* View */ = {
@@ -629,7 +629,7 @@
 			children = (
 				71BC847E1BE1CAD100C6F92A /* StatementViewCell.swift */,
 			);
-			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		71C2C78F1BE73E3D00673666 /* View */ = {
@@ -639,7 +639,7 @@
 				71D720041BE730C800C586BF /* BudgetTableViewCell.swift */,
 				716CF13D1C14A3200085CA23 /* BudgetTableViewHeaderFooterView.swift */,
 			);
-			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		71D1C3711BD9D3C20055C36C /* ViewModel */ = {
@@ -647,16 +647,16 @@
 			children = (
 				71D1C36D1BD9D3780055C36C /* BillStreamViewModel.swift */,
 			);
-			name = ViewModel;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		71FB74281BF8A81E006205E4 /* KuaijizhangTests */ = {
 			isa = PBXGroup;
 			children = (
-				71FDB8711C0AD93B00FEB1B6 /* RealmModelTest.swift */,
-				71C44DF91C0AD8780002F627 /* TestCaseBase.swift */,
 				71FB74311BF8A8BB006205E4 /* DateHelperTest.swift */,
 				71FB742B1BF8A81E006205E4 /* Info.plist */,
+				71FDB8711C0AD93B00FEB1B6 /* RealmModelTest.swift */,
+				71C44DF91C0AD8780002F627 /* TestCaseBase.swift */,
 			);
 			path = KuaijizhangTests;
 			sourceTree = "<group>";
@@ -668,7 +668,7 @@
 				71F24A991BDB782B002177C5 /* BillStreamHeaderWithExpense.xib */,
 				71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */,
 			);
-			name = xib;
+			path = xib;
 			sourceTree = "<group>";
 		};
 		B8EA83A42DE02B9F281AB1A4 /* Frameworks */ = {
@@ -998,6 +998,7 @@
 				710DB3901B81DFF6003E74FA /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		710DB3941B81DFF6003E74FA /* LaunchScreen.storyboard */ = {
@@ -1006,6 +1007,7 @@
 				710DB3951B81DFF6003E74FA /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
