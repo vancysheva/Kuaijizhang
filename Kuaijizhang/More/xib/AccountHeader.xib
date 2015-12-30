@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C48a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view tag="4" contentMode="scaleToFill" id="iR7-4m-dfu" customClass="AccountHeaderView" customModule="Kuaijizhang" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQ9-aS-Gv5">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UX5-LS-Fob">
+                            <rect key="frame" x="8" y="2" width="150" height="25"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="9Y5-pd-m2Q"/>
+                                <constraint firstAttribute="width" constant="150" id="lz8-Pr-3cU"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Lqu-4u-gaZ">
+                            <rect key="frame" x="154" y="2" width="150" height="25"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="150" id="aeg-ST-1lV"/>
+                                <constraint firstAttribute="height" constant="25" id="rxb-d2-GMX"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailingMargin" secondItem="Lqu-4u-gaZ" secondAttribute="trailing" constant="8" id="6vI-Kn-Mhk"/>
+                        <constraint firstItem="Lqu-4u-gaZ" firstAttribute="centerY" secondItem="eQ9-aS-Gv5" secondAttribute="centerY" id="FNa-lN-4Mj"/>
+                        <constraint firstItem="UX5-LS-Fob" firstAttribute="leading" secondItem="eQ9-aS-Gv5" secondAttribute="leadingMargin" id="PEx-zN-EWr"/>
+                        <constraint firstAttribute="height" constant="30" id="rrt-Gn-7K4"/>
+                        <constraint firstItem="UX5-LS-Fob" firstAttribute="centerY" secondItem="eQ9-aS-Gv5" secondAttribute="centerY" id="x58-ei-TnQ"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <animations/>
+            <constraints>
+                <constraint firstItem="eQ9-aS-Gv5" firstAttribute="top" secondItem="iR7-4m-dfu" secondAttribute="top" id="20I-zG-1d6"/>
+                <constraint firstItem="eQ9-aS-Gv5" firstAttribute="leading" secondItem="iR7-4m-dfu" secondAttribute="leading" id="DTV-rw-YQ1"/>
+                <constraint firstAttribute="trailing" secondItem="eQ9-aS-Gv5" secondAttribute="trailing" id="zyV-KU-MyI"/>
+            </constraints>
+            <connections>
+                <outlet property="accountAmountLabel" destination="Lqu-4u-gaZ" id="I95-rL-ZKE"/>
+                <outlet property="accountNameLabel" destination="UX5-LS-Fob" id="HjX-mP-j0J"/>
+            </connections>
+            <point key="canvasLocation" x="501" y="416"/>
+        </view>
+    </objects>
+</document>
