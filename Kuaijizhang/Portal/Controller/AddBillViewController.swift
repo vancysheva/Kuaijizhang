@@ -252,12 +252,10 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
         case 1:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("ConsumeptionTypePickerViewController") as! ConsumeptionTypePickerViewController
             vc.delegate = self
-            vc.addViewControlelr = self
             addContentController(vc)
         case 2:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("AccountPickerViewController") as! AccountPickerViewController
             vc.delegate = self
-            vc.addViewControlelr = self
             addContentController(vc)
         case 3:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("DateViewController") as! DateViewController
@@ -281,7 +279,7 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
                 moneyLabel.text = value
             case 1:
                 consumeTypeLabel.text = value
-                setConsumeptionTypeNameImage()
+                //setConsumeptionTypeNameImage()
             case 2:
                 accountLabel.text = value
             case 3:

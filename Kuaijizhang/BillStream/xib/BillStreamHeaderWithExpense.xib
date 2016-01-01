@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15C40a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -18,18 +18,16 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCN-Ws-Woy">
                             <rect key="frame" x="8" y="14" width="22" height="21"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="22" id="Wd0-Qk-dCo"/>
                                 <constraint firstAttribute="height" constant="21" id="keb-EO-0Ol"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="月" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8a-wY-xpE">
                             <rect key="frame" x="30" y="22" width="12" height="10"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="12" id="c88-UA-ILa"/>
                                 <constraint firstAttribute="height" constant="10" id="pDm-7n-fog"/>
@@ -40,7 +38,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支出" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rj-lL-i4u">
                             <rect key="frame" x="57" y="19" width="24" height="12"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="3Ig-mR-xnS"/>
                                 <constraint firstAttribute="width" constant="24" id="nbG-cP-uNY"/>
@@ -51,7 +48,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2343.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8rd-Vr-Ugz" userLabel="consume">
                             <rect key="frame" x="85" y="19" width="80" height="12"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="80" id="Clp-U1-U8j"/>
                                 <constraint firstAttribute="height" constant="12" id="q6t-s8-oNi"/>
@@ -62,7 +58,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1343.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mz5-Sd-oA7">
                             <rect key="frame" x="204" y="14" width="80" height="21"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="80" id="Wfl-F5-CeO"/>
                                 <constraint firstAttribute="height" constant="21" id="urG-VU-WsQ"/>
@@ -73,7 +68,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="结余" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sen-Qn-we6">
                             <rect key="frame" x="288" y="21" width="24" height="12"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="24" id="J0Q-cO-rL0"/>
                                 <constraint firstAttribute="height" constant="12" id="eGf-GA-GZf"/>
@@ -83,7 +77,6 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" red="0.95668703320000004" green="0.97017902140000001" blue="0.88271290059999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="Sen-Qn-we6" firstAttribute="leading" secondItem="mz5-Sd-oA7" secondAttribute="trailing" constant="4" id="C64-1x-PDS"/>
@@ -102,7 +95,6 @@
                     </constraints>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="JO9-gq-lKd" firstAttribute="top" secondItem="y36-hd-xqg" secondAttribute="top" id="Hfw-wF-ICg"/>

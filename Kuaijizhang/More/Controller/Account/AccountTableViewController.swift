@@ -28,7 +28,7 @@ class AccountTableViewController: UITableViewController {
         
         updateUI()
         
-        accountViewModel?.addNotification({ (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+        accountViewModel?.addNotification("AccountTableViewController") { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
             
             switch dataChangedType {
             case .Insert:
@@ -51,7 +51,7 @@ class AccountTableViewController: UITableViewController {
             default:
                 break
             }
-        })
+        }
         
     }
     
@@ -155,6 +155,10 @@ extension AccountTableViewController {
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         return .None
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        accountViewModel?.model.sendObserverFeedBack(indexPath)
     }
 }
 

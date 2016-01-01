@@ -30,12 +30,11 @@ class AccountPickerViewController: UIViewController {
         
         self.accountViewModel = AccountViewModel()
         
-        accountViewModel?.addNotification({ [unowned self] (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+        accountViewModel?.addNotification("AccountPickerViewController") { [unowned self] (transactionState, dataChangedType, indexPath, userInfo) -> Void in
             
             switch dataChangedType {
             case .Insert:
                 self.navigationController?.popToRootViewControllerAnimated(true)
-                
                 
                 
                 var pIndex = 0
@@ -44,16 +43,16 @@ class AccountPickerViewController: UIViewController {
                     pIndex = indexPath.section
                     cIndex = indexPath.row
                     
-                    self.pickerView.selectRow(indexPath.section, inComponent: 0, animated: true)
+                    self.pickerView.selectRow(indexPath.section, inComponent: 0, animated: false)
                     self.pickerView.reloadComponent(1)
-                    self.pickerView.selectRow(indexPath.row, inComponent: 1, animated: true)
+                    self.pickerView.selectRow(indexPath.row, inComponent: 1, animated: false)
                 } else {
                     pIndex = indexPath.row
                     
                     self.pickerView.reloadComponent(0)
-                    self.pickerView.selectRow(pIndex, inComponent: 0, animated: true)
+                    self.pickerView.selectRow(pIndex, inComponent: 0, animated: false)
                     self.pickerView.reloadComponent(1)
-                    self.pickerView.selectRow(0, inComponent: 1, animated: true)
+                    self.pickerView.selectRow(0, inComponent: 1, animated: false)
                 }
                 
                 if let name = self.accountViewModel?.childAccountAtParentIndex(pIndex, withChildIndex: cIndex).childName {
@@ -68,10 +67,31 @@ class AccountPickerViewController: UIViewController {
                     self.pickerView.selectRow(0, inComponent: 1, animated: false)
                 } else {
                     self.pickerView.reloadComponent(1)
-                    self.pickerView.selectRow(0, inComponent: 1, animated: true)
+                    self.pickerView.selectRow(0, inComponent: 1, animated: false)
+                }
+            case .Update:
+                if indexPath.section == self.pickerView.selectedRowInComponent(0) {
+                    self.pickerView.reloadComponent(1)
+                    self.pickerView.selectRow(self.pickerView.selectedRowInComponent(1), inComponent: 1, animated: false)
+                }
+                
+                if let name = self.accountViewModel?.childAccountAtParentIndex(indexPath.section, withChildIndex: indexPath.row).childName {
+                    self.setValueForDelegate(name)
                 }
             default:
                 break
+            }
+        }
+        
+        accountViewModel?.addObserver("AccountPickerViewController", observerHandler: { (indexPath, userInfo) -> Void in
+            
+            if let row = indexPath?.row, section = indexPath?.section, childAccount = self.accountViewModel?.childAccountAtParentIndex(section, withChildIndex: row) {
+                self.navigationController?.popViewControllerAnimated(true)
+                self.pickerView.reloadComponent(0)
+                self.pickerView.selectRow(section, inComponent: 0, animated: false)
+                self.pickerView.reloadComponent(1)
+                self.pickerView.selectRow(row, inComponent: 1, animated: false)
+                self.setValueForDelegate(childAccount.childName)
             }
         })
         
@@ -81,7 +101,8 @@ class AccountPickerViewController: UIViewController {
         
         let vc = storyboard?.instantiateViewControllerWithIdentifier("AccountTableViewController") as! AccountTableViewController
         vc.accountViewModel = accountViewModel
-        addViewControlelr?.navigationController?.pushViewController(vc, animated: true)
+        parentViewController?.navigationController?.pushViewController(vc, animated: true)
+
     }
     
     func setValueForDelegate(name: String) {
@@ -94,17 +115,33 @@ class AccountPickerViewController: UIViewController {
 
 extension AccountPickerViewController: UIPickerViewDelegate {
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        var title: String = ""
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        
+        let nibs = NSBundle.mainBundle().loadNibNamed("AccountPickerCompView", owner: nil, options: nil)
+        let compView = nibs[component] as! UIView
+        
+        let width = pickerView.rowSizeForComponent(component).width
+        let height = pickerView.rowSizeForComponent(component).height
+        
+        compView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        
         switch component {
         case 0:
-            title = accountViewModel?.parentAccountWithAmountAt(row).parentName ?? ""
+            if let data = accountViewModel?.parentAccountWithAmountAt(row) {
+                let label = compView.viewWithTag(1) as! UILabel
+                label.text = data.0
+            }
         case 1:
-            title = accountViewModel?.childAccountAtParentIndex(pickerView.selectedRowInComponent(0), withChildIndex: row).childName ?? ""
-        default:
-            break
+            if let data = accountViewModel?.childAccountAtParentIndex(pickerView.selectedRowInComponent(0), withChildIndex: row) {
+                let nameLabel = compView.viewWithTag(1) as! UILabel
+                let amountLabel = compView.viewWithTag(2) as! UILabel
+                nameLabel.text = data.0
+                amountLabel.text = data.1
+            }
+        default:break
         }
-        return title
+        
+        return compView
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -146,9 +183,5 @@ extension AccountPickerViewController: UIPickerViewDataSource {
     
     func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 32
-    }
-    
-    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        return nil
     }
 }

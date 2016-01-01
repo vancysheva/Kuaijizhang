@@ -40,4 +40,19 @@ class ViewModelBase<T: ModelBase>: ViewModelNotifiable {
     func dataContentDidChange(endUpdates: () -> Void) {
         model.endUpdates = endUpdates
     }
+    
+    func addObserver(observerHandler: ViewModelObserverHandler) {
+        model.observerIdentifiers.append(NSUUID().UUIDString)
+        model.observerHandlers.append(observerHandler)
+    }
+    
+    func addObserver(identifier: String, observerHandler: ViewModelObserverHandler) {
+        
+        if let index = model.observerIdentifiers.indexOf(identifier) {
+            model.observerHandlers[index] = observerHandler
+        } else {
+            model.observerIdentifiers.append(identifier)
+            model.observerHandlers.append(observerHandler)
+        }
+    }
 }

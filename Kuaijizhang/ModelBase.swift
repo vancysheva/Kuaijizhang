@@ -24,4 +24,14 @@ class ModelBase {
         //notificationIdentifiers = []
         //notificationHandlers = []
     }
+    
+    var observerIdentifiers = [String]()
+    var observerHandlers = [ViewModelObserverHandler]()
+    
+    func sendObserverFeedBack(indexPath: NSIndexPath?, userInfo: [String: Any]? = nil) {
+        
+        observerHandlers.reverse().forEach {
+            $0(indexPath: indexPath, userInfo: userInfo)
+        }
+    }
 }

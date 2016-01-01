@@ -20,9 +20,6 @@ class ParentConsumeTypeListViewController: UIViewController {
     
     var consumeptionTypeViewModel: ConsumeptionTypeViewModel?
     
-    
-    weak var addViewController: AddBillViewController?
-    
     enum ButtonType: String {
         case Edit = "✎ 编辑", Done = "✓完成"
         
@@ -81,7 +78,6 @@ class ParentConsumeTypeListViewController: UIViewController {
                 if let vc = segue.destinationViewController as? ChildConsumeTypeListViewController, indexPath = consumeTypeTableView.indexPathForSelectedRow {
                     vc.consumeptionTypeViewModel = consumeptionTypeViewModel
                     vc.parentIndex = indexPath.row
-                    vc.addViewController = addViewController
                     consumeTypeTableView.deselectRowAtIndexPath(indexPath, animated: true)
                 }
             case "addParentConsumeType": // 增加名字

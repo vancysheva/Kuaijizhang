@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C48a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -17,7 +17,6 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UX5-LS-Fob">
                             <rect key="frame" x="8" y="2" width="150" height="25"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="25" id="9Y5-pd-m2Q"/>
                                 <constraint firstAttribute="width" constant="150" id="lz8-Pr-3cU"/>
@@ -28,7 +27,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Lqu-4u-gaZ">
                             <rect key="frame" x="154" y="2" width="150" height="25"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="150" id="aeg-ST-1lV"/>
                                 <constraint firstAttribute="height" constant="25" id="rxb-d2-GMX"/>
@@ -38,7 +36,6 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailingMargin" secondItem="Lqu-4u-gaZ" secondAttribute="trailing" constant="8" id="6vI-Kn-Mhk"/>
@@ -49,7 +46,6 @@
                     </constraints>
                 </view>
             </subviews>
-            <animations/>
             <constraints>
                 <constraint firstItem="eQ9-aS-Gv5" firstAttribute="top" secondItem="iR7-4m-dfu" secondAttribute="top" id="20I-zG-1d6"/>
                 <constraint firstItem="eQ9-aS-Gv5" firstAttribute="leading" secondItem="iR7-4m-dfu" secondAttribute="leading" id="DTV-rw-YQ1"/>

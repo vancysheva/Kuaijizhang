@@ -21,42 +21,32 @@ class ConsumeptionTypeModel: RealmModel<ConsumeptionType> {
         objectList = self.currentAccountBook?.consumeptionTypes.filter("type = %@", "\(billType)").toList()
     }
     
-    func parentConsumeptionTypeAtIndex(index: Int) -> ConsumeptionType? {
-        return objectAtIndex(index)
-    }
-    
-    func childConsumeptionTypeAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) -> ConsumeptionType? {
-        return objectAtIndex(parentIndex)?.consumeptionTypes[childIndex]
-    }
-    
-    func numberOfChildConsumeptionTypesAtParentIndex(parentIndex: Int) -> Int {
-        return objectAtIndex(parentIndex)?.consumeptionTypes.count ?? 0
-    }
-    
     func childConsumeptionType(indexPath: NSIndexPath) -> ConsumeptionType? {
         return objectAtIndex(indexPath.section)?.consumeptionTypes[indexPath.row]
     }
     
     func saveParentConsumeptionTypeWithName(name: String, type: String, iconName: String) {
         
+        var newIndex = 0
         if let lastConsumeptionType = lastObject, index  = currentAccountBook?.consumeptionTypes.indexOf(lastConsumeptionType) {
-            
-            let consumeptionType = ConsumeptionType()
-            consumeptionType.name = name
-            consumeptionType.type = type
-            consumeptionType.iconName = iconName
-            if let book = currentAccountBook {
-                consumeptionType.accountBook = book
-            }
-            
-            let state = realm.writeTransaction {
-                self.currentAccountBook?.consumeptionTypes.insert(consumeptionType, atIndex: index + 1)
-            }
-            
-            objectList = currentAccountBook?.consumeptionTypes.filter("type = %@", "\(billType)").toList()
-            let indexPath = NSIndexPath(forRow: (objectList?.count ?? 1) - 1, inSection: 0)
-            sendNotificationsFeedBack(state, changedType: .Insert, indexPath: indexPath, userInfo: ["save": "saveParent"])
+            newIndex = index + 1
         }
+
+        let consumeptionType = ConsumeptionType()
+        consumeptionType.name = name
+        consumeptionType.type = type
+        consumeptionType.iconName = iconName
+        if let book = currentAccountBook {
+            consumeptionType.accountBook = book
+        }
+        
+        let state = realm.writeTransaction {
+            self.currentAccountBook?.consumeptionTypes.insert(consumeptionType, atIndex: newIndex)
+        }
+        
+        objectList = currentAccountBook?.consumeptionTypes.filter("type = %@", "\(billType)").toList()
+        let indexPath = NSIndexPath(forRow: (objectList?.count ?? 1) - 1, inSection: 0)
+        sendNotificationsFeedBack(state, changedType: .Insert, indexPath: indexPath, userInfo: ["save": "saveParent"])
     }
     
     func saveChildConsumeptionTypeWithName(name: String, type: String, iconName: String, withParentIndex parentIndex: Int) {
@@ -69,9 +59,30 @@ class ConsumeptionTypeModel: RealmModel<ConsumeptionType> {
             consumeptionType.accountBook = book
         }
         if let parentConsumeptionType = objectList?[parentIndex] {
-            appendObject(consumeptionType, inList: parentConsumeptionType.consumeptionTypes, inSection: 0, userInfo: ["save": "saveChild"])
+            appendObject(consumeptionType, inList: parentConsumeptionType.consumeptionTypes, inSection: 0, userInfo: ["save": "saveChild", "parentIndex": parentIndex])
         }
     }
+    
+    func updateChildConsumeptionTypeWithName(name: String, iconName: String, atParentIndex parentIndex: Int, withChildIndex childIndex: Int) {
+        
+        if let childConsumeptionType = objectAtIndex(parentIndex)?.consumeptionTypes[childIndex] {
+            updateObjectWithIndex(childIndex, inSection: 0, userInfo: ["update": "updateChild"]) { () -> Void in
+                childConsumeptionType.name = name
+                childConsumeptionType.iconName = iconName
+            }
+        }
+    }
+    
+    func updateParentConsumeptionTypeWith(name: String, iconName: String, withParentIndex parentIndex: Int) {
+        
+        if let parentConsumeptionType = objectList?[parentIndex] {
+            updateObjectWithIndex(parentIndex, inSection: 0, userInfo: ["update": "updateParent"]) {
+                parentConsumeptionType.name = name
+                parentConsumeptionType.iconName = iconName
+            }
+        }
+    }
+
     
     func deleteParentConsumeptionTypeAt(parentIndex: Int) {
         //删除二级类别以及其账单，并删除一级类别
@@ -116,5 +127,15 @@ class ConsumeptionTypeModel: RealmModel<ConsumeptionType> {
             }
             sendNotificationsFeedBack(state, changedType: .Move(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row), indexPath: fromIndexPath, userInfo: ["move": "moveParent"])
         }
+    }
+    
+    func moveChildConsumeptionTypeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath, withParentIndex parentIndex: Int) {
+        
+        let state = realm.writeTransaction {
+            if let parentConsumeptionType = self.objectList?[parentIndex] {
+                parentConsumeptionType.consumeptionTypes.move(from: fromIndexPath.row, to: toIndexPath.row)
+            }
+        }
+        sendNotificationsFeedBack(state, changedType: .Move(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row), indexPath: fromIndexPath, userInfo: nil)
     }
 }

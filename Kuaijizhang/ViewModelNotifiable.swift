@@ -25,9 +25,13 @@ enum TransactionState {
 
 typealias ViewModelNotificationHandler = (transactionState: TransactionState, dataChangedType: ModelDataChangedType, indexPath: NSIndexPath, userInfo: [String: Any]?) -> Void
 
+typealias ViewModelObserverHandler = (indexPath: NSIndexPath?, userInfo: [String: Any]?) -> Void
+
 protocol ViewModelNotifiable {
     
     func addNotification(notificationHandler: ViewModelNotificationHandler)
     func dataContentWillChange(beginUpdates: ()->Void)
     func dataContentDidChange(endUpdates: ()->Void)
+    
+    func addObserver(observerHandler: ViewModelObserverHandler)
 }

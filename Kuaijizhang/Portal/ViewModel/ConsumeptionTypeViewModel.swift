@@ -17,20 +17,25 @@ class ConsumeptionTypeViewModel: ViewModelBase<ConsumeptionTypeModel> {
         super.init(model: ConsumeptionTypeModel(billType: billType.rawValue))
     }
     
-    func parentConsumeptionTypeAtIndex(parentIndex: Int) -> (parentName: String?, iconName: String?) {
+    func parentConsumeptionTypeAtIndex(parentIndex: Int) -> (parentName: String, iconName: String) {
         
-        if let parentConsumeptionType = model.parentConsumeptionTypeAtIndex(parentIndex) {
+        if let parentConsumeptionType = model.objectAtIndex(parentIndex) {
             return  (parentConsumeptionType.name, parentConsumeptionType.iconName)
         }
-        return (nil, nil)
+        return ("", "")
     }
     
-    func childConsumeptionTypeAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) -> (childName: String?, iconName: String?) {
+    func childConsumeptionTypeAtParentIndex(parentIndex: Int, withChildIndex childIndex: Int) -> (childName: String, iconName: String) {
         
-        if let childConsumeptionType = model.childConsumeptionTypeAtParentIndex(parentIndex, withChildIndex: childIndex) {
-            return (childConsumeptionType.name, childConsumeptionType.iconName)
+        if let parentConsumpetionType = model.objectAtIndex(parentIndex) {
+            if parentConsumpetionType.consumeptionTypes.count == 0 {
+                return ("", "")
+            } else {
+                let childConsumeptionType = parentConsumpetionType.consumeptionTypes[childIndex]
+                return (childConsumeptionType.name, childConsumeptionType.iconName)
+            }
         }
-        return (nil, nil)
+        return ("", "")
     }
     
     func numberOfParentConsumeptionTypes() -> Int {
@@ -38,7 +43,11 @@ class ConsumeptionTypeViewModel: ViewModelBase<ConsumeptionTypeModel> {
     }
     
     func numberOfChildConsumeptionTypesAtParentIndex(parentIndex: Int) -> Int {
-        return model.numberOfChildConsumeptionTypesAtParentIndex(parentIndex)
+        
+        if model.numberOfObjects != 0 {
+            return model.objectAtIndex(parentIndex)?.consumeptionTypes.count ?? 0
+        }
+        return 0
     }
     
     func deleteParentConsumeptionTypeAt(parentIndex: Int) {
@@ -59,23 +68,11 @@ class ConsumeptionTypeViewModel: ViewModelBase<ConsumeptionTypeModel> {
     }
     
     func updateChildConsumeptionTypeWithName(name: String, iconName: String, atParentIndex parentIndex: Int, withChildIndex childIndex: Int) {
-        
-        if let childConsumeptionType = model.objectAtIndex(parentIndex)?.consumeptionTypes[childIndex] {
-            model.updateObjectWithIndex(childIndex, inSection: 0, userInfo: ["update": "updateChild"]) { () -> Void in
-                childConsumeptionType.name = name
-                childConsumeptionType.iconName = iconName
-            }
-        }
+        model.updateChildConsumeptionTypeWithName(name, iconName: iconName, atParentIndex: parentIndex, withChildIndex: childIndex)
     }
     
     func updateParentConsumeptionTypeWith(name: String, iconName: String, withParentIndex parentIndex: Int) {
-        
-        if let parentConsumeptionType = model.objectList?[parentIndex] {
-            model.updateObjectWithIndex(parentIndex, inSection: 0, userInfo: ["update": "updateParent"]) {
-                parentConsumeptionType.name = name
-                parentConsumeptionType.iconName = iconName
-            }
-        }
+        model.updateParentConsumeptionTypeWith(name, iconName: iconName, withParentIndex: parentIndex)
     }
     
     func moveParentConsumeptionTypeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
@@ -83,13 +80,7 @@ class ConsumeptionTypeViewModel: ViewModelBase<ConsumeptionTypeModel> {
     }
     
     func moveChildConsumeptionTypeFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath, withParentIndex parentIndex: Int) {
-        
-        let state = model.realm.writeTransaction {
-            if let parentConsumeptionType = self.model.objectList?[parentIndex] {
-                parentConsumeptionType.consumeptionTypes.move(from: fromIndexPath.row, to: toIndexPath.row)
-            }
-        }
-        model.sendNotificationsFeedBack(state, changedType: .Move(fromIndex: fromIndexPath.row, toIndex: toIndexPath.row), indexPath: fromIndexPath, userInfo: nil)
+        model.moveChildConsumeptionTypeFromIndexPath(fromIndexPath, toIndexPath: toIndexPath, withParentIndex: parentIndex)
     }
     
     func parentConsumeptionTypeHasChildConsumeptionTypes(parentIndex: Int) -> Bool {

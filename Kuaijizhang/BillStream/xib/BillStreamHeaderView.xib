@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C47a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -19,18 +19,16 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftD-1b-ekS">
                             <rect key="frame" x="8" y="14" width="22" height="21"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="22" id="aop-66-Evq"/>
                                 <constraint firstAttribute="height" constant="21" id="uMi-mz-n0S"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="月" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMM-gW-u9y">
                             <rect key="frame" x="30" y="22" width="12" height="10"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="12" id="4x6-lL-UZW"/>
                                 <constraint firstAttribute="height" constant="10" id="QEe-SJ-eWe"/>
@@ -41,7 +39,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支出" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qN8-qF-wig">
                             <rect key="frame" x="57" y="8" width="24" height="12"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="Bfh-ff-VeA"/>
                                 <constraint firstAttribute="width" constant="24" id="ltH-vC-TMp"/>
@@ -52,7 +49,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收入" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mic-ya-uyw">
                             <rect key="frame" x="57" y="29" width="24" height="12"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="ago-7G-ik2"/>
                                 <constraint firstAttribute="width" constant="24" id="zTo-F3-NL2"/>
@@ -63,7 +59,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2343.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sKu-Zh-6xg" userLabel="consume">
                             <rect key="frame" x="85" y="8" width="80" height="12"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="TKH-tC-bbF"/>
                                 <constraint firstAttribute="width" constant="80" id="U9E-P0-TFc"/>
@@ -74,7 +69,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Bzx-5Y-AUd" userLabel="income">
                             <rect key="frame" x="85" y="29" width="80" height="12"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="j1N-Pb-Euk"/>
                                 <constraint firstAttribute="width" constant="80" id="nNE-7N-Trq"/>
@@ -85,7 +79,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1343.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BX1-sT-Y4h">
                             <rect key="frame" x="204" y="14" width="80" height="21"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="80" id="9TG-Jp-8Xo"/>
                                 <constraint firstAttribute="height" constant="21" id="Duj-EQ-HFy"/>
@@ -96,7 +89,6 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="结余" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBD-98-7cb">
                             <rect key="frame" x="288" y="21" width="24" height="12"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="24" id="afq-yd-SEC"/>
                                 <constraint firstAttribute="height" constant="12" id="xtk-vP-CKb"/>
@@ -106,7 +98,6 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" red="0.95668703317642212" green="0.97017902135848999" blue="0.88271290063858032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="3KW-D0-TUo"/>
@@ -129,7 +120,6 @@
                     </constraints>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="UbA-gr-B5s" firstAttribute="top" secondItem="V0h-aJ-knG" secondAttribute="top" id="RNy-i2-WSR"/>

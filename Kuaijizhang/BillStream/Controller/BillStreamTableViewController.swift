@@ -63,7 +63,7 @@ extension BillStreamTableViewController {
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let nibs = NSBundle.mainBundle().loadNibNamed("BillStreamHeaderView", owner: self, options: nil)
+        let nibs = NSBundle.mainBundle().loadNibNamed("BillStreamHeaderView", owner: nil, options: nil)
         
         let headerView =  nibs[0] as! BillStreamHeaderView
         return headerView

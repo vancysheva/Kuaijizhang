@@ -22,8 +22,6 @@ class ChildConsumeTypeListViewController: UIViewController {
     
     var consumeptionTypeViewModel: ConsumeptionTypeViewModel?
     
-    weak var addViewController: AddBillViewController?
-    
     enum ButtonType: String {
         case Edit = "✎ 编辑", Done = "✓完成"
         
@@ -190,13 +188,9 @@ extension ChildConsumeTypeListViewController: UITableViewDelegate, UITableViewDa
                 }
             }
         } else {
-            if let index = parentIndex, parentConsumeptionType = consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(index), childConsumeptionType = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(index, withChildIndex: indexPath.row) {
-                addViewController?.consumeTypeLabel.text = "\(parentConsumeptionType.parentName!)>\(childConsumeptionType.childName!)"
-                
-                if let addVC = addViewController, childVC = addVC.childViewControllers[0] as? ConsumeptionTypePickerViewController {
-                    addVC.removeCotentControllerWidthAnimation(childVC)
-                    navigationController?.popToViewController(addVC, animated: true)
-                }
+            if let pIndex = parentIndex {
+                let newIndexPath = NSIndexPath(forRow: indexPath.row, inSection: pIndex)
+                consumeptionTypeViewModel?.model.sendObserverFeedBack(newIndexPath)
             }
         }
         
