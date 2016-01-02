@@ -17,6 +17,8 @@ class AccountTableViewController: UITableViewController {
     
     @IBOutlet weak var addAccountBarItem: UIBarButtonItem!
     
+    var swipeCellAgent = TableViewCellSlideAgent()
+    
     var accountViewModel: AccountViewModel?
 
     override func viewDidLoad() {
@@ -51,6 +53,30 @@ class AccountTableViewController: UITableViewController {
             default:
                 break
             }
+        }
+        
+        swipeCellAgent.addTriggerRightUtilityButtonHandler { [unowned self] (cell, didTriggerRightUtilityButtonWithIndex) -> Void in
+            
+            let indexPath = self.tableView.indexPathForCell(cell)
+            switch didTriggerRightUtilityButtonWithIndex {
+            case 0:
+                if let addVC = self.storyboard?.instantiateViewControllerWithIdentifier("AddAccountTableViewController") as? AddAccountTableViewController {
+                    addVC.accountViewModel = self.accountViewModel
+                    addVC.indexPathForUpdate = indexPath
+                    self.navigationController?.pushViewController(addVC, animated: true)
+                    cell.hideUtilityButtonsAnimated(true)
+                }
+            case 1:
+                if let ip = indexPath {
+                    self.accountViewModel?.deleteAccountAtParentIndex(ip.section, withChildIndex: ip.row)
+                }
+            default:
+                break
+            }
+        }
+        
+        swipeCellAgent.addSwipeableTableViewCellShouldHideUtilityButtonsOnSwipe { (cell) -> Bool in
+            return true
         }
         
     }
@@ -115,7 +141,7 @@ extension AccountTableViewController {
             rightButtons.sw_addUtilityButtonWithColor(UIColor.blueColor(), title: "编辑")
             rightButtons.sw_addUtilityButtonWithColor(UIColor.redColor(), title: "删除")
             cell.rightUtilityButtons = rightButtons as [AnyObject]
-            cell.delegate = self
+            cell.delegate = swipeCellAgent
         }
 
         return cell
@@ -159,34 +185,5 @@ extension AccountTableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         accountViewModel?.model.sendObserverFeedBack(indexPath)
-    }
-}
-
-// MARK: - SWTableViewCellDelegate
-
-extension AccountTableViewController: SWTableViewCellDelegate {
-    
-    func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-        
-        let indexPath = tableView.indexPathForCell(cell)
-        switch index {
-        case 0:
-            if let addVC = storyboard?.instantiateViewControllerWithIdentifier("AddAccountTableViewController") as? AddAccountTableViewController {
-                addVC.accountViewModel = accountViewModel
-                addVC.indexPathForUpdate = indexPath
-                navigationController?.pushViewController(addVC, animated: true)
-                cell.hideUtilityButtonsAnimated(true)
-            }
-        case 1:
-            if let ip = indexPath {
-                accountViewModel?.deleteAccountAtParentIndex(ip.section, withChildIndex: ip.row)
-            }
-        default:
-            break
-        }
-    }
-    
-    func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
-        return true
     }
 }

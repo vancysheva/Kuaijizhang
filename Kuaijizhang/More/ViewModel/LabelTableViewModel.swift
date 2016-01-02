@@ -36,7 +36,7 @@ class LabelTableViewModel: ViewModelBase<LabelTableModel> {
         model.deleteObjecctAtIndex(indexPath.row)
     }
     
-    func moveoObjectFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+    func moveObjectFromIndexPath(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
         model.moveObjectFromIndex(fromIndexPath.row, toIndex: toIndexPath.row)
     }
     

@@ -741,7 +741,7 @@
                                 <rect key="frame" x="0.0" y="184" width="320" height="384"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="60U-kK-tQD">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="60U-kK-tQD" customClass="SWTableViewCell">
                                         <rect key="frame" x="0.0" y="1" width="320" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="60U-kK-tQD" id="8VR-gn-EUH">
@@ -824,7 +824,7 @@
         <!--Add Account Book View Controller-->
         <scene sceneID="9Kj-Ld-p1v">
             <objects>
-                <viewController id="Pfj-3j-t2Y" customClass="AddAccountBookViewController" customModule="Kuaijizhang" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddAccountBookViewController" id="Pfj-3j-t2Y" customClass="AddAccountBookViewController" customModule="Kuaijizhang" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Gug-RB-neB"/>
                         <viewControllerLayoutGuide type="bottom" id="41W-MH-XC2"/>
@@ -953,7 +953,7 @@
                     <navigationItem key="navigationItem" id="hlj-Qd-5GN">
                         <barButtonItem key="rightBarButtonItem" title="保存" id="ctJ-xK-DwA">
                             <connections>
-                                <segue destination="7aa-Sr-9Lw" kind="unwind" unwindAction="unwind:" id="zem-p9-yq6"/>
+                                <action selector="tapSaveButton:" destination="Pfj-3j-t2Y" id="Jiz-JM-20B"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -965,7 +965,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ns-S6-oMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="7aa-Sr-9Lw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2235" y="-1546"/>
         </scene>

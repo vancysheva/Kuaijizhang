@@ -22,10 +22,12 @@ class AccountBookViewModel: ViewModelBase<AccountBookModel> {
         model.deleteAt(indexPath)
     }
     
-    func objectAt(indexPath: NSIndexPath) -> (String?, Bool?, String?) {
+    func objectAt(indexPath: NSIndexPath) -> (title: String, isUsing: Bool, coverImageName: String) {
         
-        let accountBook = model.objectAtIndex(indexPath.row)
-        return (accountBook?.title, accountBook?.isUsing, accountBook?.coverImageName)
+        if let accountBook = model.objectAtIndex(indexPath.row) {
+            return (accountBook.title, accountBook.isUsing, accountBook.coverImageName)
+        }
+        return ("", false, "")
     }
     
     func setCurrentUsingAt(indexPath: NSIndexPath) {
@@ -36,5 +38,15 @@ class AccountBookViewModel: ViewModelBase<AccountBookModel> {
         
         let str = title.trim()
         model.addAccountBookWithTitle(str, coverImageName: coverImageName)
+    }
+    
+    func updateAccountBookWithTitle(title: String, coverImageName: String, atIndex index: Int) {
+        
+        if let accountBook = model.objectAtIndex(index) {
+            model.updateObjectWithIndex(index) {
+                accountBook.title = title
+                accountBook.coverImageName = coverImageName
+            }
+        }
     }
 }

@@ -108,7 +108,7 @@ extension SubjectTableViewController {
     }
     
     override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-        subjectViewModel.moveoObjectFromIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath)
+        subjectViewModel.moveObjectFromIndexPath(sourceIndexPath, toIndexPath: destinationIndexPath)
     }
 }
 

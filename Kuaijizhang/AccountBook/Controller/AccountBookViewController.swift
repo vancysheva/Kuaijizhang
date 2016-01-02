@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import SWTableViewCell
 
 class AccountBookViewController: UIViewController {
     
     // MARK: - Properties
     
     let accountBookViewModel = AccountBookViewModel()
+    let swipeCellAgent = TableViewCellSlideAgent()
     
     @IBOutlet weak var accountTableView: UITableView!
     
@@ -28,15 +30,51 @@ class AccountBookViewController: UIViewController {
 
         accountBookViewModel.addNotification { [unowned self] (transactionState: TransactionState, dataChangedType: ModelDataChangedType, indexPath: NSIndexPath, _) -> Void in
             
-            if case .Delete = dataChangedType {
-                self.accountTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            } else if case .Insert = dataChangedType {
+            switch dataChangedType {
+            case .Insert:
+                self.navigationController?.popToViewController(self, animated: true)
                 self.accountTableView.reloadData()
+            case .Update:
+                self.navigationController?.popToViewController(self, animated: true)
+                self.accountTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            case .Delete:
+                self.accountTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            default: break
             }
+        }
+        
+        swipeCellAgent.addTriggerRightUtilityButtonHandler { [unowned self] (cell, didTriggerRightUtilityButtonWithIndex) -> Void in
+            
+            if let indexPath = self.accountTableView.indexPathForCell(cell) {
+                switch didTriggerRightUtilityButtonWithIndex {
+                case 0:
+                    if let addVC = self.storyboard?.instantiateViewControllerWithIdentifier("AddAccountBookViewController") as? AddAccountBookViewController {
+                        addVC.indexPathForUpdate = indexPath
+                        addVC.accountBookViewModel = self.accountBookViewModel
+                        self.navigationController?.pushViewController(addVC, animated: true)
+                        cell.hideUtilityButtonsAnimated(true)
+                    }
+                case 1:
+                    self.accountBookViewModel.delete(indexPath)
+                default:
+                    break
+                }
+            }
+        }
+        
+        swipeCellAgent.addSwipeableTableViewCellShouldHideUtilityButtonsOnSwipe { (cell) -> Bool in
+            return true
         }
         
     }
     
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let vc = segue.destinationViewController as? AddAccountBookViewController {
+            vc.accountBookViewModel = accountBookViewModel
+        }
+    }
     
     
     // MARK: - Methods
@@ -45,18 +83,11 @@ class AccountBookViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func unwind(segue: UIStoryboardSegue) {
-        
-        if let sourceVC = segue.sourceViewController as? AddAccountBookViewController, coverImageName = sourceVC.coverImageName, title = sourceVC.nameTextField.text {
-            accountBookViewModel.saveAccountBookWithTitle(title, coverImageName: coverImageName)
-        }
-    }
-    
     func confirmDelete(indexPath indexPath: NSIndexPath) {
     
         let alert = UIAlertHelpler.getAlertController("提示", message: "确定要删除该账本吗？", prefferredStyle: .Alert, actions: ("确定", .Default, {[unowned self] action in
             
-                if let isUsing = self.accountBookViewModel.objectAt(indexPath).1 where isUsing == true {
+                if self.accountBookViewModel.objectAt(indexPath).1  == true {
                     let messageAlert = UIAlertHelpler.getAlertController("", message: "删除失败，不能删除正在使用的账本。", prefferredStyle: .Alert, actions: ("取消", .Cancel, nil))
                     
                     self.presentViewController(messageAlert, animated: true, completion: nil)
@@ -88,18 +119,25 @@ extension AccountBookViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = accountTableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        let cell = accountTableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SWTableViewCell
         
         let imageView = cell.viewWithTag(1) as! UIImageView
         let titleLabel = cell.viewWithTag(2) as! UILabel
         let isUsingLabel = cell.viewWithTag(3) as! UILabel
         
-        var name: String?
-        var b: Bool?
-        (titleLabel.text, b, name) = accountBookViewModel.objectAt(indexPath)
-        imageView.image = UIImage(named: name ?? "")
-        isUsingLabel.hidden = b == nil ? false : !(b!)
-        cell.accessoryType = isUsingLabel.hidden == false ? .Checkmark : .None
+        
+        let data = accountBookViewModel.objectAt(indexPath)
+        imageView.image = UIImage(named: data.coverImageName)
+        titleLabel.text = data.title
+        isUsingLabel.hidden = !data.isUsing
+        cell.accessoryType = data.isUsing == true ? .Checkmark : .None
+        
+        let rightButtons = NSMutableArray()
+        rightButtons.sw_addUtilityButtonWithColor(UIColor.blueColor(), title: "编辑")
+        rightButtons.sw_addUtilityButtonWithColor(UIColor.redColor(), title: "删除")
+        cell.rightUtilityButtons = rightButtons as [AnyObject]
+        cell.delegate = swipeCellAgent
+        
         return cell
     }
     
@@ -119,7 +157,7 @@ extension AccountBookViewController: UITableViewDataSource {
 extension AccountBookViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return .Delete
+        return .None
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -140,7 +178,6 @@ extension AccountBookViewController: UITableViewDelegate {
         if let cell = accountTableView.cellForRowAtIndexPath(indexPath) {
             cell.accessoryType = .Checkmark
             (cell.viewWithTag(3) as! UILabel).hidden = false
-            accountTableView.deselectRowAtIndexPath(indexPath, animated: true)
             
             accountBookViewModel.setCurrentUsingAt(indexPath)
         }

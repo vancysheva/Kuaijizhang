@@ -14,8 +14,10 @@ class AddAccountBookViewController: UIViewController {
     
     let covers = ["cover1", "cover2", "cover3", "cover4", "cover5", "cover6"]
     let colorForSelectedItem = UIColor(red: 255/255, green: 254/255, blue: 206/255, alpha: 1.0)
-    let agent = TextFieldAgent()
+    let textFieldAgent = TextFieldAgent()
     var coverImageName: String?
+    var indexPathForUpdate: NSIndexPath?
+    var accountBookViewModel: AccountBookViewModel?
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var coverImageView: UIImageView!
@@ -29,16 +31,23 @@ class AddAccountBookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameTextField.delegate = agent
-        agent.addTextFieldTextDidChangeNotification { [unowned self] (notification) -> Void in
+        nameTextField.delegate = textFieldAgent
+        textFieldAgent.addTextFieldTextDidChangeNotification { [unowned self] (notification) -> Void in
             self.saveButton.enabled = self.nameTextField.text?.trim().characters.count > 0
         }
         
         coverImagesCollectionView.delegate = self
         coverImagesCollectionView.dataSource = self
         
-        saveButton.enabled = false
+        
         coverImagesCollectionView.gestureRecognizers?[0].delegate = self
+        
+        if let indexPath = indexPathForUpdate, data = accountBookViewModel?.objectAt(indexPath) {
+            nameTextField.text = data.title
+            coverImageView.image = UIImage(named: data.coverImageName)
+        } else {
+            saveButton.enabled = false
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -49,6 +58,16 @@ class AddAccountBookViewController: UIViewController {
         }
     }
     
+    @IBAction func tapSaveButton(sender: UIBarButtonItem) {
+        
+        if let title = nameTextField.text, image = coverImageName {
+            if let indexPath = indexPathForUpdate {
+                accountBookViewModel?.updateAccountBookWithTitle(title, coverImageName: image, atIndex: indexPath.row)
+            } else {
+                accountBookViewModel?.saveAccountBookWithTitle(title, coverImageName: image)
+            }
+        }
+    }
     
     
     //MARK: - Methods
@@ -62,6 +81,16 @@ class AddAccountBookViewController: UIViewController {
         cell.addSubview(checkImageView)
         checkImageView.frame = CGRect(x: cell.frame.size.width-20, y: cell.frame.size.height-20, width: 20, height: 20)
         checkImageView.contentMode = .ScaleAspectFit
+    }
+    
+    func clearCoverImage() {
+        
+        for index in 0..<covers.count {
+            if let cell = coverImagesCollectionView.cellForItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) where cell.backgroundColor == colorForSelectedItem {
+                cell.backgroundColor = UIColor.whiteColor()
+                cell.subviews[1].removeFromSuperview()
+            }
+        }
     }
 }
 
@@ -106,12 +135,8 @@ extension AddAccountBookViewController: UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        for index in 0..<covers.count {
-            if let cell = coverImagesCollectionView.cellForItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) where cell.backgroundColor == colorForSelectedItem {
-                cell.backgroundColor = UIColor.whiteColor()
-                cell.subviews[1].removeFromSuperview()
-            }
-        }
+        clearCoverImage()
+        
         let cell = coverImagesCollectionView.cellForItemAtIndexPath(indexPath)
         cell?.backgroundColor = colorForSelectedItem
         setCurrentCoverChecked(indexPath.row, cell: cell!)
@@ -121,8 +146,15 @@ extension AddAccountBookViewController: UICollectionViewDelegate {
         
         if indexPath.row == 0 {
             cell.backgroundColor = colorForSelectedItem
-            setCurrentCoverChecked(indexPath.row, cell: cell)
-            
+            setCurrentCoverChecked(0, cell: cell)
+        }
+        
+        if indexPath.row == (covers.count - 1) {
+            if let ip = indexPathForUpdate, imageName = accountBookViewModel?.objectAt(ip).coverImageName, index = covers.indexOf(imageName), cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0)) {
+            clearCoverImage()
+               cell.backgroundColor = colorForSelectedItem
+               setCurrentCoverChecked(index, cell: cell)
+            }
         }
     }
 }

@@ -52,6 +52,8 @@ class AccountBookModel: RealmModel<AccountBook> {
             }
             self.objectList?[indexPath.row].isUsing = true
         }
+        
+        sendObserverFeedBack(indexPath)
     }
     
     func addAccountBookWithTitle(title: String, coverImageName: String) {
