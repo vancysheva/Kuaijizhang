@@ -180,6 +180,7 @@ extension AccountBookViewController: UITableViewDelegate {
             (cell.viewWithTag(3) as! UILabel).hidden = false
             
             accountBookViewModel.setCurrentUsingAt(indexPath)
+            accountTableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
 }

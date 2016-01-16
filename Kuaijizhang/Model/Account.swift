@@ -20,6 +20,8 @@ class Account: Object {
     
     dynamic var accountBook: AccountBook?
     
+    dynamic var subAccount: Account?
+    
     let accounts = List<Account>()
     
     let bills = List<Bill>()

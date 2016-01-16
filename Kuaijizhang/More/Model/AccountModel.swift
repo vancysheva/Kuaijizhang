@@ -69,7 +69,7 @@ class AccountModel: RealmModel<Account> {
         if let parentAccounts = objectList {
             return parentAccounts.reduce(0.0) {
                 $0 + $1.accounts.reduce(0.0) {
-                    $0 + $1.bills.filter("consumeType.type == '0'").reduce(0.0) {
+                    $0 + $1.bills.filter("consumeType.type == '1'").reduce(0.0) {
                         $0 + $1.money
                     }
                 }
@@ -83,7 +83,7 @@ class AccountModel: RealmModel<Account> {
         if let parentAccounts = objectList {
             return parentAccounts.reduce(0.0) {
                 $0 + $1.accounts.reduce(0.0) {
-                    $0 + $1.bills.filter("consumeType.type == '1'").reduce(0.0) {
+                    $0 + $1.bills.filter("consumeType.type == '0'").reduce(0.0) {
                         $0 + $1.money
                     }
                 }

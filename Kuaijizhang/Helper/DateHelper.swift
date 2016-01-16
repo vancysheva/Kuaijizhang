@@ -15,6 +15,7 @@ class DateHelper {
     static let dateFormatForYear = "YYYY"
     static let dateFormatForWeek = "ccc"
     static let dateFormatForTime = "yyyy-MM-dd HH:mm:ss"
+    static let dateFormatForCurrentTime = "yyyy年MM月dd日 HH:mm"
     static let dateFormatForDate1 = "yyyy年MM月dd日"
     static let dateFormatForDate2 = "MM月dd日"
     
@@ -26,6 +27,20 @@ class DateHelper {
     
     static let locale = NSLocale(localeIdentifier: "zh_CN")
     static let calendar = NSCalendar.currentCalendar()
+    
+    class func dateFromString(date: String, formatter: String) -> NSDate? {
+        dateFormatter.dateFormat = formatter
+        return dateFormatter.dateFromString(date)
+    }
+    
+    /**
+     获取当前时间
+     返回的格式：yyyy年MM月dd日 HH:mm
+     */
+    class func getCurrentTime() -> String {
+        dateFormatter.dateFormat = dateFormatForCurrentTime
+        return dateFormatter.stringFromDate(NSDate())
+    }
     
     /**
      获取当前日期
@@ -70,6 +85,15 @@ class DateHelper {
     class func getCurrentWeek() -> String {
         dateFormatter.dateFormat = dateFormatForWeek
         return dateFormatter.stringFromDate(NSDate())
+    }
+    
+    /**
+     根据日期获取周几
+     返回的格式：周一等
+     */
+    class func weekFromDate(date: NSDate) -> String {
+        dateFormatter.dateFormat = dateFormatForWeek
+        return dateFormatter.stringFromDate(date)
     }
     
     /**

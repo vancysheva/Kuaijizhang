@@ -44,4 +44,35 @@ class AddBillModel: RealmModel<Bill> {
         return parent?.accounts.filter("name = %@", childName).first
     }
     
+    func saveBill(money: Double, parentConsumpetionType: ConsumeptionType?, childConsumeptionType: ConsumeptionType?, parentAccount: Account?, childAccount: Account?, date: NSDate?, subject: Subject?, comment: String?, image: NSData?) {
+        
+        let state = realm.writeTransaction {
+            
+            if let cc = childConsumeptionType {
+                parentConsumpetionType?.subConsumeptionType = cc
+            }
+            
+            if let ca = childAccount {
+                parentAccount?.subAccount = ca
+            }
+            
+            let bill = Bill()
+            bill.money = money
+            bill.accountBook = self.currentAccountBook
+            bill.account = parentAccount
+            bill.consumeType = parentConsumpetionType
+            bill.subject = subject
+            bill.image = image
+            bill.comment = comment
+            bill.occurDate = date
+            
+            self.currentAccountBook?.bills.append(bill)
+            childAccount?.bills.append(bill)
+            childConsumeptionType?.bills.append(bill)
+            subject?.bills.append(bill)
+        }
+        let indexPath = NSIndexPath(forItem: (currentAccountBook?.bills.count ?? 1) - 1, inSection: 0)
+        sendNotificationsFeedBack(state, changedType: .Insert, indexPath: indexPath, userInfo: nil)
+    }
+ 
 }

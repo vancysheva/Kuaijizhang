@@ -8,23 +8,26 @@
 
 import Foundation
 
-class AddBillViewModel {
+class AddBillViewModel: ViewModelBase<AddBillModel> {
     
-    let addBillModel: AddBillModel
+    var money: Double = 0.0
     var parentConsumpetionType: ConsumeptionType?
     var childConsumpetionType: ConsumeptionType?
     var parentAccount: Account?
     var childAccount: Account?
+    var date: String?
+    var subject: Subject?
+    var image: NSData?
     
     init() {
-        self.addBillModel = AddBillModel()
+        super.init(model: AddBillModel())
     }
     
     
     func getConsumeptionTypeDescription(billType: BillType) -> String {
         
         let raw = billType.rawValue
-        if let parentConsumpetionType = addBillModel.getFirstConsumpetionType(raw), childConsumpetionType = parentConsumpetionType.consumeptionTypes.first {
+        if let parentConsumpetionType = model.getFirstConsumpetionType(raw), childConsumpetionType = parentConsumpetionType.consumeptionTypes.first {
             
             self.parentConsumpetionType = parentConsumpetionType
             self.childConsumpetionType = childConsumpetionType
@@ -35,7 +38,7 @@ class AddBillViewModel {
     }
     
     func getAccountDescription() -> String {
-        if let parentAccount = addBillModel.getFirstAccount(), childAccount = parentAccount.accounts.first {
+        if let parentAccount = model.getFirstAccount(), childAccount = parentAccount.accounts.first {
             
             self.parentAccount = parentAccount
             self.childAccount = childAccount
@@ -45,12 +48,16 @@ class AddBillViewModel {
         return ""
     }
     
-    func setParentConsumeptionTypeFromName(typeName: String) {
-        
-        parentConsumpetionType = addBillModel.parentConsumeptionTypeFromName(typeName)
+    func getCurrentTime() -> String {
+        date = DateHelper.getCurrentTime()
+        return date!
     }
     
-    func setChildConsumeptionTypeFromName(parentConsumeptionTypeName parentName: String, childConsumeptionTypeName childName: String) {
-        childConsumpetionType = addBillModel.childConsumeptionTypeFromName(parentConsumeptionTypeName: parentName, childConsumeptionTypeName: childName)
+    func saveBill(comment: String?) {
+        
+        if let d = date {
+            let occurDate = DateHelper.dateFromString(d, formatter: DateHelper.dateFormatForCurrentTime)
+            model.saveBill(money, parentConsumpetionType: parentConsumpetionType, childConsumeptionType: childConsumpetionType, parentAccount: parentAccount, childAccount: childAccount, date: occurDate, subject: subject, comment: comment, image: image)
+        }
     }
 }

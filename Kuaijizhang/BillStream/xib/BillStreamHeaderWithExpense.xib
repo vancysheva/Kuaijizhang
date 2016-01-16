@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E27e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -16,7 +16,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JO9-gq-lKd">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCN-Ws-Woy">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCN-Ws-Woy">
                             <rect key="frame" x="8" y="14" width="22" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="22" id="Wd0-Qk-dCo"/>
@@ -77,7 +77,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.95668703320000004" green="0.97017902140000001" blue="0.88271290059999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.95668703317642212" green="0.97017902135848999" blue="0.88271290063858032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="Sen-Qn-we6" firstAttribute="leading" secondItem="mz5-Sd-oA7" secondAttribute="trailing" constant="4" id="C64-1x-PDS"/>
                         <constraint firstItem="8rd-Vr-Ugz" firstAttribute="leading" secondItem="3rj-lL-i4u" secondAttribute="trailing" constant="4" id="Ko0-jL-uph"/>
@@ -95,7 +95,6 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="JO9-gq-lKd" firstAttribute="top" secondItem="y36-hd-xqg" secondAttribute="top" id="Hfw-wF-ICg"/>
                 <constraint firstItem="JO9-gq-lKd" firstAttribute="leading" secondItem="y36-hd-xqg" secondAttribute="leading" id="il9-yO-8hH"/>
@@ -103,6 +102,7 @@
             </constraints>
             <connections>
                 <outlet property="consumeLabel" destination="8rd-Vr-Ugz" id="mlg-6p-5Zo"/>
+                <outlet property="monthLabel" destination="mCN-Ws-Woy" id="82z-Vj-Hpj"/>
                 <outlet property="surplusLabel" destination="mz5-Sd-oA7" id="cig-UO-FJe"/>
             </connections>
             <point key="canvasLocation" x="331" y="427"/>

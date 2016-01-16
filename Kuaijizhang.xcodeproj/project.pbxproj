@@ -57,6 +57,8 @@
 		715B10921BD78F780037BD21 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B10911BD78F780037BD21 /* Subject.swift */; };
 		715B10941BD78FA20037BD21 /* Statementable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B10931BD78FA20037BD21 /* Statementable.swift */; };
 		715B10961BD7F3F20037BD21 /* AddAccountBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B10951BD7F3F20037BD21 /* AddAccountBookViewController.swift */; };
+		715C80C61C4A1F7900E16374 /* BillStreamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715C80C51C4A1F7900E16374 /* BillStreamModel.swift */; };
+		715C80C91C4A7D9B00E16374 /* BillStreamHeaderWithOut.xib in Resources */ = {isa = PBXBuildFile; fileRef = 715C80C81C4A7D9B00E16374 /* BillStreamHeaderWithOut.xib */; };
 		715DD0DF1B8F5B430004ECAB /* CameraUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715DD0DE1B8F5B430004ECAB /* CameraUIButton.swift */; };
 		7160EA031BD62A3400936FD2 /* BillType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7160EA021BD62A3400936FD2 /* BillType.swift */; };
 		7160EA071BD62A8D00936FD2 /* ConsumeTypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7160EA061BD62A8D00936FD2 /* ConsumeTypeData.swift */; };
@@ -178,6 +180,8 @@
 		715B10911BD78F780037BD21 /* Subject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
 		715B10931BD78FA20037BD21 /* Statementable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statementable.swift; sourceTree = "<group>"; };
 		715B10951BD7F3F20037BD21 /* AddAccountBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountBookViewController.swift; sourceTree = "<group>"; };
+		715C80C51C4A1F7900E16374 /* BillStreamModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamModel.swift; sourceTree = "<group>"; };
+		715C80C81C4A7D9B00E16374 /* BillStreamHeaderWithOut.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillStreamHeaderWithOut.xib; sourceTree = "<group>"; };
 		715DD0DE1B8F5B430004ECAB /* CameraUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraUIButton.swift; sourceTree = "<group>"; };
 		7160EA021BD62A3400936FD2 /* BillType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillType.swift; sourceTree = "<group>"; };
 		7160EA061BD62A8D00936FD2 /* ConsumeTypeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumeTypeData.swift; sourceTree = "<group>"; };
@@ -480,6 +484,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		715C80C71C4A1F7E00E16374 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				715C80C51C4A1F7900E16374 /* BillStreamModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		716CF1331C147EF90085CA23 /* Budget */ = {
 			isa = PBXGroup;
 			children = (
@@ -591,6 +603,7 @@
 				715A535E1B89AE7D009E7DF2 /* Controller */,
 				71341E4B1BDA1669004C0CAB /* View */,
 				71D1C3711BD9D3C20055C36C /* ViewModel */,
+				715C80C71C4A1F7E00E16374 /* Model */,
 				71FE8B771BDE4641004CAE24 /* xib */,
 			);
 			path = BillStream;
@@ -687,6 +700,7 @@
 				71341E471BDA05C1004C0CAB /* BillStreamHeaderView.xib */,
 				71F24A991BDB782B002177C5 /* BillStreamHeaderWithExpense.xib */,
 				71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */,
+				715C80C81C4A7D9B00E16374 /* BillStreamHeaderWithOut.xib */,
 			);
 			path = xib;
 			sourceTree = "<group>";
@@ -814,6 +828,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				715C80C91C4A7D9B00E16374 /* BillStreamHeaderWithOut.xib in Resources */,
 				712C5ACD1C0A141900288CE6 /* AccountHeader.xib in Resources */,
 				71E3BE6A1C3669830062E8A5 /* AccountPickerCompView.xib in Resources */,
 				710DB3961B81DFF6003E74FA /* LaunchScreen.storyboard in Resources */,
@@ -930,6 +945,7 @@
 				71AC484A1BD279800008B4F8 /* ParentConsumeTypeListViewController.swift in Sources */,
 				7134ACF21C04ADF700865261 /* AccountViewModel.swift in Sources */,
 				715A0B6F1BF0ECDE0069C012 /* System.swift in Sources */,
+				715C80C61C4A1F7900E16374 /* BillStreamModel.swift in Sources */,
 				71BC84761BDF363A00C6F92A /* StatmentAnalysisViewController.swift in Sources */,
 				7134ACFF1C073A4A00865261 /* AddAccountTableViewController.swift in Sources */,
 				71D1C36E1BD9D3780055C36C /* BillStreamViewModel.swift in Sources */,

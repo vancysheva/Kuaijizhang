@@ -11,7 +11,6 @@ import UIKit
 class AddLabelViewController: UITableViewController {
 
     @IBOutlet weak var labelTextField: UITextField!
-    @IBOutlet weak var saveButton: UIButton!
     
     var labelTableViewModel: LabelTableViewModel?
     

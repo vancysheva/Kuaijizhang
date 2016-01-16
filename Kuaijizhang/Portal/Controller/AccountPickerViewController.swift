@@ -54,9 +54,9 @@ class AccountPickerViewController: UIViewController {
                     self.pickerView.reloadComponent(1)
                     self.pickerView.selectRow(0, inComponent: 1, animated: false)
                 }
-                
-                if let name = self.accountViewModel?.childAccountAtParentIndex(pIndex, withChildIndex: cIndex).childName {
-                    self.setValueForDelegate(name)
+
+                if let parent = self.accountViewModel?.model.objectAtIndex(pIndex) {
+                    self.setValueForDelegate(parent, child: parent.accounts[cIndex])
                 }
                 
             case .Delete:
@@ -75,8 +75,8 @@ class AccountPickerViewController: UIViewController {
                     self.pickerView.selectRow(self.pickerView.selectedRowInComponent(1), inComponent: 1, animated: false)
                 }
                 
-                if let name = self.accountViewModel?.childAccountAtParentIndex(indexPath.section, withChildIndex: indexPath.row).childName {
-                    self.setValueForDelegate(name)
+                if let parent = self.accountViewModel?.model.objectAtIndex(indexPath.section) {
+                    self.setValueForDelegate(parent, child: parent.accounts[indexPath.row])
                 }
             default:
                 break
@@ -85,13 +85,13 @@ class AccountPickerViewController: UIViewController {
         
         accountViewModel?.addObserver("AccountPickerViewController", observerHandler: { (indexPath, userInfo) -> Void in
             
-            if let row = indexPath?.row, section = indexPath?.section, childAccount = self.accountViewModel?.childAccountAtParentIndex(section, withChildIndex: row) {
+            if let row = indexPath?.row, section = indexPath?.section, parent = self.accountViewModel?.model.objectAtIndex(section) {
                 self.navigationController?.popViewControllerAnimated(true)
                 self.pickerView.reloadComponent(0)
                 self.pickerView.selectRow(section, inComponent: 0, animated: false)
                 self.pickerView.reloadComponent(1)
                 self.pickerView.selectRow(row, inComponent: 1, animated: false)
-                self.setValueForDelegate(childAccount.childName)
+                self.setValueForDelegate(parent, child: parent.accounts[row])
             }
         })
         
@@ -105,8 +105,16 @@ class AccountPickerViewController: UIViewController {
 
     }
     
-    func setValueForDelegate(name: String) {
-        delegate?.valueForLabel("\(name)")
+    func setValueForDelegate(parent: Account, child: Account?) {
+        
+        if let a = child {
+            delegate?.valueForLabel("\(a.name)")
+        }
+        
+        if let pcontroller = parentViewController as? AddBillViewController {
+            pcontroller.addBillViewModel.parentAccount = parent
+            pcontroller.addBillViewModel.childAccount = child
+        }
     }
     
 }
@@ -149,11 +157,14 @@ extension AccountPickerViewController: UIPickerViewDelegate {
         case 0:
             pickerView.reloadComponent(1)
             pickerView.selectRow(0, inComponent: 1, animated: true)
-            let name = accountViewModel?.childAccountAtParentIndex(row, withChildIndex: 0).childName ?? ""
-            setValueForDelegate(name)
+            
+            if let parent = self.accountViewModel?.model.objectAtIndex(row) {
+                self.setValueForDelegate(parent, child: parent.accounts[0])
+            }
         case 1:
-            let name = accountViewModel?.childAccountAtParentIndex(pickerView.selectedRowInComponent(0), withChildIndex: row).childName ?? ""
-            setValueForDelegate(name)
+            if let parent = self.accountViewModel?.model.objectAtIndex(pickerView.selectedRowInComponent(0)) {
+                self.setValueForDelegate(parent, child: parent.accounts[row])
+            }
         default:
             break
         }

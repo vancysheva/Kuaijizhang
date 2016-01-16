@@ -25,11 +25,11 @@ class LabelTableViewController: UITableViewController {
         
         labelTableViewModel.addNotification { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
             if case .Insert = dataChangedType {
-                self.navigationController?.popToViewController(self, animated: true)
+                self.navigationController?.popToRootViewControllerAnimated(true)
                 
                 self.tableView.reloadData()
-                if let name = self.labelTableViewModel.objectAt(indexPath).labelName {
-                    self.setValue(name)
+                if let subject = self.labelTableViewModel.model.objectAtIndex(indexPath.row) {
+                    self.setValue(subject)
                 }
                 self.delegate?.hideComponetViewController(self)
 
@@ -69,16 +69,19 @@ class LabelTableViewController: UITableViewController {
             return
         }
         
-        let value = (tableView.cellForRowAtIndexPath(indexPath)?.viewWithTag(1) as! UILabel).text
-        if let v = value {
-            setValue(v)
+        if let subject = labelTableViewModel.model.objectAtIndex(indexPath.row) {
+            setValue(subject)
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
    
     
-    func setValue(value: String) {
-        delegate?.valueForLabel(value)
+    func setValue(subject: Subject) {
+        delegate?.valueForLabel(subject.name)
+        
+        if let pcontroller = parentViewController as? AddBillViewController {
+            pcontroller.addBillViewModel.subject = subject
+        }
     }
 }

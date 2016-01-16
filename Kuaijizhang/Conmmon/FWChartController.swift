@@ -108,6 +108,9 @@ class FWChartController: ChartViewDelegate {
     
     private func embedChartForView(view: UIView) {
         
+        if view.subviews.count == 1 {
+            view.subviews[0].removeFromSuperview()
+        }
         view.addSubview(chart)
         chart.translatesAutoresizingMaskIntoConstraints = false
         

@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var todayExpenseLabel: UICountingLabel!
     @IBOutlet weak var todayConsumeTypeLabel: UICountingLabel!
-    @IBOutlet weak var todayAccountLabel: UICountingLabel!
     @IBOutlet weak var todayCommentLabel: UICountingLabel!
     @IBOutlet weak var weekExpenseLabel: UICountingLabel!
     @IBOutlet weak var monthExpense: UICountingLabel!
@@ -92,7 +91,9 @@ class ViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+        if let navi = segue.destinationViewController as? UINavigationController, vc = navi.visibleViewController as? AddBillViewController {
+            vc.portalController = self
+        }
     }
 }
 
@@ -103,7 +104,6 @@ extension ViewController {
     func adapteLabelsFont() {
         adapteLabelFont(todayExpenseLabel)
         adapteLabelFont(todayConsumeTypeLabel)
-        adapteLabelFont(todayAccountLabel)
         adapteLabelFont(todayCommentLabel)
         adapteLabelFont(weekExpenseLabel)
         adapteLabelFont(monthExpense)
@@ -168,7 +168,10 @@ extension ViewController {
     func updateTodayUI() {
     
         let latestBill = portalViewModel.getLatestBill()
-        (todayConsumeTypeLabel.text, todayAccountLabel.text, todayCommentLabel.text) = latestBill
+
+        todayConsumeTypeLabel.text = "最近一笔 \(latestBill.consumeptionTypeName) \(latestBill.money)"
+        
+        todayCommentLabel.text = latestBill.comment
         
         todayExpenseLabel.text = "\(portalViewModel.getTodayTotalExpense())"
         numberCountingAnimatingWithLabel([todayExpenseLabel])

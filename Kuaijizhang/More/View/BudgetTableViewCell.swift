@@ -29,6 +29,11 @@ class BudgetTableViewCell: UITableViewCell {
                     budgetProgress.progress = Float(d.surplus / d.budget)
                 }
                 
+                if d.surplus < 0 {
+                    surplusLabel.textColor = BillType.Income.color
+                } else {
+                    surplusLabel.textColor = BillType.Expense.color
+                }
             }
         }
     }

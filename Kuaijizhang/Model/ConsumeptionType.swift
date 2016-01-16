@@ -21,6 +21,8 @@ class ConsumeptionType: Object {
     
     dynamic var budget: Budget?
     
+    dynamic var subConsumeptionType: ConsumeptionType?
+    
     let consumeptionTypes = List<ConsumeptionType>()
     
     let bills = List<Bill>()

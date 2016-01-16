@@ -17,6 +17,7 @@ class SubjectTableViewController: UITableViewController {
     @IBOutlet weak var expenseLabel: UILabel!
     
     let subjectViewModel = LabelTableViewModel()
+    let swipeCellAgent = TableViewCellSlideAgent()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,30 @@ class SubjectTableViewController: UITableViewController {
             default:
                 break
             }
+        }
+        
+        swipeCellAgent.addTriggerRightUtilityButtonHandler { (cell, didTriggerRightUtilityButtonWithIndex) -> Void in
+            
+            let indexPath = self.tableView.indexPathForCell(cell)
+            switch didTriggerRightUtilityButtonWithIndex {
+            case 0:
+                if let addVC = self.storyboard?.instantiateViewControllerWithIdentifier("AddLabelViewController") as? AddLabelViewController{
+                    addVC.labelTableViewModel = self.subjectViewModel
+                    addVC.indexPathForUpdate = indexPath
+                    self.navigationController?.pushViewController(addVC, animated: true)
+                    cell.hideUtilityButtonsAnimated(true)
+                }
+            case 1:
+                if let ip = indexPath {
+                    self.subjectViewModel.deleteObject(ip)
+                }
+            default:
+                break
+            }
+        }
+        
+        swipeCellAgent.addSwipeableTableViewCellShouldHideUtilityButtonsOnSwipe { (cell) -> Bool in
+            return true
         }
     }
     
@@ -98,7 +123,7 @@ extension SubjectTableViewController {
         rightButtons.sw_addUtilityButtonWithColor(UIColor.blueColor(), title: "编辑")
         rightButtons.sw_addUtilityButtonWithColor(UIColor.redColor(), title: "删除")
         cell.rightUtilityButtons = rightButtons as [AnyObject]
-        cell.delegate = self
+        cell.delegate = swipeCellAgent
         
         return cell
     }
@@ -118,35 +143,5 @@ extension SubjectTableViewController {
     
     override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         return .None
-    }
-}
-
-
-// MARK: - SWTableViewCellDelegate
-
-extension SubjectTableViewController: SWTableViewCellDelegate {
-    
-    func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-        
-        let indexPath = tableView.indexPathForCell(cell)
-        switch index {
-        case 0:
-            if let addVC = storyboard?.instantiateViewControllerWithIdentifier("AddLabelViewController") as? AddLabelViewController{
-                addVC.labelTableViewModel = subjectViewModel
-                addVC.indexPathForUpdate = indexPath
-                navigationController?.pushViewController(addVC, animated: true)
-                cell.hideUtilityButtonsAnimated(true)
-            }
-        case 1:
-            if let ip = indexPath {
-                subjectViewModel.deleteObject(ip)
-            }
-        default:
-            break
-        }
-    }
-    
-    func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
-        return true
     }
 }

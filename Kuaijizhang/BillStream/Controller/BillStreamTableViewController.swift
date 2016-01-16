@@ -10,12 +10,23 @@ import UIKit
 
 class BillStreamTableViewController: UITableViewController {
 
+    @IBOutlet weak var surplusLabel: UILabel!
+    @IBOutlet weak var expenseLabel: UILabel!
+    @IBOutlet weak var incomeLabel: UILabel!
+   
     @IBOutlet var billTableView: UITableView!
     
     var billStreamViewModel = BillStreamViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        billTableView.registerNib(UINib(nibName: "BillStreamHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "header")
+        billTableView.registerNib(UINib(nibName: "BillStreamHeaderWithExpense", bundle: nil), forHeaderFooterViewReuseIdentifier: "headerWithExpense")
+        billTableView.registerNib(UINib(nibName: "BillStreamHeaderWithIncome", bundle: nil), forHeaderFooterViewReuseIdentifier: "headerWithIncome")
+        billTableView.registerNib(UINib(nibName: "BillStreamHeaderWithOut", bundle: nil), forHeaderFooterViewReuseIdentifier: "headerWithOut")
+        
+        updateUI()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -26,6 +37,14 @@ class BillStreamTableViewController: UITableViewController {
         }
     }
     
+    func updateUI() {
+        let income = billStreamViewModel.getIncome()
+        let expense = billStreamViewModel.getExpense()
+        incomeLabel.text = "\(income)"
+        expenseLabel.text = "\(expense)"
+        surplusLabel.text = "\(income - expense)"
+    }
+    
 }
 
 //MARK: - Datasource and Delegate
@@ -33,39 +52,58 @@ class BillStreamTableViewController: UITableViewController {
 extension BillStreamTableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return billStreamViewModel.data.count
+        return 12
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let arr = billStreamViewModel.data[section] {
-            return arr.count
-        }
-        return 0
+        return billStreamViewModel.getBillCountForMonth(12 - section)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = billTableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        let t = billStreamViewModel.getBillAtIndex(indexPath.row, withMonth: 12 - indexPath.section)
+        
+        let cell = billTableView.dequeueReusableCellWithIdentifier(t.conmment != "" ? "cell" : "cell2", forIndexPath: indexPath)
         
         let day = cell.viewWithTag(1) as! UILabel
         let consumeName = cell.viewWithTag(2) as! UILabel
-        let comment = cell.viewWithTag(3) as! UILabel
         let money = cell.viewWithTag(4) as! UILabel
+        let imageView = cell.viewWithTag(5) as! UIImageView
+        let week = cell.viewWithTag(6) as! UILabel
         
-        let t = billStreamViewModel.data[indexPath.section]![indexPath.row]
-        day.text = "\(t.date)"
+        
+        day.text = "\(t.day)"
         consumeName.text = t.consumeName
-        comment.text = t.comment
+        if t.conmment != "" {
+            let comment = cell.viewWithTag(3) as! UILabel
+            comment.text = t.conmment
+            //consumeName.removeConstraints(consumeName.constraintsAffectingLayoutForAxis(.Vertical))
+            //cell.addConstraint(NSLayoutConstraint(item: consumeName, attribute: .CenterY, relatedBy: .Equal, toItem: cell, attribute: .CenterY, multiplier: 1, constant: 0))
+        }
         money.text = "\(t.money)"
+        imageView.image = UIImage(named: t.iconName)
+        week.text = t.week
+        money.textColor = t.billType.color
         
         return cell
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let nibs = NSBundle.mainBundle().loadNibNamed("BillStreamHeaderView", owner: nil, options: nil)
+        let data = billStreamViewModel.getHeaderDataWithMonth(12 - section)
+        var identifier = "";
+        if data.inconme == 0.0 && data.expense != 0 {
+            identifier = "headerWithExpense"
+        } else if data.expense == 0.0 && data.inconme != 0 {
+            identifier = "headerWithExpense"
+        } else if data.expense != 0 && data.inconme != 0 {
+            identifier = "header"
+        } else {
+            identifier = "headerWithOut"
+        }
+        let headerView = billTableView.dequeueReusableHeaderFooterViewWithIdentifier(identifier) as! BillStreamHeaderView
+        headerView.data = data
         
-        let headerView =  nibs[0] as! BillStreamHeaderView
         return headerView
     }
 

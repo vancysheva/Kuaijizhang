@@ -75,4 +75,8 @@ if date2.compare(date1) == NSComparisonResult.OrderedAscending {
     print(2)
 }
 
+let mix = [1,2,3,4,5]
+let res = mix.filter { return $0 % 2 != 0 }
+print(res)
+
 

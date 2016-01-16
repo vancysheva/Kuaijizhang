@@ -39,7 +39,7 @@ class AddBillViewController: UITableViewController {
     }
     
     @IBAction func tapSaveBarButtonItem(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+        saveBill()
     }
     
     @IBAction func tapBillTypeButton(sender: UIButton) {
@@ -50,7 +50,7 @@ class AddBillViewController: UITableViewController {
     }
     
     @IBAction func tapSaveButtonInView(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
+        saveBill()
     }
     
     @IBAction func tapSaveTemplateButtonInView(sender: UIButton) {
@@ -73,13 +73,23 @@ class AddBillViewController: UITableViewController {
     var activeRow: Int?
     
     // 标记选中的图片
-    var activeImage: UIImage?
+    var activeImage: UIImage? {
+        didSet {
+            if let image = activeImage {
+                addBillViewModel.image = UIImageJPEGRepresentation(image, 0.5)
+            } else {
+                addBillViewModel.image = nil
+            }
+        }
+    }
     
     var imagePickerController: UIImagePickerController?
     
     var billType: BillType = .Expense
 
     let addBillViewModel = AddBillViewModel()
+    
+    var portalController: ViewController?
 
     // MARK: - Lifecycle
     
@@ -99,11 +109,17 @@ class AddBillViewController: UITableViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: nil, action: nil)
         
         selectFirstRowAndDisplayNumPad()
+        dateLabel.text = addBillViewModel.getCurrentTime()
         
         if #available(iOS 9.0, *) {
             if traitCollection.forceTouchCapability == .Available {
                 registerForPreviewingWithDelegate(self, sourceView: view)
             }
+        }
+        
+        addBillViewModel.addNotification { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+            self.dismissViewControllerAnimated(true, completion: nil)
+            self.portalController?.updateUI()
         }
     }
 }
@@ -111,10 +127,6 @@ class AddBillViewController: UITableViewController {
 // MARK: - Internal Methodss
 
 extension AddBillViewController {
-    
-    func initConfig() {
-        
-    }
     
     func setBillType() {
         
@@ -138,8 +150,12 @@ extension AddBillViewController {
         // 250毫秒后执行
         delayHandler(250) {
             self.tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.Top)
-            // 目的为了弹出数字面板
-            self.tableView.delegate?.tableView!(self.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+            self.activeRow = 0
+            // 弹出数字面板
+            if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("NumberPadViewController") as? NumberPadViewController {
+                vc.delegate = self
+                self.addContentController(vc)
+            }
         }
     }
     
@@ -157,7 +173,7 @@ extension AddBillViewController {
         content.view.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height*0.4)
         view.addSubview(content.view)
         content.didMoveToParentViewController(self)
-        
+
         UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
             content.view.frame.origin.y = self.view.frame.height - content.view.frame.height
         }, completion: nil)
@@ -184,6 +200,7 @@ extension AddBillViewController {
         
         if let row = activeRow {
             tableView.deselectRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0), animated: true)
+            activeRow = nil
         }
     }
     
@@ -224,6 +241,9 @@ extension AddBillViewController {
         }
     }
 
+    func saveBill() {
+        addBillViewModel.saveBill(commentTextView.text)
+    }
 }
 
 // MARK: - Delegate
@@ -248,6 +268,7 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
         case 0:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("NumberPadViewController") as! NumberPadViewController
             vc.delegate = self
+            
             addContentController(vc)
         case 1:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("ConsumeptionTypePickerViewController") as! ConsumeptionTypePickerViewController
@@ -277,6 +298,7 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
             switch row {
             case 0:
                 moneyLabel.text = value
+                addBillViewModel.money = Double(value) ?? 0.00
             case 1:
                 consumeTypeLabel.text = value
                 //setConsumeptionTypeNameImage()
@@ -284,6 +306,7 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
                 accountLabel.text = value
             case 3:
                 dateLabel.text = value
+                addBillViewModel.date = value
             case 4:
                 tagLabel.text = value
             case 5:

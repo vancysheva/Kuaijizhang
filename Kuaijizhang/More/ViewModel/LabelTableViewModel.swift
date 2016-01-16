@@ -21,7 +21,7 @@ class LabelTableViewModel: ViewModelBase<LabelTableModel> {
     func objectAt(indexPath: NSIndexPath) -> (labelName: String?, amount: Double?) {
         
         let label = model.objectAtIndex(indexPath.row)
-        return (label?.name, label?.bills.reduce(0) { return $0! + $1.money })
+        return (label?.name, label?.bills.reduce(0) { return $0! + ($1.consumeType?.type == "0" ? -1 : 1) * $1.money })
     }
     
     func saveObject(name: String) {

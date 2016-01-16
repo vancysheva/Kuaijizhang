@@ -41,15 +41,15 @@ class ConsumeptionTypePickerViewController: UIViewController {
                     self.pickerView.reloadComponent(1)
                     self.pickerView.selectRow(0, inComponent: 1, animated: false)
                     
-                    if let parent = self.consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(indexPath.row) {
-                        self.setValueForDelegate("\(parent.parentName)>", iconName: parent.iconName)
+                    if let parent = self.consumeptionTypeViewModel?.model.objectAtIndex(indexPath.row) {
+                        self.setValueForDelegate(parent, child: nil)
                     }
                 } else if let info = userInfo?["save"] as? String, pIndex = userInfo?["parentIndex"] as? Int where info == "saveChild" {
                     self.pickerView.reloadComponent(1)
                     self.pickerView.selectRow(indexPath.row, inComponent: 1, animated: false)
                     
-                    if let parent = self.consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(pIndex), child = self.consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(pIndex, withChildIndex: indexPath.row) {
-                        self.setValueForDelegate("\(parent.parentName)>\(child.childName)", iconName: child.iconName)
+                    if let parent = self.consumeptionTypeViewModel?.model.objectAtIndex(pIndex) {
+                        self.setValueForDelegate(parent, child: parent.consumeptionTypes[indexPath.row])
                     }
                 }
             case .Update:
@@ -92,9 +92,9 @@ class ConsumeptionTypePickerViewController: UIViewController {
         
         consumeptionTypeViewModel?.addObserver("ConsumeptionTypePickerViewController") { (indexPath, userInfo) -> Void in
             
-            if let section = indexPath?.section, row = indexPath?.row, parentName = self.consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(section).parentName, childType = self.consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(section, withChildIndex: row), addBillVC = self.parentViewController as? AddBillViewController {
+            if let section = indexPath?.section, row = indexPath?.row, parent = self.consumeptionTypeViewModel?.model.objectAtIndex(section), addBillVC = self.parentViewController as? AddBillViewController {
                 self.navigationController?.popToViewController(addBillVC, animated: true)
-                self.setValueForDelegate("\(parentName)>\(childType.childName)", iconName: childType.iconName)
+                self.setValueForDelegate(parent, child: parent.consumeptionTypes[row])
                 
                 self.pickerView.reloadComponent(0)
                 self.pickerView.selectRow(section, inComponent: 0, animated: false)
@@ -114,10 +114,20 @@ class ConsumeptionTypePickerViewController: UIViewController {
         
     // MARK: - Internal Methods
     
-    func setValueForDelegate(name: String, iconName: String) {
-        delegate?.valueForLabel("\(name)")
+    func setValueForDelegate(parent: ConsumeptionType, child: ConsumeptionType?) {
+        if let c = child {
+            delegate?.valueForLabel("\(parent.name)>\(c.name)")
+        } else {
+            delegate?.valueForLabel("\(parent.name)>")
+        }
+        
         if let vc = parentViewController as? AddBillViewController {
-            vc.consumeptionTypeImageView.image = UIImage(named: iconName)
+            vc.consumeptionTypeImageView.image = UIImage(named: child?.iconName ?? "")
+        }
+        
+        if let pcontroller = parentViewController as? AddBillViewController {
+            pcontroller.addBillViewModel.parentConsumpetionType = parent
+            pcontroller.addBillViewModel.childConsumpetionType = child
         }
     }
 }
@@ -151,12 +161,12 @@ extension ConsumeptionTypePickerViewController: UIPickerViewDelegate {
         case 0:
             pickerView.reloadComponent(1)
             pickerView.selectRow(0, inComponent: 1, animated: true)
-            if let child = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(row, withChildIndex: 0), parent = consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(row) {
-                setValueForDelegate("\(parent.parentName)>\(child.childName)", iconName: child.iconName)
+            if let parent = consumeptionTypeViewModel?.model.objectAtIndex(row) {
+                setValueForDelegate(parent, child: parent.consumeptionTypes[0])
             }
         case 1:
-            if let child = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(pickerView.selectedRowInComponent(0), withChildIndex: row), parent = consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(pickerView.selectedRowInComponent(0)) {
-                setValueForDelegate("\(parent.parentName)>\(child.childName)", iconName: child.iconName)
+            if let parent = consumeptionTypeViewModel?.model.objectAtIndex(pickerView.selectedRowInComponent(0)) {
+                setValueForDelegate(parent, child: parent.consumeptionTypes[row])
             }
         default:
             break

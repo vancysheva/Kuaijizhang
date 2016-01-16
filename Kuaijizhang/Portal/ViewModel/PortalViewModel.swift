@@ -38,7 +38,9 @@ class PortalViewModel {
             if let occurDate = $0.occurDate {
                 let day = DateHelper.getDayFromDate(occurDate)
                 let t = arr[day]
-                arr[day] = (t.day, t.value + $0.money)
+                if let type = $0.consumeType?.type where Int(type) == BillType.Expense.rawValue {
+                    arr[day] = (t.day, t.value + $0.money)
+                }
             }
         }
         
@@ -60,10 +62,10 @@ class PortalViewModel {
     
     
     
-    func getLatestBill() -> (consumeptionTypeName: String?, accountName: String?, comment: String?) {
+    func getLatestBill() -> (consumeptionTypeName: String, money: String, comment: String?) {
         
         let latestBill = portalModel.getLatestBill()
-        return (latestBill.consumeType?.name, latestBill.account?.name, latestBill.comment)
+        return (latestBill.consumeType?.name ?? "", String(latestBill.money), latestBill.comment)
     }
     
     
