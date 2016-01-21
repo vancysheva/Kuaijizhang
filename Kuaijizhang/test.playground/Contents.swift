@@ -79,4 +79,7 @@ let mix = [1,2,3,4,5]
 let res = mix.filter { return $0 % 2 != 0 }
 print(res)
 
+var nums: Set = [3, 1, 5]
+print(nums.sort(>))
+
 

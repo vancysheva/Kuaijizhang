@@ -15,19 +15,43 @@ class BillStreamHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var surplusLabel: UILabel!
     @IBOutlet weak var monthLabel: UILabel!
     
-    var data: (month: Int, inconme: Double, expense: Double, surplus: Double)? {
+    var data: (month: Int, income: Double, expense: Double, surplus: Double)? {
         didSet {
             if let d = data {
-                if d.expense != 0 {
-                    consumeLabel.text = "\(d.expense)"
+                if let label = consumeLabel{
+                    label.text = "\(d.expense)"
                 }
-                if d.inconme != 0 {
-                    incomeLabel.text = "\(d.inconme)"
+                if let label = incomeLabel{
+                    label.text = "\(d.income)"
                 }
                 surplusLabel.text = "\(d.surplus)"
                 monthLabel.text = "\(d.month)"
                 
                 contentView.backgroundColor = UIColor.yellowColor()
+                
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapHeader:")
+                tapGestureRecognizer.numberOfTapsRequired = 1
+                tapGestureRecognizer.numberOfTouchesRequired = 1
+                self.addGestureRecognizer(tapGestureRecognizer)
+            }
+        }
+    }
+    
+    var section: Int?
+    var month: Int?
+    var tapGestureHandler: ((month: Int, section: Int)->Void)?
+    
+    func tapHeader(gesture: UITapGestureRecognizer) {
+        
+        if let m = month, s = section {
+            tapGestureHandler?(month: m, section: s)
+        }
+    }
+    
+    deinit {
+        if let gess = gestureRecognizers {
+            for ges in gess {
+                removeGestureRecognizer(ges)
             }
         }
     }

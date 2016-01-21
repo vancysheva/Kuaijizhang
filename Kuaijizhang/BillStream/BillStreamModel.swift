@@ -42,4 +42,20 @@ class BillStreamModel: RealmModel<Bill> {
         }
         return []
     }
+    
+    func getMonthsWhichHasBills() -> [Int] {
+        
+        if let list = objectList {
+            var months = Set<Int>()
+            list.forEach {
+                if let date = $0.occurDate {
+                    let comp = self.calendar.components(.Month, fromDate: date)
+                    months.insert(comp.month)
+                }
+            }
+            return months.sort(>)
+        } else {
+            return []
+        }
+    }
 }

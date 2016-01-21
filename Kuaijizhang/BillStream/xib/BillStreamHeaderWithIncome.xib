@@ -37,7 +37,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收入" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVy-rY-Vne">
-                            <rect key="frame" x="45" y="19" width="24" height="12"/>
+                            <rect key="frame" x="57" y="19" width="24" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="24" id="bCs-WS-R7J"/>
                                 <constraint firstAttribute="height" constant="12" id="iRg-DV-nWh"/>
@@ -46,8 +46,8 @@
                             <color key="textColor" red="0.79494160349999998" green="0.2142512932" blue="0.25851848910000003" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mgs-mo-rki" userLabel="income">
-                            <rect key="frame" x="73" y="19" width="80" height="12"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mgs-mo-rki" userLabel="income">
+                            <rect key="frame" x="85" y="19" width="80" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="SR3-LQ-j59"/>
                                 <constraint firstAttribute="width" constant="80" id="rPX-Ct-UZC"/>
@@ -87,9 +87,9 @@
                         <constraint firstAttribute="trailingMargin" secondItem="tXy-Sb-HhK" secondAttribute="trailing" id="Qf2-oy-leO"/>
                         <constraint firstItem="qPx-nA-kGo" firstAttribute="firstBaseline" secondItem="yV3-3e-KAQ" secondAttribute="firstBaseline" id="Qt0-c2-drh"/>
                         <constraint firstItem="tXy-Sb-HhK" firstAttribute="centerY" secondItem="qPx-nA-kGo" secondAttribute="centerY" id="R8o-zb-GKC"/>
-                        <constraint firstItem="pVy-rY-Vne" firstAttribute="leading" secondItem="yV3-3e-KAQ" secondAttribute="trailing" constant="15" id="UOi-9N-g7Z"/>
                         <constraint firstItem="Mgs-mo-rki" firstAttribute="leading" secondItem="pVy-rY-Vne" secondAttribute="trailing" constant="4" id="VGO-lo-nbB"/>
                         <constraint firstItem="qPx-nA-kGo" firstAttribute="leading" secondItem="yV3-3e-KAQ" secondAttribute="trailing" id="bhF-vK-kcP"/>
+                        <constraint firstItem="pVy-rY-Vne" firstAttribute="leading" secondItem="qPx-nA-kGo" secondAttribute="trailing" constant="15" id="dof-4B-nW3"/>
                         <constraint firstItem="yV3-3e-KAQ" firstAttribute="leading" secondItem="kTl-MY-Ex4" secondAttribute="leadingMargin" id="jkM-kj-Z3j"/>
                         <constraint firstItem="Mgs-mo-rki" firstAttribute="baseline" secondItem="pVy-rY-Vne" secondAttribute="baseline" id="wPO-OW-fmm"/>
                     </constraints>

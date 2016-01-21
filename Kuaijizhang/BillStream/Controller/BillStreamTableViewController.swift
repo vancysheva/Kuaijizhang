@@ -27,6 +27,22 @@ class BillStreamTableViewController: UITableViewController {
         billTableView.registerNib(UINib(nibName: "BillStreamHeaderWithOut", bundle: nil), forHeaderFooterViewReuseIdentifier: "headerWithOut")
         
         updateUI()
+        
+        billTableView.tableFooterView = UIView()
+        
+        billStreamViewModel.addNotification("BillStreamTableViewController") { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+            
+            if case .Delete = dataChangedType {
+                self.billTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            }
+            if let headerView = self.billTableView.headerViewForSection(indexPath.section) as? BillStreamHeaderView {
+                headerView.data = self.billStreamViewModel.getHeaderDataWithMonth(self.billStreamViewModel.monthsOfHavingBills[indexPath.section])
+            }
+//            if self.billStreamViewModel.getBillCountForMonth(self.billStreamViewModel.monthsOfHavingBills[indexPath.section]) == 0 {
+//                self.billTableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+//            }
+            self.updateUI()
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -38,13 +54,13 @@ class BillStreamTableViewController: UITableViewController {
     }
     
     func updateUI() {
+        
         let income = billStreamViewModel.getIncome()
         let expense = billStreamViewModel.getExpense()
         incomeLabel.text = "\(income)"
         expenseLabel.text = "\(expense)"
         surplusLabel.text = "\(income - expense)"
     }
-    
 }
 
 //MARK: - Datasource and Delegate
@@ -52,16 +68,16 @@ class BillStreamTableViewController: UITableViewController {
 extension BillStreamTableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 12
+        return billStreamViewModel.monthCount
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return billStreamViewModel.getBillCountForMonth(12 - section)
+        return billStreamViewModel.getBillCountForMonth(billStreamViewModel.monthsOfHavingBills[section])
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let t = billStreamViewModel.getBillAtIndex(indexPath.row, withMonth: 12 - indexPath.section)
+        let t = billStreamViewModel.getBillAtIndex(billIndex: indexPath.row, withMonth: billStreamViewModel.monthsOfHavingBills[indexPath.section])
         
         let cell = billTableView.dequeueReusableCellWithIdentifier(t.conmment != "" ? "cell" : "cell2", forIndexPath: indexPath)
         
@@ -84,27 +100,53 @@ extension BillStreamTableViewController {
         imageView.image = UIImage(named: t.iconName)
         week.text = t.week
         money.textColor = t.billType.color
-        
+
         return cell
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let data = billStreamViewModel.getHeaderDataWithMonth(12 - section)
+        let month = billStreamViewModel.monthsOfHavingBills[section]
+        let data = billStreamViewModel.getHeaderDataWithMonth(month)
         var identifier = "";
-        if data.inconme == 0.0 && data.expense != 0 {
+        if data.income == 0.0 && data.expense != 0.0 {
             identifier = "headerWithExpense"
-        } else if data.expense == 0.0 && data.inconme != 0 {
-            identifier = "headerWithExpense"
-        } else if data.expense != 0 && data.inconme != 0 {
+        } else if data.expense == 0.0 && data.income != 0.0 {
+            identifier = "headerWithIncome"
+        } else if data.expense != 0 && data.income != 0.0 {
             identifier = "header"
         } else {
             identifier = "headerWithOut"
         }
+        
         let headerView = billTableView.dequeueReusableHeaderFooterViewWithIdentifier(identifier) as! BillStreamHeaderView
         headerView.data = data
+        headerView.section = section
+        headerView.month = month
+        
+        headerView.tapGestureHandler = {(m, s)->Void in
+            if let expandMonth = self.billStreamViewModel.getExpandMonth() where expandMonth != m {
+                self.billStreamViewModel.toggleBillsHiddenInMonth(expandMonth)
+                for index in 0..<self.billTableView.numberOfSections {
+                    if let headerView = self.billTableView.headerViewForSection(index) as? BillStreamHeaderView, ss = headerView.section, mm = headerView.month where mm == expandMonth {
+                        self.billTableView.reloadSections(NSIndexSet(index: ss), withRowAnimation: .Automatic)
+                    }
+                }
+            }
+            self.billStreamViewModel.toggleBillsHiddenInMonth(m)
+            self.billTableView.reloadSections(NSIndexSet(index: s), withRowAnimation: .Automatic)
+        }
         
         return headerView
     }
-
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if case .Delete = editingStyle {
+            billStreamViewModel.deleteBillAtIndex(indexPath.row, withSection: indexPath.section)
+        }
+    }
 }

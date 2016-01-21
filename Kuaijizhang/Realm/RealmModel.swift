@@ -319,12 +319,13 @@ class RealmModel<T: Object>: ModelBase {
     /**
      从数据库中删除给定的对象。
      */
-    func delete(object: T, indexPath: NSIndexPath, userInfo: [String: Any]? = nil) {
+    func delete(object: T, indexPath: NSIndexPath, userInfo: [String: Any]? = nil, completeHandler: (()->Void)? = nil) {
 
         beginUpdates?()
         let state = realm.writeTransaction {
             self.realm.delete(object)
         }
+        completeHandler?()
         endUpdates?()
     
         sendNotificationsFeedBack(state, changedType: .Delete, indexPath: indexPath, userInfo: userInfo)

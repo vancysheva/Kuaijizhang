@@ -109,6 +109,7 @@ class SubjectTableViewController: UITableViewController {
 extension SubjectTableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(subjectViewModel.getCount())
         return subjectViewModel.getCount()
     }
     
