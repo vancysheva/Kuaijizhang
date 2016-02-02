@@ -40,6 +40,7 @@
 		7134ACFB1C06004700865261 /* AccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134ACFA1C06004700865261 /* AccountHeaderView.swift */; };
 		7134ACFD1C07388A00865261 /* AccountTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134ACFC1C07388A00865261 /* AccountTypeTableViewController.swift */; };
 		7134ACFF1C073A4A00865261 /* AddAccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134ACFE1C073A4A00865261 /* AddAccountTableViewController.swift */; };
+		7137423E1C533A5800297845 /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7137423D1C533A5800297845 /* CountingLabel.swift */; };
 		714019061B8327AC00C97048 /* AccountBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714019051B8327AC00C97048 /* AccountBookViewController.swift */; };
 		714935261BE34FF2006B6F12 /* CatlogManagePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714935251BE34FF2006B6F12 /* CatlogManagePageViewController.swift */; };
 		714EC9A11BF76679005C227C /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714EC9A01BF76679005C227C /* DateHelper.swift */; };
@@ -162,6 +163,7 @@
 		7134ACFA1C06004700865261 /* AccountHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountHeaderView.swift; sourceTree = "<group>"; };
 		7134ACFC1C07388A00865261 /* AccountTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTypeTableViewController.swift; sourceTree = "<group>"; };
 		7134ACFE1C073A4A00865261 /* AddAccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountTableViewController.swift; sourceTree = "<group>"; };
+		7137423D1C533A5800297845 /* CountingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
 		714019051B8327AC00C97048 /* AccountBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountBookViewController.swift; sourceTree = "<group>"; };
 		714935251BE34FF2006B6F12 /* CatlogManagePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatlogManagePageViewController.swift; sourceTree = "<group>"; };
 		714EC9A01BF76679005C227C /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 				7179DA701B85E67800A4D880 /* ColorBox.swift */,
 				7160EA061BD62A8D00936FD2 /* ConsumeTypeData.swift */,
 				71BC847C1BDFADE500C6F92A /* FWChartController.swift */,
+				7137423D1C533A5800297845 /* CountingLabel.swift */,
 			);
 			path = Conmmon;
 			sourceTree = "<group>";
@@ -973,6 +976,7 @@
 				716CF13E1C14A3200085CA23 /* BudgetTableViewHeaderFooterView.swift in Sources */,
 				711176851B93526300170668 /* DateViewController.swift in Sources */,
 				715B107C1BD7784A0037BD21 /* AccountBookViewModel.swift in Sources */,
+				7137423E1C533A5800297845 /* CountingLabel.swift in Sources */,
 				7134ACF41C04AE0500865261 /* AccountModel.swift in Sources */,
 				715B10841BD783620037BD21 /* AccountBook.swift in Sources */,
 				715B108C1BD78D340037BD21 /* ConsumeptionType.swift in Sources */,

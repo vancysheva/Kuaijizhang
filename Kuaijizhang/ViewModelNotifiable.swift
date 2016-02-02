@@ -29,9 +29,11 @@ typealias ViewModelObserverHandler = (indexPath: NSIndexPath?, userInfo: [String
 
 protocol ViewModelNotifiable {
     
+    // 数据持久事件处理
     func addNotification(notificationHandler: ViewModelNotificationHandler)
     func dataContentWillChange(beginUpdates: ()->Void)
     func dataContentDidChange(endUpdates: ()->Void)
     
+    // 观察者事件处理
     func addObserver(observerHandler: ViewModelObserverHandler)
 }

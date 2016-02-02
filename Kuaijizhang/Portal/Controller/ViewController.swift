@@ -12,7 +12,7 @@ import Charts
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var todayExpenseLabel: UICountingLabel!
+    @IBOutlet weak var todayExpenseLabel: CountingLabel!
     @IBOutlet weak var todayConsumeTypeLabel: UICountingLabel!
     @IBOutlet weak var todayCommentLabel: UICountingLabel!
     @IBOutlet weak var weekExpenseLabel: UICountingLabel!
@@ -61,25 +61,21 @@ class ViewController: UIViewController {
         
         ////  设置右上角的正在使用的账本名称
         setCurrentAccountBook()
-        
         adapteLabelsFont()
         adapteRmbLabels(rmbLabel)
-        
         // 设置面板中日期
-        todayDisplayLabel.text = DateHelper.getCurrentDate()
-        weekDisplayLabel.text = "\(DateHelper.getStartWeekDisplayStringOfPeriodWeek())-\(DateHelper.getOverWeekDisplayStringOfPeriodWeek())"
-        monthDisplayLabel.text = "\(DateHelper.getStartMonthDisplayStringOfPeriodMonth())-\(DateHelper.getOverMonthDisplayStringOfPeriodMonth())"
-        yearDisplayLabel.text = "\(DateHelper.getCurrentYear())\(DateHelper.YearStr)"
-        
+        setDate()
         updateUI()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         //// 设置左上角的年月
         monthLabel.text = DateHelper.getCurrentMonth()
         yearLabel.text = "月/\(DateHelper.getCurrentYear())"
+        updateUI()
+        
     }
     
     @IBAction func unwindToPortal(segue: UIStoryboardSegue) {
@@ -120,6 +116,13 @@ extension ViewController {
         updateCurrentYearUI()
     }
     
+    func setDate() {
+        todayDisplayLabel.text = DateHelper.getCurrentDate()
+        weekDisplayLabel.text = "\(DateHelper.getStartWeekDisplayStringFromCurrentWeek())-\(DateHelper.getOverWeekDisplayStringFromCurrentWeek())"
+        monthDisplayLabel.text = "\(DateHelper.getStartMonthDisplayStringFromCurrentMonth())-\(DateHelper.getOverMonthDisplayStringFromCurrentMonth())"
+        yearDisplayLabel.text = "\(DateHelper.getCurrentYear())\(DateHelper.YearStr)"
+    }
+    
     func adapteLabelFont(label: UILabel) {
         
         if screenSize.width == 320 && screenSize.height == 480 {
@@ -152,8 +155,6 @@ extension ViewController {
         
         let data = portalViewModel.getChartDataByCurrentMonth()
         
-        //let color = UIColor(red: 33/255, green: 211/255, blue: 158/255, alpha: 1.0)
-        
         barChartController = FWChartController(viewForChart: columnChartView, chartStyle: .BarChart(label: "test"), data: data, title: "")
         
         barChartController?.animate()
@@ -174,7 +175,7 @@ extension ViewController {
         todayCommentLabel.text = latestBill.comment
         
         todayExpenseLabel.text = "\(portalViewModel.getTodayTotalExpense())"
-        numberCountingAnimatingWithLabel([todayExpenseLabel])
+        //numberCountingAnimatingWithLabel([todayExpenseLabel])
     }
     
     func updateCurrentWeekUI() {

@@ -13,8 +13,8 @@ class BillStreamModel: RealmModel<Bill> {
     override init() {
         super.init()
         
-        let startTime = DateHelper.getStartTimeForCurrentYear()
-        let endTime = DateHelper.getOverTimeForCurrentYear()
+        let startTime = DateHelper.getStartTimeFromCurrentYear()
+        let endTime = DateHelper.getOverTimeFromCurrentYear()
         objectList = System.getCurrentUser()?.accountBooks.filter("isUsing = true").first?.bills.filter("occurDate BETWEEN %@", [startTime, endTime]).sorted("occurDate", ascending: false).toList()
         
     }
@@ -43,7 +43,8 @@ class BillStreamModel: RealmModel<Bill> {
         return []
     }
     
-    func getMonthsWhichHasBills() -> [Int] {
+    /*
+    func getMonths() -> [Int] {
         
         if let list = objectList {
             var months = Set<Int>()
@@ -58,4 +59,5 @@ class BillStreamModel: RealmModel<Bill> {
             return []
         }
     }
+    */
 }

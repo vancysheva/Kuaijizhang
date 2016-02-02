@@ -12,21 +12,26 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     
     var hideMonths: [Int: Bool] = [:]
     
-    var monthsOfHavingBills: [Int] = []
-    
-    var monthCount: Int = 0
+    var months: [Int] = []
     
     init() {
         super.init(model: BillStreamModel())
-        
-        monthsOfHavingBills = model.getMonthsWhichHasBills()
-        
-        for month in monthsOfHavingBills {
+        initMonths()
+        initHiddenMonths()
+    }
+    
+    func initHiddenMonths() {
+        for month in months {
             hideMonths[month] = Int(DateHelper.getCurrentMonth()) == month ? false : true
         }
-        
-        monthCount = monthsOfHavingBills.count
-        
+    }
+    
+    func initMonths() {
+        //如果是当年的流水，则提出至当月的月份；如果是其他年份，则提出所有月份
+        for month in 1...Int(DateHelper.getCurrentMonth())! {
+            months.append(month)
+        }
+        months.sortInPlace(>)
     }
     
     func toggleBillsHiddenInMonth(month: Int) {
@@ -41,12 +46,17 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     }
     
     func getBillCountForMonth(month: Int) -> Int {
-        return hideMonths[month]! ? 0 : model.getBillsWithMonth(month).count
+        return model.getBillsWithMonth(month).count
+    }
+    
+    func getCountForSection(month: Int) -> Int {
+        let cnt = getBillCountForMonth(month) // 如果cnt是0，则说明这个月没有账单显示一个提示cell所以返回1
+        return hideMonths[month]! ? 0 : (cnt == 0 ? 1 : cnt)
     }
     
     func getIncome() -> Double {
-        let startTime = DateHelper.getStartTimeForCurrentYear()
-        let endTime = DateHelper.getOverTimeForCurrentYear()
+        let startTime = DateHelper.getStartTimeFromCurrentYear()
+        let endTime = DateHelper.getOverTimeFromCurrentYear()
         let bills = model.getIncome(startTime, endDate: endTime)
         
         return bills.reduce(0) {
@@ -55,8 +65,8 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     }
     
     func getExpense() -> Double {
-        let startTime = DateHelper.getStartTimeForCurrentYear()
-        let endTime = DateHelper.getOverTimeForCurrentYear()
+        let startTime = DateHelper.getStartTimeFromCurrentYear()
+        let endTime = DateHelper.getOverTimeFromCurrentYear()
         let bills = model.getExpense(startTime, endDate: endTime)
         
         return bills.reduce(0) {
@@ -90,7 +100,7 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     
     func deleteBillAtIndex(index: Int, withSection section: Int) {
         
-        let bill = model.getBillsWithMonth(monthsOfHavingBills[section])[index]
+        let bill = model.getBillsWithMonth(months[section])[index]
         model.delete(bill, indexPath: NSIndexPath(forRow: index, inSection: section), userInfo: nil) {
             if let list = self.model.objectList, index = list.indexOf(bill) {
                 list.removeAtIndex(index)

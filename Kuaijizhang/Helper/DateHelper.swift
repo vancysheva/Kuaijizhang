@@ -100,10 +100,11 @@ class DateHelper {
      获取本周第一天
      返回的格式：MM月dd日
     */
-    class func getStartWeekDisplayStringOfPeriodWeek() -> String {
+    class func getStartWeekDisplayStringFromCurrentWeek(formatterSytle: String = DateHelper.dateFormatForDate2) -> String {
         
          
-        let now = NSDate(timeIntervalSinceNow: 60*60*8)
+        let now = NSDate(timeIntervalSinceNow: 60*60*8)//nsdate默认采用gmt标准时间
+        
         let dayinweek = calendar.component(.Weekday, fromDate: now)
         
         var addingDay:Int?
@@ -127,25 +128,24 @@ class DateHelper {
         }
         
         let firstDayInCurrentWeek = calendar.dateByAddingUnit(.Day, value: addingDay!, toDate: now, options: NSCalendarOptions())
-        dateFormatter.dateFormat = dateFormatForDate2
+        dateFormatter.dateFormat = formatterSytle
+        dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")!
         let str = dateFormatter.stringFromDate(firstDayInCurrentWeek!)
+        
         return str
     }
     
     /**
      返回本周第一天0点时间
     */
-    class func getStartTimeForCurrentWeek() -> NSDate {
+    class func getStartTimeFromCurrentWeek() -> NSDate {
         
-        let str = getStartWeekDisplayStringOfPeriodWeek()
-        dateFormatter.dateFormat = dateFormatForDate2
+        let str = getStartWeekDisplayStringFromCurrentWeek(dateFormatForTime)
+        dateFormatter.dateFormat = dateFormatForTime
         let date = dateFormatter.dateFromString(str)!
         
-        let comp = NSDateComponents()
-        comp.year = calendar.component(.Year, fromDate: date)
-        comp.month = calendar.component(.Month, fromDate: date)
-        comp.day = calendar.component(.Day, fromDate: date)
-        comp.hour = 0 + 8
+        let comp = calendar.components([.Day, .Month, .Year, .WeekOfMonth, .Hour, .Minute, .Second], fromDate: date)
+        comp.hour = 0
         comp.minute = 0
         comp.second = 0
         
@@ -156,7 +156,7 @@ class DateHelper {
      获取本周最后一天
      返回的格式：MM月dd日
      */
-    class func getOverWeekDisplayStringOfPeriodWeek() -> String {
+    class func getOverWeekDisplayStringFromCurrentWeek(formatterStyle: String = dateFormatForDate2) -> String {
         
          
         let now = NSDate(timeIntervalSinceNow: 60*60*8)
@@ -183,7 +183,8 @@ class DateHelper {
         }
         
         let firstDayInCurrentWeek = calendar.dateByAddingUnit(.Day, value: addingDay!, toDate: now, options: NSCalendarOptions())
-        dateFormatter.dateFormat = dateFormatForDate2
+        dateFormatter.dateFormat = formatterStyle
+        dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")!
         let str = dateFormatter.stringFromDate(firstDayInCurrentWeek!)
         return str
     }
@@ -192,17 +193,15 @@ class DateHelper {
     /**
      返回本周最后一天23:59:59
     */
-    class func getOverTimeForCurrentWeek() -> NSDate {
+    class func getOverTimeFromCurrentWeek() -> NSDate {
         
-        let str = getOverWeekDisplayStringOfPeriodWeek()
-        dateFormatter.dateFormat = dateFormatForDate2
+        let str = getOverWeekDisplayStringFromCurrentWeek(dateFormatForTime)
+        dateFormatter.dateFormat = dateFormatForTime
         let date = dateFormatter.dateFromString(str)!
         
-        let comp = NSDateComponents()
-        comp.year = calendar.component(.Year, fromDate: date)
-        comp.month = calendar.component(.Month, fromDate: date)
-        comp.day = calendar.component(.Day, fromDate: date)
-        comp.hour = 23 + 8
+        let comp = calendar.components([.Day, .Month, .Year, .WeekOfMonth, .Hour, .Minute, .Second], fromDate: date)
+        
+        comp.hour = 23
         comp.minute = 59
         comp.second = 59
         
@@ -213,9 +212,9 @@ class DateHelper {
      获取本月的第一天
      返回的格式：MM月dd日
     */
-    class func getStartMonthDisplayStringOfPeriodMonth() -> String {
+    class func getStartMonthDisplayStringFromCurrentMonth(formatterStyle: String = dateFormatForDate2) -> String {
         
-        dateFormatter.dateFormat = dateFormatForDate2
+        dateFormatter.dateFormat = formatterStyle
         
          
         let now = NSDate(timeIntervalSinceNow: 60*60*8)
@@ -234,51 +233,31 @@ class DateHelper {
     /**
      获取本月的第一天 00:00:00
      */
-    class func getStartTimeForCurrentMonth() -> NSDate {
+    class func getStartTimeFromCurrentMonth() -> NSDate {
         
-        let str = getStartMonthDisplayStringOfPeriodMonth()
-        dateFormatter.dateFormat = dateFormatForDate2
+        let str = getStartMonthDisplayStringFromCurrentMonth(dateFormatForTime)
+        dateFormatter.dateFormat = dateFormatForTime
         let date = dateFormatter.dateFromString(str)!
         
         let comp = NSDateComponents()
         comp.year = calendar.component(.Year, fromDate: date)
         comp.month = calendar.component(.Month, fromDate: date)
         comp.day = calendar.component(.Day, fromDate: date)
-        comp.hour = 0 + 8
+        comp.hour = 0
         comp.minute = 0
         comp.second = 0
         
         return calendar.dateFromComponents(comp)!
     }
     
-    /**
-     获取本月的第一天
-     返回的格式：yyyy-MM-dd HH:mm:ss
-     */
-    class func dateFromStartDayInCurrentMonth() -> NSDate {
-        
-        dateFormatter.dateFormat = dateFormatForTime
-
-         
-        let now = NSDate(timeIntervalSinceNow: 60*60*8)
-        
-        let comp = calendar.components(.Day, fromDate: now)
-        comp.day = 1
-        comp.month = calendar.component(.Month, fromDate: now)
-        comp.year = calendar.component(.Year, fromDate: now)
-        
-        let date = calendar.dateFromComponents(comp)
-        
-        return date!
-    }
     
     /**
      获取本月最后一天
      返回的格式：MM月dd日
     */
-    class func getOverMonthDisplayStringOfPeriodMonth() -> String {
+    class func getOverMonthDisplayStringFromCurrentMonth(formatterStyle: String = dateFormatForDate2) -> String {
     
-        dateFormatter.dateFormat = dateFormatForDate2
+        dateFormatter.dateFormat = formatterStyle
         
          
         let now = NSDate(timeIntervalSinceNow: 60*60*8)
@@ -294,41 +273,53 @@ class DateHelper {
         return str
     }
     
-    /**
-     获取本月最后一天
-     返回的格式：yyyy-MM-dd HH:mm:ss
-     */
-    class func dateFromEndDayInCurrentMonth() -> NSDate {
         
+    /**
+     返回本月最后一天的时间 23:59:59
+     */
+    class func getOverTimeFromCurrentMonth() -> NSDate {
+        
+        let str = getOverMonthDisplayStringFromCurrentMonth(dateFormatForTime)
         dateFormatter.dateFormat = dateFormatForTime
-        
-         
-        let now = NSDate(timeIntervalSinceNow: 60*60*8)
-        
-        let comp = calendar.components(.Day, fromDate: now)
-        comp.day = calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: now).length
-        comp.month = calendar.component(.Month, fromDate: now)
-        comp.year = calendar.component(.Year, fromDate: now)
-        
-        let date = calendar.dateFromComponents(comp)
-        
-        return date!
-    }
-    
-    /**
-     返回本月最后一天23:59:59
-     */
-    class func getOverTimeForCurrentMonth() -> NSDate {
-        
-        let str = getOverMonthDisplayStringOfPeriodMonth()
-        dateFormatter.dateFormat = dateFormatForDate2
         let date = dateFormatter.dateFromString(str)!
         
         let comp = NSDateComponents()
         comp.year = calendar.component(.Year, fromDate: date)
         comp.month = calendar.component(.Month, fromDate: date)
         comp.day = calendar.component(.Day, fromDate: date)
-        comp.hour = 23 + 8
+        comp.hour = 23
+        comp.minute = 59
+        comp.second = 59
+        
+        return calendar.dateFromComponents(comp)!
+    }
+    
+    /**
+     获取本年的第一天的时间 00:00:00
+     */
+    class func getStartTimeFromCurrentYear() -> NSDate {
+        
+        let comp = NSDateComponents()
+        comp.year = Int(getCurrentYear())!
+        comp.month = 1
+        comp.day = 1
+        comp.hour = 0
+        comp.minute = 0
+        comp.second = 0
+        
+        return calendar.dateFromComponents(comp)!
+    }
+    
+    /**
+     获取本年的最后一天的时间 23:59:59
+     */
+    class func getOverTimeFromCurrentYear() -> NSDate {
+        
+        let comp = NSDateComponents()
+        comp.year = Int(getCurrentYear())!
+        comp.month = 12
+        comp.day = 31
+        comp.hour = 23
         comp.minute = 59
         comp.second = 59
         
@@ -337,10 +328,9 @@ class DateHelper {
     
     /**
      获取当月的天数范围
-    */
+     */
     class func getRangeOfCurrentMonth() -> NSRange {
         
-         
         let now = NSDate(timeIntervalSinceNow: 60*60*8)
         
         return calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: now)
@@ -349,71 +339,33 @@ class DateHelper {
     
     /**
      获取给定日期的日信息
-    */
+     */
     class func getDayFromDate(date: NSDate) -> Int {
         
-        let day = calendar.component(.Day, fromDate: date)
-        return day
+        dateFormatter.dateFormat = dateFormatForDay
+        return Int(dateFormatter.stringFromDate(date))!
     }
     
-    class func getRangeDateFor(date: NSDate) -> (startDate: NSDate, endDate: NSDate) {
-       
-        let year = calendar.component(.Year, fromDate: date)
-        let month = calendar.component(.Month, fromDate: date)
-        let day = calendar.component(.Day, fromDate: date)
+    /**
+     获取给定日期的开始时间和结束时间
+     */
+    class func getRangeTimeFrom(date: NSDate) -> (startDate: NSDate, endDate: NSDate) {
         
-        let comp = NSDateComponents()
+        calendar.timeZone = NSTimeZone(abbreviation: "GMT")!
+        let comp = calendar.components([.Day, .Month, .Year, .WeekOfMonth, .Hour, .Minute, .Second], fromDate: date)
         
-        comp.year = year
-        comp.month = month
-        comp.day = day
-        comp.hour = 0 + 8
+        comp.hour = 0
         comp.minute = 0
         comp.second = 0
         
         let startDate = calendar.dateFromComponents(comp)!
         
-        comp.hour = 23 + 8
+        comp.hour = 23
         comp.minute = 59
         comp.second = 59
         
         let endDate = calendar.dateFromComponents(comp)!
         
-        
-        
         return (startDate, endDate)
-    }
-    
-    
-    /**
-     获取本年的第一天 00:00:00
-     */
-    class func getStartTimeForCurrentYear() -> NSDate {
-        
-        let comp = NSDateComponents()
-        comp.year = Int(getCurrentYear())!
-        comp.month = 1
-        comp.day = 1
-        comp.hour = 0 + 8
-        comp.minute = 0
-        comp.second = 0
-        
-        return calendar.dateFromComponents(comp)!
-    }
-    
-    /**
-     获取本年的最后一天 23:59:59
-     */
-    class func getOverTimeForCurrentYear() -> NSDate {
-        
-        let comp = NSDateComponents()
-        comp.year = Int(getCurrentYear())!
-        comp.month = 12
-        comp.day = 31
-        comp.hour = 23 + 8
-        comp.minute = 59
-        comp.second = 59
-        
-        return calendar.dateFromComponents(comp)!
     }
 }

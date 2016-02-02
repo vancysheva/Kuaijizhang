@@ -33,14 +33,16 @@ class BillStreamTableViewController: UITableViewController {
         billStreamViewModel.addNotification("BillStreamTableViewController") { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
             
             if case .Delete = dataChangedType {
-                self.billTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                let cnt = self.billStreamViewModel.getBillCountForMonth(self.billStreamViewModel.months[indexPath.section])
+                if cnt == 0 {
+                    self.billTableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+                } else {
+                    self.billTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                }
             }
             if let headerView = self.billTableView.headerViewForSection(indexPath.section) as? BillStreamHeaderView {
-                headerView.data = self.billStreamViewModel.getHeaderDataWithMonth(self.billStreamViewModel.monthsOfHavingBills[indexPath.section])
+                headerView.data = self.billStreamViewModel.getHeaderDataWithMonth(self.billStreamViewModel.months[indexPath.section])
             }
-//            if self.billStreamViewModel.getBillCountForMonth(self.billStreamViewModel.monthsOfHavingBills[indexPath.section]) == 0 {
-//                self.billTableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
-//            }
             self.updateUI()
         }
     }
@@ -68,18 +70,24 @@ class BillStreamTableViewController: UITableViewController {
 extension BillStreamTableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return billStreamViewModel.monthCount
+        return billStreamViewModel.months.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return billStreamViewModel.getBillCountForMonth(billStreamViewModel.monthsOfHavingBills[section])
+        let cnt = billStreamViewModel.getCountForSection(billStreamViewModel.months[section])
+        return cnt
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let t = billStreamViewModel.getBillAtIndex(billIndex: indexPath.row, withMonth: billStreamViewModel.monthsOfHavingBills[indexPath.section])
+        let cnt = billStreamViewModel.getBillCountForMonth(billStreamViewModel.months[indexPath.section])
+        if cnt == 0 {
+            return billTableView.dequeueReusableCellWithIdentifier("cellWithoutBills", forIndexPath: indexPath)
+        }
         
-        let cell = billTableView.dequeueReusableCellWithIdentifier(t.conmment != "" ? "cell" : "cell2", forIndexPath: indexPath)
+        let t = billStreamViewModel.getBillAtIndex(billIndex: indexPath.row, withMonth: billStreamViewModel.months[indexPath.section])
+        
+        let cell = billTableView.dequeueReusableCellWithIdentifier(t.conmment != "" ? "cellWithComment" : "cellWithoutComment", forIndexPath: indexPath)
         
         let day = cell.viewWithTag(1) as! UILabel
         let consumeName = cell.viewWithTag(2) as! UILabel
@@ -93,8 +101,6 @@ extension BillStreamTableViewController {
         if t.conmment != "" {
             let comment = cell.viewWithTag(3) as! UILabel
             comment.text = t.conmment
-            //consumeName.removeConstraints(consumeName.constraintsAffectingLayoutForAxis(.Vertical))
-            //cell.addConstraint(NSLayoutConstraint(item: consumeName, attribute: .CenterY, relatedBy: .Equal, toItem: cell, attribute: .CenterY, multiplier: 1, constant: 0))
         }
         money.text = "\(t.money)"
         imageView.image = UIImage(named: t.iconName)
@@ -106,7 +112,7 @@ extension BillStreamTableViewController {
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let month = billStreamViewModel.monthsOfHavingBills[section]
+        let month = billStreamViewModel.months[section]
         let data = billStreamViewModel.getHeaderDataWithMonth(month)
         var identifier = "";
         if data.income == 0.0 && data.expense != 0.0 {
@@ -124,12 +130,14 @@ extension BillStreamTableViewController {
         headerView.section = section
         headerView.month = month
         
+
         headerView.tapGestureHandler = {(m, s)->Void in
             if let expandMonth = self.billStreamViewModel.getExpandMonth() where expandMonth != m {
                 self.billStreamViewModel.toggleBillsHiddenInMonth(expandMonth)
                 for index in 0..<self.billTableView.numberOfSections {
                     if let headerView = self.billTableView.headerViewForSection(index) as? BillStreamHeaderView, ss = headerView.section, mm = headerView.month where mm == expandMonth {
                         self.billTableView.reloadSections(NSIndexSet(index: ss), withRowAnimation: .Automatic)
+
                     }
                 }
             }
@@ -141,6 +149,10 @@ extension BillStreamTableViewController {
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        let cnt = self.billStreamViewModel.getBillCountForMonth(self.billStreamViewModel.months[indexPath.section])
+        if cnt == 0 {
+            return false
+        }
         return true
     }
     

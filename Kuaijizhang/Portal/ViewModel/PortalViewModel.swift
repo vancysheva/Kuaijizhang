@@ -27,8 +27,8 @@ class PortalViewModel {
     
     func getChartDataByCurrentMonth() -> [(day: String, value: Double)] {
         
-        let startDate = DateHelper.dateFromStartDayInCurrentMonth()
-        let endDate = DateHelper.dateFromEndDayInCurrentMonth()
+        let startDate = DateHelper.getStartTimeFromCurrentMonth()
+        let endDate = DateHelper.getOverTimeFromCurrentMonth()
         
         let bills = portalModel.getBills(startDate: startDate, endDate: endDate)
         
@@ -72,7 +72,7 @@ class PortalViewModel {
     
     func getTodayTotalExpense() -> Double {
         
-        let tuple = DateHelper.getRangeDateFor(NSDate())
+        let tuple = DateHelper.getRangeTimeFrom(NSDate())
         let total = caculateTotalMoneyWith(tuple.startDate, endTime: tuple.endDate)
 
         return total
@@ -80,8 +80,8 @@ class PortalViewModel {
     
     func getCurrentWeekExpense() -> Double {
         
-        let start = DateHelper.getStartTimeForCurrentWeek()
-        let end = DateHelper.getOverTimeForCurrentWeek()
+        let start = DateHelper.getStartTimeFromCurrentWeek()
+        let end = DateHelper.getOverTimeFromCurrentWeek()
         let total = caculateTotalMoneyWith(start, endTime: end)
         
         return total
@@ -89,24 +89,24 @@ class PortalViewModel {
     
     func getCurrentMonthExpense() -> Double {
         
-        let start = DateHelper.getStartTimeForCurrentMonth()
-        let end = DateHelper.getOverTimeForCurrentMonth()
+        let start = DateHelper.getStartTimeFromCurrentMonth()
+        let end = DateHelper.getOverTimeFromCurrentMonth()
         let total = caculateTotalMoneyWith(start, endTime: end)
         return total
     }
     
     func getCurrentMonthIncome() -> Double {
         
-        let start = DateHelper.getStartTimeForCurrentMonth()
-        let end = DateHelper.getOverTimeForCurrentMonth()
+        let start = DateHelper.getStartTimeFromCurrentMonth()
+        let end = DateHelper.getOverTimeFromCurrentMonth()
         let total = caculateTotalMoneyWith(start, endTime: end, consumeptionType: 1)
         return total
     }
     
     func getCurrentYearExpense() -> Double {
         
-        let start = DateHelper.getStartTimeForCurrentYear()
-        let end = DateHelper.getOverTimeForCurrentYear()
+        let start = DateHelper.getStartTimeFromCurrentYear()
+        let end = DateHelper.getOverTimeFromCurrentYear()
         let total = caculateTotalMoneyWith(start, endTime: end)
         
         return total
@@ -114,8 +114,8 @@ class PortalViewModel {
     
     func getCurrentYearIncome() -> Double {
         
-        let start = DateHelper.getStartTimeForCurrentYear()
-        let end = DateHelper.getOverTimeForCurrentYear()
+        let start = DateHelper.getStartTimeFromCurrentYear()
+        let end = DateHelper.getOverTimeFromCurrentYear()
         let total = caculateTotalMoneyWith(start, endTime: end, consumeptionType:  1)
         return total
     }

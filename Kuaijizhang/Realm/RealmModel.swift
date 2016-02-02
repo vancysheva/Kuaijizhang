@@ -91,7 +91,7 @@ class RealmModel<T: Object>: ModelBase {
             self.objectList?.append(object)
         }
         endUpdates?()
-        
+
         let indexPath = NSIndexPath(forRow: numberOfObjects - 1, inSection: section)
         sendNotificationsFeedBack(state, changedType: .Insert, indexPath: indexPath, userInfo: userInfo)
     }

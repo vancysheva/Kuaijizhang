@@ -43,8 +43,8 @@ class AddBillViewController: UITableViewController {
     }
     
     @IBAction func tapBillTypeButton(sender: UIButton) {
-        setBillType()
-        setConsumeType()
+        toggleBillType()
+        toggleConsumeType()
         deselectRowForTable()
         selectFirstRowAndDisplayNumPad()
     }
@@ -128,8 +128,8 @@ class AddBillViewController: UITableViewController {
 
 extension AddBillViewController {
     
-    func setBillType() {
-        
+    func toggleBillType() {
+        billType.toggle()
         billTypeButton.setTitle(billType.title, forState: .Normal)
         
         let duration: NSTimeInterval = 0.25
@@ -139,9 +139,9 @@ extension AddBillViewController {
             }, completion: nil)
     }
     
-    func setConsumeType() {
+    func toggleConsumeType() {
         
-        moneyLabel.textColor = billType.toggle().color
+        moneyLabel.textColor = billType.color
         consumeTypeLabel.text = addBillViewModel.getConsumeptionTypeDescription(billType)
         setConsumeptionTypeNameImage()
     }
@@ -154,7 +154,9 @@ extension AddBillViewController {
             // 弹出数字面板
             if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("NumberPadViewController") as? NumberPadViewController {
                 vc.delegate = self
-                self.addContentController(vc)
+                if self.childViewControllers.count == 0 {
+                    self.addContentController(vc)
+                }
             }
         }
     }
