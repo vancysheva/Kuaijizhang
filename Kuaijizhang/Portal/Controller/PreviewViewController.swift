@@ -33,8 +33,7 @@ class PreviewViewController: UIViewController {
         }
 
         previewImageView.userInteractionEnabled = true
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tap:")
-        previewImageView.addGestureRecognizer(tapGestureRecognizer)
+        previewImageView.tap(tap)
         
         navigationController?.navigationBar.backgroundColor = UIColor.blackColor()
     }

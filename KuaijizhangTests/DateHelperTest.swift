@@ -31,12 +31,12 @@ class DateHelperTest: XCTestCase {
     
     func test_getCurrentDate() {
         
-        XCTAssertEqual(DateHelper.getCurrentDate(), "2016年02月02日")
+        XCTAssertEqual(DateHelper.getCurrentDate(), "2016年02月03日")
     }
     
     func test_getCurrentDay() {
         
-        XCTAssertEqual(DateHelper.getCurrentDay(), "02")
+        XCTAssertEqual(DateHelper.getCurrentDay(), "03")
     }
     
     func test_getCurrentMonth() {
@@ -51,7 +51,7 @@ class DateHelperTest: XCTestCase {
     
     func test_getCurrentWeek() {
         
-        XCTAssertEqual(DateHelper.getCurrentWeek(), "周二")
+        XCTAssertEqual(DateHelper.getCurrentWeek(), "周三")
     }
     
     func test_getStartWeekDisplayStringOfPeriodWeek() {
@@ -84,7 +84,7 @@ class DateHelperTest: XCTestCase {
     
     func test_getDayFromDate() {
         
-        XCTAssertEqual(DateHelper.getDayFromDate(NSDate()), 02)
+        XCTAssertEqual(DateHelper.getDayFromDate(NSDate()), 03)
     }
     
     func test_getRangeDateFrom() {
@@ -210,7 +210,7 @@ class DateHelperTest: XCTestCase {
     func test_weekFromDate() {
         
         let week = DateHelper.weekFromDate(NSDate())
-        XCTAssertEqual(week, "周二")
+        XCTAssertEqual(week, "周三")
     }
     
     func test_dateFromString() {
@@ -231,4 +231,88 @@ class DateHelperTest: XCTestCase {
         XCTAssert(true)
     }
     
+    func test_getStartTimeFromPreviousYear() {
+        
+        let date = DateHelper.getStartTimeFromPreviousYear(2016)
+        let c = NSCalendar.currentCalendar()
+        c.timeZone = NSTimeZone(abbreviation: "GMT")!
+        let comp = c.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: date)
+        XCTAssertEqual(comp.year, 2015)
+        XCTAssertEqual(comp.month, 01)
+        XCTAssertEqual(comp.day, 1)
+        XCTAssertEqual(comp.hour, 0)
+        XCTAssertEqual(comp.minute, 0)
+        XCTAssertEqual(comp.second, 0)
+    }
+    
+    func test_getOverTimeFromPreviousYear() {
+        
+        let date = DateHelper.getOverTimeFromPreviousYear(2016)
+        let c = NSCalendar.currentCalendar()
+        c.timeZone = NSTimeZone(abbreviation: "GMT")!
+        let comp = c.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: date)
+        XCTAssertEqual(comp.year, 2015)
+        XCTAssertEqual(comp.month, 12)
+        XCTAssertEqual(comp.day, 31)
+        XCTAssertEqual(comp.hour, 23)
+        XCTAssertEqual(comp.minute, 59)
+        XCTAssertEqual(comp.second, 59)
+    }
+    
+    func test_getStartTimeFromNextYear() {
+        
+        let date = DateHelper.getStartTimeFromNextYear(2016)
+        let c = NSCalendar.currentCalendar()
+        c.timeZone = NSTimeZone(abbreviation: "GMT")!
+        let comp = c.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: date)
+        XCTAssertEqual(comp.year, 2017)
+        XCTAssertEqual(comp.month, 01)
+        XCTAssertEqual(comp.day, 1)
+        XCTAssertEqual(comp.hour, 0)
+        XCTAssertEqual(comp.minute, 0)
+        XCTAssertEqual(comp.second, 0)
+    }
+    
+    func test_getOverTimeFromNextYear() {
+        
+        let date = DateHelper.getOverTimeFromNextYear(2016)
+        let c = NSCalendar.currentCalendar()
+        c.timeZone = NSTimeZone(abbreviation: "GMT")!
+        let comp = c.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: date)
+        XCTAssertEqual(comp.year, 2017)
+        XCTAssertEqual(comp.month, 12)
+        XCTAssertEqual(comp.day, 31)
+        XCTAssertEqual(comp.hour, 23)
+        XCTAssertEqual(comp.minute, 59)
+        XCTAssertEqual(comp.second, 59)
+        
+    }
+    
+    func test_getStartTimeFromYear() {
+        
+        let date = DateHelper.getStartTimeFromYear(2016)
+        let c = NSCalendar.currentCalendar()
+        c.timeZone = NSTimeZone(abbreviation: "GMT")!
+        let comp = c.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: date)
+        XCTAssertEqual(comp.year, 2016)
+        XCTAssertEqual(comp.month, 01)
+        XCTAssertEqual(comp.day, 1)
+        XCTAssertEqual(comp.hour, 0)
+        XCTAssertEqual(comp.minute, 0)
+        XCTAssertEqual(comp.second, 0)
+    }
+    
+    func test_getOverTimeFromYear() {
+        
+        let date = DateHelper.getOverTimeFromYear(2016)
+        let c = NSCalendar.currentCalendar()
+        c.timeZone = NSTimeZone(abbreviation: "GMT")!
+        let comp = c.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: date)
+        XCTAssertEqual(comp.year, 2016)
+        XCTAssertEqual(comp.month, 12)
+        XCTAssertEqual(comp.day, 31)
+        XCTAssertEqual(comp.hour, 23)
+        XCTAssertEqual(comp.minute, 59)
+        XCTAssertEqual(comp.second, 59)
+    }
 }

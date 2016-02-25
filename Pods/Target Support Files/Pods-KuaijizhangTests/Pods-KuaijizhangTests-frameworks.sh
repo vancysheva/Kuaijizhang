@@ -85,15 +85,19 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-KuaijizhangTests/Charts.framework"
+  install_framework "Pods-KuaijizhangTests/MJRefresh.framework"
   install_framework "Pods-KuaijizhangTests/Realm.framework"
   install_framework "Pods-KuaijizhangTests/RealmSwift.framework"
   install_framework "Pods-KuaijizhangTests/SWTableViewCell.framework"
+  install_framework "Pods-KuaijizhangTests/Tactile.framework"
   install_framework "Pods-KuaijizhangTests/UICountingLabel.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-KuaijizhangTests/Charts.framework"
+  install_framework "Pods-KuaijizhangTests/MJRefresh.framework"
   install_framework "Pods-KuaijizhangTests/Realm.framework"
   install_framework "Pods-KuaijizhangTests/RealmSwift.framework"
   install_framework "Pods-KuaijizhangTests/SWTableViewCell.framework"
+  install_framework "Pods-KuaijizhangTests/Tactile.framework"
   install_framework "Pods-KuaijizhangTests/UICountingLabel.framework"
 fi

@@ -14,33 +14,64 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     
     var months: [Int] = []
     
+    var currentYear: Int = 0
+    
     init() {
-        super.init(model: BillStreamModel())
+        self.currentYear = Int(DateHelper.getCurrentYear())!
+        let startTime = DateHelper.getStartTimeFromCurrentYear()
+        let endTime = DateHelper.getOverTimeFromCurrentYear()
+        super.init(model: BillStreamModel(startTime: startTime, endTime: endTime))
+        initMonths()
+        initHiddenMonths()
+    }
+    
+    init(startTime: NSDate, endTime: NSDate) {
+        super.init(model: BillStreamModel(startTime: startTime, endTime: endTime))
+    }
+    
+    convenience init(year: Int) {
+        
+        let startTime = DateHelper.getStartTimeFromYear(year)
+        let endTime = DateHelper.getOverTimeFromYear(year)
+        self.init(startTime: startTime, endTime: endTime)
+        self.currentYear = year
         initMonths()
         initHiddenMonths()
     }
     
     func initHiddenMonths() {
+        
+        var showMonth = 12
+        if String(currentYear) == DateHelper.getCurrentYear() {
+            showMonth = Int(DateHelper.getCurrentMonth())!
+        }
         for month in months {
-            hideMonths[month] = Int(DateHelper.getCurrentMonth()) == month ? false : true
+            hideMonths[month] = showMonth == month ? false : true
         }
     }
     
     func initMonths() {
+        
+        var endMonth = 12
         //如果是当年的流水，则提出至当月的月份；如果是其他年份，则提出所有月份
-        for month in 1...Int(DateHelper.getCurrentMonth())! {
+        if String(currentYear) == DateHelper.getCurrentYear() {
+            endMonth = Int(DateHelper.getCurrentMonth())!
+        }
+        for month in 1...endMonth {
             months.append(month)
         }
         months.sortInPlace(>)
     }
     
     func toggleBillsHiddenInMonth(month: Int) {
+        
         if let isHidden = hideMonths[month] {
             hideMonths.updateValue(!isHidden, forKey: month)
         }
     }
     
     func getExpandMonth() -> Int? {
+       
         let expandMonths = hideMonths.filter { return $0.1 == false }
         return expandMonths.count == 0 ? nil : expandMonths[0].0
     }
@@ -50,25 +81,22 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     }
     
     func getCountForSection(month: Int) -> Int {
+        
         let cnt = getBillCountForMonth(month) // 如果cnt是0，则说明这个月没有账单显示一个提示cell所以返回1
         return hideMonths[month]! ? 0 : (cnt == 0 ? 1 : cnt)
     }
     
     func getIncome() -> Double {
-        let startTime = DateHelper.getStartTimeFromCurrentYear()
-        let endTime = DateHelper.getOverTimeFromCurrentYear()
-        let bills = model.getIncome(startTime, endDate: endTime)
-        
+    
+        let bills = model.getIncome()
         return bills.reduce(0) {
             return $0 + $1.money
         }
     }
     
     func getExpense() -> Double {
-        let startTime = DateHelper.getStartTimeFromCurrentYear()
-        let endTime = DateHelper.getOverTimeFromCurrentYear()
-        let bills = model.getExpense(startTime, endDate: endTime)
         
+        let bills = model.getExpense()
         return bills.reduce(0) {
             return $0 + $1.money
         }

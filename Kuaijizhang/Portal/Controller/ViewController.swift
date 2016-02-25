@@ -56,9 +56,7 @@ class ViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: nil, action: nil)
-        
+    
         ////  设置右上角的正在使用的账本名称
         setCurrentAccountBook()
         adapteLabelsFont()
@@ -89,6 +87,10 @@ class ViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let navi = segue.destinationViewController as? UINavigationController, vc = navi.visibleViewController as? AddBillViewController {
             vc.portalController = self
+        } else  if segue.identifier == "toBillStream" {
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "\(DateHelper.getCurrentYear())年流水", style: .Plain, target: nil, action: nil)
+        } else {
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: nil, action: nil)
         }
     }
 }
@@ -141,13 +143,15 @@ extension ViewController {
     }
     
     func numberCountingAnimatingWithLabel(labels: [UICountingLabel]) {
+        
         for label in labels {
             let number: Float = Float(label.text!)!
             if number == 0.0 {
                 continue
             }
             label.animationDuration = 1
-            label.countFromZeroTo(number)
+            label.format = "%.2f"
+            label.countFromZeroTo(CGFloat(number))
         }
     }
     
@@ -175,7 +179,7 @@ extension ViewController {
         todayCommentLabel.text = latestBill.comment
         
         todayExpenseLabel.text = "\(portalViewModel.getTodayTotalExpense())"
-        //numberCountingAnimatingWithLabel([todayExpenseLabel])
+        numberCountingAnimatingWithLabel([todayExpenseLabel])
     }
     
     func updateCurrentWeekUI() {

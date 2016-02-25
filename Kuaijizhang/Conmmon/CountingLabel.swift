@@ -15,7 +15,7 @@ class CountingLabel: UICountingLabel {
         didSet {
             if let txt = digitString, digit = Float(txt) where digit != 0.0 {
                 animationDuration = 1
-                countFromZeroTo(digit)
+                countFromZeroTo(CGFloat(digit))
             }
         }
     }

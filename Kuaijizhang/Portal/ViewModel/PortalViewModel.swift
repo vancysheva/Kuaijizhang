@@ -37,9 +37,9 @@ class PortalViewModel {
         bills.forEach {
             if let occurDate = $0.occurDate {
                 let day = DateHelper.getDayFromDate(occurDate)
-                let t = arr[day]
+                let t = arr[day-1]
                 if let type = $0.consumeType?.type where Int(type) == BillType.Expense.rawValue {
-                    arr[day] = (t.day, t.value + $0.money)
+                    arr[day-1] = (t.day, t.value + $0.money)
                 }
             }
         }

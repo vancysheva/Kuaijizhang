@@ -38,7 +38,7 @@ public class RadarChartView: PieRadarChartViewBase
     public var drawWeb = true
     
     /// modulus that determines how many labels and web-lines are skipped before the next is drawn
-    private var _skipWebLineCount = 1
+    private var _skipWebLineCount = 0
     
     /// the object reprsenting the y-axis labels
     private var _yAxis: ChartYAxis!
@@ -101,9 +101,9 @@ public class RadarChartView: PieRadarChartViewBase
             else if minLeft >= 0.0
             {
                 // We have positive values only, stay in the positive zone
-            _yAxis.axisMinimum = 0.0
+                _yAxis.axisMinimum = 0.0
                 _yAxis.axisMaximum = max(0.0, !isnan(_yAxis.customAxisMax) ? _yAxis.customAxisMax : (maxLeft + topSpaceLeft))
-        }
+            }
             else
             {
                 // Stick the minimum to 0.0 or less, and maximum to 0.0 or more (startAtZero for negative/positive at the same time)
@@ -138,7 +138,7 @@ public class RadarChartView: PieRadarChartViewBase
     
     public override func notifyDataSetChanged()
     {
-        if (_dataNotSet)
+        if _data === nil
         {
             return
         }
@@ -164,7 +164,7 @@ public class RadarChartView: PieRadarChartViewBase
     {
         super.drawRect(rect)
 
-        if (_dataNotSet)
+        if _data === nil
         {
             return
         }
@@ -264,7 +264,7 @@ public class RadarChartView: PieRadarChartViewBase
 
     internal override var requiredBaseOffset: CGFloat
     {
-        return _xAxis.isEnabled && _xAxis.isDrawLabelsEnabled ? _xAxis.labelWidth : 10.0
+        return _xAxis.isEnabled && _xAxis.isDrawLabelsEnabled ? _xAxis.labelRotatedWidth : 10.0
     }
 
     public override var radius: CGFloat

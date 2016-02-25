@@ -10,20 +10,17 @@ import Foundation
 
 class BillStreamModel: RealmModel<Bill> {
     
-    override init() {
+    init(startTime: NSDate, endTime: NSDate) {
         super.init()
-        
-        let startTime = DateHelper.getStartTimeFromCurrentYear()
-        let endTime = DateHelper.getOverTimeFromCurrentYear()
         objectList = System.getCurrentUser()?.accountBooks.filter("isUsing = true").first?.bills.filter("occurDate BETWEEN %@", [startTime, endTime]).sorted("occurDate", ascending: false).toList()
         
     }
     
-    func getIncome(startDate: NSDate, endDate: NSDate) -> [Bill] {
+    func getIncome() -> [Bill] {
         return objectList?.filter { return $0.consumeType?.type ?? "1" == "1" } ?? []
     }
     
-    func getExpense(startDate: NSDate, endDate: NSDate) -> [Bill] {
+    func getExpense() -> [Bill] {
         return objectList?.filter { return $0.consumeType?.type ?? "0" == "0" } ?? []
     }
     
@@ -42,22 +39,4 @@ class BillStreamModel: RealmModel<Bill> {
         }
         return []
     }
-    
-    /*
-    func getMonths() -> [Int] {
-        
-        if let list = objectList {
-            var months = Set<Int>()
-            list.forEach {
-                if let date = $0.occurDate {
-                    let comp = self.calendar.components(.Month, fromDate: date)
-                    months.insert(comp.month)
-                }
-            }
-            return months.sort(>)
-        } else {
-            return []
-        }
-    }
-    */
 }

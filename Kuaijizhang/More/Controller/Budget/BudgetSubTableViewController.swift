@@ -109,8 +109,7 @@ extension BudgetSubTableViewController {
         header.contentView.backgroundColor = UIColor.lightGrayColor()
         
         header.userInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: "tapHeaderView:")
-        header.addGestureRecognizer(tapGesture)
+        header.tap(tapHeaderView)
         
         return header
     }

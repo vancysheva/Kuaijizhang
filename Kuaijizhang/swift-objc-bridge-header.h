@@ -11,5 +11,6 @@
 
 #import <UICountingLabel/UICountingLabel.h>
 #import <SWTableViewCell/SWTableViewCell.h>
+#import <MJRefresh/MJRefresh.h>
 
 #endif /* swift_objc_bridge_header_h */

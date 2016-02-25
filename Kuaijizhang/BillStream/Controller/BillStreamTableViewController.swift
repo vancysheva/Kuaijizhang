@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class BillStreamTableViewController: UITableViewController {
 
@@ -21,12 +22,15 @@ class BillStreamTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = ""
+        
         billTableView.registerNib(UINib(nibName: "BillStreamHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "header")
         billTableView.registerNib(UINib(nibName: "BillStreamHeaderWithExpense", bundle: nil), forHeaderFooterViewReuseIdentifier: "headerWithExpense")
         billTableView.registerNib(UINib(nibName: "BillStreamHeaderWithIncome", bundle: nil), forHeaderFooterViewReuseIdentifier: "headerWithIncome")
         billTableView.registerNib(UINib(nibName: "BillStreamHeaderWithOut", bundle: nil), forHeaderFooterViewReuseIdentifier: "headerWithOut")
         
         updateUI()
+        initRefresh()
         
         billTableView.tableFooterView = UIView()
         
@@ -53,6 +57,59 @@ class BillStreamTableViewController: UITableViewController {
           
             
         }
+    }
+    
+    func initRefresh() {
+        
+        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: Selector("loadNextYearBills"))
+        header.setTitle("下拉加载下一年流水", forState: .Idle)
+        header.setTitle("放开加载", forState: .Pulling)
+        header.setTitle("正在加载...", forState: .Refreshing)
+        header.lastUpdatedTimeLabel?.hidden = true
+        
+        billTableView.mj_header = header
+        
+        let footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: Selector("loadPreviousYearBills"))
+        footer.setTitle("上拉加载前一年流水", forState: .Idle)
+        footer.setTitle("放开加载", forState: .Pulling)
+        footer.setTitle("正在加载...", forState: .Refreshing)
+
+        billTableView.mj_footer = footer
+    }
+    
+    func loadNextYearBills() {
+        
+        let year = billStreamViewModel.currentYear + 1
+        billStreamViewModel = BillStreamViewModel(year: year)
+        billTableView.reloadData()
+        updateUI()
+        billTableView.mj_header.endRefreshing()
+        setBackItemButtonTitle(year)
+    }
+    
+    func loadPreviousYearBills() {
+        
+        let year = billStreamViewModel.currentYear - 1
+        billStreamViewModel = BillStreamViewModel(year: year)
+        billTableView.reloadData()
+        updateUI()
+        billTableView.mj_footer.endRefreshing()
+        setBackItemButtonTitle(year)
+    }
+    
+    func setBackItemButtonTitle(year: Int) {
+        UIView.animateWithDuration(1) { () -> Void in
+            //navigationController?.navigationBar.items?[0].backBarButtonItem?
+        }
+        navigationController?.navigationBar.items?[0].backBarButtonItem = UIBarButtonItem(title: "\(year)年流水", style: .Plain, target: nil, action: nil)
+        
+        navigationItem.setHidesBackButton(true, animated: true)
+
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 35))
+        label.text = "111"
+        label.layer.borderColor = UIColor.redColor().CGColor
+        label.layer.borderWidth = 2
+        navigationItem.leftBarButtonItem?.customView = label
     }
     
     func updateUI() {

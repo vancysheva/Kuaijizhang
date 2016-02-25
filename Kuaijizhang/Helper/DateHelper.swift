@@ -247,6 +247,7 @@ class DateHelper {
         comp.minute = 0
         comp.second = 0
         
+        calendar.timeZone = NSTimeZone(abbreviation: "GMT")!
         return calendar.dateFromComponents(comp)!
     }
     
@@ -291,6 +292,7 @@ class DateHelper {
         comp.minute = 59
         comp.second = 59
         
+        calendar.timeZone = NSTimeZone(abbreviation: "GMT")!
         return calendar.dateFromComponents(comp)!
     }
     
@@ -317,6 +319,102 @@ class DateHelper {
         
         let comp = NSDateComponents()
         comp.year = Int(getCurrentYear())!
+        comp.month = 12
+        comp.day = 31
+        comp.hour = 23
+        comp.minute = 59
+        comp.second = 59
+        
+        return calendar.dateFromComponents(comp)!
+    }
+    
+    /**
+     获取给定年的的开始时间 00:00:00
+     */
+    class func getStartTimeFromYear(year: Int) -> NSDate {
+        
+        let comp = NSDateComponents()
+        comp.year = year
+        comp.month = 1
+        comp.day = 1
+        comp.hour = 0
+        comp.minute = 0
+        comp.second = 0
+        
+        return calendar.dateFromComponents(comp)!
+    }
+    
+    /**
+     获取给定年的结束时间 23:59:59
+     */
+    class func getOverTimeFromYear(year: Int) -> NSDate {
+        
+        let comp = NSDateComponents()
+        comp.year = year
+        comp.month = 12
+        comp.day = 31
+        comp.hour = 23
+        comp.minute = 59
+        comp.second = 59
+        
+        return calendar.dateFromComponents(comp)!
+    }
+    
+    /**
+     获取给定年的前一年的开始时间 00:00:00
+    */
+    class func getStartTimeFromPreviousYear(year: Int) -> NSDate {
+        
+        let comp = NSDateComponents()
+        comp.year = year - 1
+        comp.month = 1
+        comp.day = 1
+        comp.hour = 0
+        comp.minute = 0
+        comp.second = 0
+        
+        return calendar.dateFromComponents(comp)!
+    }
+    
+    /**
+     获取给定年的前一年的结束时间 23:59:59
+     */
+    class func getOverTimeFromPreviousYear(year: Int) -> NSDate {
+        
+        let comp = NSDateComponents()
+        comp.year = year - 1
+        comp.month = 12
+        comp.day = 31
+        comp.hour = 23
+        comp.minute = 59
+        comp.second = 59
+        
+        return calendar.dateFromComponents(comp)!
+    }
+    
+    /**
+     获取给定年的后一年的开始时间 00:00:00
+     */
+    class func getStartTimeFromNextYear(year: Int) -> NSDate {
+        let comp = NSDateComponents()
+        comp.year = year + 1
+        comp.month = 1
+        comp.day = 1
+        comp.hour = 0
+        comp.minute = 0
+        comp.second = 0
+        
+        return calendar.dateFromComponents(comp)!
+        
+    }
+    
+    /**
+     获取给定年的后一年的结束时间 23:59:59
+     */
+    class func getOverTimeFromNextYear(year: Int) -> NSDate {
+        
+        let comp = NSDateComponents()
+        comp.year = year + 1
         comp.month = 12
         comp.day = 31
         comp.hour = 23

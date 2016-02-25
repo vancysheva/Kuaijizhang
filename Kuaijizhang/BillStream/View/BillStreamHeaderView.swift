@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Tactile
 
 class BillStreamHeaderView: UITableViewHeaderFooterView {
 
@@ -29,10 +30,12 @@ class BillStreamHeaderView: UITableViewHeaderFooterView {
                 
                 contentView.backgroundColor = UIColor.yellowColor()
                 
-                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapHeader:")
+                let tapGestureRecognizer = UITapGestureRecognizer()
                 tapGestureRecognizer.numberOfTapsRequired = 1
                 tapGestureRecognizer.numberOfTouchesRequired = 1
                 self.addGestureRecognizer(tapGestureRecognizer)
+                
+                self.on(tapGestureRecognizer, tapHeader)
             }
         }
     }
@@ -49,10 +52,6 @@ class BillStreamHeaderView: UITableViewHeaderFooterView {
     }
     
     deinit {
-        if let gess = gestureRecognizers {
-            for ges in gess {
-                removeGestureRecognizer(ges)
-            }
-        }
+        self.off()
     }
 }
