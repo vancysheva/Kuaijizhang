@@ -1519,7 +1519,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow" translatesAutoresizingMaskIntoConstraints="NO" id="IBw-vR-uXh">
-                                            <rect key="frame" x="41" y="17.5" width="25" height="25"/>
+                                            <rect key="frame" x="41" y="17" width="25" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="MJh-SS-DWk"/>
                                                 <constraint firstAttribute="width" constant="25" id="WU8-Uv-r1g"/>
@@ -1559,7 +1559,7 @@
                                     <outlet property="consumeType" destination="Iu5-by-mqR" id="HfX-Sw-sH6"/>
                                     <outlet property="day" destination="Y8H-y4-kRW" id="Jm3-RG-wt6"/>
                                     <outlet property="money" destination="Ggk-ei-r66" id="TZY-CY-kRf"/>
-                                    <segue destination="cHa-VF-Hpx" kind="modal" identifier="modifyToAddBill" id="PdO-gs-dIZ"/>
+                                    <segue destination="cHa-VF-Hpx" kind="modal" id="epN-Oa-rVs"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="cellWithoutComment" rowHeight="60" id="Ul7-6k-hSR" customClass="BillStreamViewCell" customModule="Kuaijizhang" customModuleProvider="target">
@@ -1580,7 +1580,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihn-3E-Shi" userLabel="consume">
-                                            <rect key="frame" x="74" y="17.5" width="100" height="25"/>
+                                            <rect key="frame" x="74" y="17" width="100" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="MrT-tp-gaB"/>
                                                 <constraint firstAttribute="width" constant="100" id="QwH-z4-lGl"/>
@@ -1635,6 +1635,7 @@
                                     <outlet property="consumeType" destination="ihn-3E-Shi" id="Ry9-0O-HJb"/>
                                     <outlet property="day" destination="uPA-1v-xmA" id="3yJ-Az-h0a"/>
                                     <outlet property="money" destination="02Q-Be-r97" id="12P-xd-tCX"/>
+                                    <segue destination="cHa-VF-Hpx" kind="modal" id="Pr9-PU-KWS"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="cellWithoutBills" rowHeight="60" id="yFW-Da-FWU" customClass="BillStreamViewCell" customModule="Kuaijizhang" customModuleProvider="target">
@@ -4491,6 +4492,6 @@
         <image name="tag icon" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PdO-gs-dIZ"/>
+        <segue reference="Pr9-PU-KWS"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -65,7 +65,7 @@ class PortalViewModel {
     func getLatestBill() -> (consumeptionTypeName: String, money: String, comment: String?) {
         
         let latestBill = portalModel.getLatestBill()
-        return (latestBill.consumeType?.name ?? "", String(latestBill.money), latestBill.comment)
+        return (latestBill.consumeType?.subConsumeptionType?.name ?? "", String(latestBill.money), latestBill.comment)
     }
     
     

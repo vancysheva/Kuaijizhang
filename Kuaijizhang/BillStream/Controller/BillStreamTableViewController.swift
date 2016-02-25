@@ -43,7 +43,11 @@ class BillStreamTableViewController: UITableViewController {
                 } else {
                     self.billTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
                 }
+            } else if case .Update = dataChangedType {
+                self.dismissViewControllerAnimated(true, completion: nil)
+                self.billTableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
             }
+            
             if let headerView = self.billTableView.headerViewForSection(indexPath.section) as? BillStreamHeaderView {
                 headerView.data = self.billStreamViewModel.getHeaderDataWithMonth(self.billStreamViewModel.months[indexPath.section])
             }
@@ -53,10 +57,19 @@ class BillStreamTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
-        if let navi = segue.destinationViewController as? UINavigationController, vc = navi.visibleViewController as? AddBillViewController where segue.identifier == "modifyToAddBill" {
-          
+        if let navi = segue.destinationViewController as? UINavigationController, vc = navi.visibleViewController as? AddBillViewController, cell = sender as? UITableViewCell, indexPath = billTableView.indexPathForCell(cell) {
+            vc.addBillViewModel.billForUpdate = billStreamViewModel.getBillByIndex(billIndex: indexPath.row, withMonth: billStreamViewModel.months[indexPath.section])
+            billStreamViewModel.updateBillCurrying = billStreamViewModel.updateBill(billIndex: indexPath.row, withSection: indexPath.section)
+            vc.billStreamViewModel = billStreamViewModel
+        }
+    }
+    
+    @IBAction func unwindToBillStream(segue: UIStoryboardSegue) {
+        
+        if let vc = segue.sourceViewController as? AddBillViewController {
             
         }
+        
     }
     
     func initRefresh() {
@@ -98,18 +111,7 @@ class BillStreamTableViewController: UITableViewController {
     }
     
     func setBackItemButtonTitle(year: Int) {
-        UIView.animateWithDuration(1) { () -> Void in
-            //navigationController?.navigationBar.items?[0].backBarButtonItem?
-        }
         navigationController?.navigationBar.items?[0].backBarButtonItem = UIBarButtonItem(title: "\(year)年流水", style: .Plain, target: nil, action: nil)
-        
-        navigationItem.setHidesBackButton(true, animated: true)
-
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 35))
-        label.text = "111"
-        label.layer.borderColor = UIColor.redColor().CGColor
-        label.layer.borderWidth = 2
-        navigationItem.leftBarButtonItem?.customView = label
     }
     
     func updateUI() {
@@ -217,5 +219,9 @@ extension BillStreamTableViewController {
         if case .Delete = editingStyle {
             billStreamViewModel.deleteBillAtIndex(indexPath.row, withSection: indexPath.section)
         }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
     }
 }

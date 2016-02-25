@@ -135,4 +135,26 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
             }
         }
     }
+    
+    func getBillByIndex(billIndex index: Int, withMonth month: Int) -> Bill {
+        return model.getBillsWithMonth(month)[index]
+    }
+    
+    var updateBillCurrying: ((AddBillViewModel) -> Void)?
+    
+    func updateBill(billIndex index: Int, withSection section: Int)(viewModel: AddBillViewModel) {
+        
+        let month = months[section]
+        let bill = model.getBillsWithMonth(month)[index]
+        
+        model.updateObjectWithIndex(index, inSection: section) {
+            bill.money = viewModel.money
+            bill.account = viewModel.parentAccount
+            bill.consumeType = viewModel.parentConsumpetionType
+            bill.subject = viewModel.subject
+            bill.image = viewModel.image
+            bill.comment = viewModel.comment
+            bill.occurDate = DateHelper.dateFromString(viewModel.date!, formatter: DateHelper.dateFormatForCurrentTime)
+        }
+    }
 }

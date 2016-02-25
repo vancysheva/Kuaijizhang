@@ -18,11 +18,29 @@ class AddBillViewModel: ViewModelBase<AddBillModel> {
     var date: String?
     var subject: Subject?
     var image: NSData?
+    var comment: String?
+    
+    var billForUpdate: Bill? {
+        didSet {
+            if let b = billForUpdate {
+                money = b.money
+                parentConsumpetionType = b.consumeType
+                childConsumpetionType = b.consumeType?.subConsumeptionType
+                parentAccount = b.account
+                childAccount = b.account?.subAccount
+                if let d = b.occurDate {
+                    date = DateHelper.getStringFromDate(d, dateFormat: DateHelper.dateFormatForCurrentTime)
+                }
+                subject = b.subject
+                image = b.image
+                comment = b.comment
+            }
+        }
+    }
     
     init() {
         super.init(model: AddBillModel())
     }
-    
     
     func getConsumeptionTypeDescription(billType: BillType) -> String {
         

@@ -30,7 +30,14 @@ class DateHelper {
     
     class func dateFromString(date: String, formatter: String) -> NSDate? {
         dateFormatter.dateFormat = formatter
+        dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")!
         return dateFormatter.dateFromString(date)
+    }
+    
+    class func getStringFromDate(date: NSDate, dateFormat: String) -> String {
+        dateFormatter.dateFormat = dateFormat
+        dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")!
+        return dateFormatter.stringFromDate(date)
     }
     
     /**

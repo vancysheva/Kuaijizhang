@@ -90,6 +90,8 @@ class AddBillViewController: UITableViewController {
     let addBillViewModel = AddBillViewModel()
     
     var portalController: ViewController?
+    
+    var billStreamViewModel: BillStreamViewModel?
 
     // MARK: - Lifecycle
     
@@ -102,14 +104,18 @@ class AddBillViewController: UITableViewController {
         initButtonWithBorderStyle(saveTemplateButton)
         initButtonWithBorderStyle(saveButton)
         
-        consumeTypeLabel.text = addBillViewModel.getConsumeptionTypeDescription(billType)
-        accountLabel.text = addBillViewModel.getAccountDescription()
-        setConsumeptionTypeNameImage()
+        
+        if billStreamViewModel != nil {
+            updateAddBillData()
+        } else {
+            consumeTypeLabel.text = addBillViewModel.getConsumeptionTypeDescription(billType)
+            accountLabel.text = addBillViewModel.getAccountDescription()
+            setConsumeptionTypeNameImage()
+            selectFirstRowAndDisplayNumPad()
+            dateLabel.text = addBillViewModel.getCurrentTime()
+        }
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: nil, action: nil)
-        
-        selectFirstRowAndDisplayNumPad()
-        dateLabel.text = addBillViewModel.getCurrentTime()
         
         if #available(iOS 9.0, *) {
             if traitCollection.forceTouchCapability == .Available {
@@ -244,7 +250,43 @@ extension AddBillViewController {
     }
 
     func saveBill() {
-        addBillViewModel.saveBill(commentTextView.text)
+        
+        if let viewModel = billStreamViewModel {
+            viewModel.updateBillCurrying?(addBillViewModel)
+        } else {
+            addBillViewModel.saveBill(commentTextView.text)
+        }
+        
+    }
+    
+    func updateAddBillData() {
+        
+        if let img = addBillViewModel.image {
+            pictureButton.setBackgroundImage(UIImage(data: img), forState: .Normal)
+            pictureButton.contentMode = .ScaleAspectFit
+        }
+        
+        moneyLabel.text = "\(addBillViewModel.money)"
+        
+        consumeptionTypeImageView.image = UIImage(named: addBillViewModel.childConsumpetionType?.iconName ?? "")
+        
+        if let parentConsumeptionType = addBillViewModel.parentConsumpetionType, childConsumeptionType = addBillViewModel.childConsumpetionType {
+            consumeTypeLabel.text = "\(parentConsumeptionType.name)>\(childConsumeptionType.name)"
+        }
+        
+        if let childAccount = addBillViewModel.childAccount {
+            accountLabel.text = childAccount.name
+        }
+        
+        if let date = addBillViewModel.date {
+            dateLabel.text = date
+        }
+        
+        tagLabel.text = addBillViewModel.subject?.name
+        
+        if let comment = addBillViewModel.comment {
+            commentTextView.text = comment
+        }
     }
 }
 

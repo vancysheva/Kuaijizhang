@@ -3,12 +3,18 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "AddConsumeTypeViewController.tapRightButton(AnyObject) -&gt; ():AddConsumeTypeViewController.swift">
+         contextName = "AddBillViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():AddBillViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "consumeTypeNameTextField.text">
+               value = "indexPath.row">
+            </PersistentString>
+            <PersistentString
+               value = "activeRow">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PortalViewModel.getChartDataByCurrentMonth() -&gt; [(day : String, value : Double)]:PortalViewModel.swift">
       </ContextState>
       <ContextState
          contextName = "PreviewViewController.__deallocating_deinit:PreviewViewController.swift">
@@ -70,6 +76,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "BillStreamTableViewController.prepareForSegue(UIStoryboardSegue, sender : AnyObject?) -&gt; ():BillStreamTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "vc.navigationItem">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ConsumeTypeListViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():ConsumeTypeListViewController.swift">
       </ContextState>
       <ContextState
@@ -109,6 +123,14 @@
          contextName = "ConsumeTypeData.init(billType : BillType) -&gt; ConsumeTypeData:ConsumeTypeData.swift">
       </ContextState>
       <ContextState
+         contextName = "AddConsumeTypeViewController.tapRightButton(AnyObject) -&gt; ():AddConsumeTypeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "consumeTypeNameTextField.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "PickerViewController.keyForCounty.didset:PickerViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -124,17 +146,6 @@
             </PersistentString>
             <PersistentString
                value = "data">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "AddBillViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():AddBillViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "indexPath.row">
-            </PersistentString>
-            <PersistentString
-               value = "activeRow">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
