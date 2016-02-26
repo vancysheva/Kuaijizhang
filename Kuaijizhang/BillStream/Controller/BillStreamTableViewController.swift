@@ -57,19 +57,29 @@ class BillStreamTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
-        if let navi = segue.destinationViewController as? UINavigationController, vc = navi.visibleViewController as? AddBillViewController, cell = sender as? UITableViewCell, indexPath = billTableView.indexPathForCell(cell) {
+        if let navi = segue.destinationViewController as? UINavigationController,
+            vc = navi.visibleViewController as? AddBillViewController,
+            cell = sender as? UITableViewCell,
+            indexPath = billTableView.indexPathForCell(cell) {
             vc.addBillViewModel.billForUpdate = billStreamViewModel.getBillByIndex(billIndex: indexPath.row, withMonth: billStreamViewModel.months[indexPath.section])
             billStreamViewModel.updateBillCurrying = billStreamViewModel.updateBill(billIndex: indexPath.row, withSection: indexPath.section)
             vc.billStreamViewModel = billStreamViewModel
+                
+        } else if segue.identifier == "stream2AddBill" {
+            let navi = segue.destinationViewController as! UINavigationController
+            let addBillVC = navi.visibleViewController as! AddBillViewController
+            addBillVC.addBillViewModel.addNotification("BillStreamTableViewController", notificationHandler: { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+                if case .Insert = dataChangedType {
+                    self.billStreamViewModel = BillStreamViewModel()
+                    self.billTableView.reloadData()
+                    self.updateUI()
+                }
+            })
         }
     }
     
     @IBAction func unwindToBillStream(segue: UIStoryboardSegue) {
-        
-        if let vc = segue.sourceViewController as? AddBillViewController {
-            
-        }
-        
+    
     }
     
     func initRefresh() {
@@ -144,27 +154,10 @@ extension BillStreamTableViewController {
             return billTableView.dequeueReusableCellWithIdentifier("cellWithoutBills", forIndexPath: indexPath)
         }
         
-        let t = billStreamViewModel.getBillAtIndex(billIndex: indexPath.row, withMonth: billStreamViewModel.months[indexPath.section])
+        let data = billStreamViewModel.getBillAtIndex(billIndex: indexPath.row, withMonth: billStreamViewModel.months[indexPath.section])
         
-        let cell = billTableView.dequeueReusableCellWithIdentifier(t.conmment != "" ? "cellWithComment" : "cellWithoutComment", forIndexPath: indexPath)
-        
-        let day = cell.viewWithTag(1) as! UILabel
-        let consumeName = cell.viewWithTag(2) as! UILabel
-        let money = cell.viewWithTag(4) as! UILabel
-        let imageView = cell.viewWithTag(5) as! UIImageView
-        let week = cell.viewWithTag(6) as! UILabel
-        
-        
-        day.text = "\(t.day)"
-        consumeName.text = t.consumeName
-        if t.conmment != "" {
-            let comment = cell.viewWithTag(3) as! UILabel
-            comment.text = t.conmment
-        }
-        money.text = "\(t.money)"
-        imageView.image = UIImage(named: t.iconName)
-        week.text = t.week
-        money.textColor = t.billType.color
+        let cell = billTableView.dequeueReusableCellWithIdentifier(data.conmment != "" ? "cellWithComment" : "cellWithoutComment", forIndexPath: indexPath) as! BillStreamViewCell
+        cell.data = data
 
         return cell
     }
@@ -219,9 +212,5 @@ extension BillStreamTableViewController {
         if case .Delete = editingStyle {
             billStreamViewModel.deleteBillAtIndex(indexPath.row, withSection: indexPath.section)
         }
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
     }
 }

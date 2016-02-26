@@ -18,6 +18,7 @@ class ConsumeptionTypePickerViewController: UIViewController {
     
     @IBOutlet weak var pickerView: UIPickerView!
 
+    @IBOutlet weak var slideDownImageView: UIImageView!
     
     // MARK: - Life cycle
 

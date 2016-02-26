@@ -55,7 +55,7 @@ class AccountBookViewController: UIViewController {
                         cell.hideUtilityButtonsAnimated(true)
                     }
                 case 1:
-                    self.accountBookViewModel.delete(indexPath)
+                    self.confirmDelete(indexPath: indexPath, cell: cell)
                 default:
                     break
                 }
@@ -83,12 +83,14 @@ class AccountBookViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func confirmDelete(indexPath indexPath: NSIndexPath) {
+    func confirmDelete(indexPath indexPath: NSIndexPath, cell: SWTableViewCell) {
     
         let alert = UIAlertHelpler.getAlertController("提示", message: "确定要删除该账本吗？", prefferredStyle: .Alert, actions: ("确定", .Default, {[unowned self] action in
             
                 if self.accountBookViewModel.objectAt(indexPath).1  == true {
-                    let messageAlert = UIAlertHelpler.getAlertController("", message: "删除失败，不能删除正在使用的账本。", prefferredStyle: .Alert, actions: ("取消", .Cancel, nil))
+                    let messageAlert = UIAlertHelpler.getAlertController("", message: "删除失败，不能删除正在使用的账本。", prefferredStyle: .Alert, actions: ("取消", .Cancel, { a in
+                        cell.hideUtilityButtonsAnimated(true)
+                    }))
                     
                     self.presentViewController(messageAlert, animated: true, completion: nil)
                 } else {
@@ -139,17 +141,6 @@ extension AccountBookViewController: UITableViewDataSource {
         cell.delegate = swipeCellAgent
         
         return cell
-    }
-    
-    
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        switch editingStyle {
-        case .Delete:
-            confirmDelete(indexPath: indexPath)
-        default:
-            break
-        }
     }
 }
 

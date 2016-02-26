@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias BillTuple = (day: Int, money: Double, consumeName: String, iconName: String, conmment: String, billType: BillType, week: String, haveBillImage: Bool)
+
 class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     
     var hideMonths: [Int: Bool] = [:]
@@ -119,11 +121,12 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     
     let calendar = NSCalendar.currentCalendar()
     
-    func getBillAtIndex(billIndex index: Int, withMonth month: Int) -> (day: Int, money: Double, consumeName: String, iconName: String, conmment: String, billType: BillType, week: String) {
+    func getBillAtIndex(billIndex index: Int, withMonth month: Int) -> BillTuple {
         
         let bill = model.getBillsWithMonth(month)[index]
         let day = calendar.components(.Day, fromDate: bill.occurDate ?? NSDate()).day
-        return (day, bill.money, bill.consumeType?.subConsumeptionType?.name ?? "", bill.consumeType?.subConsumeptionType?.iconName ?? "", bill.comment ?? "", bill.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income, DateHelper.weekFromDate(bill.occurDate ?? NSDate()))
+
+        return (day, bill.money, bill.consumeType?.subConsumeptionType?.name ?? "", bill.consumeType?.subConsumeptionType?.iconName ?? "", bill.comment ?? "", bill.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income, DateHelper.weekFromDate(bill.occurDate ?? NSDate()), bill.image == nil ? false : true)
     }
     
     func deleteBillAtIndex(index: Int, withSection section: Int) {
@@ -140,9 +143,9 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         return model.getBillsWithMonth(month)[index]
     }
     
-    var updateBillCurrying: ((AddBillViewModel) -> Void)?
+    var updateBillCurrying: ((AddBillViewModel, String) -> Void)?
     
-    func updateBill(billIndex index: Int, withSection section: Int)(viewModel: AddBillViewModel) {
+    func updateBill(billIndex index: Int, withSection section: Int)(viewModel: AddBillViewModel, comment: String) {
         
         let month = months[section]
         let bill = model.getBillsWithMonth(month)[index]
@@ -150,10 +153,12 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         model.updateObjectWithIndex(index, inSection: section) {
             bill.money = viewModel.money
             bill.account = viewModel.parentAccount
+            bill.account?.subAccount = viewModel.childAccount
             bill.consumeType = viewModel.parentConsumpetionType
+            bill.consumeType?.subConsumeptionType = viewModel.childConsumpetionType
             bill.subject = viewModel.subject
             bill.image = viewModel.image
-            bill.comment = viewModel.comment
+            bill.comment = comment
             bill.occurDate = DateHelper.dateFromString(viewModel.date!, formatter: DateHelper.dateFormatForCurrentTime)
         }
     }

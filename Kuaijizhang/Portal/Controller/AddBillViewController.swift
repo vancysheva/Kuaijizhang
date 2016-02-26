@@ -19,6 +19,9 @@ class AddBillViewController: UITableViewController {
     
     // MARK: - IBOutelt and IBAction
     
+    @IBOutlet var childView: UIView!
+    @IBOutlet weak var containerView: UIView!
+    
     @IBOutlet weak var moneyLabel: UILabel!
     @IBOutlet weak var consumeTypeLabel: UILabel!
     @IBOutlet weak var accountLabel: UILabel!
@@ -98,6 +101,9 @@ class AddBillViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addSubview(childView)
+        childView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height*0.4)
+        
         commentTextView.delegate = self
         navigationController?.delegate = self
 
@@ -107,11 +113,13 @@ class AddBillViewController: UITableViewController {
         
         if billStreamViewModel != nil {
             updateAddBillData()
+            hideSomeComponents()
         } else {
             consumeTypeLabel.text = addBillViewModel.getConsumeptionTypeDescription(billType)
             accountLabel.text = addBillViewModel.getAccountDescription()
             setConsumeptionTypeNameImage()
             selectFirstRowAndDisplayNumPad()
+            
             dateLabel.text = addBillViewModel.getCurrentTime()
         }
         
@@ -133,6 +141,13 @@ class AddBillViewController: UITableViewController {
 // MARK: - Internal Methodss
 
 extension AddBillViewController {
+    
+    func hideSomeComponents() {
+        
+        billTypeButton.hidden = true
+        arrowImage.hidden = true
+        saveTemplateButton.hidden = true
+    }
     
     func toggleBillType() {
         billType.toggle()
@@ -160,9 +175,9 @@ extension AddBillViewController {
             // 弹出数字面板
             if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("NumberPadViewController") as? NumberPadViewController {
                 vc.delegate = self
-                if self.childViewControllers.count == 0 {
+                //if self.childViewControllers.count == 0 {
                     self.addContentController(vc)
-                }
+                //}
             }
         }
     }
@@ -176,14 +191,17 @@ extension AddBillViewController {
     }
     
     func addContentController(content: UIViewController) {
-        
+
         addChildViewController(content)
-        content.view.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height*0.4)
-        view.addSubview(content.view)
+        //content.view.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height*0.4)
+        content.view.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.width)
+        //view.addSubview(content.view)
+        containerView.addSubview(content.view)
         content.didMoveToParentViewController(self)
 
         UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
-            content.view.frame.origin.y = self.view.frame.height - content.view.frame.height
+            //content.view.frame.origin.y = self.view.frame.height - content.view.frame.height
+            self.childView.frame.origin.y = self.view.frame.height - self.childView.frame.height
         }, completion: nil)
     
     }
@@ -198,7 +216,8 @@ extension AddBillViewController {
     func removeCotentControllerWidthAnimation(content: UIViewController) {
         
         UIView.animateWithDuration(0.25, animations: { () -> Void in
-            content.view.frame.origin.y += content.view.frame.height
+            //content.view.frame.origin.y += content.view.frame.height
+            self.childView.frame.origin.y += self.childView.frame.height
             }) { bo in
                 self.removeContentController(content)
         }
@@ -252,7 +271,7 @@ extension AddBillViewController {
     func saveBill() {
         
         if let viewModel = billStreamViewModel {
-            viewModel.updateBillCurrying?(addBillViewModel)
+            viewModel.updateBillCurrying?(addBillViewModel, commentTextView.text)
         } else {
             addBillViewModel.saveBill(commentTextView.text)
         }
@@ -264,14 +283,17 @@ extension AddBillViewController {
         if let img = addBillViewModel.image {
             pictureButton.setBackgroundImage(UIImage(data: img), forState: .Normal)
             pictureButton.contentMode = .ScaleAspectFit
+        } else {
+            
         }
         
         moneyLabel.text = "\(addBillViewModel.money)"
-        
+         
         consumeptionTypeImageView.image = UIImage(named: addBillViewModel.childConsumpetionType?.iconName ?? "")
         
         if let parentConsumeptionType = addBillViewModel.parentConsumpetionType, childConsumeptionType = addBillViewModel.childConsumpetionType {
             consumeTypeLabel.text = "\(parentConsumeptionType.name)>\(childConsumeptionType.name)"
+            moneyLabel.textColor = BillType(rawValue: Int(parentConsumeptionType.type) ?? 0)?.color
         }
         
         if let childAccount = addBillViewModel.childAccount {
@@ -304,6 +326,7 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
         
         if let child = childViewControllers.first {
             removeContentController(child)
+            childView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height*0.4)
         }
         
         commentTextView.resignFirstResponder()

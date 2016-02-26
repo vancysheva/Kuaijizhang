@@ -30,13 +30,13 @@ class DateHelper {
     
     class func dateFromString(date: String, formatter: String) -> NSDate? {
         dateFormatter.dateFormat = formatter
-        dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")!
+        dateFormatter.timeZone = NSTimeZone.localTimeZone()
         return dateFormatter.dateFromString(date)
     }
     
     class func getStringFromDate(date: NSDate, dateFormat: String) -> String {
         dateFormatter.dateFormat = dateFormat
-        dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")!
+        dateFormatter.timeZone = NSTimeZone.localTimeZone()
         return dateFormatter.stringFromDate(date)
     }
     
@@ -46,6 +46,7 @@ class DateHelper {
      */
     class func getCurrentTime() -> String {
         dateFormatter.dateFormat = dateFormatForCurrentTime
+        dateFormatter.timeZone = NSTimeZone.localTimeZone()
         return dateFormatter.stringFromDate(NSDate())
     }
     
