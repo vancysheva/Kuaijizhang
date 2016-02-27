@@ -49,6 +49,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SnapKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Tactile.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,32 +67,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0E2E1D59CFAAE73A7B872A56CAFFF63B</key>
+		<key>099C5E212AD000A87DBD99231BFEA609</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>106ABFFA01DEDDB7F24762A249FA43DB</key>
+		<key>31940D02BD561D78D5A07363E84A01F2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>13B262C0050DB6C05E046F6D6704E6E0</key>
+		<key>36FCF7C731FDCF93F6F25381E4F72685</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4C2CFD0E93E9EA17BA428616BF5110B1</key>
+		<key>51E4246AB613390B6A0542F12C0285C4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>57084E3C3B0B932B9C1CE7F30F51E00E</key>
+		<key>5D6D89DAFFBC67094A4A08819B661135</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>582E1B971D73259200C1E0785F5D5863</key>
+		<key>682429F0872031AC5C20A30838DFA3FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,22 +102,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>8B4EF3CBD10427DDE5ADC6BAA60577FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9695D55763F3CBB546AA259035A47978</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9863CB520D1D2876D373AFB064FB0182</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A141CD76AD96B54DCA1BA0EF623D12B9</key>
+		<key>A7C1970E88165B918C7A93368DA0CDD2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C2F4B82FAAB4DBF936A2B24A9DEE1D9E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>ECC32DA07C370693E40B14BF30714270</key>
+		<key>CCECF2D7DF915B87C8EA22016BF0D378</key>
 		<dict>
 			<key>primary</key>
 			<true/>

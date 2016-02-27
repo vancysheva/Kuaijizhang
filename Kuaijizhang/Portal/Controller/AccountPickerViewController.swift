@@ -97,7 +97,7 @@ class AccountPickerViewController: UIViewController {
         
     }
     
-    @IBAction func tapEditButton(sender: UIButton) {
+    func tapEditButton() {
         
         let vc = storyboard?.instantiateViewControllerWithIdentifier("AccountTableViewController") as! AccountTableViewController
         vc.accountViewModel = accountViewModel

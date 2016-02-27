@@ -28,8 +28,19 @@ class ConsumeptionTypePickerViewController: UIViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
         
-        if let vc = parentViewController as? AddBillViewController {
-            self.consumeptionTypeViewModel = ConsumeptionTypeViewModel(billType: vc.billType)
+        if let addBillVC = parentViewController as? AddBillViewController {
+            consumeptionTypeViewModel = ConsumeptionTypeViewModel(billType: addBillVC.billType)
+            
+            if let parentConsumeType = addBillVC.addBillViewModel.parentConsumpetionType,
+                childConsumepType = addBillVC.addBillViewModel.childConsumpetionType,
+                pIndex = consumeptionTypeViewModel?.getParentConsumeptionTypeIndex(parentConsumeType),
+                cIndex = consumeptionTypeViewModel?.getChildConsumeptionTypeIndex(childConsumepType, withParentConsumeptionType: parentConsumeType) {
+                    
+                    pickerView.reloadComponent(0)
+                    pickerView.selectRow(pIndex, inComponent: 0, animated: false)
+                    pickerView.reloadComponent(1)
+                    pickerView.selectRow(cIndex, inComponent: 1, animated: false)
+            }
         }
 
         consumeptionTypeViewModel?.addNotification("ConsumeptionTypePickerViewController") { [unowned self] (transactionState, dataChangedType, indexPath, userInfo) -> Void in
@@ -105,13 +116,6 @@ class ConsumeptionTypePickerViewController: UIViewController {
         }
 
     }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if let id = segue.identifier, vc = segue.destinationViewController as? ParentConsumeTypeListViewController where id == "toParentConsumeptionTypeTypeList" {
-            vc.consumeptionTypeViewModel = consumeptionTypeViewModel
-        }
-    }
         
     // MARK: - Internal Methods
     
@@ -130,6 +134,14 @@ class ConsumeptionTypePickerViewController: UIViewController {
             pcontroller.addBillViewModel.parentConsumpetionType = parent
             pcontroller.addBillViewModel.childConsumpetionType = child
         }
+    }
+    
+    func tapEditButton() {
+        
+        let vc = storyboard?.instantiateViewControllerWithIdentifier("ParentConsumeTypeListViewController") as! ParentConsumeTypeListViewController
+        vc.consumeptionTypeViewModel = consumeptionTypeViewModel
+        parentViewController?.navigationController?.pushViewController(vc, animated: true)
+        
     }
 }
 

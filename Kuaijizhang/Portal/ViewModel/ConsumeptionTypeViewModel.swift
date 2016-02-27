@@ -102,4 +102,12 @@ class ConsumeptionTypeViewModel: ViewModelBase<ConsumeptionTypeModel> {
         }
         return false
     }
+    
+    func getParentConsumeptionTypeIndex(parentConsumeptionType: ConsumeptionType) -> Int? {
+        return model.objectList?.indexOf(parentConsumeptionType)
+    }
+    
+    func getChildConsumeptionTypeIndex(childConsumeptionType: ConsumeptionType, withParentConsumeptionType parentConsumeptionType: ConsumeptionType) -> Int? {
+        return parentConsumeptionType.consumeptionTypes.indexOf(childConsumeptionType)
+    }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import Charts
+import SnapKit
 
 enum FWChartStyle {
     case PieChart(label: String?, sliceSpace: CGFloat, colors: [UIColor]?)
@@ -112,24 +113,9 @@ class FWChartController: ChartViewDelegate {
             view.subviews[0].removeFromSuperview()
         }
         view.addSubview(chart)
-        chart.translatesAutoresizingMaskIntoConstraints = false
         
-        if #available(iOS 9.0, *) {
-            let margins = view.layoutMarginsGuide
-            chart.leadingAnchor.constraintEqualToAnchor(margins.leadingAnchor).active = true
-            chart.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor).active = true
-            chart.topAnchor.constraintEqualToAnchor(margins.topAnchor).active = true
-            chart.bottomAnchor.constraintEqualToAnchor(margins.bottomAnchor).active = true
-            
-        } else {
-            var constraints = [NSLayoutConstraint]()
-            constraints.append(NSLayoutConstraint(item: chart, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 0))
-            constraints.append(NSLayoutConstraint(item: chart, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0))
-            constraints.append(NSLayoutConstraint(item: chart, attribute: .Trailing, relatedBy: .Equal, toItem: view, attribute: .Trailing, multiplier: 1, constant: 0))
-            constraints.append(NSLayoutConstraint(item: chart, attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 0))
-            
-            view.addConstraints(constraints)
-            
+        chart.snp_makeConstraints { (make) -> Void in
+            make.edges.equalTo(view)
         }
     }
     

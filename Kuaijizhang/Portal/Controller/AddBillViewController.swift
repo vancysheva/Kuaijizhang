@@ -21,6 +21,7 @@ class AddBillViewController: UITableViewController {
     
     @IBOutlet var childView: UIView!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var editComponentButton: UIButton!
     
     @IBOutlet weak var moneyLabel: UILabel!
     @IBOutlet weak var consumeTypeLabel: UILabel!
@@ -36,6 +37,10 @@ class AddBillViewController: UITableViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var saveTemplateButton: UIButton!
     @IBOutlet weak var consumeptionTypeImageView: UIImageView!
+    
+    @IBAction func tapSlideDownButton(sender: UIButton) {
+        removeComponentWithAnimation()
+    }
     
     @IBAction func tapCancelBarButtonItem(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -175,11 +180,18 @@ extension AddBillViewController {
             // 弹出数字面板
             if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("NumberPadViewController") as? NumberPadViewController {
                 vc.delegate = self
-                //if self.childViewControllers.count == 0 {
-                    self.addContentController(vc)
-                //}
+                self.addContentControllerWithAnimation(vc)
+                self.hide()
             }
         }
+    }
+    
+    func hide() {
+        editComponentButton.hidden = true
+    }
+    
+    func show() {
+        editComponentButton.hidden = false
     }
     
     func initButtonWithBorderStyle(button: UIButton) {
@@ -190,36 +202,47 @@ extension AddBillViewController {
         button.layer.cornerRadius = 5
     }
     
-    func addContentController(content: UIViewController) {
+    func addContentControllerWithAnimation(contentController: UIViewController) {
 
-        addChildViewController(content)
-        //content.view.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height*0.4)
-        content.view.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.width)
-        //view.addSubview(content.view)
-        containerView.addSubview(content.view)
-        content.didMoveToParentViewController(self)
+        addChildViewController(contentController)
+        contentController.view.frame = CGRect(x: 0, y: 0, width: containerView.frame.width, height: containerView.frame.height)
+        containerView.addSubview(contentController.view)
+        contentController.didMoveToParentViewController(self)
 
         UIView.animateWithDuration(0.25, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
-            //content.view.frame.origin.y = self.view.frame.height - content.view.frame.height
             self.childView.frame.origin.y = self.view.frame.height - self.childView.frame.height
         }, completion: nil)
     
     }
     
-    func removeContentController(content: UIViewController) {
+    func removeContentController(contentController: UIViewController) {
         
-        content.willMoveToParentViewController(nil)
-        content.view.removeFromSuperview()
-        content.removeFromParentViewController()
+        contentController.willMoveToParentViewController(self)
+        contentController.view.removeFromSuperview()
+        contentController.removeFromParentViewController()
     }
     
-    func removeCotentControllerWidthAnimation(content: UIViewController) {
+    func removeCotentControllerWidthAnimation(contentController: UIViewController) {
         
         UIView.animateWithDuration(0.25, animations: { () -> Void in
-            //content.view.frame.origin.y += content.view.frame.height
             self.childView.frame.origin.y += self.childView.frame.height
             }) { bo in
-                self.removeContentController(content)
+                self.removeContentController(contentController)
+        }
+    }
+    
+    func removeComponent() {
+        
+        if childViewControllers.count == 1 {
+            childView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height*0.4)
+            removeContentController(childViewControllers[0])
+        }
+    }
+    
+    func removeComponentWithAnimation() {
+
+        if childViewControllers.count == 1 {
+            removeCotentControllerWidthAnimation(childViewControllers[0])
         }
     }
     
@@ -280,11 +303,11 @@ extension AddBillViewController {
     
     func updateAddBillData() {
         
+        billType = BillType(rawValue: Int(addBillViewModel.parentConsumpetionType?.type ?? "0")!)!
+        
         if let img = addBillViewModel.image {
             pictureButton.setBackgroundImage(UIImage(data: img), forState: .Normal)
             pictureButton.contentMode = .ScaleAspectFit
-        } else {
-            
         }
         
         moneyLabel.text = "\(addBillViewModel.money)"
@@ -324,40 +347,57 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
         
         activeRow = indexPath.row
         
-        if let child = childViewControllers.first {
-            removeContentController(child)
-            childView.frame = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: view.frame.height*0.4)
-        }
+        removeComponent()
         
         commentTextView.resignFirstResponder()
-
+        
+        show()
+        
+        editComponentButton.off()
+        
         switch indexPath.row {
         case 0:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("NumberPadViewController") as! NumberPadViewController
             vc.delegate = self
-            
-            addContentController(vc)
+            hide()
+            addContentControllerWithAnimation(vc)
         case 1:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("ConsumeptionTypePickerViewController") as! ConsumeptionTypePickerViewController
+            
             vc.delegate = self
-            addContentController(vc)
+            addContentControllerWithAnimation(vc)
+            
+            editComponentButton.on(.TouchUpInside) { (gesture) -> Void in
+                vc.tapEditButton()
+            }
         case 2:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("AccountPickerViewController") as! AccountPickerViewController
+            
             vc.delegate = self
-            addContentController(vc)
+            addContentControllerWithAnimation(vc)
+            
+            editComponentButton.on(.TouchUpInside) { (gesture) -> Void in
+                vc.tapEditButton()
+            }
         case 3:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("DateViewController") as! DateViewController
             vc.delegate = self
-            addContentController(vc)
+            hide()
+            addContentControllerWithAnimation(vc)
         case 4:
             let vc = storyboard?.instantiateViewControllerWithIdentifier("LabelTableViewController") as! LabelTableViewController
+            
             vc.delegate = self
-            addContentController(vc)
-        default:
+            addContentControllerWithAnimation(vc)
+            
+            editComponentButton.on(.TouchUpInside) { (gesture) -> Void in
+                vc.tapEditButton()
+            }        default:
             break
         }
+        
+        
     }
-    
     
     func valueForLabel(value: String) {
         
@@ -401,17 +441,16 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
     
     func textViewDidBeginEditing(textView: UITextView) {
         
-        if let child = childViewControllers.first {
-            removeContentController(child)
-        }
+        removeComponent()
         deselectRowForTable()
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         
-        if let child = childViewControllers.first {
-            removeCotentControllerWidthAnimation(child)
+        if childViewControllers.count == 0 {
+            return
         }
+        removeComponentWithAnimation()
         if !commentTextView.isFirstResponder() {
             commentTextView.resignFirstResponder()
         }
