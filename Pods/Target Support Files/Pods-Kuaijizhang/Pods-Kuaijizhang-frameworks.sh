@@ -89,6 +89,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Kuaijizhang/Realm.framework"
   install_framework "Pods-Kuaijizhang/RealmSwift.framework"
   install_framework "Pods-Kuaijizhang/SWTableViewCell.framework"
+  install_framework "Pods-Kuaijizhang/SnapKit.framework"
   install_framework "Pods-Kuaijizhang/Tactile.framework"
   install_framework "Pods-Kuaijizhang/UICountingLabel.framework"
 fi
@@ -98,6 +99,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Kuaijizhang/Realm.framework"
   install_framework "Pods-Kuaijizhang/RealmSwift.framework"
   install_framework "Pods-Kuaijizhang/SWTableViewCell.framework"
+  install_framework "Pods-Kuaijizhang/SnapKit.framework"
   install_framework "Pods-Kuaijizhang/Tactile.framework"
   install_framework "Pods-Kuaijizhang/UICountingLabel.framework"
 fi

@@ -37,25 +37,22 @@ class LabelTableViewController: UITableViewController {
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    func tapEditButton() {
         
-        if let vc = segue.destinationViewController as? AddLabelViewController where segue.identifier == "addLabelIdentifier" {
-            vc.labelTableViewModel = labelTableViewModel
-        }
+        let vc = storyboard?.instantiateViewControllerWithIdentifier("AddLabelViewController") as! AddLabelViewController
+        vc.labelTableViewModel = labelTableViewModel
+        parentViewController?.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return labelTableViewModel.getCount() + 1 // 预留给添加标签按钮
+        return labelTableViewModel.getCount()
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        if indexPath.row == labelTableViewModel.getCount() {
-            return tableView.dequeueReusableCellWithIdentifier("addLabelButton", forIndexPath: indexPath)
-        }
         
         let cell = tableView.dequeueReusableCellWithIdentifier("label", forIndexPath: indexPath)
         let label = cell.viewWithTag(1) as! UILabel
