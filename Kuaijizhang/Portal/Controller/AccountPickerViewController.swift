@@ -30,6 +30,18 @@ class AccountPickerViewController: UIViewController {
         
         self.accountViewModel = AccountViewModel()
         
+        if let addBillVC = parentViewController as? AddBillViewController,
+                parentAccount = addBillVC.addBillViewModel.parentAccount,
+                childAccount = addBillVC.addBillViewModel.childAccount,
+                pIndex = accountViewModel?.getParentAccountIndex(parentAccount),
+                cIndex = accountViewModel?.getChildAccountIndex(childAccount, withParentAccount: parentAccount) {
+                    
+                    pickerView.reloadComponent(0)
+                    pickerView.selectRow(pIndex, inComponent: 0, animated: false)
+                    pickerView.reloadComponent(1)
+                    pickerView.selectRow(cIndex, inComponent: 1, animated: false)
+        }
+        
         accountViewModel?.addNotification("AccountPickerViewController") { [unowned self] (transactionState, dataChangedType, indexPath, userInfo) -> Void in
             
             switch dataChangedType {
@@ -140,6 +152,7 @@ extension AccountPickerViewController: UIPickerViewDelegate {
                 label.text = data.0
             }
         case 1:
+            print("component=\(component), row=\(row)")
             if let data = accountViewModel?.childAccountAtParentIndex(pickerView.selectedRowInComponent(0), withChildIndex: row) {
                 let nameLabel = compView.viewWithTag(1) as! UILabel
                 let amountLabel = compView.viewWithTag(2) as! UILabel

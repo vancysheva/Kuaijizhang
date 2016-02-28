@@ -85,4 +85,12 @@ class AccountViewModel: ViewModelBase<AccountModel> {
     func readParentAccount() -> [(String, String)] {
         return model.readParentAccount()
     }
+    
+    func getParentAccountIndex(parentAccount: Account) -> Int? {
+        return model.objectList?.indexOf(parentAccount)
+    }
+    
+    func getChildAccountIndex(childAccount: Account, withParentAccount parentAccount: Account) -> Int? {
+        return parentAccount.accounts.indexOf(childAccount)
+    }
 }
