@@ -8,12 +8,14 @@
 
 import Foundation
 
-typealias BillTuple = (day: Int, money: Double, consumeName: String, iconName: String, conmment: String, billType: BillType, week: String, haveBillImage: Bool)
+typealias BillTuple = (displayDay: Bool, displayLongSeparatorLine: Bool, day: Int, money: Double, consumeName: String, iconName: String, conmment: String, billType: BillType, week: String, haveBillImage: Bool)
 
 class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     
+    /// 存12个月是否账单的字典
     var hideMonths: [Int: Bool] = [:]
     
+    /// 当年月份数据
     var months: [Int] = []
     
     var currentYear: Int = 0
@@ -41,6 +43,11 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         initHiddenMonths()
     }
     
+    /**
+     初始化隐藏的年份
+     
+     - returns: <#return value description#>
+     */
     func initHiddenMonths() {
         
         var showMonth = 12
@@ -52,6 +59,11 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         }
     }
     
+    /**
+     初始化月份
+     
+     - returns: <#return value description#>
+     */
     func initMonths() {
         
         var endMonth = 12
@@ -65,6 +77,11 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         months.sortInPlace(>)
     }
     
+    /**
+     切换隐藏、显示的月份
+     
+     - parameter month: <#month description#>
+     */
     func toggleBillsHiddenInMonth(month: Int) {
         
         if let isHidden = hideMonths[month] {
@@ -72,12 +89,24 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         }
     }
     
+    /**
+    获取展开的月份
+     
+     - returns: <#return value description#>
+     */
     func getExpandMonth() -> Int? {
        
         let expandMonths = hideMonths.filter { return $0.1 == false }
         return expandMonths.count == 0 ? nil : expandMonths[0].0
     }
     
+    /**
+     根据月份获取账单数
+     
+     - parameter month: 月份
+     
+     - returns: 返回月份的账单数
+     */
     func getBillCountForMonth(month: Int) -> Int {
         return model.getBillsWithMonth(month).count
     }
@@ -120,13 +149,26 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     }
     
     let calendar = NSCalendar.currentCalendar()
-    
+    var displayDay: (day: Int, display: Bool)? = nil
+    var displayLongSeparatorLine = [Bool]()
+
     func getBillAtIndex(billIndex index: Int, withMonth month: Int) -> BillTuple {
         
         let bill = model.getBillsWithMonth(month)[index]
         let day = calendar.components(.Day, fromDate: bill.occurDate ?? NSDate()).day
 
-        return (day, bill.money, bill.consumeType?.subConsumeptionType?.name ?? "", bill.consumeType?.subConsumeptionType?.iconName ?? "", bill.comment ?? "", bill.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income, DateHelper.weekFromDate(bill.occurDate ?? NSDate()), bill.image == nil ? false : true)
+        // 每月中的每天的第一个账单显示日和周信息
+        displayDay = index == 0 ? (day: day, display: true) : (day: day, display: day == displayDay?.day ? false : true)
+        
+        // 每月(一个月份对应一个section)中的每天的最后一个账单显示长分割线
+        // 满足长分割线的账单的条件：此账单和下一个账单不属于同一天或此账单是最后一个账单
+        var displayLongSeparatorLine = false
+        let billCount = model.getBillsWithMonth(month).count
+        if index == billCount - 1 || day != calendar.components(.Day, fromDate: model.getBillsWithMonth(month)[index+1].occurDate ?? NSDate()).day {
+            displayLongSeparatorLine = true
+        }
+        
+        return (displayDay?.display ?? true, displayLongSeparatorLine, day, bill.money, bill.consumeType?.subConsumeptionType?.name ?? "", bill.consumeType?.subConsumeptionType?.iconName ?? "", bill.comment ?? "", bill.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income, DateHelper.weekFromDate(bill.occurDate ?? NSDate()), bill.image == nil ? false : true)
     }
     
     func deleteBillAtIndex(index: Int, withSection section: Int) {

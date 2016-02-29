@@ -12,7 +12,8 @@ class BillStreamViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        layoutMargins = UIEdgeInsetsZero
+        
     }
     
     @IBOutlet weak var day: UILabel!
@@ -26,6 +27,8 @@ class BillStreamViewCell: UITableViewCell {
     var data: BillTuple? {
         didSet {
             if let d = data {
+                day.hidden = !d.displayDay
+                week.hidden = !d.displayDay
                 day.text = "\(d.day)"
                 week.text = d.week
                 consumeType.text = d.consumeName
@@ -36,8 +39,55 @@ class BillStreamViewCell: UITableViewCell {
                 money.textColor = d.billType.color
                 consumeptionTypeImage.image = UIImage(named: d.iconName)
                 billImage.hidden = !d.haveBillImage
+
                 
+                let width = consumeptionTypeImage.frame.origin.x + consumeptionTypeImage.frame.size.width/2
+                separatorInset.left = d.displayLongSeparatorLine ? 0 : width
+
             }
         }
+    }
+    
+    var sx: CGFloat {
+        return consumeptionTypeImage.frame.origin.x + consumeptionTypeImage.frame.size.width/2
+    }
+    
+    let sy = CGFloat(0)
+    
+    var startPoint: CGPoint {
+        return CGPoint(x: sx, y: sy)
+    }
+    
+    var ex: CGFloat {
+        return sx
+    }
+    
+    var ey: CGFloat {
+        return sy + frame.size.height
+    }
+    
+    var endPoint: CGPoint {
+        return CGPoint(x: ex, y: ey)
+    }
+
+    
+    override func drawRect(rect: CGRect) {
+
+        let path = UIBezierPath()
+        path.lineWidth = 0.4
+        UIColor.lightGrayColor().setStroke()
+        path.moveToPoint(startPoint)
+        path.addLineToPoint(endPoint)
+        path.stroke()
+        /*
+        let pathlayer = CAShapeLayer()
+        pathlayer.frame = bounds
+        pathlayer.path = columnPath.CGPath
+        pathlayer.strokeColor = color.CGColor
+        pathlayer.fillColor = nil
+        pathlayer.lineWidth = lineWidth
+        pathlayer.lineJoin = kCALineJoinBevel
+        layer.addSublayer(pathlayer)
+*/
     }
 }

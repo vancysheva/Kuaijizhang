@@ -20,9 +20,6 @@ class ModelBase {
         notificationHandlers.reverse().forEach {
             $0(transactionState: state, dataChangedType: changedType, indexPath: indexPath, userInfo: userInfo)
         }
-        
-        //notificationIdentifiers = []
-        //notificationHandlers = []
     }
     
     var observerIdentifiers = [String]()

@@ -21,7 +21,7 @@ class BillStreamTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = ""
         
         billTableView.registerNib(UINib(nibName: "BillStreamHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "header")
@@ -70,7 +70,7 @@ class BillStreamTableViewController: UITableViewController {
             let addBillVC = navi.visibleViewController as! AddBillViewController
             addBillVC.addBillViewModel.addNotification("BillStreamTableViewController", notificationHandler: { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
                 if case .Insert = dataChangedType {
-                    self.billStreamViewModel = BillStreamViewModel()
+                    self.billStreamViewModel = BillStreamViewModel() //此处重新赋值 导致监听数据变化方法没有加入
                     self.billTableView.reloadData()
                     self.updateUI()
                 }

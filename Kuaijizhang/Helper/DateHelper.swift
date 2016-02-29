@@ -45,6 +45,7 @@ class DateHelper {
      返回的格式：yyyy年MM月dd日 HH:mm
      */
     class func getCurrentTime() -> String {
+        dateFormatter.timeZone = NSTimeZone.localTimeZone()
         dateFormatter.dateFormat = dateFormatForCurrentTime
         dateFormatter.timeZone = NSTimeZone.localTimeZone()
         return dateFormatter.stringFromDate(NSDate())
@@ -55,6 +56,7 @@ class DateHelper {
      返回的格式：yyyy年MM月dd日
     */
     class func getCurrentDate() -> String {
+        dateFormatter.timeZone = NSTimeZone.localTimeZone()
         dateFormatter.dateFormat = dateFormatForDate1
         return dateFormatter.stringFromDate(NSDate())
     }
@@ -64,6 +66,7 @@ class DateHelper {
      返回的格式：dd
      */
     class func getCurrentDay() -> String {
+        dateFormatter.timeZone = NSTimeZone.localTimeZone()
         dateFormatter.dateFormat = dateFormatForDay
         return dateFormatter.stringFromDate(NSDate())
     }
@@ -73,6 +76,7 @@ class DateHelper {
     返回的格式：MM
     */
     class func getCurrentMonth() -> String {
+        dateFormatter.timeZone = NSTimeZone.localTimeZone()
         dateFormatter.dateFormat = dateFormatForMonth
         return dateFormatter.stringFromDate(NSDate())
     }
@@ -82,6 +86,7 @@ class DateHelper {
      返回的格式：yyyy
      */
     class func getCurrentYear() -> String {
+        dateFormatter.timeZone = NSTimeZone.localTimeZone()
         dateFormatter.dateFormat = dateFormatForYear
         return dateFormatter.stringFromDate(NSDate())
     }
@@ -91,6 +96,7 @@ class DateHelper {
      返回的格式：周一等
      */
     class func getCurrentWeek() -> String {
+        dateFormatter.timeZone = NSTimeZone.localTimeZone()
         dateFormatter.dateFormat = dateFormatForWeek
         return dateFormatter.stringFromDate(NSDate())
     }
@@ -100,6 +106,7 @@ class DateHelper {
      返回的格式：周一等
      */
     class func weekFromDate(date: NSDate) -> String {
+        dateFormatter.timeZone = NSTimeZone.localTimeZone()
         dateFormatter.dateFormat = dateFormatForWeek
         return dateFormatter.stringFromDate(date)
     }
