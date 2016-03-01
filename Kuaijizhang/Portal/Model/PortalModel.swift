@@ -32,7 +32,6 @@ class PortalModel: RealmModel<AccountBook> {
     
     func getBills(startDate startDate: NSDate, endDate: NSDate, consumeptionType type: Int = 0) -> [Bill] {
         
-    
         if let res =  user?.accountBooks.filter("isUsing = true").first?.bills.filter("occurDate BETWEEN %@ AND consumeType.type = %@", [startDate, endDate], "\(type)").sorted("occurDate").toArray() {
             return res
         }

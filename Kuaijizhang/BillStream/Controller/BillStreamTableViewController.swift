@@ -9,12 +9,26 @@
 import UIKit
 import MJRefresh
 
+internal enum ImageType: String {
+    case Option = "bill stream more icon"
+    case Remark = "remark icon"
+}
+
+internal class ToggleUIButton: UIButton {
+    
+    var imageType: ImageType = .Option
+}
+
 class BillStreamTableViewController: UITableViewController {
 
     @IBOutlet weak var surplusLabel: UILabel!
     @IBOutlet weak var expenseLabel: UILabel!
     @IBOutlet weak var incomeLabel: UILabel!
    
+    @IBOutlet weak var optionButton: ToggleUIButton!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var addBillButton: UIButton!
+    
     @IBOutlet var billTableView: UITableView!
     
     var billStreamViewModel = BillStreamViewModel()
@@ -70,7 +84,7 @@ class BillStreamTableViewController: UITableViewController {
             let addBillVC = navi.visibleViewController as! AddBillViewController
             addBillVC.addBillViewModel.addNotification("BillStreamTableViewController", notificationHandler: { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
                 if case .Insert = dataChangedType {
-                    self.billStreamViewModel = BillStreamViewModel() //此处重新赋值 导致监听数据变化方法没有加入
+                    self.billStreamViewModel.refreshData()
                     self.billTableView.reloadData()
                     self.updateUI()
                 }
@@ -78,6 +92,14 @@ class BillStreamTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func tapOptionButton(sender: ToggleUIButton) {
+        
+        if optionButton.imageType == .Remark {
+            toggleButtonForEditingStyleWidthAnimation()
+        } else {
+            popoverOptionMenu()
+        }
+    }
     @IBAction func unwindToBillStream(segue: UIStoryboardSegue) {
     
     }
@@ -118,6 +140,61 @@ class BillStreamTableViewController: UITableViewController {
         updateUI()
         billTableView.mj_footer.endRefreshing()
         setBackItemButtonTitle(year)
+    }
+    
+    func setBillTableEditable() {
+        
+        setEditing(true, animated: true)
+        toggleButtonForEditingStyleWidthAnimation()
+    }
+    
+    func toggleButtonForEditingStyleWidthAnimation() {
+        
+        let moveDistance = CGFloat(100)//addBillButton.frame.origin.x - optionButton.frame.origin.x
+
+        if optionButton.imageType == .Option {
+            
+            optionButton.imageType = .Remark
+            optionButton.setImage(UIImage(named: ImageType.Remark.rawValue), forState: .Normal)
+            
+            billTableView.setEditing(true, animated: true)
+            addBillButton.hidden = true
+            searchButton.hidden = true
+            
+            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                let affine = self.optionButton.transform
+                self.optionButton.transform = CGAffineTransformTranslate(affine, moveDistance, 0)
+                }, completion: nil)
+        } else {
+            optionButton.imageType = .Option
+            optionButton.setImage(UIImage(named: ImageType.Option.rawValue), forState: .Normal)
+            
+            billTableView.setEditing(false, animated: true)
+            addBillButton.hidden = false
+            searchButton.hidden = false
+            
+            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                let affine = self.optionButton.transform
+                self.optionButton.transform = CGAffineTransformTranslate(affine, -moveDistance, 0)
+                }, completion: nil)
+        }
+    }
+    
+    func popoverOptionMenu() {
+        
+        if let vc = storyboard?.instantiateViewControllerWithIdentifier("BillStreamOptionViewController") as? BillStreamOptionViewController {
+            vc.modalPresentationStyle = .Popover
+            vc.billStremViewController = self
+            if let pvc = vc.popoverPresentationController {
+                pvc.permittedArrowDirections = .Up
+                pvc.delegate = self
+                pvc.sourceView = optionButton
+                pvc.backgroundColor = UIColor.darkGrayColor()
+                
+                presentViewController(vc, animated: true, completion: nil)
+                
+            }
+        }
     }
     
     func setBackItemButtonTitle(year: Int) {
@@ -196,7 +273,7 @@ extension BillStreamTableViewController {
             self.billStreamViewModel.toggleBillsHiddenInMonth(m)
             self.billTableView.reloadSections(NSIndexSet(index: s), withRowAnimation: .Automatic)
         }
-        
+
         return headerView
     }
     
@@ -212,5 +289,12 @@ extension BillStreamTableViewController {
         if case .Delete = editingStyle {
             billStreamViewModel.deleteBillAtIndex(indexPath.row, withSection: indexPath.section)
         }
+    }
+}
+
+extension BillStreamTableViewController: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
     }
 }

@@ -33,6 +33,14 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         super.init(model: BillStreamModel(startTime: startTime, endTime: endTime))
     }
     
+    func refreshData() {
+        
+        let startTime = DateHelper.getStartTimeFromCurrentYear()
+        let endTime = DateHelper.getOverTimeFromCurrentYear()
+
+        model.refreshData(startTime, endTime)
+    }
+    
     convenience init(year: Int) {
         
         let startTime = DateHelper.getStartTimeFromYear(year)

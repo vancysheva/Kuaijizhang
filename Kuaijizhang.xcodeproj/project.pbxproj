@@ -83,6 +83,7 @@
 		7179DA5B1B84E7E800A4D880 /* InfoPanelOfPortalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179DA5A1B84E7E800A4D880 /* InfoPanelOfPortalView.swift */; };
 		7179DA6F1B85D05E00A4D880 /* ColumnChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179DA6E1B85D05E00A4D880 /* ColumnChart.swift */; };
 		7179DA711B85E67800A4D880 /* ColorBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7179DA701B85E67800A4D880 /* ColorBox.swift */; };
+		718B12F41C85790A00E7BB15 /* BillStreamOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718B12F31C85790900E7BB15 /* BillStreamOptionViewController.swift */; };
 		7196DB1A1B8339660029A2A3 /* StatementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DB191B8339660029A2A3 /* StatementViewController.swift */; };
 		7196DB1C1B8339800029A2A3 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7196DB1B1B8339800029A2A3 /* MoreViewController.swift */; };
 		71A7F6DE1BF58EC4006D2868 /* ViewModelNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A7F6DD1BF58EC4006D2868 /* ViewModelNotifiable.swift */; };
@@ -211,6 +212,7 @@
 		7179DA5A1B84E7E800A4D880 /* InfoPanelOfPortalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPanelOfPortalView.swift; sourceTree = "<group>"; };
 		7179DA6E1B85D05E00A4D880 /* ColumnChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnChart.swift; sourceTree = "<group>"; };
 		7179DA701B85E67800A4D880 /* ColorBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorBox.swift; sourceTree = "<group>"; };
+		718B12F31C85790900E7BB15 /* BillStreamOptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamOptionViewController.swift; sourceTree = "<group>"; };
 		7196DB191B8339660029A2A3 /* StatementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatementViewController.swift; sourceTree = "<group>"; };
 		7196DB1B1B8339800029A2A3 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		71A7F6DD1BF58EC4006D2868 /* ViewModelNotifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelNotifiable.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				71341E501BDA2F0B004C0CAB /* BillStreamTableViewController.swift */,
+				718B12F31C85790900E7BB15 /* BillStreamOptionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -918,6 +921,7 @@
 				716CF13A1C1481F60085CA23 /* BudgetModel.swift in Sources */,
 				71747AAB1C00114E00338E62 /* LabelTableViewModel.swift in Sources */,
 				7160EA071BD62A8D00936FD2 /* ConsumeTypeData.swift in Sources */,
+				718B12F41C85790A00E7BB15 /* BillStreamOptionViewController.swift in Sources */,
 				716CF1301C147D530085CA23 /* BudgetTableViewController.swift in Sources */,
 				7173FDA81BF3288C00ECC5C6 /* TextFieldAgent.swift in Sources */,
 				7160EA031BD62A3400936FD2 /* BillType.swift in Sources */,

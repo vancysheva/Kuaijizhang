@@ -40,16 +40,13 @@ class BillStreamViewCell: UITableViewCell {
                 consumeptionTypeImage.image = UIImage(named: d.iconName)
                 billImage.hidden = !d.haveBillImage
 
-                
-                let width = consumeptionTypeImage.frame.origin.x + consumeptionTypeImage.frame.size.width/2
-                separatorInset.left = d.displayLongSeparatorLine ? 0 : width
-
+                separatorInset.left = d.displayLongSeparatorLine ? 0 : sx
             }
         }
     }
     
     var sx: CGFloat {
-        return consumeptionTypeImage.frame.origin.x + consumeptionTypeImage.frame.size.width/2
+        return consumeptionTypeImage.frame.origin.x - 5
     }
     
     let sy = CGFloat(0)

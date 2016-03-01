@@ -507,5 +507,6 @@ extension AddBillViewController: ComponentViewControllerDelegate, UITextViewDele
         
         activeImage = nil
         pictureButton.setBackgroundImage(UIImage(named: "camera"), forState: .Normal)
-    }    
+    }
+
 }
