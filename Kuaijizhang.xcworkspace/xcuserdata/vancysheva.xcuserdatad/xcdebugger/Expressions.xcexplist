@@ -72,6 +72,14 @@
          contextName = "ConsumeTypeListViewController.tableView(UITableView, didSelectRowAtIndexPath : NSIndexPath) -&gt; ():ConsumeTypeListViewController.swift">
       </ContextState>
       <ContextState
+         contextName = "BillStreamTableViewController.toggleButtonForEditingStyleWidthAnimation() -&gt; ():BillStreamTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "navigationItem.rightBarButtonItems?[1]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "PickerViewController.keyForCounty.didset:PickerViewController.swift">
          <PersistentStrings>
             <PersistentString

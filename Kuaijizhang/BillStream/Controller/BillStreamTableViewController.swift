@@ -161,7 +161,7 @@ class BillStreamTableViewController: UITableViewController {
     }
     
     func toggleButtonForEditingStyleWidthAnimation() {
-    
+
         if optionButton.imageType == .Option {
             optionButton.imageType = .Remark
             optionButton.setImage(UIImage(named: ImageType.Remark.rawValue), forState: .Normal)
@@ -182,7 +182,7 @@ class BillStreamTableViewController: UITableViewController {
             optionButton.setImage(UIImage(named: ImageType.Option.rawValue), forState: .Normal)
             
             billTableView.setEditing(false, animated: true)
-            
+
             UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
                 self.optionButton.frame.origin.x = self.originX ?? 0
                 delayHandler(200) {
@@ -201,12 +201,12 @@ class BillStreamTableViewController: UITableViewController {
             vc.modalPresentationStyle = .Popover
             vc.billStremViewController = self
             if let pvc = vc.popoverPresentationController {
-                pvc.permittedArrowDirections = .Right
+                pvc.permittedArrowDirections = .Any
                 pvc.delegate = self
                 pvc.sourceView = optionButton
+                pvc.sourceRect = optionButton.bounds
                 pvc.backgroundColor = UIColor.darkGrayColor()
                 presentViewController(vc, animated: true, completion: nil)
-                
             }
         }
     }
