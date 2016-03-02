@@ -1772,7 +1772,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="mU3-QU-7zY">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VxJ-pO-717">
-                                    <rect key="frame" x="279" y="9" width="25" height="25"/>
+                                    <rect key="frame" x="274" y="7" width="30" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" image="plus icon"/>
                                     <connections>
@@ -1782,14 +1782,14 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="BEm-sY-3YF">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xqu-cJ-D25">
-                                    <rect key="frame" x="246" y="9" width="25" height="25"/>
+                                    <rect key="frame" x="236" y="7" width="30" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" image="search icon"/>
                                 </button>
                             </barButtonItem>
                             <barButtonItem style="plain" id="usb-5o-cie">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aAt-rq-qJm" customClass="ToggleUIButton" customModule="Kuaijizhang" customModuleProvider="target">
-                                    <rect key="frame" x="213" y="9" width="25" height="25"/>
+                                    <rect key="frame" x="198" y="7" width="30" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" image="bill stream more icon"/>
                                     <connections>

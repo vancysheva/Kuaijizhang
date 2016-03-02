@@ -33,9 +33,14 @@ class BillStreamTableViewController: UITableViewController {
     
     var billStreamViewModel = BillStreamViewModel()
     
+    var originX: CGFloat?
+    
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
         title = ""
         
         billTableView.registerNib(UINib(nibName: "BillStreamHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "header")
@@ -69,6 +74,13 @@ class BillStreamTableViewController: UITableViewController {
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        originX = optionButton.frame.origin.x
+    }
+    
+    // MARK: - Internal Method
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
         if let navi = segue.destinationViewController as? UINavigationController,
@@ -149,34 +161,37 @@ class BillStreamTableViewController: UITableViewController {
     }
     
     func toggleButtonForEditingStyleWidthAnimation() {
-        
-        let moveDistance = CGFloat(100)//addBillButton.frame.origin.x - optionButton.frame.origin.x
-
+    
         if optionButton.imageType == .Option {
-            
             optionButton.imageType = .Remark
             optionButton.setImage(UIImage(named: ImageType.Remark.rawValue), forState: .Normal)
             
             billTableView.setEditing(true, animated: true)
-            addBillButton.hidden = true
-            searchButton.hidden = true
             
-            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
-                let affine = self.optionButton.transform
-                self.optionButton.transform = CGAffineTransformTranslate(affine, moveDistance, 0)
-                }, completion: nil)
+            UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                self.optionButton.frame.origin.x = self.addBillButton.frame.origin.x
+                delayHandler(200) {
+                    self.searchButton.alpha = 0
+                    delayHandler(200) {
+                        self.addBillButton.alpha = 0
+                    }
+                }
+            }, completion: nil)
         } else {
             optionButton.imageType = .Option
             optionButton.setImage(UIImage(named: ImageType.Option.rawValue), forState: .Normal)
             
             billTableView.setEditing(false, animated: true)
-            addBillButton.hidden = false
-            searchButton.hidden = false
             
-            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
-                let affine = self.optionButton.transform
-                self.optionButton.transform = CGAffineTransformTranslate(affine, -moveDistance, 0)
-                }, completion: nil)
+            UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                self.optionButton.frame.origin.x = self.originX ?? 0
+                delayHandler(200) {
+                    self.addBillButton.alpha = 1
+                    delayHandler(100) {
+                        self.searchButton.alpha = 1
+                    }
+                }
+            }, completion: nil)
         }
     }
     
@@ -186,11 +201,10 @@ class BillStreamTableViewController: UITableViewController {
             vc.modalPresentationStyle = .Popover
             vc.billStremViewController = self
             if let pvc = vc.popoverPresentationController {
-                pvc.permittedArrowDirections = .Up
+                pvc.permittedArrowDirections = .Right
                 pvc.delegate = self
                 pvc.sourceView = optionButton
                 pvc.backgroundColor = UIColor.darkGrayColor()
-                
                 presentViewController(vc, animated: true, completion: nil)
                 
             }

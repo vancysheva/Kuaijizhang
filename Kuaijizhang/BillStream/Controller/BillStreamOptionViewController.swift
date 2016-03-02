@@ -14,9 +14,8 @@ class BillStreamOptionViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.alpha = 0.5
     }
-    
+
     override var preferredContentSize: CGSize {
         get {
             return CGSize(width: 125, height: 132)
@@ -29,16 +28,15 @@ class BillStreamOptionViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        dismissViewControllerAnimated(true) { () -> Void in
-            switch indexPath.row {
-            case 0:
-                self.billStremViewController?.loadPreviousYearBills()
-            case 1:
-                self.billStremViewController?.loadNextYearBills()
-            case 2:
-                self.billStremViewController?.setBillTableEditable()
-            default: break
-            }
+        switch indexPath.row {
+        case 0:
+            self.billStremViewController?.loadPreviousYearBills()
+        case 1:
+            self.billStremViewController?.loadNextYearBills()
+        case 2:
+            self.billStremViewController?.setBillTableEditable()
+        default: break
         }
+        dismissViewControllerAnimated(false, completion: nil)
     }
 }
