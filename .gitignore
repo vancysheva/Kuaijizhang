@@ -34,3 +34,6 @@ UserInterfaceState.xcuserstate
 # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
 # Packages/
 .build/
+# Pods - for those of you who use CocoaPods
+Pods
+Podfile.lock

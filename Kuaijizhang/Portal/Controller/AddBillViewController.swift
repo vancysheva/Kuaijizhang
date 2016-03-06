@@ -270,7 +270,7 @@ extension AddBillViewController {
         alert.addAction(camerAction)
         alert.addAction(photoLibraryAction)
         alert.addAction(cancelAction)
-        
+        1
         presentViewController(alert, animated: true, completion: nil)
     }
     
