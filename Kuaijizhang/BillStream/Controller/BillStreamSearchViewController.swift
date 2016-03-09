@@ -14,7 +14,6 @@ class BillStreamSearchViewController: UIViewController {
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var bodyView: UIView!
-    
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
@@ -25,74 +24,81 @@ class BillStreamSearchViewController: UIViewController {
     let translationTx = CGFloat(25)
     let blackColorForHalTransparent = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
     let blackColorForTransparent = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-    let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.height
-    
     lazy var textFieldAgent = TextFieldAgent()
     
+    var billStreamViewModel: BillStreamViewModel?
 
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        config()
     }
     
-    // MARK: - Methods
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        show()
+    }
     
 
-    func show(y: CGFloat) {
-        
-        
-        view.frame = CGRect(origin: CGPoint(x: 0, y: y), size: UIScreen.mainScreen().bounds.size)
-        
+    // MARK: - Methods
+    
+    private func config() {
+        searchTextField.delegate = textFieldAgent
         setState()
         bodyView.hidden = true
         
+        headerView.layer.cornerRadius = 5
+        
+        textFieldAgent.addTextFieldTextDidChangeNotification({[unowned self] (notification) -> Void in
+        if let key = self.searchTextField.text where key.trim() != "" {
+            self.bodyView.hidden = false
+        } else {
+            self.bodyView.hidden = true
+        }
+        })
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        performSegueWithIdentifier("unwindToBillStreamSegue", sender: self)
+    }
+
+    func show() {
         UIView.animateWithDuration(duration, animations: { () -> Void in
             self.headerView.alpha = 1
             self.searchView.transform = CGAffineTransformIdentity
             self.cancelButton.transform = CGAffineTransformIdentity
             self.view.backgroundColor = self.blackColorForHalTransparent
-            self.view.frame = CGRectOffset(self.view.frame, 0, -y)
             }, completion: { b in
                 self.searchTextField.becomeFirstResponder()
         })
 
-        if searchTextField.delegate == nil {
-            searchTextField.delegate = textFieldAgent
-            textFieldAgent.addTextFieldTextDidChangeNotification({ (notification) -> Void in
-                if let key = self.searchTextField.text where key.trim() != "" {
-                    self.bodyView.hidden = false
-                } else {
-                    self.bodyView.hidden = true
-                }
-            })
-        }
     }
-    
-    
+
     
     func hide() {
-        
         searchTextField.resignFirstResponder()
-        
-        UIView.animateWithDuration(duration, animations: { () -> Void in
+        UIView.animateWithDuration(duration) {
             self.setState()
-            }) { b in
-                self.view.removeFromSuperview()
         }
     }
-    
-    
-    
+
     func setState() {
         headerView.alpha = 0
         view.backgroundColor =  blackColorForTransparent
         searchView.transform = CGAffineTransformMakeTranslation(translationTx, 0)
         cancelButton.transform = CGAffineTransformMakeTranslation(translationTx, 0)
     }
+}
 
-    deinit {
-        print("BillStreamSearchViewController deinit")
+extension BillStreamSearchViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
     }
-
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
 }

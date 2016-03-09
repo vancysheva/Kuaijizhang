@@ -11,7 +11,11 @@
 
 import Foundation
 import CoreGraphics
-import UIKit
+
+#if !os(OSX)
+    import UIKit
+#endif
+
 
 public class BubbleChartRenderer: ChartDataRendererBase
 {
@@ -63,8 +67,6 @@ public class BubbleChartRenderer: ChartDataRendererBase
         
         let valueToPixelMatrix = trans.valueToPixelMatrix
         
-        CGContextSaveGState(context)
-        
         guard let
             entryFrom = dataSet.entryForXIndex(self.minX),
             entryTo = dataSet.entryForXIndex(self.maxX)
@@ -79,6 +81,8 @@ public class BubbleChartRenderer: ChartDataRendererBase
         _sizeBuffer[1].y = 0.0
         
         trans.pointValuesToPixel(&_sizeBuffer)
+        
+        CGContextSaveGState(context)
         
         // calcualte the full width of 1 step on the x-axis
         let maxBubbleWidth: CGFloat = abs(_sizeBuffer[1].x - _sizeBuffer[0].x)
@@ -154,7 +158,6 @@ public class BubbleChartRenderer: ChartDataRendererBase
                 }
                 
                 let alpha = phaseX == 1 ? phaseY : phaseX
-                let valueTextColor = dataSet.valueTextColor.colorWithAlphaComponent(alpha)
                 
                 guard let formatter = dataSet.valueFormatter else { continue }
                 
@@ -174,6 +177,8 @@ public class BubbleChartRenderer: ChartDataRendererBase
                 for (var j = minx; j < maxx; j++)
                 {
                     guard let e = dataSet.entryForIndex(j) as? BubbleChartDataEntry else { break }
+                    
+                    let valueTextColor = dataSet.valueTextColorAt(j).colorWithAlphaComponent(alpha)
                     
                     pt.x = CGFloat(e.xIndex - minx) * phaseX + CGFloat(minx)
                     pt.y = CGFloat(e.value) * phaseY
@@ -298,7 +303,7 @@ public class BubbleChartRenderer: ChartDataRendererBase
             
             originalColor.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
             
-            let color = UIColor(hue: h, saturation: s, brightness: b * 0.5, alpha: a)
+            let color = NSUIColor(hue: h, saturation: s, brightness: b * 0.5, alpha: a)
             let rect = CGRect(
                 x: _pointBuffer.x - shapeHalf,
                 y: _pointBuffer.y - shapeHalf,

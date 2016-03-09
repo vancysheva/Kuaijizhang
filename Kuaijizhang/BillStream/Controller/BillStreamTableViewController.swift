@@ -102,7 +102,8 @@ class BillStreamTableViewController: UITableViewController {
                 }
             })
         } else if segue.identifier == "toSearchSegue" {
-            print("toSearchSegue")
+            let vc = segue.destinationViewController as! BillStreamSearchViewController
+            vc.billStreamViewModel = billStreamViewModel
         }
     }
     
@@ -116,9 +117,13 @@ class BillStreamTableViewController: UITableViewController {
     }
     
     @IBAction func unwindToBillStream(segue: UIStoryboardSegue) {
-        print(segue.identifier)
+        if segue.identifier == "unwindToBillStreamSegue" {
+            let vc = segue.sourceViewController as! BillStreamSearchViewController
+            vc.hide()
+        }
     }
     
+
     func initRefresh() {
         
         let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: Selector("loadNextYearBills"))

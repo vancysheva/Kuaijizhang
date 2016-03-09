@@ -29,11 +29,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Realm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,6 +62,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+<<<<<<< HEAD
 		<key>099C5E212AD000A87DBD99231BFEA609</key>
 		<dict>
 			<key>primary</key>
@@ -83,16 +79,20 @@
 			<true/>
 		</dict>
 		<key>31940D02BD561D78D5A07363E84A01F2</key>
+=======
+		<key>1924586A720BB09B7463D10FBB1BBF90</key>
+>>>>>>> presentation
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>36FCF7C731FDCF93F6F25381E4F72685</key>
+		<key>23BBE01853C8F3DC40E1B82973A7DC95</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>3DCDE9CAA53E66C56D4EC1637B482FB0</key>
+<<<<<<< HEAD
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -103,16 +103,13 @@
 			<true/>
 		</dict>
 		<key>51E4246AB613390B6A0542F12C0285C4</key>
+=======
+>>>>>>> presentation
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5D6D89DAFFBC67094A4A08819B661135</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>682429F0872031AC5C20A30838DFA3FC</key>
+		<key>50C6CBFFCFC6B10028594F24499DF3EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,27 +124,21 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+<<<<<<< HEAD
+		<key>68B6AFD82BEA84A7D21D84E6A84DCA2B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>87B1F10187B344E7B9C0451C5F2641B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8B4EF3CBD10427DDE5ADC6BAA60577FD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9695D55763F3CBB546AA259035A47978</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9863CB520D1D2876D373AFB064FB0182</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A7C1970E88165B918C7A93368DA0CDD2</key>
+=======
+		<key>87B1F10187B344E7B9C0451C5F2641B7</key>
+>>>>>>> presentation
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -157,7 +148,26 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>DFA6E3AD2FC2FBD44B5F5306F98FA62E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F1C459CAC8430D8E497428C33F872874</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+<<<<<<< HEAD
+		<key>C6828C2508515BC0428D6BDAA1292DC9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CCECF2D7DF915B87C8EA22016BF0D378</key>
+=======
+		<key>F43958284FB4875A24F250E8EC0D0F40</key>
+>>>>>>> presentation
 		<dict>
 			<key>primary</key>
 			<true/>

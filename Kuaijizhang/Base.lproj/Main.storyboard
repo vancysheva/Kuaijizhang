@@ -4647,7 +4647,7 @@
                                                     <constraint firstAttribute="width" constant="55" id="jEH-1X-SN6"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="a3w-5v-spL">
@@ -4677,7 +4677,7 @@
                                                     <constraint firstAttribute="width" constant="55" id="jyY-MU-KMy"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -4814,6 +4814,10 @@
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="KgL-UY-q6P" id="aC0-6F-rQE"/>
+                                            <outlet property="delegate" destination="KgL-UY-q6P" id="WdF-0i-7Z2"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4908,7 +4912,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0Si-9k-rdX" firstAttribute="leading" secondItem="0Jg-J5-0XU" secondAttribute="leading" id="4ol-7h-UsC"/>
                             <constraint firstItem="xbQ-Sf-vjB" firstAttribute="top" secondItem="Tcx-z7-Nyl" secondAttribute="bottom" id="Bav-M3-G0e"/>

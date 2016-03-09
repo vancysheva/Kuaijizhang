@@ -129,6 +129,15 @@ public class Object: RLMObjectBase {
     public final var className: String { return "" }
     #endif
 
+    /**
+    WARNING: This is an internal helper method not intended for public use.
+    :nodoc:
+    */
+    public override class func objectUtilClass(isSwift: Bool) -> AnyClass {
+        return ObjectUtil.self
+    }
+
+
     // MARK: Object Customization
 
     /**
@@ -350,6 +359,7 @@ public class ObjectUtil: NSObject {
         optional.object = object
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     @objc private class func getOptionalProperties(object: AnyObject) -> NSDictionary {
         let children = Mirror(reflecting: object).children
         return children.reduce([String: AnyObject]()) { (var properties: [String:AnyObject], prop: Mirror.Child) in

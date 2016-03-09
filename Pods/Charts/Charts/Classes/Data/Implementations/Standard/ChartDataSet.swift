@@ -13,7 +13,7 @@
 //
 
 import Foundation
-import UIKit
+
 
 public class ChartDataSet: ChartBaseDataSet
 {
@@ -21,11 +21,14 @@ public class ChartDataSet: ChartBaseDataSet
     {
         super.init()
         
+        _yVals = [ChartDataEntry]()
     }
     
     public override init(label: String?)
     {
         super.init(label: label)
+        
+        _yVals = [ChartDataEntry]()
     }
     
     public init(yVals: [ChartDataEntry]?, label: String?)
