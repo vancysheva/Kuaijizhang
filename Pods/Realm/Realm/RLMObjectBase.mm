@@ -185,7 +185,11 @@ static id RLMValidatedObjectForProperty(id obj, RLMProperty *prop, RLMSchema *sc
 
 // overridden at runtime per-class for performance
 + (RLMObjectSchema *)sharedSchema {
-    return RLMSchema.sharedSchema[self.className];
+    return [RLMSchema sharedSchemaForClass:self.class];
+}
+
++ (Class)objectUtilClass:(BOOL)isSwift {
+    return RLMObjectUtilClass(isSwift);
 }
 
 - (NSString *)description

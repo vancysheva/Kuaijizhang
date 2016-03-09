@@ -6,8 +6,8 @@ pod 'Charts'
 pod 'RealmSwift'
 pod 'SWTableViewCell', '~> 0.3.7'
 pod 'MJRefresh'
-pod 'Tactile', '~> 1.0'
-pod 'SnapKit', '~> 0.15.0'
+pod 'Tactile', '~> 1.1'
+pod 'SnapKit', '~> 0.19.1'
 
 target 'Kuaijizhang' do
 
