@@ -4814,10 +4814,6 @@
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
-                                        <connections>
-                                            <outlet property="dataSource" destination="KgL-UY-q6P" id="aC0-6F-rQE"/>
-                                            <outlet property="delegate" destination="KgL-UY-q6P" id="WdF-0i-7Z2"/>
-                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -4901,7 +4897,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.99998015165328979" green="0.87691634893417358" blue="0.00071315333480015397" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="I4w-qS-ulB" firstAttribute="centerY" secondItem="0Si-9k-rdX" secondAttribute="centerY" constant="10" id="0K7-Ih-j9O"/>
                                     <constraint firstItem="lxf-ta-IEl" firstAttribute="centerY" secondItem="0Si-9k-rdX" secondAttribute="centerY" constant="10" id="U1W-5g-sR0"/>

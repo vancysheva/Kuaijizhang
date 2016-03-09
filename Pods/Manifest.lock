@@ -1,80 +1,35 @@
->-
-  PODS:
-  - >-
-    Charts (2.2.3):
-    - >-
-      Charts/Core (= 2.2.3)
-  - >-
-    Charts/Core (2.2.3)
-  - >-
-    MJRefresh (3.1.0)
-  - >-
-    Realm (0.98.3):
-    - >-
-      Realm/Headers (= 0.98.3)
-  - >-
-    Realm/Headers (0.98.3)
-  - >-
-    RealmSwift (0.98.3):
-    - >-
-      Realm (= 0.98.3)
-  - >-
-    SnapKit (0.19.1)
-  - >-
-    SWTableViewCell (0.3.7)
-  - >-
-    Tactile (1.1)
-  - >-
-    UICountingLabel (1.4.0)
+PODS:
+  - Charts (2.2.3):
+    - Charts/Core (= 2.2.3)
+  - Charts/Core (2.2.3)
+  - MJRefresh (3.1.0)
+  - Realm (0.98.3):
+    - Realm/Headers (= 0.98.3)
+  - Realm/Headers (0.98.3)
+  - RealmSwift (0.98.3):
+    - Realm (= 0.98.3)
+  - SnapKit (0.19.1)
+  - SWTableViewCell (0.3.7)
+  - Tactile (1.1)
+  - UICountingLabel (1.4.0)
 
->-
-  DEPENDENCIES:
-  - >-
-    Charts
-  - >-
-    MJRefresh
-  - >-
-    RealmSwift
-  - >-
-    SnapKit (~> 0.19.1)
-  - >-
-    SWTableViewCell (~> 0.3.7)
-  - >-
-    Tactile (~> 1.1)
-  - >-
-    UICountingLabel
+DEPENDENCIES:
+  - Charts
+  - MJRefresh
+  - RealmSwift
+  - SnapKit (~> 0.19.1)
+  - SWTableViewCell (~> 0.3.7)
+  - Tactile (~> 1.1)
+  - UICountingLabel
 
->-
-  SPEC CHECKSUMS:
-  >-
-    Charts: >-
-    f54267bb3f0f0e74520c6f248517cf5074dfd6fc
-  >-
-    MJRefresh: >-
-    743e6404967d1c2c688472ea3ecfde247d872db4
-  >-
-    Realm: >-
-    c6a7d00221a2d5177810a674aebd40c5e0b70b0f
-  >-
-    RealmSwift: >-
-    d6ecad6e4c2a645d6ac956c2c7e9efb375f39c31
-  >-
-    SnapKit: >-
-    eff58d6e3451bf2f482db2eccf86aecf371dc62d
-  >-
-    SWTableViewCell: >-
-    2a94aadc9d47b2b611fa064566bf57948b95b579
-  >-
-    Tactile: >-
-    df7f5889b9cb276456cd8b4147ab8d98fb5b7e19
-  >-
-    UICountingLabel: >-
-    ed5ce5b6d5ef278ff40d99cfa49577a30ab0c87b
+SPEC CHECKSUMS:
+  Charts: f54267bb3f0f0e74520c6f248517cf5074dfd6fc
+  MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
+  Realm: c6a7d00221a2d5177810a674aebd40c5e0b70b0f
+  RealmSwift: d6ecad6e4c2a645d6ac956c2c7e9efb375f39c31
+  SnapKit: eff58d6e3451bf2f482db2eccf86aecf371dc62d
+  SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
+  Tactile: df7f5889b9cb276456cd8b4147ab8d98fb5b7e19
+  UICountingLabel: ed5ce5b6d5ef278ff40d99cfa49577a30ab0c87b
 
->-
-  PODFILE CHECKSUM: >-
-  395e6f134d0cbb14debe46f218978c5a31ff43e8
-
->-
-  COCOAPODS: >-
-  1.0.0.beta.4
+COCOAPODS: 0.39.0

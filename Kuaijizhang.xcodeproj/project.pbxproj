@@ -112,6 +112,7 @@
 		71F24A961BDB7802002177C5 /* BillStreamHeaderWithIncome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F24A951BDB7802002177C5 /* BillStreamHeaderWithIncome.xib */; };
 		71F24A9A1BDB782B002177C5 /* BillStreamHeaderWithExpense.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F24A991BDB782B002177C5 /* BillStreamHeaderWithExpense.xib */; };
 		71FB01C91B934A4C00575D5C /* ConsumeptionTypePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FB01C81B934A4C00575D5C /* ConsumeptionTypePickerViewController.swift */; };
+		B2A0291029C07A8E73151334 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90C5E098CEB512BE7A2D8640 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5162B33FF95121C11C2EADD7 /* Pods_Kuaijizhang.framework in Frameworks */,
+				B2A0291029C07A8E73151334 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,7 +929,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kuaijizhang/Pods-Kuaijizhang-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		382DC7585BB30BAC9CFB6C9F /* Copy Pods Resources */ = {
@@ -1002,7 +1004,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kuaijizhang/Pods-Kuaijizhang-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F92E84F1736A5A3045E0497F /* Check Pods Manifest.lock */ = {

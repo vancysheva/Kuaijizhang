@@ -84,22 +84,22 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$CONFIGURATION_BUILD_DIR/Charts/Charts.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/MJRefresh/MJRefresh.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/Realm/Realm.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/RealmSwift/RealmSwift.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/SWTableViewCell/SWTableViewCell.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/SnapKit/SnapKit.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/Tactile/Tactile.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/UICountingLabel/UICountingLabel.framework"
+  install_framework "Pods-KuaijizhangTests/Charts.framework"
+  install_framework "Pods-KuaijizhangTests/MJRefresh.framework"
+  install_framework "Pods-KuaijizhangTests/Realm.framework"
+  install_framework "Pods-KuaijizhangTests/RealmSwift.framework"
+  install_framework "Pods-KuaijizhangTests/SWTableViewCell.framework"
+  install_framework "Pods-KuaijizhangTests/SnapKit.framework"
+  install_framework "Pods-KuaijizhangTests/Tactile.framework"
+  install_framework "Pods-KuaijizhangTests/UICountingLabel.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$CONFIGURATION_BUILD_DIR/Charts/Charts.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/MJRefresh/MJRefresh.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/Realm/Realm.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/RealmSwift/RealmSwift.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/SWTableViewCell/SWTableViewCell.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/SnapKit/SnapKit.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/Tactile/Tactile.framework"
-  install_framework "$CONFIGURATION_BUILD_DIR/UICountingLabel/UICountingLabel.framework"
+  install_framework "Pods-KuaijizhangTests/Charts.framework"
+  install_framework "Pods-KuaijizhangTests/MJRefresh.framework"
+  install_framework "Pods-KuaijizhangTests/Realm.framework"
+  install_framework "Pods-KuaijizhangTests/RealmSwift.framework"
+  install_framework "Pods-KuaijizhangTests/SWTableViewCell.framework"
+  install_framework "Pods-KuaijizhangTests/SnapKit.framework"
+  install_framework "Pods-KuaijizhangTests/Tactile.framework"
+  install_framework "Pods-KuaijizhangTests/UICountingLabel.framework"
 fi

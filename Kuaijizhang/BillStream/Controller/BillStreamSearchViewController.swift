@@ -49,7 +49,7 @@ class BillStreamSearchViewController: UIViewController {
         setState()
         bodyView.hidden = true
         
-        headerView.layer.cornerRadius = 5
+        searchView.layer.cornerRadius = 5
         
         textFieldAgent.addTextFieldTextDidChangeNotification({[unowned self] (notification) -> Void in
         if let key = self.searchTextField.text where key.trim() != "" {
@@ -89,16 +89,5 @@ class BillStreamSearchViewController: UIViewController {
         view.backgroundColor =  blackColorForTransparent
         searchView.transform = CGAffineTransformMakeTranslation(translationTx, 0)
         cancelButton.transform = CGAffineTransformMakeTranslation(translationTx, 0)
-    }
-}
-
-extension BillStreamSearchViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
     }
 }
