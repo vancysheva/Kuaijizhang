@@ -29,7 +29,7 @@ class BillStreamTableViewController: UITableViewController {
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var addBillButton: UIButton!
     
-    @IBOutlet var billTableView: UITableView!
+    @IBOutlet weak var billTableView: UITableView!
     
     var billStreamViewModel = BillStreamViewModel()
     
@@ -42,7 +42,7 @@ class BillStreamTableViewController: UITableViewController {
         super.viewDidLoad()
 
         title = ""
-        
+
         billTableView.registerNib(UINib(nibName: "BillStreamHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "header")
         billTableView.registerNib(UINib(nibName: "BillStreamHeaderWithExpense", bundle: nil), forHeaderFooterViewReuseIdentifier: "headerWithExpense")
         billTableView.registerNib(UINib(nibName: "BillStreamHeaderWithIncome", bundle: nil), forHeaderFooterViewReuseIdentifier: "headerWithIncome")
@@ -101,19 +101,22 @@ class BillStreamTableViewController: UITableViewController {
                     self.updateUI()
                 }
             })
+        } else if segue.identifier == "toSearchSegue" {
+            print("toSearchSegue")
         }
     }
     
     @IBAction func tapOptionButton(sender: ToggleUIButton) {
-        
+
         if optionButton.imageType == .Remark {
             toggleButtonForEditingStyleWidthAnimation()
         } else {
             popoverOptionMenu()
         }
     }
-    @IBAction func unwindToBillStream(segue: UIStoryboardSegue) {
     
+    @IBAction func unwindToBillStream(segue: UIStoryboardSegue) {
+        print(segue.identifier)
     }
     
     func initRefresh() {
