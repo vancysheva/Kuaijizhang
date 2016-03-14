@@ -212,4 +212,7 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
             bill.occurDate = DateHelper.dateFromString(viewModel.date!, formatter: DateHelper.dateFormatForCurrentTime)
         }
     }
+    
+    // MARK: - 以前的方法搜索功能用
+    
 }

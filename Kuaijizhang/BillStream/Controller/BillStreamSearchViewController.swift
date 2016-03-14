@@ -19,6 +19,7 @@ class BillStreamSearchViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var totalIncomeLabel: UILabel!
     @IBOutlet weak var totalExpenseLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     let duration = Double(Float(UINavigationControllerHideShowBarDuration))
     let translationTx = CGFloat(25)
@@ -33,6 +34,8 @@ class BillStreamSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
         config()
     }
     
@@ -89,5 +92,12 @@ class BillStreamSearchViewController: UIViewController {
         view.backgroundColor =  blackColorForTransparent
         searchView.transform = CGAffineTransformMakeTranslation(translationTx, 0)
         cancelButton.transform = CGAffineTransformMakeTranslation(translationTx, 0)
+    }
+}
+
+extension BillStreamSearchViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
     }
 }

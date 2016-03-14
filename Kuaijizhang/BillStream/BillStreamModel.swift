@@ -13,7 +13,6 @@ class BillStreamModel: RealmModel<Bill> {
     init(startTime: NSDate, endTime: NSDate) {
         super.init()
         objectList = System.getCurrentUser()?.accountBooks.filter("isUsing = true").first?.bills.filter("occurDate BETWEEN %@", [startTime, endTime]).sorted("occurDate", ascending: false).toList()
-        
     }
     
     func refreshData(startTime: NSDate, _ endTime: NSDate) {
@@ -42,5 +41,11 @@ class BillStreamModel: RealmModel<Bill> {
             }
         }
         return []
+    }
+    
+    func getBillsBy(text: String) -> [Bill] {
+        return objectList?.filter {
+            return "\($0.money)".containsString(text) ||
+        }
     }
 }

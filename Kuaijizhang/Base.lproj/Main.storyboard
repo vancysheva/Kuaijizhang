@@ -4925,6 +4925,7 @@
                         <outlet property="headerView" destination="0Si-9k-rdX" id="AKj-Z6-COM"/>
                         <outlet property="searchTextField" destination="ui7-QF-eE6" id="Zn2-3z-8yM"/>
                         <outlet property="searchView" destination="lxf-ta-IEl" id="Puc-D5-ixC"/>
+                        <outlet property="tableView" destination="xwE-iv-Kbx" id="Qvb-Ro-lHs"/>
                         <outlet property="totalExpenseLabel" destination="ihN-L0-Pgj" id="fK7-MB-EL1"/>
                         <outlet property="totalIncomeLabel" destination="a3w-5v-spL" id="b3e-Rl-1bv"/>
                     </connections>
