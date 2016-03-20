@@ -83,4 +83,17 @@ print(res)
 var nums: Set = [3, 1, 5]
 print(nums.sort(>))
 
+//测试属性唯一性
+class Person {
+    var id = NSUUID().UUIDString
+    
+    func getId() -> String {
+        return NSUUID().UUIDString
+    }
+}
 
+let person = Person()
+let id1 = person.id
+let id2 = person.id
+let id3 = person.getId()
+let id4 = person.getId()

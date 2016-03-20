@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E39d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="On5-jg-9Nl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="On5-jg-9Nl">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -4694,11 +4694,11 @@
                                             <constraint firstItem="dKE-aR-jyV" firstAttribute="centerY" secondItem="61N-iF-eRM" secondAttribute="centerY" id="cwl-6d-R3b"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xwE-iv-Kbx" userLabel="Detail View">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xwE-iv-Kbx" userLabel="Detail View">
                                         <rect key="frame" x="0.0" y="35" width="320" height="469"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="cellWithComment" rowHeight="60" id="i7l-bU-4Vr" customClass="BillStreamViewCell" customModule="Kuaijizhang" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="cellWithComment" rowHeight="60" id="i7l-bU-4Vr" customClass="BillStreamSearchViewCell" customModule="Kuaijizhang" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="320" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="i7l-bU-4Vr" id="Amy-sS-jUH">
@@ -4716,7 +4716,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FXn-u5-aph" userLabel="comment">
-                                                            <rect key="frame" x="46" y="30" width="76" height="25"/>
+                                                            <rect key="frame" x="46" y="30" width="108" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="X5r-m5-d10"/>
                                                             </constraints>
@@ -4725,7 +4725,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o6Q-J6-Qcu" userLabel="money">
-                                                            <rect key="frame" x="122" y="17" width="190" height="25"/>
+                                                            <rect key="frame" x="154" y="17" width="158" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="DSJ-Iw-ZP0"/>
                                                             </constraints>
@@ -4733,11 +4733,18 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hwx-7n-ytQ">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hwx-7n-ytQ">
                                                             <rect key="frame" x="8" y="14" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="chC-6B-6N8"/>
                                                                 <constraint firstAttribute="width" constant="30" id="nOz-Ot-1or"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bill image" translatesAutoresizingMaskIntoConstraints="NO" id="gKr-vg-Dc8">
+                                                            <rect key="frame" x="119" y="14" width="15" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="15" id="ZCQ-L3-dyS"/>
+                                                                <constraint firstAttribute="height" constant="15" id="q6s-7f-C8F"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
@@ -4746,23 +4753,26 @@
                                                         <constraint firstAttribute="bottom" secondItem="FXn-u5-aph" secondAttribute="bottom" constant="4" id="2sh-66-OSy"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="o6Q-J6-Qcu" secondAttribute="trailing" id="4S4-7z-aDo"/>
                                                         <constraint firstItem="FXn-u5-aph" firstAttribute="leading" secondItem="nQC-qu-MeP" secondAttribute="leading" id="KQH-4z-uQw"/>
-                                                        <constraint firstItem="o6Q-J6-Qcu" firstAttribute="leading" secondItem="nQC-qu-MeP" secondAttribute="trailing" constant="8" id="L4Y-j3-aDd"/>
                                                         <constraint firstItem="nQC-qu-MeP" firstAttribute="leading" secondItem="hwx-7n-ytQ" secondAttribute="trailing" constant="8" id="LWK-E5-xsM"/>
-                                                        <constraint firstItem="o6Q-J6-Qcu" firstAttribute="leading" secondItem="FXn-u5-aph" secondAttribute="trailing" id="M9z-Nu-9ZJ"/>
+                                                        <constraint firstItem="o6Q-J6-Qcu" firstAttribute="leading" secondItem="FXn-u5-aph" secondAttribute="trailing" id="Pyt-lh-ydU"/>
                                                         <constraint firstItem="hwx-7n-ytQ" firstAttribute="centerY" secondItem="Amy-sS-jUH" secondAttribute="centerY" id="V3y-tm-Pic"/>
+                                                        <constraint firstItem="gKr-vg-Dc8" firstAttribute="bottom" secondItem="nQC-qu-MeP" secondAttribute="bottom" id="meM-0g-xMS"/>
                                                         <constraint firstItem="hwx-7n-ytQ" firstAttribute="leading" secondItem="Amy-sS-jUH" secondAttribute="leadingMargin" id="ouV-T5-WNW"/>
                                                         <constraint firstItem="nQC-qu-MeP" firstAttribute="top" secondItem="Amy-sS-jUH" secondAttribute="top" constant="4" id="w30-kt-OLL"/>
+                                                        <constraint firstItem="o6Q-J6-Qcu" firstAttribute="leading" secondItem="gKr-vg-Dc8" secondAttribute="trailing" constant="20" id="xvU-6Y-oA9"/>
+                                                        <constraint firstItem="gKr-vg-Dc8" firstAttribute="leading" secondItem="nQC-qu-MeP" secondAttribute="trailing" constant="5" id="zXu-f7-SxH"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <connections>
-                                                    <outlet property="comment" destination="FXn-u5-aph" id="HCn-ot-cKR"/>
-                                                    <outlet property="consumeType" destination="nQC-qu-MeP" id="RyD-61-Wes"/>
-                                                    <outlet property="consumeptionTypeImage" destination="hwx-7n-ytQ" id="eii-m9-Pog"/>
-                                                    <outlet property="money" destination="o6Q-J6-Qcu" id="EnD-df-biw"/>
+                                                    <outlet property="billImageView" destination="gKr-vg-Dc8" id="86o-RD-fKh"/>
+                                                    <outlet property="commentLabel" destination="FXn-u5-aph" id="qHg-60-zo2"/>
+                                                    <outlet property="consumeTypeImageView" destination="hwx-7n-ytQ" id="NhY-tp-fLi"/>
+                                                    <outlet property="consumpeTypeLabel" destination="nQC-qu-MeP" id="hho-76-3Mu"/>
+                                                    <outlet property="moneyLabel" destination="o6Q-J6-Qcu" id="S80-Ca-RBI"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="cellWithoutComment" rowHeight="60" id="hMI-Jr-hYh" customClass="BillStreamViewCell" customModule="Kuaijizhang" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="cellWithoutComment" rowHeight="60" id="hMI-Jr-hYh" customClass="BillStreamSearchViewCell" customModule="Kuaijizhang" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="88" width="320" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hMI-Jr-hYh" id="XsN-gg-HA3">
@@ -4780,7 +4790,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" verticalHuggingPriority="251" text="400" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kYh-UP-3Gj" userLabel="money">
-                                                            <rect key="frame" x="122" y="17" width="190" height="25"/>
+                                                            <rect key="frame" x="157" y="17" width="155" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="9kt-TC-CLf"/>
                                                             </constraints>
@@ -4796,21 +4806,31 @@
                                                                 <constraint firstAttribute="height" constant="30" id="Qto-yf-B1x"/>
                                                             </constraints>
                                                         </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bill image" translatesAutoresizingMaskIntoConstraints="NO" id="G3Q-RB-r0f">
+                                                            <rect key="frame" x="122" y="22.5" width="15" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="15" id="L5a-rr-0fX"/>
+                                                                <constraint firstAttribute="height" constant="15" id="nNL-97-mOK"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="kYh-UP-3Gj" firstAttribute="centerY" secondItem="XsN-gg-HA3" secondAttribute="centerY" id="2mi-dk-aa7"/>
+                                                        <constraint firstItem="G3Q-RB-r0f" firstAttribute="leading" secondItem="Ob4-m4-U5N" secondAttribute="trailing" constant="8" id="B8T-lE-uj9"/>
                                                         <constraint firstItem="V5e-S3-vj8" firstAttribute="leading" secondItem="XsN-gg-HA3" secondAttribute="leadingMargin" id="NyE-m0-nmZ"/>
+                                                        <constraint firstItem="G3Q-RB-r0f" firstAttribute="centerY" secondItem="XsN-gg-HA3" secondAttribute="centerY" id="Qob-ec-JHq"/>
+                                                        <constraint firstItem="kYh-UP-3Gj" firstAttribute="leading" secondItem="G3Q-RB-r0f" secondAttribute="trailing" constant="20" id="S1d-0y-VIc"/>
                                                         <constraint firstItem="Ob4-m4-U5N" firstAttribute="leading" secondItem="V5e-S3-vj8" secondAttribute="trailing" constant="8" id="Whz-PG-fax"/>
-                                                        <constraint firstItem="kYh-UP-3Gj" firstAttribute="leading" secondItem="Ob4-m4-U5N" secondAttribute="trailing" constant="8" id="ZOf-bR-im9"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="kYh-UP-3Gj" secondAttribute="trailing" id="inP-yg-ae6"/>
                                                         <constraint firstItem="V5e-S3-vj8" firstAttribute="centerY" secondItem="XsN-gg-HA3" secondAttribute="centerY" id="qgD-ko-AAx"/>
                                                         <constraint firstItem="Ob4-m4-U5N" firstAttribute="centerY" secondItem="XsN-gg-HA3" secondAttribute="centerY" id="r6N-Yg-uhn"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="consumeType" destination="Ob4-m4-U5N" id="PzW-3C-ACz"/>
-                                                    <outlet property="consumeptionTypeImage" destination="V5e-S3-vj8" id="GSN-EK-3nO"/>
-                                                    <outlet property="money" destination="kYh-UP-3Gj" id="6OA-kg-8Hi"/>
+                                                    <outlet property="billImageView" destination="G3Q-RB-r0f" id="2SN-W4-xVo"/>
+                                                    <outlet property="consumeTypeImageView" destination="V5e-S3-vj8" id="6xz-oi-mQO"/>
+                                                    <outlet property="consumpeTypeLabel" destination="Ob4-m4-U5N" id="njy-2m-Jft"/>
+                                                    <outlet property="moneyLabel" destination="kYh-UP-3Gj" id="2o3-QW-8I1"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>

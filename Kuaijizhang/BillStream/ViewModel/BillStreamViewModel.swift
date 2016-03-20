@@ -10,6 +10,8 @@ import Foundation
 
 typealias BillTuple = (displayDay: Bool, displayLongSeparatorLine: Bool, day: Int, money: Double, consumeName: String, iconName: String, conmment: String, billType: BillType, week: String, haveBillImage: Bool)
 
+typealias SearchBillTuple = (iconName: String?, consumeName: String?, comment: String?, money: Double, haveBillImage: Bool, billType: BillType)
+
 class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     
     /// 存12个月是否账单的字典
@@ -215,4 +217,19 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     
     // MARK: - 以前的方法搜索功能用
     
+    var searchBills: [SearchBillTuple]?
+    var totalSearchBillsIncome: Double = 0.0
+    var totalSearchBillsExpense: Double = 0.0
+    
+    func getBillsBy(text: String) {
+        
+        let bills = model.getBillsBy(text)
+        searchBills = bills.flatMap {
+            return ($0.consumeType?.iconName, $0.consumeType?.name, $0.comment, $0.money, $0.image == nil ? false : true, $0.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income)
+        }
+        
+        totalSearchBillsIncome = bills.filter { $0.consumeType?.type == "1" }.reduce(0) { $0 + $1.money }
+        
+        totalSearchBillsExpense = bills.filter { $0.consumeType?.type == "0" }.reduce(0) { $0 + $1.money }
+    }
 }

@@ -48,23 +48,27 @@ class BillStreamSearchViewController: UIViewController {
     // MARK: - Methods
     
     private func config() {
-        searchTextField.delegate = textFieldAgent
-        setState()
-        bodyView.hidden = true
         
+        searchTextField.delegate = textFieldAgent
+        bodyView.hidden = true
         searchView.layer.cornerRadius = 5
+        setState()
         
         textFieldAgent.addTextFieldTextDidChangeNotification({[unowned self] (notification) -> Void in
-        if let key = self.searchTextField.text where key.trim() != "" {
-            self.bodyView.hidden = false
-        } else {
-            self.bodyView.hidden = true
-        }
+            if let keyWord = self.searchTextField.text where keyWord.trim() != "" {
+                self.bodyView.hidden = false
+                self.loadData(keyWord)
+            } else {
+                self.bodyView.hidden = true
+            }
         })
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        performSegueWithIdentifier("unwindToBillStreamSegue", sender: self)
+        
+        if let point = touches.first?.locationInView(bodyView) where CGRectContainsPoint(bodyView.bounds, point) {
+            performSegueWithIdentifier("unwindToBillStreamSegue", sender: self)
+        }
     }
 
     func show() {
@@ -93,11 +97,38 @@ class BillStreamSearchViewController: UIViewController {
         searchView.transform = CGAffineTransformMakeTranslation(translationTx, 0)
         cancelButton.transform = CGAffineTransformMakeTranslation(translationTx, 0)
     }
+    
+    func loadData(keyWord: String) {
+        
+        billStreamViewModel?.getBillsBy(keyWord)
+        tableView.reloadData()
+        totalIncomeLabel.text = "\(billStreamViewModel!.totalSearchBillsIncome)"
+        totalExpenseLabel.text = "\(billStreamViewModel!.totalSearchBillsExpense)"
+    }
 }
 
 extension BillStreamSearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return  billStreamViewModel?.searchBills?.count ?? 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        let data = billStreamViewModel?.searchBills?[indexPath.row]
+        let cell = self.tableView.dequeueReusableCellWithIdentifier(data?.comment?.isEmpty ?? false ? "cellWithoutComment" : "cellWithComment", forIndexPath: indexPath) as! BillStreamSearchViewCell
+        cell.data = data
+        return cell
+        
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+
+        }
     }
 }

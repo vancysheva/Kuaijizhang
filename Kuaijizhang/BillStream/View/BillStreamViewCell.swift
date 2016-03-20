@@ -76,15 +76,5 @@ class BillStreamViewCell: UITableViewCell {
         path.moveToPoint(startPoint)
         path.addLineToPoint(endPoint)
         path.stroke()
-        /*
-        let pathlayer = CAShapeLayer()
-        pathlayer.frame = bounds
-        pathlayer.path = columnPath.CGPath
-        pathlayer.strokeColor = color.CGColor
-        pathlayer.fillColor = nil
-        pathlayer.lineWidth = lineWidth
-        pathlayer.lineJoin = kCALineJoinBevel
-        layer.addSublayer(pathlayer)
-*/
     }
 }

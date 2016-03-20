@@ -45,7 +45,15 @@ class BillStreamModel: RealmModel<Bill> {
     
     func getBillsBy(text: String) -> [Bill] {
         return objectList?.filter {
-            return "\($0.money)".containsString(text) ||
-        }
+            return "\($0.money)".containsString(text)
+                    || $0.comment?.containsString(text) ?? false
+                    || $0.consumeType?.name.containsString(text) ?? false
+                    || $0.consumeType?.subConsumeptionType?.name.containsString(text) ?? false
+                    || $0.subject?.name.containsString(text) ?? false
+                    || $0.subject?.name.containsString(text) ?? false
+                    || $0.account?.name.containsString(text) ?? false
+                    || $0.account?.subAccount?.name.containsString(text) ?? false
+        
+        } ?? []
     }
 }
