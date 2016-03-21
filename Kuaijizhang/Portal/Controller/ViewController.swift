@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     let portalViewModel = PortalViewModel()
     
     var barChartController: FWChartController?
-    
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()

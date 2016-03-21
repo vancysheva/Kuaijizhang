@@ -7,20 +7,27 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    override init() {
+        super.init()
+        migration()
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         if #available(iOS 9.0, *) {
             addDynamicShortcutItems()
         }
-        
+
         return true
     }
+    
 
     @available(iOS 9.0, *)
     func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
@@ -54,6 +61,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().shortcutItems = [shortcutItem1, shortcutItem2]
         
+    }
+    
+    func migration() {
+        
+        Realm.Configuration.defaultConfiguration = Realm.Configuration (
+            schemaVersion: 1,
+            migrationBlock: { migration, oldSchemaVersion in
+                migration.enumerate(Account.className(), { (oldObject, newObject) -> Void in
+                    if oldSchemaVersion < 1 {
+                        newObject!["id"] = NSUUID().UUIDString
+                    }
+                })
+            }
+        )
     }
 }
 
