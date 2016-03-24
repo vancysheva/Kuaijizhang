@@ -10,7 +10,7 @@ import Foundation
 
 typealias BillTuple = (displayDay: Bool, displayLongSeparatorLine: Bool, day: Int, money: Double, consumeName: String, iconName: String, conmment: String, billType: BillType, week: String, haveBillImage: Bool)
 
-typealias SearchBillTuple = (iconName: String?, consumeName: String?, comment: String?, money: Double, haveBillImage: Bool, billType: BillType)
+typealias SearchBillTuple = (iconName: String?, consumeName: String?, comment: String?, money: Double, haveBillImage: Bool, billType: BillType, index: Int)
 
 class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     
@@ -225,11 +225,17 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         
         let bills = model.getBillsBy(text)
         searchBills = bills.flatMap {
-            return ($0.consumeType?.iconName, $0.consumeType?.name, $0.comment, $0.money, $0.image == nil ? false : true, $0.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income)
+            let index = model.objectList?.indexOf($0) ?? 0
+            return ($0.consumeType?.iconName, $0.consumeType?.name, $0.comment, $0.money, $0.image == nil ? false : true, $0.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income, index)
         }
         
         totalSearchBillsIncome = bills.filter { $0.consumeType?.type == "1" }.reduce(0) { $0 + $1.money }
         
         totalSearchBillsExpense = bills.filter { $0.consumeType?.type == "0" }.reduce(0) { $0 + $1.money }
+    }
+    
+    func deleteSearchBillAt(index: Int, indexPath: NSIndexPath) {
+        searchBills?.removeAtIndex(indexPath.row)
+        model.deleteObjecctAtIndex(index, inSection: 0, userInfo: ["indexPath": indexPath])
     }
 }

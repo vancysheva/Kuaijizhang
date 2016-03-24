@@ -37,6 +37,12 @@ class BillStreamSearchViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         config()
+        
+        billStreamViewModel?.addNotification("BillStreamSearchViewController", notificationHandler: { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
+            if let ip = userInfo?["indexPath"] as? NSIndexPath {
+                self.tableView.deleteRowsAtIndexPaths([ip], withRowAnimation: .Automatic)
+            }
+        })
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -128,7 +134,10 @@ extension BillStreamSearchViewController: UITableViewDelegate, UITableViewDataSo
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! BillStreamSearchViewCell
+            if let index = cell.data?.index {
+                billStreamViewModel?.deleteSearchBillAt(index, indexPath: indexPath)
+            }
         }
     }
 }
