@@ -49,15 +49,15 @@ class AddChildConsumeTypeViewController: UIViewController {
             }
         })
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: childIndex == nil ? "tapButtonForSave:" : "tapButtonForUpdate:")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: childIndex == nil ? #selector(tapButtonForSave) : #selector(tapButtonForUpdate))
         
         if let pIndex = parentIndex, cIndex = childIndex, childConsumeptionType = consumeptionTypeViewModel?.childConsumeptionTypeAtParentIndex(pIndex, withChildIndex: cIndex) { // 修改
             consumeTypeNameTextField.text = childConsumeptionType.childName
             consumeTypeImageView.image = UIImage(named: childConsumeptionType.iconName ?? "")
             iconCollectionAgent.setSelectedIconInFirstItemPosition(childConsumeptionType.iconName ?? "")
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: "dismissSelf:")
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: #selector(dismissSelf))
         } else { // 添加
-            navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回二级类别", style: .Plain, target: self, action: "returnBack:")
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回二级类别", style: .Plain, target: self, action: #selector(returnBack))
         }
         
         iconCollectionAgent.addIconSelectedHandler { (iconName) -> Void in

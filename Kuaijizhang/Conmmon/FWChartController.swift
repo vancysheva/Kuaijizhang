@@ -52,10 +52,10 @@ enum FWChartStyle {
             var labels = [String]()
             var dataEntrys = [ChartDataEntry]()
             
-            var index = 0
+            let index = 0
             for (k, v) in data {
                 labels.append(k)
-                dataEntrys.append(ChartDataEntry(value: v, xIndex: index++))
+                dataEntrys.append(ChartDataEntry(value: v, xIndex: index.successor()))
             }
             let pieset: PieChartDataSet?  = PieChartDataSet(yVals: dataEntrys, label: label)
             pieset!.sliceSpace = sliceSpace
@@ -67,10 +67,10 @@ enum FWChartStyle {
             var labels = [String]()
             var dataEntrys = [BarChartDataEntry]()
             
-            var index = 0
+            let index = 0
             for (k, v) in data {
                 labels.append(k)
-                dataEntrys.append(BarChartDataEntry(value: v, xIndex: index++))
+                dataEntrys.append(BarChartDataEntry(value: v, xIndex: index.successor()))
             }
 
             let dataSet = BarChartDataSet(yVals: dataEntrys, label: label)

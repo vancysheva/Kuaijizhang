@@ -78,7 +78,7 @@ class ViewController: UIViewController {
     
     @IBAction func unwindToPortal(segue: UIStoryboardSegue) {
         
-        if let vc = segue.sourceViewController as? AccountBookViewController {
+        if let _ = segue.sourceViewController as? AccountBookViewController {
             setCurrentAccountBook()
         }
         

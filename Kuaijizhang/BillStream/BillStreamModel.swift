@@ -56,4 +56,16 @@ class BillStreamModel: RealmModel<Bill> {
         
         } ?? []
     }
+    
+    func deleteSearchBillAt(index: Int, indexPath: NSIndexPath) {
+        
+        if let bill = objectList?[index] {
+            deleteObjectWithIndex(index, inSection: 0, userInfo: ["indexPath": indexPath, "searchDelete": true]) {
+                self.realm.delete(bill)
+                let startTime = DateHelper.getStartTimeFromCurrentYear()
+                let endTime = DateHelper.getOverTimeFromCurrentYear()
+                self.objectList = System.getCurrentUser()?.accountBooks.filter("isUsing = true").first?.bills.filter("occurDate BETWEEN %@", [startTime, endTime]).sorted("occurDate", ascending: false).toList()
+            }
+        }
+    }
 }

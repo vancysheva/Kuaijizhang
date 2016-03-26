@@ -33,7 +33,7 @@ class TextFieldAgent: NSObject {
     func addTextFieldTextDidChangeNotification(handler: notificationHandleBlock) {
         self.textFieldTextDidChangeNotificationHandler = handler
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textDidChanged:", name: UITextFieldTextDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(textDidChanged), name: UITextFieldTextDidChangeNotification, object: nil)
     }
     
     func textDidChanged(notification: NSNotification) {

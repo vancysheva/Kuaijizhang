@@ -68,11 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Realm.Configuration.defaultConfiguration = Realm.Configuration (
             schemaVersion: 1,
             migrationBlock: { migration, oldSchemaVersion in
-                migration.enumerate(Account.className(), { (oldObject, newObject) -> Void in
-                    if oldSchemaVersion < 1 {
-                        newObject!["id"] = NSUUID().UUIDString
-                    }
-                })
             }
         )
     }

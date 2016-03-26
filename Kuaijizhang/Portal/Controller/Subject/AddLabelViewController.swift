@@ -27,7 +27,7 @@ class AddLabelViewController: UITableViewController {
             self.navigationItem.rightBarButtonItem?.enabled = b
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: "tapRightBarButtonItem:")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(tapRightBarButtonItem))
     
         if let indexPath = indexPathForUpdate {
             labelTextField.text = labelTableViewModel?.objectAt(indexPath).labelName

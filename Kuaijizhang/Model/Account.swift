@@ -10,8 +10,6 @@ import Foundation
 import RealmSwift
 
 class Account: Object {
-
-    dynamic var id = NSUUID().UUIDString
     /**
      * 账户名称
      **/

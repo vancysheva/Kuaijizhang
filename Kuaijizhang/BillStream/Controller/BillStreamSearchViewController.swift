@@ -115,13 +115,24 @@ class BillStreamSearchViewController: UIViewController {
 
 extension BillStreamSearchViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return billStreamViewModel?.searchBills.count ?? 0
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  billStreamViewModel?.searchBills?.count ?? 0
+        return  billStreamViewModel?.searchBills[section].count ?? 0
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if let t = billStreamViewModel?.searchBills[section].first {
+            return billStreamViewModel?.getHeaderTitle(t)
+        }
+        return nil
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let data = billStreamViewModel?.searchBills?[indexPath.row]
+        let data = billStreamViewModel?.searchBills[indexPath.section][indexPath.row]
         let cell = self.tableView.dequeueReusableCellWithIdentifier(data?.comment?.isEmpty ?? false ? "cellWithoutComment" : "cellWithComment", forIndexPath: indexPath) as! BillStreamSearchViewCell
         cell.data = data
         return cell
@@ -135,8 +146,10 @@ extension BillStreamSearchViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! BillStreamSearchViewCell
-            if let index = cell.data?.index {
+            if let index = cell.data?.index { // 删除当年流水中的账单
                 billStreamViewModel?.deleteSearchBillAt(index, indexPath: indexPath)
+            } else { // 删除自定义搜索中的账单
+                
             }
         }
     }

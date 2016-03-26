@@ -10,7 +10,7 @@ import Foundation
 
 typealias BillTuple = (displayDay: Bool, displayLongSeparatorLine: Bool, day: Int, money: Double, consumeName: String, iconName: String, conmment: String, billType: BillType, week: String, haveBillImage: Bool)
 
-typealias SearchBillTuple = (iconName: String?, consumeName: String?, comment: String?, money: Double, haveBillImage: Bool, billType: BillType, index: Int)
+typealias SearchBillTuple = (iconName: String?, consumeName: String?, comment: String?, money: Double, haveBillImage: Bool, billType: BillType, index: Int, occurDate: NSDate?)
 
 class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     
@@ -181,10 +181,10 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         return (displayDay?.display ?? true, displayLongSeparatorLine, day, bill.money, bill.consumeType?.subConsumeptionType?.name ?? "", bill.consumeType?.subConsumeptionType?.iconName ?? "", bill.comment ?? "", bill.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income, DateHelper.weekFromDate(bill.occurDate ?? NSDate()), bill.image == nil ? false : true)
     }
     
-    func deleteBillAtIndex(index: Int, withSection section: Int) {
+    func deleteBillAtIndex(index: Int, withSection section: Int, weekIsDisplayForDeleteCell display: Bool) {
         
         let bill = model.getBillsWithMonth(months[section])[index]
-        model.delete(bill, indexPath: NSIndexPath(forRow: index, inSection: section), userInfo: nil) {
+        model.delete(bill, indexPath: NSIndexPath(forRow: index, inSection: section), userInfo: ["weekIsDisplayForDeleteCell": display]) {
             if let list = self.model.objectList, index = list.indexOf(bill) {
                 list.removeAtIndex(index)
             }
@@ -215,18 +215,34 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         }
     }
     
-    // MARK: - 以前的方法搜索功能用
+    // MARK: - 以下的方法搜索功能用
     
-    var searchBills: [SearchBillTuple]?
+    var searchBills = [[SearchBillTuple]]()
     var totalSearchBillsIncome: Double = 0.0
     var totalSearchBillsExpense: Double = 0.0
     
     func getBillsBy(text: String) {
         
+        searchBills.removeAll()
         let bills = model.getBillsBy(text)
-        searchBills = bills.flatMap {
-            let index = model.objectList?.indexOf($0) ?? 0
-            return ($0.consumeType?.iconName, $0.consumeType?.name, $0.comment, $0.money, $0.image == nil ? false : true, $0.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income, index)
+        
+        func assembleSearchBillTuple(bill: Bill, index: Int) -> SearchBillTuple {
+            return (bill.consumeType?.iconName, bill.consumeType?.name, bill.comment, bill.money, bill.image == nil ? false : true, bill.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income, index, bill.occurDate)
+        }
+        
+        bills.forEach {
+            if let occurDate = $0.occurDate {
+                let index = model.objectList?.indexOf($0) ?? 0
+                if searchBills.count == 0 {
+                    var arr = [SearchBillTuple]()
+                    arr.append(assembleSearchBillTuple($0, index: index))
+                    searchBills.append(arr)
+                } else if DateHelper.getStringFromDate(searchBills.last?.last?.occurDate ?? NSDate(), dateFormat: DateHelper.dateFormatForDate1) == DateHelper.getStringFromDate(occurDate, dateFormat: DateHelper.dateFormatForDate1) {
+                    let temp = searchBills.last!
+                    searchBills[searchBills.count - 1] = temp + [assembleSearchBillTuple($0, index: index)]
+                    
+                }
+            }
         }
         
         totalSearchBillsIncome = bills.filter { $0.consumeType?.type == "1" }.reduce(0) { $0 + $1.money }
@@ -235,7 +251,15 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
     }
     
     func deleteSearchBillAt(index: Int, indexPath: NSIndexPath) {
-        searchBills?.removeAtIndex(indexPath.row)
-        model.deleteObjecctAtIndex(index, inSection: 0, userInfo: ["indexPath": indexPath])
+        //searchBills?.removeAtIndex(indexPath.row)
+        model.deleteSearchBillAt(index, indexPath: indexPath)
+    }
+    
+    func getHeaderTitle(tuple: SearchBillTuple) -> String {
+        
+        let date = tuple.occurDate ?? NSDate()
+        let time = DateHelper.getStringFromDate(date, dateFormat: DateHelper.dateFormatForDate2)
+        let week = DateHelper.weekFromDate(date)
+        return "\(time)   \(week)"
     }
 }

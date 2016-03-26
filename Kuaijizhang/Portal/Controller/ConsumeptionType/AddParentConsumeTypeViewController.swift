@@ -44,15 +44,15 @@ class AddParentConsumeTypeViewController: UIViewController {
             self.navigationItem.rightBarButtonItem?.enabled = self.consumeTypeNameTextField.text?.characters.count > 0
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: parentIndex == nil ? ButtonType.Next.rawValue : ButtonType.Save.rawValue, style: .Plain, target: self, action: parentIndex == nil ? "tapNextButton:" : "tapSaveButton:")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: parentIndex == nil ? ButtonType.Next.rawValue : ButtonType.Save.rawValue, style: .Plain, target: self, action: parentIndex == nil ? #selector(tapNextButton) : #selector(tapSaveButton))
         
         if let index = parentIndex, parentConsumeptionType = consumeptionTypeViewModel?.parentConsumeptionTypeAtIndex(index)  {// 修改
             consumeTypeNameTextField.text = parentConsumeptionType.parentName
             consumeTypeImageView.image = UIImage(named: parentConsumeptionType.iconName ?? "")
             iconCollectionAgent.setSelectedIconInFirstItemPosition(parentConsumeptionType.iconName ?? "")
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: "dismissSelf:")
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: #selector(dismissSelf))
         } else {// 添加
-            navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: self, action: "returnBack:")
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: self, action: #selector(returnBack))
 
         }
         

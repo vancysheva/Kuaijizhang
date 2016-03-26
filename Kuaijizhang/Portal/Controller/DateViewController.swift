@@ -28,7 +28,7 @@ class DateViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy年MM月dd日 HH:mm"
         
         datePickerView.locale = currentLocale
-        datePickerView.addTarget(self, action: "valueChaned:", forControlEvents: UIControlEvents.ValueChanged)
+        datePickerView.addTarget(self, action: #selector(valueChaned), forControlEvents: UIControlEvents.ValueChanged)
     }
         
     // MARK: - Internal Methods

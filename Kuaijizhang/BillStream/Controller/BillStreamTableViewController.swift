@@ -55,20 +55,30 @@ class BillStreamTableViewController: UITableViewController {
         
         billStreamViewModel.addNotification("BillStreamTableViewController") { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
             
-            if case .Delete = dataChangedType {
-                let cnt = self.billStreamViewModel.getBillCountForMonth(self.billStreamViewModel.months[indexPath.section])
-                if cnt == 0 {
+            if userInfo?["searchDelete"] != nil {
+                self.billTableView.reloadData()
+            } else {
+                if case .Delete = dataChangedType {
+                    let cnt = self.billStreamViewModel.getBillCountForMonth(self.billStreamViewModel.months[indexPath.section])
+                    if cnt == 0 { // 此处判断如果么有账单，则reload，让其返回一个无记录cell
+                        self.billTableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+                    } else {
+                        self.billTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                        // 如果被删除的cell的周信息是显示的，并且此cell不是section中最后一个，则它的下一个cell的周信息应设置为显示的
+                        if let info = userInfo?["weekIsDisplayForDeleteCell"] as? Bool where info && (indexPath.row != cnt) {
+                            let cell = self.billTableView.cellForRowAtIndexPath(indexPath) as! BillStreamViewCell
+                            cell.day.hidden = false
+                            cell.week.hidden = false
+                        }
+                    }
+                } else if case .Update = dataChangedType {
+                    self.dismissViewControllerAnimated(true, completion: nil)
                     self.billTableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
-                } else {
-                    self.billTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
                 }
-            } else if case .Update = dataChangedType {
-                self.dismissViewControllerAnimated(true, completion: nil)
-                self.billTableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
-            }
-            
-            if let headerView = self.billTableView.headerViewForSection(indexPath.section) as? BillStreamHeaderView {
-                headerView.data = self.billStreamViewModel.getHeaderDataWithMonth(self.billStreamViewModel.months[indexPath.section])
+                
+                if let headerView = self.billTableView.headerViewForSection(indexPath.section) as? BillStreamHeaderView {
+                    headerView.data = self.billStreamViewModel.getHeaderDataWithMonth(self.billStreamViewModel.months[indexPath.section])
+                }
             }
             self.updateUI()
         }
@@ -125,8 +135,8 @@ class BillStreamTableViewController: UITableViewController {
     
 
     func initRefresh() {
-        
-        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: Selector("loadNextYearBills"))
+
+        let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadNextYearBills))
         header.setTitle("下拉加载下一年流水", forState: .Idle)
         header.setTitle("放开加载", forState: .Pulling)
         header.setTitle("正在加载...", forState: .Refreshing)
@@ -134,7 +144,7 @@ class BillStreamTableViewController: UITableViewController {
         
         billTableView.mj_header = header
         
-        let footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: Selector("loadPreviousYearBills"))
+        let footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(loadPreviousYearBills))
         footer.setTitle("上拉加载前一年流水", forState: .Idle)
         footer.setTitle("放开加载", forState: .Pulling)
         footer.setTitle("正在加载...", forState: .Refreshing)
@@ -309,7 +319,8 @@ extension BillStreamTableViewController {
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if case .Delete = editingStyle {
-            billStreamViewModel.deleteBillAtIndex(indexPath.row, withSection: indexPath.section)
+            let display = !(tableView.cellForRowAtIndexPath(indexPath) as! BillStreamViewCell).day.hidden
+            billStreamViewModel.deleteBillAtIndex(indexPath.row, withSection: indexPath.section, weekIsDisplayForDeleteCell: display)
         }
     }
 }

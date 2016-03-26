@@ -165,9 +165,9 @@ class ColumnChart: UIView {
         if let yaxisTitle = yaxisName {
             if originPoint.x > 25 {
                 let sizeForYaxisName = NSAttributedString(string: yaxisTitle).size()
-                var index = 0
+                let index = 0
                 for c in yaxisTitle.characters {
-                    index++
+                    index.successor()
                     let yTitle = NSAttributedString(string: "\(c)")
                     let x = (yDirectionPoint.x - yTitle.size().width)/2
                     let y = yDirectionPoint.y + (yaxisHeight - sizeForYaxisName.width)/2 + yTitle.size().height * CGFloat(index) + 1
@@ -215,7 +215,7 @@ class ColumnChart: UIView {
     
     // MARK: 画所有柱状图
     func drawAllColumns(columnWidth: CGFloat, columnStartPoints: [CGPoint], columnOverPoints: [CGPoint], columnTitle: [Double]) {
-        for var i=0; i<columnStartPoints.count; i++ {
+        for let i=0; i<columnStartPoints.count; i.successor() {
             
             let lineStartPoint = columnStartPoints[i]
             let lineOverPoint = columnOverPoints[i]
