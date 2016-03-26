@@ -72,8 +72,10 @@ class BillStreamTableViewController: UITableViewController {
                         }
                     }
                 } else if case .Update = dataChangedType {
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                    self.billTableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+                    if let info = userInfo?["updateFrom"] as? String where info == "fromBillStream" {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                        self.billTableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
+                    }
                 }
                 
                 if let headerView = self.billTableView.headerViewForSection(indexPath.section) as? BillStreamHeaderView {
@@ -96,10 +98,11 @@ class BillStreamTableViewController: UITableViewController {
         if let navi = segue.destinationViewController as? UINavigationController,
             vc = navi.visibleViewController as? AddBillViewController,
             cell = sender as? UITableViewCell,
-            indexPath = billTableView.indexPathForCell(cell) {
+            indexPath = billTableView.indexPathForCell(cell) { // modify bill
             vc.addBillViewModel.billForUpdate = billStreamViewModel.getBillByIndex(billIndex: indexPath.row, withMonth: billStreamViewModel.months[indexPath.section])
             billStreamViewModel.updateBillCurrying = billStreamViewModel.updateBill(billIndex: indexPath.row, withSection: indexPath.section)
             vc.billStreamViewModel = billStreamViewModel
+            vc.updateType = ["updateFrom": "fromBillStream"]
                 
         } else if segue.identifier == "stream2AddBill" {
             let navi = segue.destinationViewController as! UINavigationController

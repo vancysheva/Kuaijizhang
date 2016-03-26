@@ -100,6 +100,8 @@ class AddBillViewController: UITableViewController {
     var portalController: ViewController?
     
     var billStreamViewModel: BillStreamViewModel?
+    
+    var updateType: [String: Any] = ["": ""]
 
     // MARK: - Lifecycle
     
@@ -294,11 +296,10 @@ extension AddBillViewController {
     func saveBill() {
         
         if let viewModel = billStreamViewModel {
-            viewModel.updateBillCurrying?(addBillViewModel, commentTextView.text)
+            viewModel.updateBillCurrying?(addBillViewModel, commentTextView.text, updateType)
         } else {
             addBillViewModel.saveBill(commentTextView.text)
         }
-        
     }
     
     func updateAddBillData() {

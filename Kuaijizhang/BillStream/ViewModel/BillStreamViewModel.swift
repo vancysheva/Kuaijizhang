@@ -195,23 +195,50 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         return model.getBillsWithMonth(month)[index]
     }
     
-    var updateBillCurrying: ((AddBillViewModel, String) -> Void)?
+    func getBillAtIndex(indexAtObject index: Int) -> Bill? {
+        return model.objectList?[index]
+    }
     
-    func updateBill(billIndex index: Int, withSection section: Int)(viewModel: AddBillViewModel, comment: String) {
+    var updateBillCurrying: ((AddBillViewModel, String, [String: Any]?) -> Void)?
+    
+    func updateBill(billIndex index: Int, withSection section: Int) -> (viewModel: AddBillViewModel, comment: String, userInfo: [String: Any]?) -> Void {
         
         let month = months[section]
         let bill = model.getBillsWithMonth(month)[index]
         
-        model.updateObjectWithIndex(index, inSection: section) {
-            bill.money = viewModel.money
-            bill.account = viewModel.parentAccount
-            bill.account?.subAccount = viewModel.childAccount
-            bill.consumeType = viewModel.parentConsumpetionType
-            bill.consumeType?.subConsumeptionType = viewModel.childConsumpetionType
-            bill.subject = viewModel.subject
-            bill.image = viewModel.image
-            bill.comment = comment
-            bill.occurDate = DateHelper.dateFromString(viewModel.date!, formatter: DateHelper.dateFormatForCurrentTime)
+        return {(viewModel: AddBillViewModel, comment: String, userInfo) -> Void in
+            self.model.updateObjectWithIndex(index, inSection: section, userInfo: userInfo) {
+                bill.money = viewModel.money
+                bill.account = viewModel.parentAccount
+                bill.account?.subAccount = viewModel.childAccount
+                bill.consumeType = viewModel.parentConsumpetionType
+                bill.consumeType?.subConsumeptionType = viewModel.childConsumpetionType
+                bill.subject = viewModel.subject
+                bill.image = viewModel.image
+                bill.comment = comment
+                bill.occurDate = DateHelper.dateFromString(viewModel.date!, formatter: DateHelper.dateFormatForCurrentTime)
+            }
+        }
+    }
+    
+    func updateBill(indexAtObject index: Int) -> (viewModel: AddBillViewModel, comment: String, userInfo: [String: Any]?) -> Void {
+        
+        if let bill = model.objectList?[index] {
+            return { (viewModel: AddBillViewModel, comment: String, userInfo) -> Void in
+                self.model.updateObjectWithIndex(index, inSection: 0, userInfo: userInfo) {
+                    bill.money = viewModel.money
+                    bill.account = viewModel.parentAccount
+                    bill.account?.subAccount = viewModel.childAccount
+                    bill.consumeType = viewModel.parentConsumpetionType
+                    bill.consumeType?.subConsumeptionType = viewModel.childConsumpetionType
+                    bill.subject = viewModel.subject
+                    bill.image = viewModel.image
+                    bill.comment = comment
+                    bill.occurDate = DateHelper.dateFromString(viewModel.date!, formatter: DateHelper.dateFormatForCurrentTime)
+                }
+            }
+        } else {
+            return { (viewModel: AddBillViewModel, comment: String, userInfo: [String: Any]?) -> Void in }
         }
     }
     
@@ -226,10 +253,6 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         searchBills.removeAll()
         let bills = model.getBillsBy(text)
         
-        func assembleSearchBillTuple(bill: Bill, index: Int) -> SearchBillTuple {
-            return (bill.consumeType?.iconName, bill.consumeType?.name, bill.comment, bill.money, bill.image == nil ? false : true, bill.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income, index, bill.occurDate)
-        }
-        
         bills.forEach {
             if let occurDate = $0.occurDate {
                 let index = model.objectList?.indexOf($0) ?? 0
@@ -237,10 +260,18 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
                     var arr = [SearchBillTuple]()
                     arr.append(assembleSearchBillTuple($0, index: index))
                     searchBills.append(arr)
-                } else if DateHelper.getStringFromDate(searchBills.last?.last?.occurDate ?? NSDate(), dateFormat: DateHelper.dateFormatForDate1) == DateHelper.getStringFromDate(occurDate, dateFormat: DateHelper.dateFormatForDate1) {
-                    let temp = searchBills.last!
-                    searchBills[searchBills.count - 1] = temp + [assembleSearchBillTuple($0, index: index)]
+                } else {
+                    let lastDate = DateHelper.getStringFromDate(searchBills.last?.last?.occurDate ?? NSDate(), dateFormat: DateHelper.dateFormatForDate1)
+                    let currentDate = DateHelper.getStringFromDate(occurDate, dateFormat: DateHelper.dateFormatForDate1)
                     
+                    if (lastDate == currentDate) {
+                        let temp = searchBills.last!
+                        searchBills[searchBills.count - 1] = temp + [assembleSearchBillTuple($0, index: index)]
+                    } else {
+                        var arr = [SearchBillTuple]()
+                        arr.append(assembleSearchBillTuple($0, index: index))
+                        searchBills.append(arr)
+                    }
                 }
             }
         }
@@ -250,8 +281,18 @@ class BillStreamViewModel: ViewModelBase<BillStreamModel> {
         totalSearchBillsExpense = bills.filter { $0.consumeType?.type == "0" }.reduce(0) { $0 + $1.money }
     }
     
+    private func assembleSearchBillTuple(bill: Bill, index: Int) -> SearchBillTuple {
+        return (bill.consumeType?.iconName, bill.consumeType?.name, bill.comment, bill.money, bill.image == nil ? false : true, bill.consumeType?.subConsumeptionType?.type ?? "0" == "0" ? .Expense : .Income, index, bill.occurDate)
+    }
+    
     func deleteSearchBillAt(index: Int, indexPath: NSIndexPath) {
-        //searchBills?.removeAtIndex(indexPath.row)
+        
+        searchBills[indexPath.section].removeAtIndex(indexPath.row)
+        // 如果最后一个数组元素为空, 则删除之。
+        if searchBills.last?.count == 0 {
+            searchBills.removeLast()
+        }
+        
         model.deleteSearchBillAt(index, indexPath: indexPath)
     }
     

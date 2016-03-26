@@ -39,8 +39,19 @@ class BillStreamSearchViewController: UIViewController {
         config()
         
         billStreamViewModel?.addNotification("BillStreamSearchViewController", notificationHandler: { (transactionState, dataChangedType, indexPath, userInfo) -> Void in
-            if let ip = userInfo?["indexPath"] as? NSIndexPath {
-                self.tableView.deleteRowsAtIndexPaths([ip], withRowAnimation: .Automatic)
+            if case .Delete = dataChangedType {
+                let ip = userInfo!["indexPath"] as! NSIndexPath
+                if let cnt = self.billStreamViewModel?.searchBills.count where cnt == ip.section {
+                    self.tableView.deleteSections(NSIndexSet(index: ip.section), withRowAnimation: .Automatic)
+                } else {
+                    self.tableView.deleteRowsAtIndexPaths([ip], withRowAnimation: .Automatic)
+                }
+            } else if case .Update = dataChangedType {
+                if let info = userInfo?["updateFrom"] as? String where info == "fromBillStreamSearch" {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.loadData(self.searchTextField.text?.trim() ?? "")
+                    self.updateTotalViewUI()
+                }
             }
         })
     }
@@ -52,6 +63,19 @@ class BillStreamSearchViewController: UIViewController {
     
 
     // MARK: - Methods
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let navi = segue.destinationViewController as? UINavigationController,
+            vc = navi.visibleViewController as? AddBillViewController,
+            ip = tableView.indexPathForCell(sender as! UITableViewCell),
+            index = (sender as! BillStreamSearchViewCell).data?.index { // modify bill
+            vc.addBillViewModel.billForUpdate = billStreamViewModel?.getBillAtIndex(indexAtObject: index)
+            billStreamViewModel?.updateBillCurrying = billStreamViewModel?.updateBill(indexAtObject: index)
+            vc.billStreamViewModel = billStreamViewModel
+            vc.updateType = ["updateFrom": "fromBillStreamSearch", "indexPath": ip]
+        }
+    }
     
     private func config() {
         
@@ -108,6 +132,10 @@ class BillStreamSearchViewController: UIViewController {
         
         billStreamViewModel?.getBillsBy(keyWord)
         tableView.reloadData()
+        updateTotalViewUI()
+    }
+    
+    func updateTotalViewUI() {
         totalIncomeLabel.text = "\(billStreamViewModel!.totalSearchBillsIncome)"
         totalExpenseLabel.text = "\(billStreamViewModel!.totalSearchBillsExpense)"
     }
@@ -152,5 +180,11 @@ extension BillStreamSearchViewController: UITableViewDelegate, UITableViewDataSo
                 
             }
         }
+    }
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        let headerView = view as! UITableViewHeaderFooterView
+        headerView.textLabel?.textColor = UIColor.lightGrayColor()
     }
 }
