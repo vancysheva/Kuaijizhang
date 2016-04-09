@@ -15,12 +15,15 @@ class BillStreamAdvancedSearchTableViewController: UITableViewController {
     
     var startDate = DateHelper.getStartTimeFromCurrentYear()
     var overDate = DateHelper.getOverTimeFromCurrentYear()
+    let textAgent = TextFieldAgent()
+    @IBOutlet weak var commentTextField: UITextField!
     
     // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        commentTextField.delegate = textAgent
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "返回", style: .Plain, target: nil, action: nil)
     }
     

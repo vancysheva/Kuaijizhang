@@ -12,7 +12,8 @@ class TimeOptionTableViewController: UITableViewController {
     
     // MARK: - Property
     
-    let heightForcontainerView = CGFloat(200)
+    let heightForContainerView = CGFloat(200)
+    let heightForCells = CGFloat(44 * 4)
     let animationTimeInterval = 0.25
     
     var selectedText: String?
@@ -21,7 +22,9 @@ class TimeOptionTableViewController: UITableViewController {
     var tappedButton: UIButton?
     var startDate: String?
     var overDate: String?
+    var delayHandler: (() -> Void)?
     
+    @IBOutlet weak var firstCell: UITableViewCell!
     @IBOutlet weak var startDateButton: UIButton!
     @IBOutlet weak var overDateButton: UIButton!
     @IBOutlet var containerView: UIView!
@@ -33,6 +36,7 @@ class TimeOptionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.delegate = self
         datePicker.timeZone = NSTimeZone(abbreviation: "GMT")!
         datePicker.locale = NSLocale.currentLocale()
         initButtonTitle()
@@ -119,15 +123,15 @@ class TimeOptionTableViewController: UITableViewController {
             if let ip = checkmarkIndexPath, cell = tableView.cellForRowAtIndexPath(ip) {
                 cell.accessoryType = .Checkmark
             } else {
-                let firstCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-                firstCell.accessoryType = .Checkmark
-                selectedText = firstCell.textLabel?.text
+                self.firstCell.accessoryType = .Checkmark
+                self.selectedText = self.firstCell.textLabel?.text
             }
             
             animate({ 
                 cell?.transform = CGAffineTransformMakeTranslation(0, -cell!.frame.size.height)
             })
             
+            scrollTableDownward()
             hideDatePicker()
         }
     }
@@ -138,6 +142,7 @@ class TimeOptionTableViewController: UITableViewController {
         setButtonColor(colorButton: startDateButton, whiteButton: overDateButton)
         
         showDatePicker()
+        scrollTableUpward()
         setDateWithDateString(startDateButton.titleForState(.Normal)!)
     }
     
@@ -147,6 +152,7 @@ class TimeOptionTableViewController: UITableViewController {
         setButtonColor(colorButton: overDateButton, whiteButton: startDateButton)
         
         showDatePicker()
+        scrollTableUpward()
         setDateWithDateString(overDateButton.titleForState(.Normal)!)
     }
     
@@ -158,7 +164,11 @@ class TimeOptionTableViewController: UITableViewController {
     }
     
     @IBAction func tapDismissButton(sender: UIButton) {
+        
         hideDatePicker()
+        scrollTableDownward()
+        resetButtonColor()
+        validateSearchDate()
     }
     
     private func showDatePicker() {
@@ -191,27 +201,22 @@ class TimeOptionTableViewController: UITableViewController {
     }
     
     private func resetButtonColor() {
-    
+        
         startDateButton.backgroundColor = UIColor.whiteColor()
         overDateButton.backgroundColor = UIColor.whiteColor()
     }
     
     private func addContainerView() {
     
-        let keyWindow = UIApplication.sharedApplication().keyWindow
-        if !keyWindow!.isDescendantOfView(containerView) {
-            keyWindow?.addSubview(containerView)
+        let keyWindow = UIApplication.sharedApplication().keyWindow!
+        if !keyWindow.isDescendantOfView(containerView) {
+            keyWindow.addSubview(containerView)
+            containerView.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: heightForContainerView)
         }
-        
-        containerView.frame = CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: heightForcontainerView)
     }
     
     private func removeContainerView() {
-        
-        let keyWindow = UIApplication.sharedApplication().keyWindow!
-        if keyWindow.isDescendantOfView(containerView) {
-            containerView.removeFromSuperview()
-        }
+        containerView.removeFromSuperview()
     }
     
     private func setCellPosition() {
@@ -229,9 +234,11 @@ class TimeOptionTableViewController: UITableViewController {
     
     private func initButtonTitle() {
     
-        let startDate = DateHelper.getStringFromDate(DateHelper.getStartTimeFromCurrentYear(), dateFormat: DateHelper.dateFormatForDate1)
-        let overDate = DateHelper.getStringFromDate(DateHelper.getOverTimeFromCurrentYear(), dateFormat: DateHelper.dateFormatForDate1)
-        setButtonTitle(startButtonTitle: startDate, overButtonTitle: overDate)
+        let startDateStr = DateHelper.getStringFromDate(DateHelper.getStartTimeFromCurrentYear(), dateFormat: DateHelper.dateFormatForDate1)
+        let overDateStr = DateHelper.getStringFromDate(DateHelper.getOverTimeFromCurrentYear(), dateFormat: DateHelper.dateFormatForDate1)
+        startDate = startDateStr
+        overDate = overDateStr
+        setButtonTitle(startButtonTitle: startDateStr, overButtonTitle: overDateStr)
     }
     
     private func setButtonTitle(startButtonTitle s1: String, overButtonTitle s2: String) {
@@ -270,11 +277,12 @@ class TimeOptionTableViewController: UITableViewController {
     }
     
     private func scrollTableUpward() {
-        tableView.setContentOffset(CGPoint(x: 0, y: 100), animated: true)
+        tableView.setContentOffset(CGPoint(x: 0, y: heightForCells), animated: true)
     }
     
     private func scrollTableDownward() {
-    
+        tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        
     }
     
     private func setSelectedTextFromButtons() {
@@ -302,4 +310,23 @@ class TimeOptionTableViewController: UITableViewController {
         }
     }
     
+    private func validateSearchDate() {
+        
+        if let s = startDateButton.titleForState(.Normal), o = overDateButton.titleForState(.Normal) where DateHelper.validateLessThanDateWith(startDate: s, overDate: o) == false {
+            let alert = UIAlertHelpler.getAlertController("自定义时间错误", message: "当前选择的开始时间晚于结束时间，请重新选择.", prefferredStyle: .Alert, actions: ("确定", .Default, {a in
+                self.startDateButton.setTitle(self.startDate, forState: .Normal)
+            }))
+            presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+}
+
+extension TimeOptionTableViewController: UINavigationControllerDelegate {
+    
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+    
+        if viewController != self {
+            removeContainerView()
+        }
+    }
 }

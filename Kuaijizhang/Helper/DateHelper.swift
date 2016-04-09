@@ -481,4 +481,18 @@ class DateHelper {
         
         return (startDate, endDate)
     }
+    
+    /**
+     验证开始日期是否不大于结束日期
+    */
+    
+    class func validateLessThanDateWith(startDate start: String, overDate over: String) -> Bool {
+        
+        calendar.timeZone = NSTimeZone(abbreviation: "GMT")!
+        let startDate = dateFromString(start, formatter: dateFormatForDate1)!
+        let overDate = dateFromString(over, formatter: dateFormatForDate1)!
+        let result = calendar.compareDate(startDate, toDate: overDate, toUnitGranularity: [.Day, .Month, .Year])
+        
+        return result == .OrderedAscending || result == .OrderedSame ? true : false
+    }
 }
