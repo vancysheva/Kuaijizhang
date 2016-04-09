@@ -10,6 +10,12 @@ import UIKit
 
 class BillStreamAdvancedSearchTableViewController: UITableViewController {
 
+    
+    // MARK: - Property
+    
+    var startDate = DateHelper.getStartTimeFromCurrentYear()
+    var overDate = DateHelper.getOverTimeFromCurrentYear()
+    
     // MARK: - Life cycle
     
     override func viewDidLoad() {
@@ -26,6 +32,8 @@ class BillStreamAdvancedSearchTableViewController: UITableViewController {
         case .Some("toTimeOptionSegue"):
             if let vc = segue.destinationViewController as? TimeOptionTableViewController, ip = tableView.indexPathForSelectedRow, text = tableView.cellForRowAtIndexPath(ip)?.detailTextLabel?.text {
                 vc.selectedText = text
+                vc.startDate = DateHelper.getStringFromDate(startDate, dateFormat: DateHelper.dateFormatForDate1)
+                vc.overDate = DateHelper.getStringFromDate(overDate, dateFormat: DateHelper.dateFormatForDate1)
             }
         default:
             break
@@ -36,8 +44,10 @@ class BillStreamAdvancedSearchTableViewController: UITableViewController {
         
         switch segue.identifier {
         case .Some("unwindToBillstreamAdvancedSearchSegue"):
-            if let ip = tableView.indexPathForSelectedRow, vc = segue.sourceViewController as? TimeOptionTableViewController, selectedText = vc.selectedText {
+            if let ip = tableView.indexPathForSelectedRow, vc = segue.sourceViewController as? TimeOptionTableViewController, selectedText = vc.selectedText, sd = vc.startDate, od = vc.overDate, sdd = DateHelper.dateFromString(sd, formatter: DateHelper.dateFormatForDate1), odd = DateHelper.dateFromString(od, formatter: DateHelper.dateFormatForDate1) {
                 tableView.cellForRowAtIndexPath(ip)?.detailTextLabel?.text = selectedText
+                startDate = sdd
+                overDate = odd
             }
         default:
             break
