@@ -5142,10 +5142,10 @@
             </objects>
             <point key="canvasLocation" x="2897" y="-830"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Other Option Table View Controller-->
         <scene sceneID="nCe-ev-Gq4">
             <objects>
-                <tableViewController id="kgc-Gs-oi4" sceneMemberID="viewController">
+                <tableViewController id="kgc-Gs-oi4" customClass="OtherOptionTableViewController" customModule="Kuaijizhang" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="isr-aI-8IN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5446,10 +5446,10 @@
             </objects>
             <point key="canvasLocation" x="3441" y="-1182"/>
         </scene>
-        <!--Bill Stream Advanced Search Result Table View Controller-->
+        <!--Table View Controller-->
         <scene sceneID="5YG-53-qhS">
             <objects>
-                <tableViewController id="hby-3F-246" customClass="BillStreamAdvancedSearchResultTableViewController" customModule="Kuaijizhang" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="hby-3F-246" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="K7d-sf-Jgi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5530,6 +5530,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="MQR-mG-4DO"/>
-        <segue reference="idB-Dy-nhq"/>
+        <segue reference="0hE-VJ-Ndf"/>
     </inferredMetricsTieBreakers>
 </document>

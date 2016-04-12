@@ -15,7 +15,6 @@ class AccountBookViewModel: ViewModelBase<AccountBookModel> {
     }
     
     func getCount() -> Int {
-        print(2)
         return model.numberOfObjects
     }
 

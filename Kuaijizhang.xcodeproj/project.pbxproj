@@ -31,6 +31,8 @@
 		712DABC11C1F0874006A9871 /* ConsumeptionTypeIconCollectionAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712DABC01C1F0874006A9871 /* ConsumeptionTypeIconCollectionAgent.swift */; };
 		7130B9E81CB92F7900802DC5 /* OtherOptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130B9E71CB92F7900802DC5 /* OtherOptionTableViewController.swift */; };
 		7130B9EA1CB9314F00802DC5 /* BillStreamAdvancedSearchResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130B9E91CB9314F00802DC5 /* BillStreamAdvancedSearchResultTableViewController.swift */; };
+		7130B9EC1CB94DE600802DC5 /* AdvanceSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130B9EB1CB94DE600802DC5 /* AdvanceSearchViewModel.swift */; };
+		7130B9EE1CB94E7F00802DC5 /* AdvanceSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130B9ED1CB94E7F00802DC5 /* AdvanceSearchModel.swift */; };
 		71341E481BDA05C1004C0CAB /* BillStreamHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71341E471BDA05C1004C0CAB /* BillStreamHeaderView.xib */; };
 		71341E4A1BDA1662004C0CAB /* BillStreamHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71341E491BDA1662004C0CAB /* BillStreamHeaderView.swift */; };
 		71341E4D1BDA1B6B004C0CAB /* BillStreamViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71341E4C1BDA1B6B004C0CAB /* BillStreamViewCell.swift */; };
@@ -162,6 +164,8 @@
 		712DABC01C1F0874006A9871 /* ConsumeptionTypeIconCollectionAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumeptionTypeIconCollectionAgent.swift; sourceTree = "<group>"; };
 		7130B9E71CB92F7900802DC5 /* OtherOptionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherOptionTableViewController.swift; sourceTree = "<group>"; };
 		7130B9E91CB9314F00802DC5 /* BillStreamAdvancedSearchResultTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamAdvancedSearchResultTableViewController.swift; sourceTree = "<group>"; };
+		7130B9EB1CB94DE600802DC5 /* AdvanceSearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvanceSearchViewModel.swift; sourceTree = "<group>"; };
+		7130B9ED1CB94E7F00802DC5 /* AdvanceSearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvanceSearchModel.swift; sourceTree = "<group>"; };
 		71341E471BDA05C1004C0CAB /* BillStreamHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillStreamHeaderView.xib; sourceTree = "<group>"; };
 		71341E491BDA1662004C0CAB /* BillStreamHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamHeaderView.swift; sourceTree = "<group>"; };
 		71341E4C1BDA1B6B004C0CAB /* BillStreamViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillStreamViewCell.swift; sourceTree = "<group>"; };
@@ -528,6 +532,7 @@
 			isa = PBXGroup;
 			children = (
 				715C80C51C4A1F7900E16374 /* BillStreamModel.swift */,
+				7130B9ED1CB94E7F00802DC5 /* AdvanceSearchModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -720,6 +725,7 @@
 			isa = PBXGroup;
 			children = (
 				71D1C36D1BD9D3780055C36C /* BillStreamViewModel.swift */,
+				7130B9EB1CB94DE600802DC5 /* AdvanceSearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1044,6 +1050,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7130B9EE1CB94E7F00802DC5 /* AdvanceSearchModel.swift in Sources */,
 				716CF13A1C1481F60085CA23 /* BudgetModel.swift in Sources */,
 				71747AAB1C00114E00338E62 /* LabelTableViewModel.swift in Sources */,
 				718B12F41C85790A00E7BB15 /* BillStreamOptionViewController.swift in Sources */,
@@ -1128,6 +1135,7 @@
 				71747AA71C0006A400338E62 /* AddBillViewModel.swift in Sources */,
 				71E6A5661C8D76FE0078A2D0 /* BillStreamSearchViewController.swift in Sources */,
 				7134ACFB1C06004700865261 /* AccountHeaderView.swift in Sources */,
+				7130B9EC1CB94DE600802DC5 /* AdvanceSearchViewModel.swift in Sources */,
 				71A7F6DE1BF58EC4006D2868 /* ViewModelNotifiable.swift in Sources */,
 				71FB01C91B934A4C00575D5C /* ConsumeptionTypePickerViewController.swift in Sources */,
 				71747AAD1C00116300338E62 /* LabelTableModel.swift in Sources */,

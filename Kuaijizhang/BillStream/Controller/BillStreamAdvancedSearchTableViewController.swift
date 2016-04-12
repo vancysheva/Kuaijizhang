@@ -31,6 +31,8 @@ class BillStreamAdvancedSearchTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
+        var destTitle: String?
+        
         switch segue.identifier {
         case .Some("toTimeOptionSegue"):
             if let vc = segue.destinationViewController as? TimeOptionTableViewController, ip = tableView.indexPathForSelectedRow, text = tableView.cellForRowAtIndexPath(ip)?.detailTextLabel?.text {
@@ -38,6 +40,15 @@ class BillStreamAdvancedSearchTableViewController: UITableViewController {
                 vc.startDate = DateHelper.getStringFromDate(startDate, dateFormat: DateHelper.dateFormatForDate1)
                 vc.overDate = DateHelper.getStringFromDate(overDate, dateFormat: DateHelper.dateFormatForDate1)
             }
+        case .Some("consumeptionTypeToTimeOptionSegue"):
+            destTitle = "类别筛选"
+            initViewController(segue, title: destTitle)
+        case .Some("accountToTimeOptionSegue"):
+            destTitle = "账户筛选"
+            initViewController(segue, title: destTitle)
+        case .Some("labelToTimeOptionSegue"):
+            destTitle = "标签筛选"
+            initViewController(segue, title: destTitle)
         default:
             break
         }
@@ -59,6 +70,14 @@ class BillStreamAdvancedSearchTableViewController: UITableViewController {
 
     @IBAction func tapCancelButton(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    private func initViewController(segue: UIStoryboardSegue, title: String?) {
+        
+        if let vc = segue.destinationViewController as? OtherOptionTableViewController {
+            vc.title = title
+            
+        }
     }
     
     // MARK: - Data source and delegate
